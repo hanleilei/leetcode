@@ -30,3 +30,23 @@ The brute force approach is simple. Loop through each element x and find if ther
 O(n) runtime, O(n) space – Hash table:
 
 We could reduce the runtime complexity of looking up a value to O(1) using a hash map that maps a value to its index
+
+#### my algorithm is awful, we need to change:
+
+```python
+class Solution(object):
+    def twoSum(self, nums, target):
+        """
+        :type nums: List[int]
+        :type target: int
+        :rtype: List[int]
+        """
+        d = {}
+        for i, n in enumerate(nums):
+            if n in d:
+                return [d[n], i]
+            d[target - n] = i
+
+```
+
+this will execute in less than 60 ms
