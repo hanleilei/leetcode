@@ -20,7 +20,7 @@ If nums = [1,2,3], a solution is:
 ]
 ```
 
-###### 下面是我用的很pythonic的方法，但是很可惜，答案不认，原因是我把生成的子列表中元素顺序改变了。
+###### 现在ok了
 ```python
 class Solution(object):
     def subsets(self, nums):
@@ -33,4 +33,5 @@ class Solution(object):
         for i in range(len(nums)+1):
             lst += [list(j) for j in combinations(nums, i)]
         return lst
+
 ```
