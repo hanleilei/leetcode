@@ -21,19 +21,19 @@ Input: num = "10", k = 2
 Output: "0"
 Explanation: Remove all the digits from the number and it is left with nothing which is 0.
 
-
+从高到低遍历，如果对应的数字大于下一位数字，就把该位数字去掉，得到的数字最小
 
 ```cpp
 class Solution {
 public:
     std::string removeKdigits(std::string num, int k) {
         std::vector<int> S;
-        std::string result = "";
-        for (int i =0; i < num.length(); i++){
-            int number = num[i] -'0';
+        std::string result = "";                        //store the result
+        for (int i =0; i < num.length(); i++){          //scan num
+            int number = num[i] -'0';                   //change to std
             while(S.size()!=0 && k>0 && S[S.size()-1] > number){
-                S.pop_back();
-                k--;                
+                S.pop_back();       //when stack is not empty, top of stack greater than number
+                k--;
             }
             if (number > 0 || S.size() != 0){
                 S.push_back(number);
@@ -47,7 +47,7 @@ public:
             result.append(1, '0'+S[i]);
         }
         if(result == ""){
-            result = "0";
+            result = "0";//若result为空，result即为0
         }
         return result;
     }
