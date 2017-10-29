@@ -39,11 +39,11 @@ public:
                 S.push_back(number);
             }            
         }
-        while(S.size()!=0 && k>0){
+        while(S.size()!=0 && k>0){ // handle num = 12345
             S.pop_back();
             k--;
         }
-        for(int i = 0; i< S.size(); i++){
+        for(int i = 0; i< S.size(); i++){ //handle
             result.append(1, '0'+S[i]);
         }
         if(result == ""){
@@ -52,4 +52,26 @@ public:
         return result;
     }
 };
+```
+当然有看到一个解法，更是巧妙，注意for循环里面的while循环，可以作为向后遍历。
+
+```cpp
+class Solution {
+public:
+    string removeKdigits(string num, int k) {
+        string res = "";
+        int n = num.size(), keep = n - k;
+        for (char c : num) {
+            while (k && res.size() && res.back() > c) {
+                res.pop_back();
+                --k;
+            }
+            res.push_back(c);
+        }
+        res.resize(keep);
+        while (!res.empty() && res[0] == '0') res.erase(res.begin());
+        return res.empty() ? "0" : res;
+    }
+};
+
 ```
