@@ -23,6 +23,7 @@ private:
                 return false;
             }
         }
+        return true;
     }
 
 public:
@@ -36,7 +37,7 @@ public:
         }
         for (int i = 0; i < MAX_ARRAY_LEN; i++) {
             if(map_t[i] > 0){
-                vec_t.push_back();
+                vec_t.push_back(i);
             }
         }
         int window_begin = 0;
@@ -47,7 +48,7 @@ public:
             while (window_begin < i) {
                 char begin_ch = s[window_begin];
                 if (map_t[begin_ch] == 0) {
-                    window_begin++
+                    window_begin++;
                 }
                 else if(map_s[begin_ch] > map_t[begin_ch]){
                     map_s[begin_ch]--;
@@ -58,11 +59,12 @@ public:
             }
             if (is_window_ok(map_s, map_t, vec_t)) {    
                 int new_window_len = i - window_begin + 1;
-                if (result == ''|| result.length() > new_window_len) {
+                if (result == ""|| result.length() > new_window_len) {
                     result = s.substr(window_begin, new_window_len);
                 }
             }
         }
+        return result;
     }
 };
 ```
