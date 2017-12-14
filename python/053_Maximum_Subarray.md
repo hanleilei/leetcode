@@ -115,3 +115,25 @@ int Kadane(const int array[], size_t length, unsigned int& left, unsigned int& r
 这个算法没看懂怎么弄的，见笑了。
 
 肯定还有其他方法实现，divide and conquer肯定也可以实现，复杂度应该是nlogn，后续在更新吧。
+
+再加上一个速度超级快的python版本：
+
+```python
+class Solution(object):
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
+            return 0
+        lo = psum = 0
+        max_psum = nums[0]
+        for i in nums:
+            psum += i
+            if psum - lo > max_psum:
+                max_psum = psum - lo
+            if psum < lo:
+                lo = psum
+        return max_psum
+```
