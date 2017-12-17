@@ -25,3 +25,21 @@ class Solution(object):
             d2[k].append(v)
         return list(set(d1.keys()) - set(d2.keys()))
 ```
+上面的标准库的方法实在是让人看起来不舒服，虽然也可以实现：
+
+```python
+class Solution(object):
+    def singleNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        d  = dict()
+
+        for i in nums:
+            if i in d:
+                d.pop(i)
+            else:
+                d[i] = 1
+        return list(d.keys())
+```

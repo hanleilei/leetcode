@@ -41,3 +41,15 @@ class Solution(object):
         else:
             return sum([i for i in range(min(nums),max(nums)+1)]) - sum(nums)
 ```
+
+有看到一个经典的方法：
+
+```python
+class Solution(object):
+    def missingNumber(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        return (1+len(nums))*len(nums)/2-sum(nums)
+```
