@@ -16,3 +16,37 @@ class Solution:
     def mySqrt(self, x):
         return int(math.sqrt(x))
 ```
+
+似乎标准库不是一个好的方法，下面用牛顿法：
+
+```python
+class Solution(object):
+    def mySqrt(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        t = x
+        while t * t > x:
+            t = int(t / 2.0 + x / (2.0 * t))
+        return t
+```
+
+或者二分法：
+
+```python
+class Solution(object):
+    def mySqrt(self, x):
+        """
+        :type x: int
+        :rtype: int
+        """
+        low, high, mid = 0, x, x / 2
+        while low <= high:
+            if mid * mid > x:
+                high = mid - 1
+            else:
+                low = mid + 1
+            mid = (low + high) / 2
+        return mid
+```
