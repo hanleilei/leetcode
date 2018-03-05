@@ -34,3 +34,29 @@ class Solution(object):
                 cur = cur.next
         return dummy.next
 ```
+
+这个逻辑似乎有点复杂，来个简单的：
+
+```Python
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def deleteDuplicates(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if not head:
+            return []
+        p=head
+        while(p.next):
+            if(p.val==p.next.val):
+                p.next=p.next.next
+            else:
+                p=p.next
+        return head
+```

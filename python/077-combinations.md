@@ -14,7 +14,7 @@ If n = 4 and k = 2, a solution is:
   [1,4],
 ]
 
-###### 枚举数组里面的内容，还是要用标准库
+###### 枚举数组里面的内容，还是要用标准库， 用时170ms，超过100%的人。。
 
 ```python
 class Solution(object):
@@ -25,12 +25,5 @@ class Solution(object):
         :rtype: List[List[int]]
         """
         from itertools import combinations
-
-        # def combinations(iterable, r):
-        #     pool = list(iterable)
-        #     n = len(pool)
-        #     for indices in permutations(range(n), r):
-        #         if sorted(indices) == list(indices):
-        #             yield list(pool[i] for i in indices)
-        return [list(i) for i in combinations([j for j in range(1,n+1)],k)]
+        return list(combinations(list(range(1, n+1)), k))
 ```

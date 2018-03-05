@@ -34,3 +34,31 @@ class Solution(object):
             hashtable[ord(s[i])] = i
         return maxlen
 ```
+
+还有一个更巧妙的实现：
+
+```Python
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        ind = {}
+        w = 0
+        m = 0
+        for i in range(0, len(s)):
+            c = s[i]
+            if i == 0:
+                ind[c] = 1
+                m = 1
+            else:
+                if c not in ind or ind[c] < w:
+                    ind[c] = i+1
+                    d = i+1 - w
+                    m = d if d > m else m  
+                else:
+                    w = ind[c]
+                    ind[c] = i+1            
+        return m
+```
