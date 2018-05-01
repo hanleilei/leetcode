@@ -24,10 +24,10 @@ Don't worry about handling ties, it is guaranteed that each word's frequency cou
 Hint:
 Could you write it in one-line using Unix pipes?
 
-###### 用shell的管道，需要了解sort和uniq。 
+###### 用shell的管道，需要了解sort和uniq。
 
 ```shell
-# Read from the file words.txt and output the word frequency list to stdout.
-cat words.txt | xargs | sed 's/ /\n/g' | sort | uniq -c | sort -k1,1nr | awk '{print $2,$1}'
+cat words.txt | tr -s ' ' '\n' | sort | uniq -c | sort -r | awk '{ print $2, $1 }'
 
+cat words.txt | xargs | sed 's/ /\n/g' | sort | uniq -c | sort -k1,1nr | awk '{print $2,$1}'
 ```

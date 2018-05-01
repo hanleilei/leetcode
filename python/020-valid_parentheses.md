@@ -19,7 +19,7 @@ class Solution(object):
         for i in s:
             if i in d.keys():
                 q.append(i)
-            elif i in d.values():
+            else
                 if len(q) > 0 and d[q.pop()] == i:
                     continue
                 else:

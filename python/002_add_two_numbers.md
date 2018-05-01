@@ -34,7 +34,7 @@ class Solution(object):
                 l2 = l2.next
 
             cur.val = sum % 10
-            sum /= 10
+            sum //= 10
             if l1 != None or l2 != None or sum != 0:
                 cur.next = ListNode(0)
                 cur = cur.next

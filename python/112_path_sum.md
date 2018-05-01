@@ -38,3 +38,37 @@ class Solution(object):
             return root.val == sum
         return self.hasPathSum(root.left, sum - root.val) or self.hasPathSum(root.right, sum - root.val)
 ```
+
+似乎，不是很清晰，看到还有一个更清晰的版本：
+
+```python
+# Definition for a binary tree node.
+# class TreeNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution(object):
+    def hasPathSum(self, root, sum):
+        """
+        :type root: TreeNode
+        :type sum: int
+        :rtype: bool
+        """
+        return self.go(root,0,sum)
+
+    def go(self,root,current,target):
+        if not root:
+            return False
+        if not root.left and not root.right:
+            if current+root.val==target:
+                return True
+            return False
+        if self.go(root.right,current+root.val,target):
+            return True
+        if self.go(root.left,current+root.val,target):
+            return True
+        return False
+        
+```

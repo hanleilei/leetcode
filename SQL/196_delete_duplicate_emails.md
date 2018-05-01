@@ -26,3 +26,20 @@ FROM Person AS p1, Person AS p2
 WHERE p1.email = p2.email
 AND p1.Id > p2.Id
 ```
+
+```SQL
+# Write your MySQL query statement below
+DELETE P1.*
+FROM Person AS p1, Person AS p2
+WHERE p1.email = p2.email
+AND p1.Id > p2.Id
+```
+
+下面是一个速度更快的版本，确实快很多。
+```SQL
+# Write your MySQL query statement below
+DELETE
+FROM Person
+WHERE Id NOT IN
+(SELECT Id FROM (SELECT MIN(Id) Id FROM Person GROUP BY Email) p);
+```
