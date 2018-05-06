@@ -1,0 +1,52 @@
+# Positions of Large Groups
+
+In a string S of lowercase letters, these letters form consecutive groups of the same character.
+
+For example, a string like S = "abbxxxxzyy" has the groups "a", "bb", "xxxx", "z" and "yy".
+
+Call a group large if it has 3 or more characters.  We would like the starting and ending positions of every large group.
+
+The final answer should be in lexicographic order.
+
+
+
+Example 1:
+```
+Input: "abbxxxxzzy"
+Output: [[3,6]]
+Explanation: "xxxx" is the single large group with starting  3 and ending positions 6.
+```
+Example 2:
+```
+Input: "abc"
+Output: []
+Explanation: We have "a","b" and "c" but no large group.
+```
+Example 3:
+```
+Input: "abcdddeeeeaabbbcd"
+Output: [[3,5],[6,9],[12,14]]
+```
+最后用的是加辅助线的方法。
+
+```python
+class Solution:
+    def largeGroupPositions(self, S):
+        """
+        :type S: str
+        :rtype: List[List[int]]
+        """
+        res = list()
+        S += "$"
+        val, start, end = [S[0], 0, 0]
+        for v in S[1:]:
+            if v != val:
+                if end - start >= 2:
+                    res.append([start, end])
+                start = end +1
+            end += 1
+            val = v
+
+
+        return res
+```
