@@ -23,3 +23,11 @@ class Solution(object):
                 matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
 
 ```
+看到了stefan大大的解法 (https://leetcode.com/problems/rotate-image/discuss/18884/Seven-Short-Solutions-(1-to-7-lines))
+这个解法体现了对于zip的理解。
+
+```python
+class Solution:
+    def rotate(self, A):
+        A[:] = zip(*A[::-1])
+```
