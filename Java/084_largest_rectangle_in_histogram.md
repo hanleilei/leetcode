@@ -21,22 +21,22 @@ Output: 10
 
 
 
-```python
-class Solution:
-    def largestRectangleArea(self, height):
-        """
-        :type heights: List[int]
-        :rtype: int
-        """
-        height.append(0)
-        stack = [-1]
-        ans = 0
-        for i in range(len(height)):
-            while height[i] < height[stack[-1]]:
-                h = height[stack.pop()]
-                w = i - stack[-1] - 1
-                ans = max(ans, h * w)
-            stack.append(i)
-        height.pop()
-        return ans
+```java
+public class LargestRectangleHistogram{
+    public int largestRectangleArea(int[] heights){
+        if (heights == null || heights.length == 0) return 0;
+        Stack<integer> stack = new stack<>();
+        int res = 0;
+        for(int i = 0; i <= heights.length; i++){
+            int h = i == heights.length? 0:heights[i];
+            whiel(!stack.isEmpty() && h < heights[stack.peek()]){
+                int height = heights[stack.pop()];
+                int start = stack.isEmpty() ? -1: stack.peek();
+                int area = height * (i-start -1);
+                res = Math.max(res, area);
+            }
+            return res;
+        }
+    }
+}
 ```
