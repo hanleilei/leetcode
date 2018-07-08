@@ -18,6 +18,21 @@ class Solution(object):
        return sum([a,b])
 ```
 
+直接使用标准库operator中的add方法, 能击败100%的提交者：
+
+```python
+class Solution(object):
+    def getSum(self, a, b):
+        """
+        :type a: int
+        :type b: int
+        :rtype: int
+        """
+        from operator import add
+        return add(a, b)
+```
+
+
 ###### 如果是用运算符重载：
 
 ```python
