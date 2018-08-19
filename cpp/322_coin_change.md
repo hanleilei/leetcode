@@ -35,3 +35,30 @@ public:
     }
 };
 ```
+
+再来一个快 的版本：
+
+```c
+int fast = [](){ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0); return 0;}();
+class Solution {
+public:
+    int coinChange(vector<int>& coins, int amount) {
+        int res = INT_MAX;
+        sort(coins.begin(), coins.end());
+        dfs(res, coins, amount, coins.size() - 1, 0);
+        return res == INT_MAX? -1: res;
+    }
+    void dfs(int& res, vector<int>& coins, int target, int idx, int count) {
+        if (idx < 0) return;
+        if (target % coins[idx] == 0) {
+            res = min(res, count + target / coins[idx]);
+            return;
+        }
+        if (count+ target / coins[idx] < res-1)
+        for (int i = target / coins[idx]; i >= 0; i--) {
+            //if (count + i >= res - 1) break; // pruing
+            dfs(res, coins, target - i * coins[idx], idx - 1, count + i);
+        }
+    }
+};
+```

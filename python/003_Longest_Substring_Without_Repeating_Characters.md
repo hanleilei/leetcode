@@ -62,3 +62,25 @@ class Solution(object):
                     ind[c] = i+1            
         return m
 ```
+
+下面的版本超级快，超过了100%的提交：
+
+```python
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        res, f, i, m = 0, 0, -1, {}
+        for v in s:
+            i = i+1
+            if v in m and m[v]>=f:
+                if res<i-f:
+                    res= i-f
+                f = m[v] + 1
+            m[v] = i
+        if res < i+1-f:
+            res=i+1-f
+        return res
+```
