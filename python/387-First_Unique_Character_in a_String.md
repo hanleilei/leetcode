@@ -31,8 +31,37 @@ class Solution(object):
         if lt == []:
             return -1
         return min(lt)
+```
 
+写了这么多，其实两行就可以：
+```python
+class Solution(object):
+    def firstUniqChar(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        from string import ascii_lowercase
+        return min([s.index(x) for x in ascii_lowercase if s.count(x) == 1] or [-1])
+```
 
+再来一个硬上的：
 
-
+```python
+class Solution(object):
+    def firstUniqChar(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        if len(s) == 0:
+            return -1
+        from collections import defaultdict
+        d = defaultdict(list)
+        for i, v in enumerate(s):
+            d[v].append(i)
+        lt = [i for i in d.keys() if len(d[i]) == 1]
+        if len(lt) == 0:
+            return -1
+        return min([d[k] for k in lt])[0]
 ```

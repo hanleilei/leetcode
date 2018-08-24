@@ -29,11 +29,7 @@ class Solution(object):
                 l2 = l2.next
             cur = cur.next
 
-        if l1:
-            cur.next = l1
-
-        if l2:
-            cur.next = l2
+        cur.next = l1 or l2
 
         return dum.next
 
