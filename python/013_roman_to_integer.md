@@ -15,9 +15,7 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        values = [ 1000, 500, 100, 50, 10, 5, 1 ]
-        numerals = [ "M", "D", "C", "L", "X", "V", "I" ]
-        d = dict(zip(numerals, values))
+        d = {"I": 1, "V": 5, "X": 10, "L": 50, "C":100, "D": 500, "M": 1000}
         sum = 0
         s = s[::-1]
         last = None
