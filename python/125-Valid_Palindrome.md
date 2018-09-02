@@ -26,3 +26,17 @@ class Solution(object):
             return False
 
 ```
+
+来个差不多多，不用re模块：
+
+```Python
+class Solution(object):
+    def isPalindrome(self, s):
+        """
+        :type s: str
+        :rtype: bool
+        """
+        import string
+        ss = [i for i in s.lower() if i in string.ascii_lowercase + string.digits]
+        return ss == ss[::-1]
+```
