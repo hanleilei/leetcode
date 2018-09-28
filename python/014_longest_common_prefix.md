@@ -41,7 +41,7 @@ class Solution(object):
             res += strs[0][i]
         return res
 ```
-还有一个是使用zip方法，非常简练：
+还有一个是使用zip方法，非常简练, 能超过100%的人：
 
 ```python
 class Solution(object):

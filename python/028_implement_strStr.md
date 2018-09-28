@@ -31,10 +31,47 @@ class Solution(object):
         :type needle: str
         :rtype: int
         """
-        index = -1
-
         if needle in haystack:
-            index = haystack.index(needle)
+            return haystack.index(needle)
 
-        return index        
+        return -1        
+```
+
+再来一个简单粗暴的：
+
+```python
+class Solution(object):
+    def strStr(self, haystack, needle):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        try:
+            return haystack.index(needle)
+        except:
+            return -1
+```
+
+似乎做一下很小的修改，就可以将速度提高到最快：
+
+```python
+class Solution(object):
+    def strStr(self, haystack, needle):
+        """
+        :type haystack: str
+        :type needle: str
+        :rtype: int
+        """
+        if len(needle) == 0:
+            return 0
+        if len(haystack) == 0:
+            return -1
+
+        length_needle = len(needle)
+        for i in range(0,len(haystack) - length_needle + 1):
+            if haystack[i] == needle[0]:
+                if haystack[i:i+length_needle] == needle:
+                    return i
+        return -1
 ```
