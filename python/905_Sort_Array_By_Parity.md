@@ -4,7 +4,7 @@ Given an array A of non-negative integers, return an array consisting of all the
 
 You may return any answer array that satisfies this condition.
 
- 
+
 
 Example 1:
 ```
@@ -23,5 +23,18 @@ class Solution:
         :rtype: List[int]
         """
         return list(filter(lambda x: x % 2==0, A)) + list(filter(lambda y: y % 2 , A))
-        
+
+```
+再来一个快速的版本
+```python
+class Solution:
+    def sortArrayByParity(self, A):
+        """
+        :type A: List[int]
+        :rtype: List[int]
+        """
+        evens = [A for A in A if A%2 == 0]
+        odds = [A for A in A if A%2 == 1]
+        return evens + odds
+
 ```

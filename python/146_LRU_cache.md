@@ -103,3 +103,60 @@ class LRUCache(object):
 			if (val == val_r and time_r == time):
 				self.map.pop(key)    
 ```
+
+```python
+from collections import deque
+
+class LRUCache(object):
+
+    def __init__(self, capacity):
+        """
+        :type capacity: int
+        """
+        self.capacity = capacity
+
+        # use que and dict to keep trac of duplicate elements in the capacity
+        self.que = deque()
+        self.dic = {}
+        self.data = {}
+
+    def get(self, key):
+        """
+        :type key: int
+        :rtype: int
+        """
+        if key not in self.data:
+            return -1
+        else:
+            self.que.append(key)
+            self.dic[key] += 1
+            return self.data[key]
+
+
+    def put(self, key, value):
+        """
+        :type key: int
+        :type value: int
+        :rtype: void
+        """
+        self.data[key] = value
+        self.que.append(key)
+
+        # existing key - increment a counter, but don't remove old key yet
+        if key in self.dic:
+            self.dic[key] += 1
+
+        # new key - remove the oldest key when reached capacity
+        else:
+            self.dic[key] = 1
+
+            if len(self.dic) > self.capacity:
+                flg = 1
+                while flg:
+                    rem = self.que.popleft()
+                    self.dic[rem] -= 1
+                    if self.dic[rem] == 0:
+                        del self.dic[rem]
+                        del self.data[rem]
+                        break
+```

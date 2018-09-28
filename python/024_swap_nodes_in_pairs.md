@@ -84,3 +84,29 @@ class Solution(object):
         except:  
             return dummy.next  
 ```
+
+再来一个最快速的方法：
+
+```python
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def swapPairs(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if not head or not head.next:
+            return head
+        next_pos = head.next.next
+        rev = self.swapPairs(next_pos)
+        first = head
+        second = head.next
+        second.next = first
+        first.next = rev
+        return second
+```
