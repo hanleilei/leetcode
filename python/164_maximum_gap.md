@@ -23,7 +23,7 @@ Explanation: The array contains less than 2 elements, therefore return 0.
 1. You may assume all elements in the array are non-negative integers and fit in the 32-bit signed integer range.
 2. Try to solve it in linear time/space.
 
-
+下面的方法是使用radix sort，基数排序
 ```Python
 class Solution:
     def maximumGap(self, nums):
@@ -48,6 +48,25 @@ class Solution:
         for i in range(1, len(nums)):
             gap = max(gap, nums[i] - nums[i-1])
         return gap
-
-
 ```
+
+其实，可以用很简单的排序：
+
+
+```Python
+class Solution(object):
+    def maximumGap(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums) < 2:
+            return 0
+        nums.sort()
+        res = 0
+        for i in range(1, len(nums)):
+            res = max(res, nums[i] - nums[i-1])
+        return res
+```
+
+性能反而更好。

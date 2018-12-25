@@ -27,3 +27,39 @@ class Solution(object):
                 j = j+1
         return j+1
 ```
+
+```python
+class Solution:
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if not nums:
+            return 0  
+        i=0
+        for num in nums[1:]:
+            if num!=nums[i]:
+                i+=1
+                nums[i]=num
+        return i+1
+```
+
+```python
+class Solution:
+    def removeDuplicates(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        if len(nums) < 2:
+            return len(nums)
+        slow = 0
+        quick = 0
+        while quick < len(nums):
+            if nums[quick] != nums[slow]:
+                slow+= 1
+                nums[slow] = nums[quick]
+            quick += 1
+        return slow +1
+```

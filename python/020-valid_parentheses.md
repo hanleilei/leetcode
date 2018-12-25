@@ -25,10 +25,6 @@ class Solution(object):
                 else:
                     return False
 
-        if len(q) == 0:
-            return True
-        else:
-            return False
-
+        return len(q) == 0
 
 ```
