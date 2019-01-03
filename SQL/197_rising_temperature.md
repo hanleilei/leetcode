@@ -25,3 +25,15 @@ For example, return the following Ids for the above Weather table:
 # Write your MySQL query statement below
 select w1.Id from Weather w1, Weather w2 where w1.Temperature > w2.Temperature and TO_DAYS(w1.DATE)-TO_DAYS(w2.DATE)=1
 ```
+
+```SQL
+SELECT t.id
+FROM (SELECT i.*,
+             IF(@last_date + interval 1 day = RecordDate and @last_temp < Temperature, 1, 0) AS rownum,
+             @last_temp := Temperature,
+             @last_date := RecordDate
+      FROM (select @last_date := null, @last_temp := null) AS _init
+             , Weather i
+      ORDER BY i.RecordDate) AS t
+WHERE t.rownum = 1;
+```

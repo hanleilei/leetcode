@@ -5,10 +5,13 @@ Evaluate the value of an arithmetic expression in Reverse Polish Notation.
 Valid operators are +, -, *, /. Each operand may be an integer or another expression.
 
 Some examples:
+
+```shell
+["2", "1", "+", "3", "*"]-> ((2 + 1) * 3) -> 9
+["4", "13", "5", "/", "+"] -> (4 + (13 / 5)) -> 6
 ```
-  ["2", "1", "+", "3", "*"] -> ((2 + 1) * 3) -> 9
-  ["4", "13", "5", "/", "+"] -> (4 + (13 / 5)) -> 6
-```
+
+
 真正恶心的部分在于做除法的部分，要符合leetcode的规范。。
 
 ```python
