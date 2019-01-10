@@ -31,3 +31,15 @@ class Solution(object):
             m = max(m, counter)
         return m
 ```
+
+再来一个单行的版本：
+
+```python
+class Solution:
+    def findMaxConsecutiveOnes(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        return max([len(i) for i in bytearray(nums).split(b'\x00')])
+```
