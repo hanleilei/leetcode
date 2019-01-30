@@ -51,6 +51,28 @@ Output: -2147483648
 Explanation: The number "-91283472332" is out of the range of a 32-bit signed integer.
              Thefore INT_MIN (−231) is returned.
 
+先来一个简单的：
+
+```python
+class Solution:
+    def myAtoi(self, s):
+        """
+        :type str: s
+        :rtype: int
+        """
+        l, sign, op, tmp= list(s), 1, ['-','+'], []
+        while l and l[0] == ' ':
+            l.pop(0)
+        if l and l[0] in op:
+            sign = op.index(l[0])*2 - 1
+            l.pop(0)
+        while l and l[0].isdigit() == True:
+            tmp.append(l[0])
+            l.pop(0)
+        if tmp: return min(max(sign*int(''.join(tmp)),-2**31),2**31-1)
+        else: return 0
+
+```
 
 但是这题只需要考虑数字和符号的情况：
 
@@ -65,9 +87,16 @@ Explanation: The number "-91283472332" is out of the range of a 32-bit signed in
 5. 还需要考虑边界问题，如果超过了整形数的范围，则用边界值替代当前值。
 
 
-
+下面的这个方法，解决不了："0-1" 这个的结果是-1。。。
 ```python
-base = "0123456789"
+class Solution:
+    def myAtoi(self, s):
+        """
+        :type str: str
+        :rtype: int
+
+        """
+        base = "0123456789"
         plus = "+"
         minus = "-"
         sum = 0

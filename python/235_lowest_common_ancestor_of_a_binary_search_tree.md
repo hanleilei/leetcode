@@ -91,3 +91,55 @@ class Solution(object):
             else:
                 return root
 ```
+
+在lintcode里，上面的逻辑都没有办法通过这个测试
+
+```
+{-2,1,3}
+1
+3
+```
+输出为3 期望为-2。。
+
+用下面这个逻辑实现会更好：
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def lowestCommonAncestor(self, root, A, B):
+        """
+        :type root: TreeNode
+        :type p: TreeNode
+        :type q: TreeNode
+        :rtype: TreeNode
+        """
+        if root is None:
+            return None
+
+        if root == A or root == B:
+            return root
+
+        left_result = self.lowestCommonAncestor(root.left, A, B)
+        right_result = self.lowestCommonAncestor(root.right, A, B)
+
+        # A 和 B 一边一个
+        if left_result and right_result:
+            return root
+
+        # 左子树有一个点或者左子树有LCA
+        if left_result:
+            return left_result
+
+        # 右子树有一个点或者右子树有LCA
+        if right_result:
+            return right_result
+
+        # 左右子树啥都没有
+        return None
+```
