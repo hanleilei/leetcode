@@ -32,3 +32,37 @@ class Solution(object):
                 res.append(i)
         return res
 ```
+
+再来一个速度快的版本：
+
+```Python
+# Definition for an interval.
+# class Interval(object):
+#     def __init__(self, s=0, e=0):
+#         self.start = s
+#         self.end = e
+
+class Solution(object):
+    def merge(self, intervals):
+        """
+        :type intervals: List[Interval]
+        :rtype: List[Interval]
+        """
+        if not intervals:
+            return []
+        lsts = sorted(intervals, key=lambda x:x.start)
+        res = []
+        s, e = lsts[0].start, lsts[0].end
+        for i in range(1, len(lsts)):
+            if lsts[i].start > e:
+                res.append(Interval(s, e))
+                s = lsts[i].start
+                e = lsts[i].end
+            elif lsts[i].start <= e and lsts[i].end > e:
+                e = lsts[i].end
+            else:
+                continue
+        res.append(Interval(s, e))
+        return res
+        
+```

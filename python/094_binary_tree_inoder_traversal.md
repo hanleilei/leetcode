@@ -64,5 +64,4 @@ class Solution(object):
             node = stack.pop()
             res.append(node.val)
             root = node.right
-        
 ```

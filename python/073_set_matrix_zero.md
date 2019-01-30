@@ -51,3 +51,22 @@ class Solution(object):
                     matrix[m][n] = 0
 
 ```
+
+自己撸出来的一个算法，有点参考岛屿数量的问题：
+
+```Python
+class Solution(object):
+    def setZeroes(self, matrix):
+        """
+        :type matrix: List[List[int]]
+        :rtype: void Do not return anything, modify matrix in-place instead.
+        """
+        rows, cols = len(matrix), len(matrix[0])
+        m = [(i, j) for i, row in enumerate(matrix) for j, col in enumerate(row) if matrix[i][j] == 0]
+
+        for i, j in m:
+            matrix[i] = [0] * cols
+            for x in range(rows):
+                matrix[x][j] = 0
+
+```

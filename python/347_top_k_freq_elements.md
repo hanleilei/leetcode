@@ -25,3 +25,40 @@ class Solution(object):
         return [i[1] for i in nlargest(k, zip(nums.values(), nums.keys()))]
 
 ```
+再来一个：
+
+```Python
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        from collections import Counter
+
+        d = dict(Counter(nums))
+        val = sorted(list(d.values()))[-k:]
+
+        return [i for i, v in d.items() if v in val]
+```
+
+用时最少：
+
+```Python
+class Solution(object):
+    def topKFrequent(self, nums, k):
+        """
+        :type nums: List[int]
+        :type k: int
+        :rtype: List[int]
+        """
+        freq = dict()  
+        for n in nums:
+            if n in freq:
+                freq[n] += 1
+            else:
+                freq[n] = 1
+        res = sorted(freq, key=lambda x: (-freq[x], x))
+        return res[0:k]
+```
