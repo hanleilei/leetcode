@@ -25,3 +25,28 @@ class Solution(object):
             else:
                 d[i]=1
 ```
+
+还有一个非常赞的二分法：
+
+```python
+class Solution:
+    def findDuplicate(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        low = 1
+        high = len(nums) -1
+        while low <= high:
+            mid = low + (high - low) // 2
+            cnt = 0
+            for i in nums:
+                if i <= mid:
+                    cnt += 1
+            if cnt <= mid:
+                low = mid + 1
+            else:
+                high = mid - 1
+        return low
+
+```
