@@ -84,3 +84,25 @@ class Solution(object):
             res=i+1-f
         return res
 ```
+
+再来一个非常容易理解的实现：
+
+```Python
+class Solution(object):
+    def lengthOfLongestSubstring(self, s):
+        """
+        :type s: str
+        :rtype: int
+        """
+        d, res, start, = {}, 0, 0
+        for i, v in enumerate(s):
+            if v in d:
+                # update the res
+                res = max(res, i-start)
+                # here should be careful, like "abba"
+                start = max(start, d[v]+1)
+            d[v] = i
+        # return should consider the last
+        # non-repeated substring
+        return max(res, len(s)-start)
+```

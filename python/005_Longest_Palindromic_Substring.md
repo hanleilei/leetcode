@@ -70,7 +70,7 @@ class Solution:
     def longestPalindrome(self, s):
         l = len(s)
         if l <= 2:
-        	return s
+            return s
         if s == s[::-1]:
             return s
 
@@ -80,13 +80,14 @@ class Solution:
             odd = s[i - maxLen - 1:i + 1]
             even = s[i - maxLen:i + 1]
             if i - maxLen >= 1 and odd == odd[::-1]:
-        		start = i - maxLen - 1
-        		maxLen += 2
-        		continue
+                start = i - maxLen - 1
+                maxLen += 2
+                continue
 
             if i - maxLen >= 0 and even == even[::-1]:
-        		start = i - maxLen
-        		maxLen += 1
+                start = i - maxLen
+                maxLen += 1
 
         return s[start:start + maxLen]
 ```
+上面的算法由于添加了新的test case，现在不能通过了，例如："ac"

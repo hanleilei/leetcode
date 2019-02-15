@@ -23,4 +23,19 @@ For example, given the above Employee table, the query should return 200 as the 
 SELECT (SELECT Salary FROM Employee GROUP BY Salary ORDER BY Salary DESC LIMIT 1,1) SecondHighestSalary;
 # 或者
 SELECT (SELECT MAX(Salary) FROM Employee WHERE Salary NOT IN (SELECT MAX(Salary) FROM Employee)) SecondHighestSalary;
+# 或者
+select IFNULL((select distinct(Salary)
+from Employee
+order by Salary desc
+limit 1,1),null) as SecondHighestSalary
+ 或者
+
+
+select IFNULL((select distinct(Salary)
+from Employee
+order by Salary desc
+limit 1 offset 1),null) as SecondHighestSalary
+
+
 ```
+注意 limit 1,1 和 limit 1 offset 1的用法

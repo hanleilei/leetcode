@@ -29,5 +29,32 @@ class Solution(object):
 下面尝试广度优先遍历：
 
 ```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
 
+class Solution:
+    def maxDepth(self, root):
+        """
+        :type root: TreeNode
+        :rtype: int
+        """
+        if not root:
+            return 0
+
+        res = 0
+        q = collections.deque()
+        q.append(root)
+        while q:
+            res += 1
+            for i in range(len(q)):
+                p = q.popleft()
+                if p.left:
+                    q.append(p.left)
+                if p.right:
+                    q.append(p.right)
+        return res
 ```

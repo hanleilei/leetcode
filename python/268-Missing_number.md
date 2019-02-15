@@ -42,7 +42,7 @@ class Solution(object):
             return sum([i for i in range(min(nums),max(nums)+1)]) - sum(nums)
 ```
 
-有看到一个经典的方法：
+有看到一个经典的方法，求和公式：
 
 ```python
 class Solution(object):

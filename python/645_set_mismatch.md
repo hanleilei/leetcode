@@ -30,3 +30,15 @@ class Solution:
                 never = i
         return twice, never
 ```
+
+还是看看stefan大大的方法：
+
+```python
+class Solution:
+    def findErrorNums(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[int]
+        """
+        return [sum(nums) - sum(set(nums)), sum(range(1, len(nums)+1)) - sum(set(nums))]
+```

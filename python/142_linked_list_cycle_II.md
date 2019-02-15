@@ -88,3 +88,70 @@ class Solution(object):
             current = current.next
         return None
 ```
+
+这些方法都太慢了，来个快一点的：
+
+```python
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def detectCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        if not head:
+            return None
+
+        slow, fast, cross = head, head, False
+        while fast and fast.next:
+            slow, fast = slow.next, fast.next.next
+            if slow is fast:
+                cross = True
+                break
+
+        if cross:
+            slow = head
+            while slow != fast:
+                slow = slow.next
+                fast = fast.next
+            return slow
+        return None
+```
+
+似乎，这个才是最终都最佳答案，java和cpp都是这种写法：
+
+```python
+# Definition for singly-linked list.
+# class ListNode(object):
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution(object):
+    def detectCycle(self, head):
+        """
+        :type head: ListNode
+        :rtype: ListNode
+        """
+        slow = fast = head
+
+        //If they meet then there is a loop
+        while slow and fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+            //To find the starting element where the loop starts
+            if slow is fast:
+                fast = fast
+                slow = head
+                while slow != fast:
+                    slow = slow.next
+                    fast = fast.next
+                return slow
+        return None
+```
