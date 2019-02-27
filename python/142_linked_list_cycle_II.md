@@ -140,12 +140,12 @@ class Solution(object):
         """
         slow = fast = head
 
-        //If they meet then there is a loop
+        # If they meet then there is a loop
         while slow and fast and fast.next:
             slow = slow.next
             fast = fast.next.next
 
-            //To find the starting element where the loop starts
+            # To find the starting element where the loop starts
             if slow is fast:
                 fast = fast
                 slow = head
