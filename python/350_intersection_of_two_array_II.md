@@ -39,3 +39,14 @@ class Solution(object):
                 arr.append(i)
         return arr
 ```
+
+再来一个简单的：
+
+```python
+class Solution:
+    def intersect(self, nums1: List[int], nums2: List[int]) -> List[int]:
+        from collections import Counter
+        c1 = Counter(nums1)
+        c2 = Counter(nums2)
+        return list((c1 & c2).elements())
+```

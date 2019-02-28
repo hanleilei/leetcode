@@ -36,3 +36,28 @@ class Solution(object):
         return sum
 
 ```
+
+上面的算法不是太好，看看下面的思路：
+
+```python
+class Solution:
+    def titleToNumber(self, s: str) -> int:
+        d = dict(zip(string.ascii_uppercase, list(range(1, 27))))
+
+        result = 0
+        for i in range(len(s)) :
+            result += d.get(s[i]) * 26 ** (len(s) - i - 1)
+
+        return result
+
+```
+再来一个针对性的优化问题：
+
+```python
+class Solution:
+    def titleToNumber(self, s: str) -> int:
+        total = 0
+        for i, char in enumerate(s[::-1]):
+                total += (ord(char)-64)*26**i
+        return total
+```

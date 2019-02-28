@@ -38,3 +38,19 @@ class Solution:
                 return True
         return False
 ```
+
+还有这样的算法，可以不用二分法，直接O(N)搞定：
+
+```python
+class Solution:
+    def increasingTriplet(self, nums: List[int]) -> bool:
+        first = second = float('inf')
+        for n in nums:
+            if n <= first:
+                first = n
+            elif n <= second:
+                second = n
+            else:
+                return True
+        return False
+```

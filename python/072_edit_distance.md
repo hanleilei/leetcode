@@ -13,7 +13,7 @@ Example 1:
 ```
 Input: word1 = "horse", word2 = "ros"
 Output: 3
-Explanation: 
+Explanation:
 horse -> rorse (replace 'h' with 'r')
 rorse -> rose (remove 'r')
 rose -> ros (remove 'e')
@@ -23,7 +23,7 @@ Example 2:
 ```
 Input: word1 = "intention", word2 = "execution"
 Output: 5
-Explanation: 
+Explanation:
 intention -> inention (remove 't')
 inention -> enention (replace 'i' with 'e')
 enention -> exention (replace 'n' with 'x')
@@ -61,13 +61,13 @@ class Solution:
         m, n = len(word1), len(word2)
         if m==0:
             return n
-    
+
         # If second string is empty, the only option is to
         # remove all characters of first string
         if n==0:
             return m
         return self.editDistDP(word1, word2, m, n)
-    
+
     # A Dynamic Programming based Python program for edit
     # distance problem
     def editDistDP(self, str1, str2, m, n):
@@ -101,4 +101,70 @@ class Solution:
                                        dp[i-1][j-1])    # Replace
 
         return dp[m][n]
+```
+
+再来一个速度更快的：
+
+```Python
+class Solution:
+    def minDistance(self, word1, word2):
+        """
+        :type word1: str
+        :type word2: str
+        :rtype: int
+        """
+        return self.dfs(word1,word2,(0,0),{})
+
+    def dfs(self,word1,word2,pos,memo):
+        if pos in memo:
+            return memo[pos]
+        i,j = pos
+        if i == len(word1):
+            memo[pos] = len(word2) - j
+            return memo[pos]
+        if j == len(word2):
+            memo[pos] = len(word1) - i
+            return memo[pos]
+        if word1[i] == word2[j]:
+            ans = self.dfs(word1,word2,(i + 1,j + 1),memo)
+        else:
+            ans = min(self.dfs(word1,word2,(i + 1,j + 1),memo),self.dfs(word1,word2,(i + 1,j),memo),self.dfs(word1,word2,(i,j + 1),memo)) + 1
+        memo[pos] = ans
+        return ans
+```
+
+再来一个heap版本的：
+
+```Python
+class Solution:
+    def minDistance(self, word1, word2):
+        """
+        :type word1: str
+        :type word2: str
+        :rtype: int
+        """
+        import heapq
+        heap = [(0, word1, word2)]
+        seen = set()
+        while heap:
+            distance, w1, w2 = heapq.heappop(heap)
+
+            if w1 == w2:
+                return distance
+
+            if (w1, w2) in seen:
+                continue
+            else:
+                seen.add((w1,w2))
+
+            if w1 and w2 and w1[-1] == w2[-1]:
+                heapq.heappush(heap, (distance, w1[:-1], w2[:-1]))
+            else:
+                if w1:
+                    heapq.heappush(heap, (distance+1, w1[:-1], w2))
+                if w2:
+                    heapq.heappush(heap, (distance+1, w1, w2[:-1]))
+                if w1 and w2:
+                    heapq.heappush(heap,(distance+1, w1[:-1], w2[:-1]))
+
 ```
