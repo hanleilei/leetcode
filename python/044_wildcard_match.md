@@ -52,6 +52,22 @@ s = "acdcb"
 p = "a*c?b"
 Output: false
 ```
+来一个点赞最多的：
+
+```python
+class Solution:
+    def isMatch(self, s: str, p: str) -> bool:
+        a=0; b=0; m=0; i=-1
+        while (a<len(s)):
+            if (b<len(p) and (p[b]=="?" or p[b]==s[a])): a=a+1; b=b+1
+            elif (b<len(p) and p[b]=="*"): i=b; m=a; b=b+1
+            elif (i!=-1): b=i+1; m=m+1; a=m
+            else: return False
+        while (b<len(p)):
+            if p[b]=="*": b=b+1
+            else: break
+        return b==len(p)
+```
 
 迭代法：
 
@@ -94,15 +110,15 @@ class Solution2:
     # @return a boolean
     def isMatch(self, s, p):
         k = 2
-        result = [[False for j in xrange(len(p) + 1)] for i in xrange(k)]
+        result = [[False for j in range(len(p) + 1)] for i in range(k)]
 
         result[0][0] = True
-        for i in xrange(1, len(p) + 1):
+        for i in range(1, len(p) + 1):
             if p[i-1] == '*':
                 result[0][i] = result[0][i-1]
-        for i in xrange(1,len(s) + 1):
+        for i in range(1,len(s) + 1):
             result[i % k][0] = False
-            for j in xrange(1, len(p) + 1):
+            for j in range(1, len(p) + 1):
                 if p[j-1] != '*':
                     result[i % k][j] = result[(i-1) % k][j-1] and (s[i-1] == p[j-1] or p[j-1] == '?')
                 else:
@@ -118,15 +134,15 @@ class Solution2:
 class Solution3:
     # @return a boolean
     def isMatch(self, s, p):
-        result = [[False for j in xrange(len(p) + 1)] for i in xrange(len(s) + 1)]
+        result = [[False for j in range(len(p) + 1)] for i in range(len(s) + 1)]
 
         result[0][0] = True
-        for i in xrange(1, len(p) + 1):
+        for i in range(1, len(p) + 1):
             if p[i-1] == '*':
                 result[0][i] = result[0][i-1]
-        for i in xrange(1,len(s) + 1):
+        for i in range(1,len(s) + 1):
             result[i][0] = False
-            for j in xrange(1, len(p) + 1):
+            for j in range(1, len(p) + 1):
                 if p[j-1] != '*':
                     result[i][j] = result[i-1][j-1] and (s[i-1] == p[j-1] or p[j-1] == '?')
                 else:
