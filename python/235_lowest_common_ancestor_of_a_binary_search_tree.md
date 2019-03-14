@@ -15,7 +15,31 @@ According to the definition of LCA on Wikipedia: “The lowest common ancestor i
 ```
 For example, the lowest common ancestor (LCA) of nodes 2 and 8 is 6. Another example is LCA of nodes 2 and 4 is 2, since a node can be a descendant of itself according to the LCA definition.
 
-根据bst的特点
+先来一个速度快的：
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        def helper(root):
+            if p.val <= root.val <= q.val or p.val >= root.val >= q.val:
+                return root
+            elif p.val <= root.val and q.val <= root.val:
+                return helper(root.left)
+            else:
+                return helper(root.right)
+
+        return helper(root)
+
+```
+
+根据bst的特点，但是，这个算法在当前不能通过中文版的leetcode，也是醉了。。。
 
 ```python
 # Definition for a binary tree node.

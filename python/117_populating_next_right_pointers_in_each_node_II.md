@@ -35,44 +35,20 @@ After calling your function, the tree should look like:
  / \    \
 4-> 5 -> 7 -> NULL
 ```
+测试用例有更新了。。
 
 ```Python
-# Definition for binary tree with next pointer.
-# class TreeLinkNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-#         self.next = None
-
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val, left, right, next):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+"""
 class Solution:
-    # @param root, a tree link node
-    # @return nothing
-    def connect(self, root):
-        prekid = kid = TreeLinkNode(0)
-        while root:
-            while root:
-                kid.next = root.left
-                kid = kid.next or kid
-                kid.next = root.right
-                kid = kid.next or kid
-                root = root.next
-            root, kid = prekid.next, prekid
-```
-
-```Python
-# Definition for binary tree with next pointer.
-# class TreeLinkNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-#         self.next = None
-
-class Solution:
-    # @param root, a tree link node
-    # @return nothing
-    def connect(self, root):
+    def connect(self, root: 'Node') -> 'Node':
         p = root
         pre = None
         head = None
@@ -93,22 +69,22 @@ class Solution:
                 p = head
                 head = None
                 pre = None
+        return root
 ```
 
 
 ```Python
-# Definition for binary tree with next pointer.
-# class TreeLinkNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-#         self.next = None
-
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val, left, right, next):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+"""
 class Solution:
-    # @param root, a tree link node
-    # @return nothing
-    def connect(self, root):
+    def connect(self, root: 'Node') -> 'Node':
         head = root
         while head:
             prev, cur, next_head = None, head, None
@@ -131,4 +107,5 @@ class Solution:
 
                 cur = cur.next
             head = next_head
+        return root
 ```
