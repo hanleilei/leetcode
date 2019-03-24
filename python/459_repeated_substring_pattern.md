@@ -45,3 +45,11 @@ class Solution:
         return ss.find(str) != -1
 
 ```
+
+或者再来一个：
+
+```Python
+class Solution:
+    def repeatedSubstringPattern(self, s: str) -> bool:
+        return (s + s)[1: len(s)*2 -1].count(s) != 0
+```

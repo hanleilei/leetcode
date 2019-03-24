@@ -35,3 +35,42 @@ class Solution(object):
         return lst
 
 ```
+
+标准库很多时候还是要少用，下面看一下这个方法：
+
+```python
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        result = []
+        temp = []
+
+        nums.sort
+        def backtrack(i):
+            result.append(temp[:])
+
+            for j in range(i,len(nums)):
+
+                temp.append(nums[j])
+                backtrack(j+1)
+                temp.pop()
+
+        backtrack(0)
+        return result
+```
+
+再来看看caikehe的方法：
+
+```python
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        self.dfs(sorted(nums), 0, [], res)
+        return res
+
+    def dfs(self, nums, index, path, res):
+        res.append(path)
+        for i in range(index, len(nums)):
+            self.dfs(nums, i+1, path+[nums[i]], res)
+
+```
+感觉caikehe同学把这些的dfs，bfs的套路总结的很到位，不管什么样的问题，一把梭。

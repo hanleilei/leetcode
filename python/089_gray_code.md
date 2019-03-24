@@ -34,3 +34,27 @@ class Solution(object):
             ans.append(i^(i>>1))
         return ans
 ```
+或者，下面的两种写法都okay：
+
+```python
+class Solution(object):
+    def grayCode(self, n):
+        """
+        :type n: int
+        :rtype: List[int]
+        """
+        #return [i^(i>>1) for i in range(2**n)]
+        return [i^(i>>1) for i in range(1<<n)]
+```
+
+上面的速度还凑合，参考下面的方法更快一些：
+```python
+class Solution:
+    def grayCode(self, n: int) -> List[int]:
+        if n == 0:
+            return [0]
+        res = [0, 1]
+        for i in range(1, n):
+            res = res + [2**i + j for j in res[::-1]]
+        return res
+```
