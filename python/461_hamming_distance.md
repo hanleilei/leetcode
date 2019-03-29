@@ -32,3 +32,38 @@ class Solution(object):
         """
         return bin(x^y).count('1')
 ```
+
+在来几个快点的：
+```python
+class Solution:
+    def hammingDistance(self, x: int, y: int) -> int:
+        d = 0
+        while x > 0 or y > 0:
+            d += (x & 1) ^ (y & 1)
+            x >>= 1
+            y >>= 1
+        return d
+```
+
+```python
+class Solution:
+    def hammingDistance(self, x: int, y: int) -> int:
+        x = x ^ y
+        y = 0
+        while x:
+            y += 1
+            x = x & (x - 1)
+        return y
+```
+
+```python
+class Solution:
+    def hammingDistance(self, x: int, y: int) -> int:
+        count = 0;
+        while(x > 0 or  y>0):
+            if(x%2 != y%2):
+                count = count+1;
+            x = x//2;
+            y = y//2;
+        return count
+```

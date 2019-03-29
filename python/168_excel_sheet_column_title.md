@@ -21,12 +21,38 @@ class Solution(object):
         :type n: int
         :rtype: str
         """
-        result, dvd = "", n
+        result = ""
 
-        while dvd:
-            result += chr((dvd - 1) % 26 + ord('A'))
-            dvd = (dvd - 1) / 26
+        while n:
+            result += chr((n - 1) % 26 + ord('A'))
+            n = (n - 1) // 26
 
         return result[::-1]
 
+```
+
+再来一个速度快一点的：
+
+```python
+def __init__(self):
+        self.alpha = {i+1: v for i, v in enumerate(ascii_uppercase)}
+        self.alpha[0] = 'Z'
+
+    def convertToTitle(self, n: 'int') -> 'str':
+
+        if n in self.alpha:
+            return self.alpha[n]
+
+        res = ''
+        if n % 26 == 0:
+            res += self.convertToTitle(n // 26 - 1)
+        else:
+            res += self.convertToTitle(n // 26)
+
+        res += self.alpha.get(n % 26)
+
+        # 下面的这段代码有点莫名其妙
+        # if n not in self.alpha:
+        #     self.alpha[n] = res
+        return res
 ```

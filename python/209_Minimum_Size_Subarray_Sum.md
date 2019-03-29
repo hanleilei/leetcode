@@ -11,25 +11,26 @@ Explanation: the subarray [4,3] has the minimal length under the problem constra
 ### Follow up:
 If you have figured out the O(n) solution, try coding another solution of which the time complexity is O(n log n).
 
+套用九章的模版，算法复杂度为O(n)，思路一下就很清晰了：
 
-```java
-class Solution {
-    public int minSubArrayLen(int s, int[] a) {
-          if (a == null || a.length == 0)
-            return 0;
 
-          int i = 0, j = 0, sum = 0, min = Integer.MAX_VALUE;
+```python
+class Solution:
+    def minSubArrayLen(self, s: int, nums: List[int]) -> int:
+        if nums == []:
+            return 0
+        size = len(nums)
+        j = 1
+        res = float('inf')
+        total = nums[0]
 
-          while (j < a.length) {
-            sum += a[j++];
+        for i in range(size):
+            while j < size and total < s:
+                total += nums[j]
+                j += 1
+            if total >= s:
+                res = min(res, j - i)
+            total -= nums[i]
 
-            while (sum >= s) {
-              min = Math.min(min, j - i);
-              sum -= a[i++];
-            }
-          }
-
-          return min == Integer.MAX_VALUE ? 0 : min;
-        }
-}
+        return res if res != float('inf') else 0
 ```

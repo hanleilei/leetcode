@@ -60,17 +60,16 @@ class Solution:
 #         self.end = e
 
 class Solution:
-    def eraseOverlapIntervals(self, intervals):
-        """
-        :type intervals: List[Interval]
-        :rtype: int
-        """
-        end = float('-inf')
-        erased = 0
-        for i in sorted(intervals, key=lambda i: i.end):
-            if i.start >= end:
-                end = i.end
-            else:
-                erased += 1
-        return erased
+    def eraseOverlapIntervals(self, intervals: List[Interval]) -> int:
+        if not intervals:
+            return 0
+        intervals.sort(key=lambda x: x.end)
+        result = 0
+        right_most = intervals[0].start
+        for x in intervals:
+            if x.start >= right_most:
+                result += 1
+                right_most = max(right_most, x.end)
+
+        return len(intervals) - result
 ```
