@@ -70,3 +70,28 @@ class Solution:
         if n > 0 and n <= len(self.nums):
             return self.nums[n-1]
 ```
+
+再来一个超级棒的，用heap：
+
+```python
+class Solution:
+    """
+    @param n: An integer
+    @return: return a  integer as description.
+    """
+    def nthUglyNumber(self, n):
+        # write your code here
+        import heapq
+        visited = set([1])
+        heap = [1]
+        res = None
+
+        for _ in range(n):
+            res = heapq.heappop(heap)
+            for i in [2,3,5]:
+                if res * i not in visited:
+                    heapq.heappush(heap, res*i)
+                    visited.add(res*i)
+        return res
+```
+上面heap的方法非常容易理解
