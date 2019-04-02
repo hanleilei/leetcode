@@ -43,3 +43,24 @@ class Solution(object):
 
         return ret
 ```
+再来一个简短的，而且速度超级快的：
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+        p1,p2,dum,rem = l1, l2, ListNode(0),0
+        p = dum
+        while p1 or p2:
+            cur = (p1.val if p1 else 0) + (p2.val if p2 else 0) + rem
+            rem, cur = cur // 10, cur %10
+            p.next = ListNode(cur)
+            p,p1,p2 = p.next, p1.next if p1 else p1, p2.next if p2 else p2
+        if rem: p.next = ListNode(rem)
+        return dum.next
+```

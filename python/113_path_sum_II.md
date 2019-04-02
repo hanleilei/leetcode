@@ -53,3 +53,32 @@ class Solution(object):
         return res
 
 ```
+
+换一种写法：
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def pathSum(self, root: TreeNode, target: int) -> List[List[int]]:
+        res = []
+        way = []
+
+        def allway(root, target):
+            if root is None:
+                return
+            way.append(root.val)
+            if root.left is None and root.right is None and root.val == target:
+                res.append(way.copy())
+            else:
+                allway(root.left, target-root.val)
+                allway(root.right, target-root.val)
+            way.pop()
+        allway(root, target)
+        return res
+```

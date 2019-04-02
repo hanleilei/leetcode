@@ -74,3 +74,30 @@ class Solution(object):
         return False
 
 ```
+
+再来一个，直接用stack，和113一样，只是稍作改动：
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def hasPathSum(self, root: TreeNode, tar: int) -> bool:
+        if not root:
+            return False
+        res = []
+        stack = [(root, [root.val])]
+        while stack:
+            curr, ls = stack.pop()
+            if not curr.left and not curr.right and sum(ls) == tar:
+                return True
+            if curr.right:
+                stack.append((curr.right, ls+[curr.right.val]))
+            if curr.left:
+                stack.append((curr.left, ls+[curr.left.val]))
+        return False
+```
