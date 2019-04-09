@@ -119,21 +119,15 @@ int Kadane(const int array[], size_t length, unsigned int& left, unsigned int& r
 再加上一个速度超级快的python版本：
 
 ```python
-class Solution(object):
-    def maxSubArray(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
         if not nums:
             return 0
         lo = psum = 0
         max_psum = nums[0]
         for i in nums:
             psum += i
-            if psum - lo > max_psum:
-                max_psum = psum - lo
-            if psum < lo:
-                lo = psum
+            max_psum = max(psum - lo, max_psum)
+            lo = min(lo, psum)
         return max_psum
 ```

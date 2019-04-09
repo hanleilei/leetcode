@@ -16,23 +16,17 @@ The range of numbers in the array is [-1000, 1000] and the range of the integer 
     累加前N项和为sums
     将cnt[sums - k]累加至答案
 
-想到这种解法，对于目前的我而言（Nov 2017），有点难度，需要把这类问题再理一下。
+其实我们大可以把 cur 作为我们字典中的key，然后value设置成为 cur 出现次数，我们在迭代的时候，只需要查找 cur - target在不在字典里面，在的话，返回值增值即可，思路和two sum完全一样。这里我们字典里之所以存储出现次数，是为了解决出现重复数字的问题
 
 
 ```python
-class Solution(object):
-    def subarraySum(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: int
-        """
-        import collections
-        ans = sums = 0
-        cnt = collections.Counter()
-        for num in nums:
-            cnt[sums] += 1
-            sums += num
-            ans += cnt[sums - k]
-        return ans
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        count, cur, res = {0: 1}, 0, 0
+        for v in nums:
+            cur += v
+            res += count.get(cur - k, 0)
+            count[cur] = count.get(cur, 0) + 1
+        return res
+
 ```
