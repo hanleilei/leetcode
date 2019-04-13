@@ -16,13 +16,7 @@ There is a more generic way of solving this problem
 #### 简单。。
 
 ```python
-class Solution(object):
-    def isPalindrome(self, x):
-        """
-        :type x: int
-        :rtype: bool
-        """
-        i = str(x)
-        return i == i[::-1]:
-
+class Solution:
+    def isPalindrome(self, x: int) -> bool:
+        return str(x) == str(x)[::-1]
 ```

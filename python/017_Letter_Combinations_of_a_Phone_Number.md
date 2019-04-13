@@ -46,3 +46,47 @@ class Solution(object):
             result2 = [ ]
         return result1
 ```
+
+这个最简单的思路，其实就是和第六题的哪个zigzag的一样：
+
+```python
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        d={'2':'abc', '3':'def', '4':'ghi', '5':'jkl', '6':'mno', '7':'pqrs','8':'tuv','9':'wxyz'}
+        res = []
+        if len(digits) <= 0:
+            return res
+        res = list(d[digits[0]])
+
+        for n in list(digits)[1:]:
+            chars = d[n]
+            temp = []
+            for i in range(len(res)):
+                for c in chars:
+                    temp.append(res[i]+c)
+            res = temp
+
+        return res
+```
+
+或者caikehe的backtrack:
+
+```python
+class Solution:
+    def letterCombinations(self, digits: str) -> List[str]:
+        dic = {"2":"abc", "3":"def", "4":"ghi", "5":"jkl", "6":"mno", "7":"pqrs", "8":"tuv", "9":"wxyz"}
+        if len(digits) == 0:
+            return []
+        res = []
+        self.dfs(digits, dic, 0, "", res)
+        return res
+
+    def dfs(self, digits, dic, index, path, res):
+        if len(path) == len(digits):
+            res.append(path)
+            return
+        for i in range(index, len(digits)):
+            for j in dic[digits[i]]:
+                self.dfs(digits, dic, i+1, path+j, res)
+        
+```

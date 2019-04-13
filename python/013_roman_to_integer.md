@@ -9,22 +9,16 @@ Input is guaranteed to be within the range from 1 to 3999.
 
 
 ```python
-class Solution(object):
-    def romanToInt(self, s):
-        """
-        :type s: str
-        :rtype: int
-        """
+class Solution:
+    def romanToInt(self, s: str) -> int:
         d = {"I": 1, "V": 5, "X": 10, "L": 50, "C":100, "D": 500, "M": 1000}
-        sum = 0
-        s = s[::-1]
-        last = None
-        for i in s:
-            if last and d[i]< last:
-                sum -= d[i] * 2
-            sum += d[i]
-            last = d[i]
-        return sum
+        res = 0
+        cache = None
 
-
+        for i in s[::-1]:
+            if cache and cache > d[i]:
+                res -= d[i] * 2
+            res += d[i]
+            cache = d[i]
+        return res
 ```

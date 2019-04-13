@@ -24,6 +24,13 @@ class Solution(object):
                 return k
 ```
 
+```python
+class Solution:
+    def majorityElement(self, nums: List[int]) -> int:
+        return sorted(nums)[len(nums)//2]
+        
+```
+
 再来一些算法：
 
 ```python

@@ -28,3 +28,17 @@ class Solution(object):
         return len(q) == 0
 
 ```
+
+```python
+class Solution:
+    def isValid(self, s: str) -> bool:
+        d = {')': '(', ']':'[', '}':'{'}
+        res = list()
+
+        for i in s:
+            if i in d and res and res[-1] == d[i]:
+                res.pop()
+            else:
+                res.append(i)
+        return len(res) == 0
+```
