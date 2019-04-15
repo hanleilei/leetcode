@@ -19,42 +19,51 @@ You may not alter the values in the list's nodes, only nodes itself may be chang
 
 The key idea is to keep track of the next_head while reversing the group, tail of the current group is always the start node of the group, once the group reversing is done, next_head is available, simply connect it to tail.
 
-```Python
-# Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
 
-class Solution(object):
-    def reverseKGroup(self, head, k):
-        """
-        :type head: ListNode
-        :type k: int
-        :rtype: ListNode
-        """
-        if head is None or k < 2:
-            return head
+```cpp
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* reverseKGroup(ListNode* head, int k) {
+        ListNode *guard = new ListNode(0);
+        guard->next = head;
+        head = guard;
 
-        next_head = head
-        for i in range(k - 1):
-            next_head = next_head.next
-            if next_head is None:
-                return head
-        ret = next_head
+        for ( ; ; ){
+            int res_node = 0;
+            ListNode *last = head->next;
+            for(int j = 0; j<k; j++){
+                if (last == NULL)
+                    break;
+                res_node += 1;
+                last = last->next;
+            }
 
-        current = head
-        while next_head:
-            tail = current
-            prev = None
-            for i in range(k):
-                if next_head:
-                    next_head = next_head.next
-                _next = current.next
-                current.next = prev
-                prev = current
-                current = _next
-            tail.next = next_head or current
+            if (res_node < k)
+                break;
 
-        return ret
+            ListNode *first = head->next;
+
+            for(int j = 0; j < k; j++){
+                int index = k - j - 1;
+                ListNode *aim = first;
+                while ( index--){
+                    aim = aim->next;
+                }
+                head->next = aim;
+                head = aim;
+            }
+            head->next = last;
+        }
+
+        return guard->next;
+    }
+};
 ```

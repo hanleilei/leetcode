@@ -31,7 +31,45 @@ class Solution(object):
 
 ```
 
+再来一个分治法
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.next = None
+
+class Solution:
+    def mergeKLists(self, lists: List[ListNode]) -> ListNode:
+        if not lists:
+            return None
+
+        if len(lists) == 1:
+            return lists[0]
+        mid = len(lists) // 2
+        left = self.mergeKLists(lists[:mid])
+        right = self.mergeKLists(lists[mid:])
+
+        return self.merge(left, right)
+
+    def merge(self, lst1, lst2):
+        dummy = pt = ListNode(-1)
+        while lst1 and lst2:
+            if lst1.val < lst2.val:
+                pt.next = lst1
+                lst1 = lst1.next
+            else:
+                pt.next = lst2
+                lst2 = lst2.next
+            pt = pt.next
+
+        pt.next = lst1 if not lst2 else lst2
+        return dummy.next
+```
+
 其他的方法：
+
 ```python
 # Merge k sorted linked lists and return it as one sorted list.
 # Analyze and describe its complexity.

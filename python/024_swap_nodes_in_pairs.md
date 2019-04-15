@@ -110,3 +110,28 @@ class Solution(object):
         first.next = rev
         return second
 ```
+
+again：
+
+```Python
+class Solution:
+    def swapPairs(self, head: ListNode) -> ListNode:
+        if  head == None or head.next == None:
+            return head
+        he = self._swap(head, head.next)
+        return he
+
+    def _swap(self, H, E):
+        if E == None:
+            he = H
+        elif E.next == None:
+            H.next = E.next
+            E.next = H
+            he = E
+        else:
+            he = self._swap(E.next, E.next.next)
+            H.next = he
+            E.next = H
+            he = E
+        return he
+```

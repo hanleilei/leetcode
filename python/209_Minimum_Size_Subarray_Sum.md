@@ -34,3 +34,19 @@ class Solution:
 
         return res if res != float('inf') else 0
 ```
+
+再来一个O(n)的方案：
+
+```python
+class Solution:
+    def minSubArrayLen(self, s: int, nums: List[int]) -> int:
+        total = left = 0
+        result = len(nums) + 1
+        for right, n in enumerate(nums):
+            total += n
+            while total >= s:
+                result = min(result, right - left + 1)
+                total -= nums[left]
+                left += 1
+        return result if result <= len(nums) else 0
+```
