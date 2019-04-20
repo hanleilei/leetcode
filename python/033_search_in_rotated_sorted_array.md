@@ -8,36 +8,7 @@ You are given a target value to search. If found in the array return its index, 
 
 You may assume no duplicate exists in the array.
 
-#### 感觉不是很好，用Python的语言特性抖个机灵。。
-
-```python
-class Solution(object):
-    def search(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: int
-        """
-        try:
-            return nums.index(target)
-        except:
-            return -1
-```
-
-或者来个单行的版本：
-
-```Python
-class Solution(object):
-    def search(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: int
-        """
-        return nums.index(target) if target in nums else -1
-```
-
-上面的抖机灵太厉害，还是来个实在的：
+#### 不要用语言自带的库来解决，这个就是用二分法实现的，还是来个实在的：
 
 ```python
 class Solution:

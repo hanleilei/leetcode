@@ -40,7 +40,7 @@ class Solution(object):
         for i in words:
             lookup[i] += 1                # Space: O(n * k)
 
-        for i in xrange(k):               # Time:  O(k)
+        for i in range(k):               # Time:  O(k)
             left, count = i, 0
             tmp = collections.defaultdict(int)
             for j in range(i, m-k+1, k): # Time:  O(m / k)
@@ -66,7 +66,7 @@ class Solution(object):
                     count = 0
                     left = j+k
         return result
-
+```
 
 ```python
 class Solution(object):
@@ -86,7 +86,7 @@ class Solution(object):
         for i in words:
             lookup[i] += 1                # Space: O(n * k)
 
-        for i in xrange(k):               # Time:  O(k)
+        for i in range(k):               # Time:  O(k)
             left, count = i, 0
             tmp = collections.defaultdict(int)
             for j in range(i, m-k+1, k): # Time:  O(m / k)
@@ -112,5 +112,77 @@ class Solution(object):
                     count = 0
                     left = j+k
         return result
+```
 
+和上面的方法类似：
+
+```Python
+class Solution:
+    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+        if words == []:
+            return []
+        counts = dict(collections.Counter(words))
+        res = set([])
+
+        n, num, word_len = len(s), len(words), len(words[0])
+        for i in range(n - num * word_len + 1):
+            seen = dict()
+            j = 0
+            while j < num:
+                word = s[i + j * word_len:i + (j + 1) * word_len]
+                if word in counts:
+                    seen[word] = seen.get(word, 0) + 1
+                    if seen[word] > counts[word]:
+                        break
+                else:
+                    break
+                j += 1
+            if j == num:
+                res.add(i)
+
+        return list(res)
+```
+
+再来一个sliding window:
+
+```Python
+class Solution:
+    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+        if len(words) == 0:
+            return []
+        # initialize d, l, ans
+        l = len(words[0])
+        d = {}
+        for w in words:
+            d[w] = d.get(w, 0) + 1
+        i = 0
+        ans = []
+
+        # sliding window(s)
+        for k in range(l):
+            left = k
+            subd = {}
+            count = 0
+            for j in range(k, len(s)-l+1, l):
+                tword = s[j:j+l]
+                # valid word
+                if tword in d:
+                    if tword in subd:
+                        subd[tword] += 1
+                    else:
+                        subd[tword] = 1
+                    count += 1
+                    while subd[tword] > d[tword]:
+                        subd[s[left:left+l]] -= 1
+                        left += l
+                        count -= 1
+                    if count == len(words):
+                        ans.append(left)
+                # not valid
+                else:
+                    left = j + l
+                    subd = {}
+                    count = 0
+
+        return ans
 ```

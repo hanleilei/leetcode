@@ -30,3 +30,17 @@ class Solution(object):
             nums.remove(val)
         return len(nums)
 ```
+
+标准库的方法不可取，还是看这个方法：
+
+```Python
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        i = 0
+
+        for x in nums:
+            if x != val:
+                nums[i] = x
+                i += 1
+        return i
+```

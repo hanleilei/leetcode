@@ -61,32 +61,31 @@ class Solution:
         :type board: List[List[str]]
         :rtype: bool
         """
+        class Solution:
+    def isValidSudoku(self, board: List[List[str]]) -> bool:
         from collections import Counter
 
         for i in board:
             xc = Counter(i)
-            del xc['.']
             for k, v in xc.items():
-                if v > 1:
+                if v > 1 and k != '.':
                     return False
 
         for i in range(0, 9):
             xc = Counter([j[i] for j in board])
-            del xc['.']
             for k, v in xc.items():
-                if v > 1:
+                if v > 1 and k != '.':
                     return False
 
         for i in range(0, 3):
             for j in range(0, 3):
                 list_of_list = [k[3*i:3*i+3] for k in board][3*j:3*j+3]
                 xc = Counter([item for items in list_of_list for item in items])
-                del xc['.']
                 for k, v in xc.items():
-                    if v > 1:
+                    if v > 1 and k != '.':
                         return False
 
-        return True        
+        return True
 ```
 
 下面看看stephan大神的解法，纯粹Python2的，碉堡了。。

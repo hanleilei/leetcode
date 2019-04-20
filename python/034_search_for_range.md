@@ -31,37 +31,31 @@ class Solution(object):
 二分法：
 
 ```python
-class Solution(object):
-    def searchRange(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
-        left = 0; right = len(nums) - 1
-        result = [-1, -1]
-        while left <= right:
-            mid = int((left + right) / 2)
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        low, high = 0, len(nums) - 1
+        res = [-1, -1]
+
+        while low <= high:
+            mid = (low + high) // 2
             if nums[mid] < target:
-                left = mid + 1
+                low = mid + 1
             elif nums[mid] > target:
-                right = mid - 1
+                high = mid - 1
             else:
-                result[0] = mid  
-                result[1] = mid  
+                res = [mid, mid]
 
-                i = mid - 1  
-                while i >= 0 and nums[i] == target:  
-                    result[0] = i  
-                    i -= 1  
-
-                i = mid + 1  
-                while i < len(nums) and nums[i] == target:  
-                    result[1] = i  
-                    i += 1  
-
+                i = mid - 1
+                while i >= 0 and nums[i] == target:
+                    res[0] = i
+                    i -= 1
+                i = mid + 1
+                while i < len(nums) and nums[i] == target:
+                    res[1] = i
+                    i += 1
                 break
-        return result
+        return res
+    
 ```
 再来一个标准库的：
 
