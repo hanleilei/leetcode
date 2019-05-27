@@ -22,3 +22,7 @@ Note: All emails are in lowercase
 # Write your MySQL query statement below
 select Email from Person group by Email having count(*) > 1
 ```
+
+```sql
+SELECT MAX(Salary) as SecondHighestSalary FROM Employee where salary<(SELECT MAX(Salary) FROM Employee)
+```

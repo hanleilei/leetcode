@@ -54,3 +54,21 @@ class Solution:
 
         return False
 ```
+
+再来一个不是二分法的方法：
+```Python
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        if len(matrix) == 0 or len(matrix[0]) == 0:
+            return False
+        r, c = 0, len(matrix[0]) - 1
+
+        while 0 <= r < len(matrix) and c >= 0:
+            if target > matrix[r][c]:
+                r += 1
+            elif target < matrix[r][c]:
+                c -= 1
+            else:
+                return True
+        return False
+```

@@ -23,3 +23,8 @@ After running your query, the above salary table should have the following rows:
 # Write your MySQL query statement below
 update salary set sex = case when sex = 'f' then 'm' else 'f' end;
 ```
+或者：
+
+```sql
+update salary set sex = if(sex = 'm','f','m')
+```

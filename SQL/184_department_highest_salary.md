@@ -36,3 +36,13 @@ select d.Name as Department, e.Name as Employee, e.Salary as Salary
 from Employee as e, Department as d where e.DepartmentId = d.Id
 and e.Salary=(Select max(Salary) from Employee e2 where e2.DepartmentId=d.Id)
 ```
+上面的方案速度很慢，再看一个连表查询的：
+
+```sql
+select Department.Name as Department,
+       Employee.Name as Employee,
+       Salary
+from Employee join Department on DepartmentId = Department.id
+where (DepartmentId, Salary) in
+      (select DepartmentId, MAX(distinct Employee.salary) as Salary from Employee group by Employee.DepartmentId)
+```

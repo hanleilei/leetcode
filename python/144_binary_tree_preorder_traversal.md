@@ -97,3 +97,30 @@ class Solution(object):
                 root = root.right
         return res
 ```
+
+再来一个 divide & conquer 的版本：
+
+```Python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, x):
+#         self.val = x
+#         self.left = None
+#         self.right = None
+
+class Solution:
+    def preorderTraversal(self, root: TreeNode) -> List[int]:
+        res = list()
+        if root is None:
+            return []
+
+        left = self.preorderTraversal(root.left)
+        right = self.preorderTraversal(root.right)
+
+        res.append(root.val)
+        if left is not None:
+            res.extend(left)
+        if right is not None:
+            res.extend(right)
+        return res
+```

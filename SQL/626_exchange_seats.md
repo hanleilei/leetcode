@@ -39,6 +39,19 @@ from seat
 order by id asc;
 ```
 
+上面方法的简洁版本：
+
+```SQL
+
+select
+if(
+    (mod(id,2)=1 and id = (select max(id) from seat)),
+    id,
+    if(mod(id,2)=1,id+1,id-1)
+)
+as id,student from seat order by id
+```
+
 ```SQL
 # Write your MySQL query statement below
 select id,

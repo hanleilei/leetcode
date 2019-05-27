@@ -19,45 +19,86 @@ findMedian() -> 1.5
 addNum(3)
 findMedian() -> 2
 
+居然之前没有撸过这个题目，特点在于需要维护两个heap，但是由于python的heapq模块中是最小堆，所以将所有元素求负，然后就变成了大根堆。
+
 ```Python
+from heapq import *
+
+class MedianFinder:
+
+    def __init__(self):
+        self.heaps = None, [], []
+        self.i = 1
+
+    def addNum(self, num):
+        heappush(self.heaps[-self.i], -heappushpop(self.heaps[self.i], num * self.i))
+        self.i *= -1
+
+    def findMedian(self):
+        return (self.heaps[self.i][0] * self.i - self.heaps[-1][0]) / 2.0
 
 ```
 
-以下是用标准库，但是TLE了。。显然使用median函数带来了很多重复的计算，是不行的。
 ```Python
-class MedianFinder(object):
+from heapq import *
+
+class MedianFinder:
+
+    def __init__(self):
+        self.heaps = [], []
+
+    def addNum(self, num):
+        small, large = self.heaps
+        heappush(small, -heappushpop(large, num))
+        if len(large) < len(small):
+            heappush(large, -heappop(small))
+
+    def findMedian(self):
+        small, large = self.heaps
+        if len(large) > len(small):
+            return float(large[0])
+        return (large[0] - small[0]) / 2.0
+```
+
+
+```Python
+from heapq import *
+
+class MedianFinder:
+
+    def __init__(self):
+        self.data = 1, [], []
+
+    def addNum(self, num):
+        sign, h1, h2 = self.data
+        heappush(h2, -heappushpop(h1, num * sign))
+        self.data = -sign, h2, h1
+
+    def findMedian(self):
+        sign, h1, h2 = d = self.data
+        return (h1[0] * sign - d[-sign][0]) / 2.0
+```
+
+再有就是其他不再推荐的方法：
+
+```Python
+from bisect import insort
+class MedianFinder:
 
     def __init__(self):
         """
         initialize your data structure here.
         """
-        # from collections import deque
-        self.q = list()
-
-        # self.c = 0
-
+        self.nums = []
 
     def addNum(self, num):
-        """
-        :type num: int
-        :rtype: void
-        """
-        self.q.append(num)
-        # self.c += 1
-
+        bisect.insort(self.nums, num)
 
     def findMedian(self):
-        """
-        :rtype: float
-        """
-        from statistics import median
-        return float(median(self.q))
-        # return float(self.q) / self.c
-
-
-
-# Your MedianFinder object will be instantiated and called as such:
-# obj = MedianFinder()
-# obj.addNum(num)
-# param_2 = obj.findMedian()
+        nums = self.nums
+        if len(nums) % 2 == 0:
+            return (nums[len(nums)//2] + nums[len(nums)//2-1]) / 2.0
+        else:
+            return nums[len(nums)//2]
 ```
+二分插入的方式，当然还有BST的方式。
