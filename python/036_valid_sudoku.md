@@ -56,12 +56,6 @@ Explanation: Same as Example 1, except with the 5 in the top left corner being
 
 ```Python
 class Solution:
-    def isValidSudoku(self, board):
-        """
-        :type board: List[List[str]]
-        :rtype: bool
-        """
-        class Solution:
     def isValidSudoku(self, board: List[List[str]]) -> bool:
         from collections import Counter
 

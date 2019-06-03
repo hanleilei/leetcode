@@ -4,6 +4,7 @@ Given a collection of distinct numbers, return all possible permutations.
 
 For example,
 [1,2,3] have the following permutations:
+```
 [
   [1,2,3],
   [1,3,2],
@@ -12,6 +13,7 @@ For example,
   [3,1,2],
   [3,2,1]
 ]
+```
 Subscribe to see which companies asked this question
 
 ###### 方法
@@ -59,11 +61,14 @@ class Solution:
             #                  -> 1: [1], [3, 2] -> [], [3, 2, 1]
             self.dfs(nums[:i] + nums[i+1:], path + [nums[i]], res)
 ```
+
 或者
+
+
 ```python
 class Solution:
-    def permute(self, nums:
-        def backtracking(nums,res,cur):
+    def permute(self, nums):
+        def backtracking(nums, res, cur):
             if len(nums) == 1:
                 cur.append(nums[0])
                 res.append(cur)
@@ -71,6 +76,28 @@ class Solution:
                 for i in range(len(nums)):
                     backtracking(nums[:i]+nums[i+1:],res,cur+[nums[i]])
         res = []
-        backtracking(nums,res,[])
+        backtracking(nums, res, [])
         return res
+```
+
+再来一个, 这个方法非常之巧妙
+
+```Python
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        res = []
+        result = []
+        self.dfs(nums, res, result)
+        return result
+
+    def dfs(self, nums, res, result):
+        if len(res) == len(nums):
+            result.append([i for i in res])
+            return
+        for num in nums:
+            if num not in res:
+                res.append(num)
+                self.dfs(nums, res, result)
+                res.pop()
+
 ```

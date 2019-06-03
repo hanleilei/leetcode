@@ -99,6 +99,8 @@ class Solution:
             path.pop()
 ```
 
+再来一个速度超级快的算法：
+
 ```python
 class Solution:
     def findLadders(self, beginWord, endWord, wordList):
@@ -108,13 +110,12 @@ class Solution:
         :type wordList: List[str]
         :rtype: List[List[str]]
         """
-        from collections import defaultdict
         if endWord not in wordList or not endWord or not beginWord:
             return []
         wordList = set(wordList)
         forward, backward = {beginWord}, {endWord}
         direction = 1
-        parents = defaultdict(set)
+        parents = collections.defaultdict(set)
         while forward and backward:
             if len(forward) > len(backward):
                 forward, backward = backward, forward
