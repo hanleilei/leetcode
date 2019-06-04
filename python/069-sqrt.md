@@ -50,3 +50,27 @@ class Solution(object):
             mid = (low + high) / 2
         return mid
 ```
+
+按照九章的模板：
+
+```Python
+class Solution:
+    def sqrt(self, x):        
+        start, end, mid = 0, x, x//2
+
+        while start + 1 < end:
+            if mid * mid == x:
+                start = mid
+            elif mid * mid > x:
+                end = mid
+            else:
+                start = mid
+            mid = start + (end - start) // 2
+
+        if start * start == x:
+            return start
+        if end * end == x:
+            return end
+        return end-1
+
+```

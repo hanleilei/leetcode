@@ -63,3 +63,32 @@ class Solution:
 
         return -1
 ```
+再来一个九章课程上的使用模板的方法：
+
+```Python
+class Solution:
+    def search(self, A, target):
+        if len(A) == 0:
+            return -1
+        start, end = 0, len(A) - 1
+
+        while start + 1 < end:
+            mid = (start + end) // 2
+            if A[mid] >= A[start]:
+                if A[start] <= target <= A[mid]:
+                    end = mid
+                else:
+                    start = mid
+            else:
+                if A[mid] <= target <= A[end]:
+                    start = mid
+                else:
+                    end = mid
+
+
+        if A[start] == target:
+            return start
+        if A[end] == target:
+            return end
+        return -1
+```
