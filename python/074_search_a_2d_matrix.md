@@ -35,14 +35,13 @@ class Solution:
         :type target: int
         :rtype: bool
         """
-        import bisect
         if not matrix or target is None:
             return False
         rows, cols = len(matrix), len(matrix[0])
         low, high = 0, rows * cols - 1
 
         while low <= high:
-            mid = int((low + high) / 2)
+            mid = low + (high - low) // 2
             num = matrix[int(mid / cols)][mid % cols]
 
             if num == target:

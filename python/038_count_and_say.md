@@ -104,6 +104,29 @@ class Solution:
             elif i+1 <length:
                 cnt=cnt+1
 
-        ans=ans+str(cnt)+c    
+            ans=ans+str(cnt)+c    
         return ans
+```
+
+```python
+class Solution:
+    # @return a string
+    def countAndSay(self, n):
+        if n == 1:
+            return "1"
+
+        previous = self.countAndSay(n-1)
+        digit = previous[0]
+        count = 1
+        res = ""
+        for d in previous[1:]:
+            if d == digit:
+                count += 1
+            else:
+                res += str(count) + str(digit)
+                digit = d
+                count = 1
+        res += str(count) + str(digit)
+        return res
+
 ```
