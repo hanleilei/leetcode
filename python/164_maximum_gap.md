@@ -69,4 +69,4 @@ class Solution(object):
         return res
 ```
 
-性能反而更好。
+性能反而更好, 但是达不到要求的O(N)

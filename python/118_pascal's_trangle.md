@@ -14,7 +14,73 @@ Return
 ]
 Subscribe to see which companies asked this question
 
-## 每一层的第i个位置，等于上一层第i-1与第i个位置之和，设定rowlist是每一层的数组，临时数组为上一层的数组首尾各加0，rowlist第i个值为临时数组第i和i+1之和
+先更具下面的总结，上一个自制的算法：
+
+```Python
+class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        res = list()
+        for i in range(1, numRows+1):
+            level = list()
+            for j in range(i):
+                if j == 0 or j == i - 1:
+                    level.append(1)
+                else:
+                    level.append(res[i-2][j-1] + res[i-2][j])
+            res.append(level)
+        return res
+```
+注意else branch中的i-2。
+
+再来一个简化, python简直了。。
+```Python
+class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        res = list()
+        for i in range(1, numRows+1):
+            level = [1 if j == 0 or j == i - 1 else res[i-2][j-1] + res[i-2][j] for j in range(i)]
+            res.append(level)
+        return res
+```
+
+换个角度，设想其为一个二维数组，满足这样的公式：res[i][j] = res[i-1][j-1] + res[i-1][j]
+
+```Python
+class Solution:
+    def generate(self, numRows):
+        """
+        :type numRows: int
+        :rtype: List[List[int]]
+        """
+        res = [None] * numRows
+        for i in range(numRows):
+            res[i] = [None] * (i+1)
+            res[i][0] = res[i][i] = 1
+            for j in range(1, i):
+                res[i][j] = res[i-1][j-1] + res[i-1][j]
+        return res
+```
+或者：
+
+```Python
+class Solution:
+    def generate(self, numRows):
+        """
+        :type numRows: int
+        :rtype: List[List[int]]
+        """
+        result = []
+        for i in range(numRows):
+            now = [1]*(i+1)
+            if i >= 2:
+                for n in range(1,i):
+                    now[n] = pre[n-1]+pre[n]
+            result += [now]
+            pre = now
+        return result
+```
+
+每一层的第i个位置，等于上一层第i-1与第i个位置之和，设定rowlist是每一层的数组，临时数组为上一层的数组首尾各加0，rowlist第i个值为临时数组第i和i+1之和
 
 ```python
 class Solution(object):
@@ -38,7 +104,7 @@ class Solution(object):
         return  l
 
 ```
-map版本：
+Python 2 的 map版本：
 
 ```python
 class Solution(object):

@@ -44,7 +44,7 @@ class Solution:
         result = []
         temp = []
 
-        nums.sort
+        nums.sort()
         def backtrack(i):
             result.append(temp[:])
 

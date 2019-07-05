@@ -38,3 +38,24 @@ class Solution:
 
 
 ```
+
+```Python
+class Solution:
+    def trap(self, A: List[int]) -> int:
+        result = 0
+        stack = []
+
+        for i in range(len(A)):
+            mid_height = 0
+            while stack:
+                [pos, height] = stack.pop()
+                result += (min(height, A[i]) - mid_height) * (i - pos - 1)
+                mid_height = height
+
+                if A[i] < height:
+                    stack.append([pos, height])
+                    break
+            stack.append([i, A[i]])
+
+        return result
+```
