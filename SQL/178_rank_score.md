@@ -47,3 +47,11 @@ SELECT Score,
 FROM Scores ORDER BY Score DESC;
 
 ```
+
+```SQL
+SELECT s.Score, count(DISTINCT t.score) Rank
+FROM Scores s JOIN Scores t on s.Score=t.score
+GROUP BY s.ID
+ORDER BY s.Score desc
+
+```
