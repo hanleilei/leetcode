@@ -54,3 +54,17 @@ class Solution:
                 return False
         return True
 ```
+
+上面的方法糟透了, 不该直接用语言特性...
+```python
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        s = list(s)
+        t = list(t)
+        while t and s:
+            x = t.pop()
+            if s[-1] == x:
+                s.pop()
+        return len(s) == 0
+```
+
