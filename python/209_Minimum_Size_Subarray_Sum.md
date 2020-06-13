@@ -50,3 +50,41 @@ class Solution:
                 left += 1
         return result if result <= len(nums) else 0
 ```
+看下lee215的方法, 非常巧妙:
+
+```python
+class Solution:
+    def minSubArrayLen(self, s, A): # List[int]) -> int:
+        i, res = 0, len(A) + 1
+        for j in range(len(A)):
+            s -= A[j]
+            while s <= 0:
+                res = min(res, j - i + 1)
+                s += A[i]
+                i += 1
+        return res % (len(A) + 1)
+```
+
+我的方法, 有点low, 破坏了输入条件来避免数组越界:
+
+```python
+class Solution:
+    def minSubArrayLen(self, s: int, nums: List[int]) -> int:
+        left, right = 0, 0
+        res = 0
+        ans = float("inf")
+        nums.append(0)
+        
+        while left <= right < len(nums):
+            if res >= s:
+                ans = min(ans, right - left)
+                res -= nums[left]
+                left += 1
+                if left > right:
+                    right += 1
+            else:
+                res += nums[right]
+                right += 1
+
+        return ans if ans < float("inf") else 0
+```
