@@ -59,3 +59,21 @@ class Solution:
 
         return result
 ```
+再来一个很巧妙的算法, 从两边向中间遍历:
+```python
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        l,r = 0, len(height)-1
+        lmax,rmax = 0,0
+        res = 0
+        while l<r:
+            if height[l]<height[r]:
+                lmax = max(lmax,height[l])
+                res += lmax-height[l]
+                l+=1
+            else:
+                rmax = max(rmax,height[r])
+                res += rmax-height[r]
+                r-=1
+        return res
+```
