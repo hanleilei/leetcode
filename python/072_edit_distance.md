@@ -168,3 +168,20 @@ class Solution:
                     heapq.heappush(heap,(distance+1, w1[:-1], w2[:-1]))
 
 ```
+再来一个deque的版本，也是最快的版本：
+```python
+class Solution:
+    def minDistance(self, word1: str, word2: str) -> int:
+        visit, dq = set(), collections.deque([(word1, word2, 0)])
+        while True:
+            w1, w2, d = dq.popleft()
+            if (w1, w2) not in visit:
+                if w1 == w2:
+                    return d
+                visit.add((w1, w2))
+                while w1 and w2 and w1[0] == w2[0]:
+                    w1, w2 = w1[1:], w2[1:]
+                d += 1
+                dq.extend([(w1[1:], w2[1:], d), (w1, w2[1:], d),
+                           (w1[1:], w2, d)])
+```
