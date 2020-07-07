@@ -43,3 +43,13 @@ class Solution(object):
         return int(math.sqrt(n * 2 + 0.25) - 0.5)
 
 ```
+
+
+另一种思路:
+
+
+```python
+class Solution:
+    def arrangeCoins(self, n: int) -> int:
+        return int((-1 + sqrt(1 + 8*n)) // 2)
+```
