@@ -20,3 +20,29 @@ class Solution(object):
         return False if num<=0 else num == pow(4, round(math.log(num,4)))
 
 ```
+
+再来一个速度快的
+```python
+class Solution:
+    def isPowerOfFour(self, num: int) -> bool:
+        while num%4 == 0:
+            num /= 4
+            if num < 4:
+                break
+
+        if num != 1:
+            return False
+
+        return True
+```
+
+还有：
+```python
+class Solution:
+    def isPowerOfFour(self, n: int) -> bool:
+        if n < 1:
+            return False
+        while n%4 == 0:
+            n /= 4
+        return True if n==1 else False
+```
