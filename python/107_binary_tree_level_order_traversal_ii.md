@@ -108,3 +108,20 @@ class Solution(object):
                 queue.append((node.right, level+1))
         return res
 ```
+
+emm, 上面的算法, 都是用res.insert(0, []), 这样会是O(n), 所以修改一下:
+
+```python
+class Solution:
+    def levelOrderBottom(self, root: TreeNode) -> List[List[int]]:
+        queue, res = collections.deque([(root, 0)]), []
+        while queue:
+            node, level = queue.popleft()
+            if node:
+                if level == len(res):
+                    res.append([])
+                res[level].append(node.val)
+                queue.append((node.left, level + 1))
+                queue.append((node.right, level + 1))
+        return res[::-1]
+```
