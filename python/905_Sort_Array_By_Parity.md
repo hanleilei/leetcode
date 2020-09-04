@@ -38,3 +38,24 @@ class Solution:
         return evens + odds
 
 ```
+自己想出来的：
+
+```python
+class Solution:
+    def sortArrayByParity(self, A: List[int]) -> List[int]:
+        odd, even = list(), list()
+        for i in A:
+            if i % 2 == 1:
+                odd.append(i)
+            else:
+                even.append(i)
+        return even + odd
+```
+再来一个单行的：
+
+```Python
+class Solution:
+    def sortArrayByParity(self, A: List[int]) -> List[int]:
+        return sorted(A, key=lambda x: x% 2)
+
+```

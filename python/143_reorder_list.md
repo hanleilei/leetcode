@@ -92,3 +92,5 @@ class Solution:
         return
 
 ```
+
+再来上面版本的繁琐版本，zitao

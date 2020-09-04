@@ -37,7 +37,14 @@ Another valid answer is [5,2,6,null,4,null,7].
    \   \
     4   7
 ```
-
+根据条件判断：
+1. 如果root不存在，直接返回
+2. 如果key大于root的值
+3. 如果key小于root的值
+4. 如果key等于root的值
+    a). 如果左节点不存在
+    b). 如果左节点存在，找到左子树的最大值，然后替换
+    
 ```python
 # Definition for a binary tree node.
 # class TreeNode:

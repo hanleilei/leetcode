@@ -22,5 +22,5 @@ class Solution(object):
             if n in d and m - d[n] <=k:
                 return True
             d[n] = m
-        return False                
+        return False
 ```

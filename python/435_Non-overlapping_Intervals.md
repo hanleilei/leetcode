@@ -73,3 +73,22 @@ class Solution:
 
         return len(intervals) - result
 ```
+
+需要注意的事情是，示例代码有所更新，现在输入的是一个列表的列表，不再是一个对象的列表：
+
+```Python
+class Solution:
+    def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
+        intervals_sort = sorted(intervals, key=lambda x:x[1])
+        last = None
+        ans = 0
+        for it in intervals_sort:
+            if not last:
+                last = it
+            else:
+                if it[0] >= last[1]:
+                    last = it
+                else:
+                    ans += 1
+        return ans
+```

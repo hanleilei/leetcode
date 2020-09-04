@@ -57,3 +57,27 @@ class Solution:
         return False
 
 ```
+
+再来一个速度比较快的方法：
+
+```Python
+class Solution:
+    def containsNearbyAlmostDuplicate(self, nums: List[int], k: int, t: int) -> bool:
+        if t < 0 or not nums or k <= 0:
+            return False
+        buckets = {}
+        width = t + 1
+
+        for i, n in enumerate(nums):
+            buck = n // width
+            if buck in buckets:
+                return True
+            buckets[buck] = n
+            if buck+1 in buckets and (buckets[buck+1] - n) <= t:
+                return True
+            if buck-1 in buckets and (n - buckets[buck-1]) <= t:
+                return True
+            if i >= k:
+                del buckets[nums[i - k] // width]
+        return False
+```
