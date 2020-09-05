@@ -1,5 +1,5 @@
 # Partition Labels
-
+[[string]]
 A string S of lowercase letters is given. We want to partition this string into as many parts as possible so that each letter appears in at most one part, and return a list of integers representing the size of these parts.
 
 ## Example 1:
@@ -58,7 +58,6 @@ class Solution:
         return res
 ```
 
-mark: 2019/04/13 目前还是遇到新题，medium很多还是想不出来最优解，大概思路是有，但是代码还是糊了。
 
 再来一个，更简单的：
 

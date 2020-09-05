@@ -1,5 +1,5 @@
 # repeated substring pattern
-
+[[string]]
 Given a non-empty string check if it can be constructed by taking a substring of it and appending multiple copies of the substring together. You may assume the given string consists of lowercase English letters only and its length will not exceed 10000.
 
 Example 1:
@@ -58,7 +58,7 @@ class Solution:
     def repeatedSubstringPattern(self, s: str) -> bool:
         return (s + s)[1: len(s)*2 -1].count(s) != 0
 ```
-
+最简单的：
 ```Python
 class Solution:
     def repeatedSubstringPattern(self, s: str) -> bool:
