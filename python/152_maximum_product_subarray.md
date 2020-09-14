@@ -100,6 +100,15 @@ class Solution:
                 local_max, local_min = local_min * x, local_max * x
             global_max = max(global_max, local_max)
         return global_max
+```
 
-    
+再看看Lee215的方法， 超级快。。
+```Python
+class Solution:
+    def maxProduct(self, A: List[int]) -> int:
+        B = A[::-1]
+        for i in range(1, len(A)):
+            A[i] *= A[i - 1] or 1
+            B[i] *= B[i - 1] or 1
+        return max(A + B)
 ```

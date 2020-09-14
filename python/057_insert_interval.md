@@ -42,3 +42,23 @@ class Solution(object):
                 e = max(e, i.end)
         return begin + [Interval(s, e)] + end
 ```
+
+python3
+
+```python
+class Solution:
+    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
+        s, e = newInterval
+        begin = list()
+        end = list()
+
+        for i in intervals:
+            if s > i[1]:
+                begin.append(i)
+            elif e < i[0]:
+                end.append(i)
+            else:
+                s = min(s, i[0])
+                e = max(e, i[1])
+        return begin + [[s, e]] + end
+```
