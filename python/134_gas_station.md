@@ -97,3 +97,19 @@ class Solution(object):
 
         return start if total >= 0 else -1
 ```
+
+再来一个更加简洁的：
+
+```python
+class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        minSpare = float("inf")
+        spare = index = 0
+        for i,v in enumerate(zip(gas, cost)):
+            spare += v[0] - v[1]
+            if spare <= minSpare:
+                minSpare = spare
+                index = i
+        if spare < 0: return -1
+        return (index + 1)%len(gas)
+```

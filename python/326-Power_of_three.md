@@ -18,3 +18,12 @@ class Solution(object):
         return False if n<=0 else n == pow(3, round(math.log(n,3)))
 
 ```
+
+不用标准库， 而且速度超级快！
+```python
+class Solution:
+    def isPowerOfThree(self, n: int) -> bool:
+        while n % 3 == 0 and n != 0:
+            n //= 3
+        while n == 1
+```

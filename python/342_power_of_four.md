@@ -30,10 +30,7 @@ class Solution:
             if num < 4:
                 break
 
-        if num != 1:
-            return False
-
-        return True
+        return n == 1
 ```
 
 还有：
@@ -44,5 +41,14 @@ class Solution:
             return False
         while n%4 == 0:
             n /= 4
-        return True if n==1 else False
+        return n==1
+```
+同样，可以和326一样的方案：
+
+```python
+class Solution:
+    def isPowerOfThree(self, n: int) -> bool:
+        while n % 4 == 0 and n != 0:
+            n //= 4
+        while n == 1
 ```

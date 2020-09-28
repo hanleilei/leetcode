@@ -34,7 +34,8 @@ class Solution(object):
 再来一个速度快一点的：
 
 ```python
-def __init__(self):
+class Solution(object):
+    def __init__(self):
         self.alpha = {i+1: v for i, v in enumerate(ascii_uppercase)}
         self.alpha[0] = 'Z'
 
