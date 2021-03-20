@@ -23,6 +23,8 @@ Output:
 The longest substring is "ababb", as 'a' is repeated 2 times and 'b' is repeated 3 times.
 ```
 
+来一个stefan的神作。。实在是脑壳疼。。
+
 ```python
 class Solution(object):
     def longestSubstring(self, s, k):
@@ -36,3 +38,23 @@ class Solution(object):
                 return max(self.longestSubstring(t, k) for t in s.split(c))
         return len(s)
 ```
+
+来一个容易理解的：
+
+```python
+class Solution:
+    def longestSubstring(self, s: str, k: int) -> int:
+        stack = []
+        stack.append(s)
+        ans = 0
+        while stack:
+            s = stack.pop()
+            for c in set(s):
+                if s.count(c) < k:
+                    stack.extend([z for z in s.split(c)])
+                    break
+            else:
+                ans = max(ans, len(s))
+        return ans
+```
+
