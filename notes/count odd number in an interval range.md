@@ -1,3 +1,10 @@
+---
+title: count odd number in an interval range
+tags: [Import-bdcb]
+created: '2022-03-11T02:33:55.326Z'
+modified: '2022-05-01T02:55:36.714Z'
+---
+
 ## count odd number in an interval range
 
 Given two non-negative integers low and high. Return the count of odd numbers between low and high (inclusive).
