@@ -14,7 +14,7 @@ Input:
 Output:
 [5,6]
 
-## 理解题目，从1到数组长度范围内，然后用集合解决。
+## 理解题目，从 1 到数组长度范围内，然后用集合解决。
 
 ```python
 class Solution(object):
@@ -28,4 +28,13 @@ class Solution(object):
         min_num = 1
         max_num = len(nums)
         return list(set([n for n in range(1, len(nums)+1)]) - set(nums))
+```
+
+遍历数组的方式解决：
+
+```python
+class Solution:
+    def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
+        s = set(nums)
+        return [i for i in range(1, len(nums) + 1) if i not in s]
 ```

@@ -6,11 +6,11 @@ For example, given numRows = 5,
 Return
 
 [
-     [1],
-    [1,1],
-   [1,2,1],
-  [1,3,3,1],
- [1,4,6,4,1]
+[1],
+[1,1],
+[1,2,1],
+[1,3,3,1],
+[1,4,6,4,1]
 ]
 Subscribe to see which companies asked this question
 
@@ -30,9 +30,27 @@ class Solution:
             res.append(level)
         return res
 ```
-注意else branch中的i-2。
 
-再来一个简化, python简直了。。
+注意 else branch 中的 i-2。
+
+如果觉得上面 -2 的方法有点诡异，那么这个方法更容易理解：对于数组直接构造一个[0] + res[-1] + [0] 临时数组：
+
+```python
+class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        if numRows == 1: return [[1]]
+        res = [[1]]
+        for i in range(numRows -1):
+            temp = [0] + res[-1] + [0]
+            t_list = list()
+            for t in range(1, len(temp)):
+                t_list.append(temp[t-1] + temp[t])
+            res.append(t_list)
+        return res
+```
+
+再来一个简化, python 简直了。。
+
 ```Python
 class Solution:
     def generate(self, numRows: int) -> List[List[int]]:
@@ -60,6 +78,7 @@ class Solution:
                 res[i][j] = res[i-1][j-1] + res[i-1][j]
         return res
 ```
+
 或者：
 
 ```Python
@@ -80,7 +99,7 @@ class Solution:
         return result
 ```
 
-每一层的第i个位置，等于上一层第i-1与第i个位置之和，设定rowlist是每一层的数组，临时数组为上一层的数组首尾各加0，rowlist第i个值为临时数组第i和i+1之和
+每一层的第 i 个位置，等于上一层第 i-1 与第 i 个位置之和，设定 rowlist 是每一层的数组，临时数组为上一层的数组首尾各加 0，rowlist 第 i 个值为临时数组第 i 和 i+1 之和
 
 ```python
 class Solution(object):
@@ -104,7 +123,8 @@ class Solution(object):
         return  l
 
 ```
-Python 2 的 map版本：
+
+Python 2 的 map 版本：
 
 ```python
 class Solution(object):
@@ -119,12 +139,27 @@ class Solution(object):
         return res[:numRows]
 
 ```
+
 这个办法非常的巧妙：
-1. 首先理解map操作，这样的写法：
+
+1. 首先理解 map 操作，这样的写法：
+
 ```python
 map(lambda x, y: arr1, arr2)
 ```
-这将会把arr1中的全部元素和arr2中的全部元素相加，即返回：[arr1[0]+ arr2[0], arr1[1]+ arr2[1]....] 选取arr1和arr2中最短的那个数组长度。
+
+这将会把 arr1 中的全部元素和 arr2 中的全部元素相加，即返回：[arr1[0]+ arr2[0], arr1[1]+ arr2[1]....] 选取 arr1 和 arr2 中最短的那个数组长度。
 
 2. 所谓杨辉三角的算法也就是上一行的数据，错位相加，不足的地方补零。即
-res[-1] + [0], [0] + res[-1] 这种实现。
+   res[-1] + [0], [0] + res[-1] 这种实现。
+
+由于 Python3 中，map 返回的不再是 list 类型，而是 map 对象类型，需要强制转换一下：
+
+```python
+class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        res = [[1]]
+        for i in range(1, numRows):
+            res += [list(map(lambda x, y: x+y, res[-1] + [0], [0] + res[-1]))]
+        return res[:numRows]
+```

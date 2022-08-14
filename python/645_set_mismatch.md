@@ -11,6 +11,8 @@ Note:
 The given array size will in the range [2, 10000].
 The given array's numbers won't have any order.
 
+一个很巧妙的方式找到两个元素的位置：
+
 ```python
 class Solution:
     def findErrorNums(self, nums):
@@ -31,7 +33,7 @@ class Solution:
         return twice, never
 ```
 
-还是看看stefan大大的方法：
+还是看看 stefan 大大的方法：
 
 ```python
 class Solution:
@@ -42,3 +44,24 @@ class Solution:
         """
         return [sum(nums) - sum(set(nums)), sum(range(1, len(nums)+1)) - sum(set(nums))]
 ```
+
+再来一个官方的方法，从 Java 翻译过来：
+
+```python
+class Solution:
+    def findErrorNums(self, nums: List[int]) -> List[int]:
+
+        dup = -1
+        missing = 1
+        for i in nums:
+            if nums[abs(i) - 1] < 0:
+                dup = abs(i)
+            else:
+                nums[abs(i) - 1] *= -1
+        for j in range(len(nums)):
+            if nums[j] > 0:
+                missing = j + 1
+        return [dup, missing]
+```
+
+讲真，这个题目蛮蠢的，还是 stefan 的方法最好，直截了当的击中要害。

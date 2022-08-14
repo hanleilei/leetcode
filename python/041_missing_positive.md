@@ -29,14 +29,14 @@ class Solution(object):
                 return i+1
 ```
 
-再来一个速度最快的：
+再来一个讨论群用 cpp 写，点赞最多的：
 
 ```python
 class Solution:
     def firstMissingPositive(self, nums: 'List[int]') -> 'int':
         for i in range(len(nums)):
             while 0 <= nums[i]-1 < len(nums) and nums[nums[i]-1] != nums[i]:
-                tmp = nums[i]-1  # here is the key point
+                tmp = nums[i]-1 # key point
                 nums[i], nums[tmp] = nums[tmp], nums[i]
         for i in range(len(nums)):
             if nums[i] != i+1:
@@ -55,4 +55,5 @@ class Solution:
             n=n+1
         return n
 ```
+
 感觉自己的智商被碾压了。。

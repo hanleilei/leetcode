@@ -53,3 +53,19 @@ class Solution:
             row = [x + y for x, y in zip([0]+row, row+[0])]
         return row
 ```
+
+对上一个题目的小幅修改
+
+```python
+class Solution:
+    def getRow(self, numRows: int) -> List[int]:
+        if numRows == 0: return [1]
+        res = [[1]]
+        for i in range(numRows):
+            temp = [0] + res[-1] + [0]
+            t_list = list()
+            for t in range(1, len(temp)):
+                t_list.append(temp[t-1] + temp[t])
+            res.append(t_list)
+        return res[-1]
+```

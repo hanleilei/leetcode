@@ -8,7 +8,7 @@ Note:
 You must do this in-place without making a copy of the array.
 Minimize the total number of operations.
 
-#### 还好，就是要理解python中列表的处理方式
+#### 还好，就是要理解 python 中列表的处理方式
 
 ```python
 class Solution(object):
@@ -22,4 +22,21 @@ class Solution(object):
             if nums[i] != 0:
                 nums[i],nums[j] = nums[j],nums[i]
                 j = j + 1
+```
+
+如果觉得这个理解有问题，可以直接用题目描述的含义，直接实现：
+
+```python
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        count = 0
+        for i in range(len(nums)):
+            if nums[i] != 0:
+                nums[count] = nums[i]
+                if count != i:
+                    nums[i] = 0
+                count += 1
 ```
