@@ -5,28 +5,28 @@ Suppose that a website contains two tables, the Customers table and the Orders t
 Table: Customers.
 
 +----+-------+
-| Id | Name  |
+| Id | Name |
 +----+-------+
-| 1  | Joe   |
-| 2  | Henry |
-| 3  | Sam   |
-| 4  | Max   |
+| 1 | Joe |
+| 2 | Henry |
+| 3 | Sam |
+| 4 | Max |
 +----+-------+
 Table: Orders.
 
 +----+------------+
 | Id | CustomerId |
 +----+------------+
-| 1  | 3          |
-| 2  | 1          |
+| 1 | 3 |
+| 2 | 1 |
 +----+------------+
 Using the above tables as example, return the following:
 
 +-----------+
 | Customers |
 +-----------+
-| Henry     |
-| Max       |
+| Henry |
+| Max |
 +-----------+
 
 ```SQL
@@ -34,7 +34,7 @@ Using the above tables as example, return the following:
 select Name as Customers from Customers where Id not in (select CustomerId from Orders)
 ```
 
-还有一个用left join方法
+还有一个用 left join 方法
 
 ```SQL
 SELECT Customers.Name AS Customers FROM (Customers LEFT JOIN Orders ON Customers.Id = Orders.CustomerId) WHERE Orders.CustomerId IS NULL
