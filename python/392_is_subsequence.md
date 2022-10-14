@@ -19,43 +19,8 @@ Return false.
 Follow up:
 If there are lots of incoming S, say S1, S2, ... , Sk where k >= 1B, and you want to check one by one to see if T has its subsequence. In this scenario, how would you change your code?
 
-讲真，很简单。。。搞不懂怎么被标记为medium，直接贪心就好了。
+讲真，很简单。。。
 
-```python
-class Solution:
-    def isSubsequence(self, s, t):
-        """
-        :type s: str
-        :type t: str
-        :rtype: bool
-        """
-        for i in s:
-            if i in t:
-                t = t[t.index(i)+1:]
-            else:
-                return False
-        return True
-```
-
-或者：
-
-```python
-class Solution:
-    def isSubsequence(self, s, t):
-        """
-        :type s: str
-        :type t: str
-        :rtype: bool
-        """
-        for i in s:
-            try:
-                t = t[t.index(i)+1:]
-            except:
-                return False
-        return True
-```
-
-上面的方法糟透了, 不该直接用语言特性...
 ```python
 class Solution:
     def isSubsequence(self, s: str, t: str) -> bool:
@@ -68,3 +33,31 @@ class Solution:
         return len(s) == 0
 ```
 
+或者：
+
+```python
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        j = 0
+        for i in range(len(t)):
+            if j < len(s) and t[i] == s[j]:
+                j += 1
+        return len(s) == j
+```
+
+再或者用 stack:
+
+```python
+class Solution:
+    def isSubsequence(self, s: str, t: str) -> bool:
+        s = list(s)
+        t = list(t)
+
+        while t and s:
+            if s[-1] == t[-1]:
+                s.pop()
+            t.pop()
+        return len(s) == 0
+```
+
+其实最好理解的方法就是用 stack

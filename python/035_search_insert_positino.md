@@ -10,29 +10,26 @@ Here are few examples.
 [1,3,5,6], 7 → 4
 [1,3,5,6], 0 → 0
 
-### 就是binary search的变体，注意最后一个return left。
+### 就是 binary search 的变体，注意最后一个 return left。
 
 ```python
-class Solution(object):
-    def searchInsert(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: int
-        """
-        left = 0; right = len(nums) - 1
+class Solution:
+    def searchInsert(self, nums: List[int], target: int) -> int:
+        left = 0
+        right = len(nums) - 1
+
         while left <= right:
-            mid = int((left + right) / 2)
-            if nums[mid] < target:
-                left = mid + 1
-            elif nums[mid] > target:
-                right = mid - 1
+            mid = left + (right - left) // 2
+            if nums[mid]  > target:
+                right = mid -1
+            elif nums[mid] < target:
+                left = mid +1
             else:
                 return mid
-        return left   
+        return left
 ```
 
-或者可以直接用Python中的bisect模块实现：
+或者可以直接用 Python 中的 bisect 模块实现：
 
 ```Python
 class Solution:
@@ -50,7 +47,7 @@ class Solution:
             return index
 ```
 
-下面是几种据说速度也非常快的，大同小异，基本上都是用binary search。不过leetcode的OJ略抽风：
+下面是几种据说速度也非常快的，大同小异，基本上都是用 binary search。不过 leetcode 的 OJ 略抽风：
 
 ```Python
 class Solution:

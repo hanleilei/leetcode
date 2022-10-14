@@ -41,7 +41,7 @@ class Solution:
         return True
 ```
 
-或者caikehe大大但做法：
+或者 caikehe 大大但做法：
 
 ```python
 def isIsomorphic1(self, s, t):
@@ -78,3 +78,29 @@ def isIsomorphic(self, s, t):
         d2[ord(t[i])] = i+1
     return True
 ```
+
+再来一个根据 grandyang 的 cpp 版本：
+
+```python
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        s_map = {}
+        t_map = {}
+
+        for i in range(len(s)):
+
+            s_ch, t_ch = s[i], t[i]
+
+            if s_ch not in s_map:
+                s_map[s_ch] = i
+
+            if t_ch not in t_map:
+                t_map[t_ch] = i
+
+            if s_map[s_ch] != t_map[t_ch]:
+                return False
+
+        return True
+```
+
+这个方法其实非常巧妙，比方说 s= 'abdc', t = 'abab', 或者 s = 'paper', t = 'title' 也就是说，如果是同一个模式，之前遇到的值，则直接比较，如果之前没有遇到，加入字典。

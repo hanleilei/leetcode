@@ -3,6 +3,7 @@
 Given a string containing only digits, restore it by returning all possible valid IP address combinations.
 
 Example:
+
 ```
 Input: "25525511135"
 Output: ["255.255.11.135", "255.255.111.35"]
@@ -31,9 +32,7 @@ class Solution:
                 self.dfs(s[i+1:],k-1,path+[s[:i+1]])
 ```
 
-再来一个容易理解的：每次把1到3个数字当作一个IP段，多个数字时要注意首位不能为0，因为 01.0.0.0 这样的IP是不符合规范的，此外三个数字时还不能超过255。当递归的序列为空，且此时正好集齐四个IP段，则得到一个正确答案。在递归的序列为空或者IP段数目达到4时都应该终止递归。+
-
-
+再来一个容易理解的：每次把 1 到 3 个数字当作一个 IP 段，多个数字时要注意首位不能为 0，因为 01.0.0.0 这样的 IP 是不符合规范的，此外三个数字时还不能超过 255。当递归的序列为空，且此时正好集齐四个 IP 段，则得到一个正确答案。在递归的序列为空或者 IP 段数目达到 4 时都应该终止递归。+
 
 ```python
 class Solution:

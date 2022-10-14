@@ -9,8 +9,8 @@ Every time you guess wrong, I'll tell you whether the number is higher or lower.
 You call a pre-defined API guess(int num) which returns 3 possible results (-1, 1, or 0):
 
 -1 : My number is lower
- 1 : My number is higher
- 0 : Congrats! You got it!
+1 : My number is higher
+0 : Congrats! You got it!
 Example:
 n = 10, I pick 6.
 
@@ -25,22 +25,18 @@ Subscribe to see which companies asked this question
 # @return -1 if my number is lower, 1 if my number is higher, otherwise return 0
 # def guess(num):
 
-class Solution(object):
-    def guessNumber(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
-        left, right = 1, n
-        while(left <= right):
-            mid = (left + right) / 2
+class Solution:
+    def guessNumber(self, n: int) -> int:
+        left = 1
+        right = n
+        while left <= right:
+            mid = left + (right - left) // 2
             res = guess(mid)
-            if res == 0:
-                return mid
-            elif res == -1:
-                right = mid -1
-            elif res == 1:
+            if res == 1:
                 left = mid + 1
-
+            elif res == -1:
+                right = mid - 1
+            else:
+                return mid
         return -1
 ```

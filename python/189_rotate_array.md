@@ -16,7 +16,7 @@ Related problem: Reverse Words in a String II
 Credits:
 Special thanks to @Freezen for adding this problem and creating all test cases.
 
-**方法很多，用python的nums[:]特性。**
+**方法很多，用 python 的 nums[:]特性。**
 
 ```python
 class Solution(object):
@@ -30,7 +30,7 @@ class Solution(object):
         nums[:] = nums[-k:] + nums[:-k]
 ```
 
-**还有直接使用deque中的rotate：**
+**还有直接使用 deque 中的 rotate：**
 
 ```Python
 class Solution(object):
@@ -44,4 +44,16 @@ class Solution(object):
         d = deque(nums)
         d.rotate(k)
         nums[:] = list(d)
+```
+
+似乎这个是编程珠玑里面的一个原题：
+
+```python
+class Solution:
+    def rotate(self, nums: List[int], k: int) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        k = len(nums) - k % len(nums)
+        nums[:] = (nums[:k][::-1] + nums[k:][::-1])[::-1]
 ```
