@@ -711,8 +711,7 @@ color: var(--text-accent) !important;
   height: 100%;
 }
 
-/* make the fake drop target overlay have a background so you can see it. */
-/* TODO: figure out how the fake target overlay works so we can put the title back, too */
+
 .theme-light .workspace-fake-target-overlay {
   background-color: var(--background-primary);
 }
