@@ -3,6 +3,7 @@
 Given a 2d grid map of '1's (land) and '0's (water), count the number of islands. An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
 
 Example 1:
+
 ```
 Input:
 11110
@@ -12,7 +13,9 @@ Input:
 
 Output: 1
 ```
+
 Example 2:
+
 ```
 Input:
 11000
@@ -23,7 +26,8 @@ Input:
 Output: 3
 ```
 
-先来一个递归版本的DFS：
+先来一个递归版本的 DFS：
+
 ```python
 class Solution(object):
     def numIslands(self, grid):
@@ -52,7 +56,39 @@ class Solution(object):
         return True
 ```
 
-再来一个BFS版本的方案：
+再来一个方案：
+
+```python
+class Solution:
+    def numIslands(self, grid: List[List[str]]) -> int:
+        number_of_islands = 0
+
+        for i in range(len(grid)):
+            for j in range(len(grid[0])):
+                if grid[i][j] == '1':
+                    number_of_islands += 1
+                    self.callBFS(grid, i, j)
+
+        return number_of_islands
+
+    @staticmethod
+    def callBFS(grid: List[List[str]],  i: int, j: int):
+        grid[i][j] = '0'
+
+        if i > 0 and grid[i-1][j] == '1':
+            Solution.callBFS(grid, i-1, j)
+
+        if j > 0 and grid[i][j-1] == '1':
+            Solution.callBFS(grid, i, j - 1)
+
+        if i < (len(grid) - 1) and grid[i+1][j] == '1':
+            Solution.callBFS(grid, i + 1, j)
+
+        if j < (len(grid[0]) - 1) and grid[i][j + 1] == '1':
+            Solution.callBFS(grid, i, j + 1)
+```
+
+再来一个 BFS 版本的方案：
 
 ```python
 class Solution(object):
@@ -80,7 +116,7 @@ class Solution(object):
         return num
 ```
 
-stepfan大大对于bfs版本的优化：
+stepfan 大大对于 bfs 版本的优化：
 
 ```python
 class Solution(object):
@@ -102,6 +138,7 @@ class Solution(object):
                         queue.append(item)
         return num
 ```
+
 然后是一个更简化的版本：
 
 ```python

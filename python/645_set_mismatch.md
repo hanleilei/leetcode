@@ -65,3 +65,11 @@ class Solution:
 ```
 
 讲真，这个题目蛮蠢的，还是 stefan 的方法最好，直截了当的击中要害。
+
+现在理解题目的意思，直接上，发现也能搞出来 stefan 的方法了。。
+
+```python
+class Solution:
+    def findErrorNums(self, nums: List[int]) -> List[int]:
+        return [sum(nums) - sum(set(nums)), sum(range(1, len(nums) + 1)) - sum(set(nums))]
+```

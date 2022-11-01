@@ -3,6 +3,7 @@
 Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
 
 Example:
+
 ```
 Input: S = "ADOBECODEBANC", T = "ABC"
 Output: "BANC"
@@ -53,6 +54,7 @@ class Solution:
 ```
 
 先直接看一个超快的答案吧，88ms
+
 ```python
 class Solution:
     def minWindow(self, s, t):
@@ -65,9 +67,7 @@ class Solution:
         right = 0
         result = ""
         totalMatch = 0
-        d = {}
-        for c in t:
-            d[c] = d.get(c, 0) + 1
+        d = collections.Counter(t)
 
         for right in range(len(s)):
             c = s[right]
@@ -87,7 +87,8 @@ class Solution:
                         d[s[left]] += 1
                         left += 1
 
-                    # we dec the count here so that next round right need to match one more s[left],
+                    # we dec the count here so that next round right need to match one more s[left]
+
                     d[s[left]] += 1
 
                     if result == "" or len(result) > right - left:
@@ -95,18 +96,15 @@ class Solution:
 
         return result
 ```
-再来看看stepfan大大的算法：
+
+再来看看 stepfan 大大的算法：
 
 ```python
 class Solution:
-    def minWindow(self, s, t):
-        """
-        :type s: str
-        :type t: str
-        :rtype: str
+    def minWindow(self, s: str, t: str) -> str:
 
-        The current window is s[i:j] and the result window is s[I:J]. In need[c] I store how many times I need character c (can be negative) and missing tells how many characters are still missing. In the loop, first add the new character to the window. Then, if nothing is missing, remove as much as possible from the window start and then update the result.
-        """
+        # The current window is s[i:j] and the result window is s[I:J]. In need[c] I store how many times I need character c (can be negative) and missing tells how many characters are still missing. In the loop, first add the new character to the window. Then, if nothing is missing, remove as much as possible from the window start and then update the result.
+
         need, missing = collections.Counter(t), len(t)
         i = I = J = 0
         for j, c in enumerate(s, 1):
@@ -121,20 +119,16 @@ class Solution:
         return s[I:J]
 ```
 
-上面的两个算法已经非常好了，下面我们看一下以下jiuzhang的方法：
+上面的两个算法已经非常好了，下面我们看一下以下 jiuzhang 的方法：
 
 ```python
 class Solution:
-    """
-    @param source : A string
-    @param target: A string
-    @return: A string denote the minimum window, return "" if there is no such a string
-    """
+
     def minWindow(self, source , target):
         if source is None:
             return ""
 
-        targetHash = self.getTargetHash(target)
+        targetHash = collections.Counter(target)
         targetUniqueChars = len(targetHash)
         matchedUniqueChars = 0
 
@@ -160,10 +154,4 @@ class Solution:
                     matchedUniqueChars -= 1
                 hash[source[i]] -= 1
         return minWindowString
-
-    def getTargetHash(self, target):
-        hash = {}
-        for c in target:
-            hash[c] = hash.get(c, 0) + 1
-        return hash
 ```
