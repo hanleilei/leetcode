@@ -4,21 +4,18 @@ Given a 2D board and a list of words from the dictionary, find all words in the 
 
 Each word must be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.
 
-
-
 Example:
 
 Input:
 board = [
-  ['o','a','a','n'],
-  ['e','t','a','e'],
-  ['i','h','k','r'],
-  ['i','f','l','v']
+['o','a','a','n'],
+['e','t','a','e'],
+['i','h','k','r'],
+['i','f','l','v']
 ]
 words = ["oath","pea","eat","rain"]
 
 Output: ["eat","oath"]
-
 
 Note:
 
@@ -70,7 +67,12 @@ class Solution(object):
         return list(ans)
 ```
 
-再来一个caikehe的最简单的：
+在当前最新的测试用例下：2022 Nov 5th，下面的代码都不能通过。用到的测试用例诸如：
+
+1. board 是 ab 的交叉组合，words 也是不同长度的 ab 交叉组合，测试失败
+2. board 是 a，words 是不同长度的 a。
+
+再来一个 caikehe 的最简单的：
 
 ```python
 class TrieNode():
@@ -124,4 +126,74 @@ class Solution(object):
         self.dfs(board, node, i, j-1, path+tmp, res)
         self.dfs(board, node, i, j+1, path+tmp, res)
         board[i][j] = tmp
+```
+
+```python
+from functools import reduce
+from collections import defaultdict
+class Solution:
+    def findWords(self, board, words):
+        Trie = lambda : defaultdict(Trie)
+        trie = Trie()
+        for w in words:
+            end = reduce(dict.__getitem__, w, trie)
+            end['#'] = '#'
+            end['$'] = w
+
+        self.res = set()
+        self.used = [[False] * len(board[0]) for _ in range(len(board))]
+        for i in range(len(board)):
+            for j in range(len(board[0])):
+                self.find(board, i, j, trie)
+        return list(self.res)
+
+    def find(self, board, i, j, trie):
+        if '#' in trie:
+            self.res.add(trie['$'])
+        if i < 0 or i >= len(board) or j < 0 or j >= len(board[0]):
+            return
+        if not self.used[i][j] and board[i][j] in trie:
+            self.used[i][j] = True
+            self.find(board, i + 1, j, trie[board[i][j]])
+            self.find(board, i, j + 1, trie[board[i][j]])
+            self.find(board, i - 1, j, trie[board[i][j]])
+            self.find(board, i, j - 1, trie[board[i][j]])
+            self.used[i][j] = False
+```
+
+最后来 stefan 的：
+
+但是现在超时了，参考一下。
+
+```python
+# class Solution:
+#     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+from functools import reduce
+from collections import defaultdict
+class Solution:
+    def findWords(self, board, words):
+        root = {}
+        for word in words:
+            node = root
+            for c in word:
+                node = node.setdefault(c, {})
+            node[None] = True
+        board = {i + 1j*j: c
+                 for i, row in enumerate(board)
+                 for j, c in enumerate(row)}
+
+        found = []
+        def search(node, z, word):
+            if node.pop(None, None):
+                found.append(word)
+            c = board.get(z)
+            if c in node:
+                board[z] = None
+                for k in range(4):
+                    search(node[c], z + 1j**k, word + c)
+                board[z] = c
+        for z in board:
+            search(root, z, '')
+
+        return found
 ```
