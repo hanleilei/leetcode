@@ -7,8 +7,23 @@ Given [1,3],[2,6],[8,10],[15,18],
 return [1,6],[8,10],[15,18].
 
 关键点有两个：
-1. 计算之前需要对于数组基于start进行排序
-2. 求出结果数组最后一个元素的end和当前迭代的end进行比较，求最大值。
+
+1. 计算之前需要对于数组基于 start 进行排序
+2. 求出结果数组最后一个元素的 end 和当前迭代的 end 进行比较，求最大值。
+
+```python
+class Solution:
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort(key = lambda x : x[0])
+        res = list()
+
+        for interval in intervals:
+            if not res or res[-1][-1] < interval[0]:
+                res.append(interval)
+            else:
+                res[-1][-1] = max(res[-1][-1], interval[1])
+        return res
+```
 
 ```Python
 # Definition for an interval.
@@ -64,5 +79,5 @@ class Solution(object):
                 continue
         res.append(Interval(s, e))
         return res
-        
+
 ```

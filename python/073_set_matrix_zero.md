@@ -29,7 +29,8 @@ class Solution(object):
                 if i in row_index or j in col_index:
                     matrix[i][j] = 0
 ```
-有点追求，将运算时间提高了一下，可以看得出来：enumerate是一个很消耗时间的函数，最好别用。
+
+有点追求，将运算时间提高了一下，可以看得出来：enumerate 是一个很消耗时间的函数，最好别用。
 
 ```python
 class Solution(object):
@@ -68,5 +69,19 @@ class Solution(object):
             matrix[i] = [0] * cols
             for x in range(rows):
                 matrix[x][j] = 0
+```
 
+```python
+class Solution:
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        """
+        Do not return anything, modify matrix in-place instead.
+        """
+        zeros = [[i, j] for i in range(len(matrix)) for j in range(len(matrix[i])) if matrix[i][j] == 0]
+        cols = set([i[1] for i in zeros])
+        rows = set([i[0] for i in zeros])
+        for i in range(len(matrix)):
+            for j in range(len(matrix[i])):
+                if i in rows or j in cols:
+                    matrix[i][j] = 0
 ```
