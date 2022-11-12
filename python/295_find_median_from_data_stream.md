@@ -19,7 +19,7 @@ findMedian() -> 1.5
 addNum(3)
 findMedian() -> 2
 
-居然之前没有撸过这个题目，特点在于需要维护两个heap，但是由于python的heapq模块中是最小堆，所以将所有元素求负，然后就变成了大根堆。
+居然之前没有撸过这个题目，特点在于需要维护两个 heap，但是由于 python 的 heapq 模块中是最小堆，所以将所有元素求负，然后就变成了大根堆。
 
 ```Python
 from heapq import *
@@ -60,7 +60,6 @@ class MedianFinder:
         return (large[0] - small[0]) / 2.0
 ```
 
-
 ```Python
 from heapq import *
 
@@ -77,6 +76,29 @@ class MedianFinder:
     def findMedian(self):
         sign, h1, h2 = d = self.data
         return (h1[0] * sign - d[-sign][0]) / 2.0
+```
+
+还有就是挪来挪去的方式：
+
+```python
+class MedianFinder:
+
+    def __init__(self):
+        self.minheap = list()
+        self.maxheap = list()
+
+
+    def addNum(self, num: int) -> None:
+        if len(self.maxheap) == len(self.minheap):
+            heapq.heappush(self.minheap, -heapq.heappushpop(self.maxheap, -num))
+        else:
+            heapq.heappush(self.maxheap, -heapq.heappushpop(self.minheap, num))
+
+    def findMedian(self) -> float:
+        if len(self.maxheap) == len(self.minheap):
+            return (-self.maxheap[0] + self.minheap[0]) / 2
+        else:
+            return self.minheap[0]
 ```
 
 再有就是其他不再推荐的方法：
@@ -101,4 +123,5 @@ class MedianFinder:
         else:
             return nums[len(nums)//2]
 ```
-二分插入的方式，当然还有BST的方式。
+
+二分插入的方式，当然还有 BST 的方式。
