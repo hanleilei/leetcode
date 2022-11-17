@@ -10,6 +10,7 @@ In a complete binary tree every level, except possibly the last, is completely f
 ### Example:
 
 Input:
+
 ```
     1
    / \
@@ -17,6 +18,7 @@ Input:
  / \  /
 4  5 6
 ```
+
 Output: 6
 
 ```python
@@ -50,6 +52,7 @@ class Solution:
 ```
 
 再来一个稍微简化一点的版本：
+
 ```python
 # Definition for a binary tree node.
 # class TreeNode:
@@ -82,6 +85,7 @@ class Solution:
 ```
 
 在这个算法中，似乎获取深度的函数可以省略：
+
 ```python
 # Definition for a binary tree node.
 # class TreeNode:
@@ -159,3 +163,62 @@ class Solution:
         return root
 
 ```
+
+直接上 DFS：
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def countNodes(self, root: Optional[TreeNode]) -> int:
+        self.c = 0
+
+        def preorder(node):
+            if node:
+                self.c += 1
+                preorder(node.left)
+                preorder(node.right)
+        preorder(root)
+        return self.c
+```
+
+再来一个 bfs：
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def countNodes(self, root: Optional[TreeNode]) -> int:
+        if root is None:
+            return 0
+
+        c = 0
+        queue = deque([root])
+        while queue:
+            curr = queue.popleft()
+            c += 1
+            if curr.left:
+                queue.append(curr.left)
+            if curr.right:
+                queue.append(curr.right)
+        return c
+```
+
+再来一个更简单的，直接算：
+
+```python
+class Solution:
+    def countNodes(self, root: Optional[TreeNode]) -> int:
+        if (root is None): return 0;
+        return 1 + self.countNodes(root.left) + self.countNodes(root.right);
+```
+
+看来 tree 的问题，可以考虑总结一个模版了

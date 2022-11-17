@@ -40,3 +40,19 @@ class Solution:
                 return mid
         return -1
 ```
+
+```python
+class Solution:
+    def guessNumber(self, n: int) -> int:
+        left = 1
+
+        while left <= n:
+            mid = left + (n - left) // 2
+            if guess(mid) == 0:
+                return mid
+            elif guess(mid) == 1:
+                left = mid + 1
+            else:
+                n = mid - 1
+        return -1
+```
