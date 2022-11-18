@@ -24,3 +24,13 @@ class Solution(object):
 
         return num == 1
 ```
+
+```python3
+class Solution:
+    def isUgly(self, n: int) -> bool:
+        if n >= 1:
+            for i in [2, 3, 5]:
+                while n % i == 0:
+                    n //= i
+        return n == 1
+```

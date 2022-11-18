@@ -9,11 +9,10 @@ Example:
 Input: n = 10
 Output: 12
 Explanation: 1, 2, 3, 4, 5, 6, 8, 9, 10, 12 is the sequence of the first 10 ugly numbers.
-Note:  
+Note:
 
 1 is typically treated as an ugly number.
 n does not exceed 1690.
-
 
 ```python
 class Solution:
@@ -71,16 +70,11 @@ class Solution:
             return self.nums[n-1]
 ```
 
-再来一个超级棒的，用heap：
+再来一个超级棒的，用 heap：
 
 ```python
 class Solution:
-    """
-    @param n: An integer
-    @return: return a  integer as description.
-    """
     def nthUglyNumber(self, n):
-        # write your code here
         import heapq
         visited = set([1])
         heap = [1]
@@ -94,4 +88,5 @@ class Solution:
                     visited.add(res*i)
         return res
 ```
-上面heap的方法非常容易理解
+
+上面 heap 的方法非常容易理解
