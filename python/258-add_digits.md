@@ -32,7 +32,9 @@ class Solution(object):
                 return num
 
 ```
+
 #### 好吧，遇到一个更简单的方案：
+
 ```python
 class Solution(object):
     def addDigits(self, num):
@@ -54,4 +56,18 @@ class Solution:
             num = sum([int(i) for i in list(str(num))])
         return num
 
+```
+
+再来一个求余数和求模的结合：
+
+```python
+class Solution:
+    def addDigits(self, nums: int) -> int:
+        while len(str(nums)) > 1:
+            res = 0
+            while nums // 10 > 0:
+                res += nums % 10
+                nums //= 10
+            nums += res
+        return nums
 ```
