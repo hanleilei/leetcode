@@ -5,6 +5,7 @@ Given a 2D board and a word, find if the word exists in the grid.
 The word can be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once.
 
 Example:
+
 ```
 board =
 [
@@ -34,7 +35,7 @@ class Solution:
                     return True
         return False
 
-    # check whether can find word, start at (i,j) position    
+    # check whether can find word, start at (i,j) position
     def dfs(self, board, i, j, word):
         if len(word) == 0: # all the characters are checked
             return True
@@ -50,7 +51,7 @@ class Solution:
 
 ```
 
-上面的方法略慢，要268ms。下面的只要80ms，超过98.6%的人：
+上面的方法略慢，要 268ms。下面的只要 80ms，超过 98.6%的人：
 
 ```python
 class Solution:

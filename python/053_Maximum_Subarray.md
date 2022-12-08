@@ -186,6 +186,21 @@ class Solution:
 
 上面的方法是通过 Kadane 算法实现，参考这个链接：https://zhuanlan.zhihu.com/p/96014673
 
+速度快的版本来一个：
+
+```python
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        maxi, suma = 0, 0
+        for elem in nums:
+            suma += elem
+            if maxi < suma:
+                maxi = suma
+            if suma < 0:
+                suma = 0
+        return maxi if maxi > 0 else max(nums)
+```
+
 下面更新一个 divide & conquer 的方法：
 
 ```python
