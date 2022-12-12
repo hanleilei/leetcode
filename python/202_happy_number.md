@@ -17,11 +17,7 @@ Special thanks to @mithmatt and @ts for adding this problem and creating all tes
 
 ```python
 class Solution:
-    def isHappy(self, n):
-        """
-        :type n: int
-        :rtype: bool
-        """
+    def isHappy(self, n: int) -> bool:
         s = set()
         while n != 1:
             t = 0
@@ -34,4 +30,5 @@ class Solution:
             else:
                 s.add(n)
         return n == 1
+
 ```
