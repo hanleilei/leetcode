@@ -1,8 +1,8 @@
 # classified by company
 
-origin from this url: http://www.learn4master.com/interview-questions/leetcode/leetcode-problems-classified-by-company
+origin from this url: [](http://www.learn4master.com/interview-questions/leetcode/leetcode-problems-classified-by-company)
 
-# LinkedIn(39)
+## LinkedIn(39)
 
 1 Two Sum 23.0% Easy
 21 Merge Two Sorted Lists 35.4% Easy
@@ -44,7 +44,7 @@ origin from this url: http://www.learn4master.com/interview-questions/leetcode/l
 311 Sparse Matrix Multiplication 47.2% Medium
 339 Nested List Weight Sum 54.7% Easy
 
-# Google(90)
+## Google(90)
 
 Median of Two Sorted Arrays 18.6% Hard
 10 Regular Expression Matching 22.0% Hard
@@ -137,7 +137,7 @@ Median of Two Sorted Arrays 18.6% Hard
 340 Longest Substring with At Most K Distinct Characters 37.2% Hard
 341 Flatten Nested List Iterator 19.8% Medium
 
-# Uber(42)
+## Uber(42)
 
 1 Two Sum 23.0% Easy
 8 String to Integer (atoi) 13.5% Easy
@@ -182,7 +182,7 @@ Median of Two Sorted Arrays 18.6% Hard
 297 Serialize and Deserialize Binary Tree 27.8% Har
 337 House Robber III 37.0% Medium
 
-# Airbnb(20)
+## Airbnb(20)
 
 1 Two Sum 23.0% Easy
 2 Add Two Numbers 23.0% Medium
@@ -205,7 +205,7 @@ Median of Two Sorted Arrays 18.6% Hard
 269 Alien Dictionary 22.9% Hard
 336 Palindrome Pairs 19.5% Hard
 
-# Facebook(79)
+## Facebook(79)
 
 1 Two Sum 23.0% Easy
 10 Regular Expression Matching 22.0% Hard
@@ -287,7 +287,7 @@ Median of Two Sorted Arrays 18.6% Hard
 325 Maximum Size Subarray Sum Equals k 39.9% Easy
 334 Increasing Triplet Subsequence 33.2% Medium
 
-# Twitter(21)
+## Twitter(21)
 
 Regular Expression Matching 22.0% Hard
 12 Integer to Roman 38.8% Medium
@@ -311,7 +311,8 @@ Regular Expression Matching 22.0% Hard
 269 Alien Dictionary 22.9% Hard
 296 Best Meeting Point 46.7% Hard
 
-# Zenefit(21)
+## Zenefit(21)
+
 4 Median of Two Sorted Arrays 18.6% Hard
 20 Valid Parentheses 29.3% Easy
 22 Generate Parentheses 36.9% Medium
@@ -334,8 +335,9 @@ Regular Expression Matching 22.0% Hard
 261 Graph Valid Tree 32.5% Medium
 317 Shortest Distance from All Buildings 31.1% Hard
 
-# Amazon(41)
- 1 Two Sum 23.0% Easy
+## Amazon(41)
+
+1 Two Sum 23.0% Easy
 2 Add Two Numbers 23.0% Medium
 3 Longest Substring Without Repeating Characters 21.9% Medium
 5 Longest Palindromic Substring 23.0% Medium
@@ -377,7 +379,8 @@ Regular Expression Matching 22.0% Hard
 242 Valid Anagram 41.7% Easy
 297 Serialize and Deserialize Binary Tree 27.8% Hard
 
-# Microsoft(77)
+## Microsoft(77)
+
 1 Two Sum 23.0% Easy
 2 Add Two Numbers 23.0% Medium
 4 Median of Two Sorted Arrays 18.6% Hard
@@ -456,7 +459,8 @@ Regular Expression Matching 22.0% Hard
 300 Longest Increasing Subsequence 34.2% Medium
 333 Largest BST Subtree 26.5% Medium
 
-# Snapchat(15)
+## Snapchat(15)
+
 36 Valid Sudoku 30.5% Easy
 39 Combination Sum 30.9% Medium
 44 Wildcard Matching 17.4% Hard
@@ -473,8 +477,9 @@ Regular Expression Matching 22.0% Hard
 289 Game of Life 34.2% Medium
 314 Binary Tree Vertical Order Traversal 30.3% Medium
 
-# Apple(28)
- 1 Two Sum 23.0% Easy
+## Apple(28)
+
+1 Two Sum 23.0% Easy
 4 Median of Two Sorted Arrays 18.6% Hard
 7 Reverse Integer 23.6% Easy
 21 Merge Two Sorted Lists 35.4% Easy
@@ -503,7 +508,8 @@ Regular Expression Matching 22.0% Hard
 257 Binary Tree Paths 28.4% Easy
 284 Peeking Iterator 33.5% Medium
 
-# Yahoo(11)
+## Yahoo(11)
+
 1 Two Sum 23.0% Easy
 4 Median of Two Sorted Arrays 18.6% Hard
 13 Roman to Integer 39.2% Easy
@@ -516,7 +522,8 @@ Regular Expression Matching 22.0% Hard
 284 Peeking Iterator 33.5% Medium
 297 Serialize and Deserialize Binary Tree 27.8% Hard
 
-# Dropbox(7)
+## Dropbox(7)
+
 1 Two Sum 23.0% Easy
 4 Median of Two Sorted Arrays 18.6% Hard
 17 Letter Combinations of a Phone Number 28.6% Medium
@@ -525,7 +532,8 @@ Regular Expression Matching 22.0% Hard
 290 Word Pattern 29.0% Easy
 291 Word Pattern II 34.8% Hard
 
-# Bloomberg(57)
+## Bloomberg(57)
+
 1 Two Sum 23.0% Easy
 2 Add Two Numbers 23.0% Medium
 3 Longest Substring Without Repeating Characters 21.9% Medium
@@ -584,8 +592,9 @@ Regular Expression Matching 22.0% Hard
 287 Find the Duplicate Number 38.5% Hard
 297 Serialize and Deserialize Binary Tree 27.8% Hard
 
-# Yelp(12)
- 1 Two Sum 23.0% Easy
+### Yelp(12)
+
+1 Two Sum 23.0% Easy
 3 Longest Substring Without Repeating Characters 21.9% Medium
 14 Longest Common Prefix 28.1% Easy
 49 Group Anagrams 27.4% Medium
@@ -598,7 +607,8 @@ Regular Expression Matching 22.0% Hard
 218 The Skyline Problem 22.0% Hard
 242 Valid Anagram 41.7% Easy
 
-# Palantir(7)
+## Palantir(7)
+
 136 Single Number 49.6% Medium
 146 LRU Cache 15.8% Hard
 217 Contains Duplicate 41.1% Easy
@@ -607,7 +617,8 @@ Regular Expression Matching 22.0% Hard
 303 Range Sum Query – Immutable 24.4% Easy
 325 Maximum Size Subarray Sum Equals k 39.9% Easy
 
-# Adobe(12)
+## Adobe(12)
+
 1 Two Sum 23.0% Easy
 2 Add Two Numbers 23.0% Medium
 3 Longest Substring Without Repeating Characters 21.9% Medium

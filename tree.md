@@ -1,4 +1,4 @@
-Ancestor problem :-
+Ancestor problem :
 
 1.https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/ 2.https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/ 3.https://leetcode.com/problems/maximum-difference-between-node-and-ancestor/ 4.https://leetcode.com/problems/lowest-common-ancestor-of-deepest-leaves/ 5.https://leetcode.com/problems/kth-ancestor-of-a-tree-node/ 6.https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/
 

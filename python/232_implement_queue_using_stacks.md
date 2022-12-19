@@ -12,7 +12,45 @@ Depending on your language, stack may not be supported natively. You may simulat
 You may assume that all operations are valid (for example, no pop or peek operations will be called on an empty queue).
 Subscribe to see which companies asked this question.
 
-## 很简答，只要用deque的函数就够了
+如果不是有用标准库，就可以直接用两个列表作为 stack 表示：
+
+```python
+class MyQueue:
+
+    def __init__(self):
+        self.q1 = list()
+        self.q2 = list()
+
+    def push(self, x: int) -> None:
+        self.q1.append(x)
+
+    def pop(self) -> int:
+        if len(self.q2) == 0:
+            while self.q1:
+                self.q2.append(self.q1.pop())
+        return self.q2.pop()
+
+    def peek(self) -> int:
+        if len(self.q2) == 0:
+            while self.q1:
+                self.q2.append(self.q1.pop())
+        return self.q2[-1]
+
+    def empty(self) -> bool:
+        if len(self.q1) == 0 and len(self.q2) == 0:
+            return True
+        return False
+
+
+# Your MyQueue object will be instantiated and called as such:
+# obj = MyQueue()
+# obj.push(x)
+# param_2 = obj.pop()
+# param_3 = obj.peek()
+# param_4 = obj.empty()
+```
+
+## 很简答，只要用 deque 的函数就够了
 
 ```python
 class MyQueue(object):
