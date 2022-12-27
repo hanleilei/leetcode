@@ -8,9 +8,9 @@ Insert a character
 Delete a character
 Replace a character
 
-
 Example 1:
-```
+
+```comment
 Input: word1 = "horse", word2 = "ros"
 Output: 3
 Explanation:
@@ -20,7 +20,8 @@ rose -> ros (remove 'e')
 ```
 
 Example 2:
-```
+
+```comment
 Input: word1 = "intention", word2 = "execution"
 Output: 5
 Explanation:
@@ -105,7 +106,7 @@ class Solution:
 
 再来一个速度更快的：
 
-```Python
+```python
 class Solution:
     def minDistance(self, word1, word2):
         """
@@ -135,7 +136,7 @@ class Solution:
 
 再来一个heap版本的：
 
-```Python
+```python
 class Solution:
     def minDistance(self, word1, word2):
         """
@@ -168,7 +169,9 @@ class Solution:
                     heapq.heappush(heap,(distance+1, w1[:-1], w2[:-1]))
 
 ```
+
 再来一个deque的版本，也是最快的版本：
+
 ```python
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:

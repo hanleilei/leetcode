@@ -49,7 +49,7 @@ public:
         for (int i = 0; i < nums.size(); i++) {
             int numberToFind = target - nums[i];
 
-                //if numberToFind is found in map, return them
+            //if numberToFind is found in map, return them
             if (hash.find(numberToFind) != hash.end()) {
             //+1 because indices are NOT zero based
                 result.push_back(hash[numberToFind]);
