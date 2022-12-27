@@ -4,7 +4,6 @@ We are given a personal information string S, which may represent either an emai
 
 We would like to mask this personal information according to the following rules:
 
-
 1. Email address:
 
 We define a name to be a string of length ≥ 2 consisting of only lowercase letters a-z or uppercase letters A-Z.
@@ -14,7 +13,6 @@ An email address starts with a name, followed by the symbol '@', followed by a n
 All email addresses are guaranteed to be valid and in the format of "name1@name2.name3".
 
 To mask an email, all names must be converted to lowercase and all letters between the first and last letter of the first name must be replaced by 5 asterisks '*'.
-
 
 2. Phone number:
 
@@ -28,40 +26,43 @@ To mask a phone number with country code like "+111 111 111 1111", we write it i
 
 Note that extraneous characters like "(", ")", " ", as well as extra dashes or plus signs not part of the above formatting scheme should be removed.
 
-
-
 Return the correct "mask" of the information provided.
 
-
-
 Example 1:
+
 ```
 Input: "LeetCode@LeetCode.com"
 Output: "l*****e@leetcode.com"
 Explanation: All names are converted to lowercase, and the letters between the
              first and last letter of the first name is replaced by 5 asterisks.
              Therefore, "leetcode" -> "l*****e".
-
 ```
+
 Example 2:
+
 ```
 Input: "AB@qq.com"
 Output: "a*****b@qq.com"
 Explanation: There must be 5 asterisks between the first and last letter
              of the first name "ab". Therefore, "ab" -> "a*****b".
 ```
+
 Example 3:
+
 ```
 Input: "1(234)567-890"
 Output: "***-***-7890"
 Explanation: 10 digits in the phone number, which means all digits make up the local number.
 ```
+
 Example 4:
+
 ```
 Input: "86-(10)12345678"
 Output: "+**-***-***-5678"
 Explanation: 12 digits, 2 digits for country code and 10 digits for local number.
 ```
+
 ***** these start for remove the syntax for markdown.
 Notes:
 
@@ -89,5 +90,4 @@ class Solution:
                 return "***-***-" + ''.join(t[-4:])
             else:
                 return "+" + (len(t) -10) * '*' + "-***-***-" + ''.join(t[-4:])
-
 ```

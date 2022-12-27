@@ -28,8 +28,6 @@ Hence, answer[0] = 8, and so on.
 
 ![](https://assets.leetcode.com/uploads/2021/07/23/lc-sumdist3.jpg)
 
-
-
 **Input:** n = 2, edges = [[1,0]]
 **Output:** [1,1]
 
@@ -41,6 +39,8 @@ Hence, answer[0] = 8, and so on.
 - `0 <= ai, bi < n`
 - `ai != bi`
 - The given input represents a valid tree.
+
+**下面来看下lee215的方法：**
 
 # **Intuition**
 
@@ -157,8 +157,6 @@ public:
 };
 ```
 
-
-
 ```python
 class Solution:
     def sumOfDistancesInTree(self, N: int, edges: List[List[int]]) -> List[int]:
@@ -185,5 +183,3 @@ class Solution:
         dfs2(0, -1)
         return res
 ```
-
-
