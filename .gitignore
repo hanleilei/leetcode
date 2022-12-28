@@ -23,6 +23,7 @@ var/
 .installed.cfg
 *.egg
 .history/
+MWebLibrary/
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
