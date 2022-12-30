@@ -1,8 +1,10 @@
 # Partition Labels
+
 [[string]]
 A string S of lowercase letters is given. We want to partition this string into as many parts as possible so that each letter appears in at most one part, and return a list of integers representing the size of these parts.
 
 ## Example 1:
+
 ```
 Input: S = "ababcbacadefegdehijhklij"
 Output: [9,7,8]
@@ -58,10 +60,9 @@ class Solution:
         return res
 ```
 
-
 再来一个，更简单的：
 
-```Python
+```python
 class Solution:
     def partitionLabels(self, S: str) -> List[int]:
         d = {v:i for i, v in enumerate(S)}
@@ -73,5 +74,4 @@ class Solution:
                 res.append(i-l+1)
                 l = i+1
         return res
-
 ```
