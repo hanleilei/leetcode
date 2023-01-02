@@ -39,3 +39,11 @@ class Solution:
     def detectCapitalUse(self, word: str) -> bool:
         return word.istitle() or word.islower() or word.isupper()
 ```
+
+或者：
+
+```python
+class Solution:
+    def detectCapitalUse(self, word: str) -> bool:
+        return word in [ word.upper(), word.lower(), word.capitalize()]
+```

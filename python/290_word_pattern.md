@@ -42,3 +42,12 @@ class Solution(object):
                 return False
         return True
 ```
+
+来一个简单的：
+
+```python
+class Solution:
+    def wordPattern(self, p: str, s: str) -> bool:
+        t = s.split()
+        return len(set(zip(p, t))) == len(set(p)) == len(set(t)) and len(p) == len(t)
+```
