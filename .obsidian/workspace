@@ -1,0 +1,102 @@
+{
+  "main": {
+    "id": "6622c1fa89c50cf5",
+    "type": "split",
+    "children": [
+      {
+        "id": "9e387c7edc753daa",
+        "type": "leaf",
+        "state": {
+          "type": "markdown",
+          "state": {
+            "file": "python/905_Sort_Array_By_Parity.md",
+            "mode": "source"
+          }
+        }
+      }
+    ],
+    "direction": "vertical"
+  },
+  "left": {
+    "id": "34543d26b04a9ba8",
+    "type": "split",
+    "children": [
+      {
+        "id": "6aca17bb3c70e877",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "4d94c38bd057246f",
+            "type": "leaf",
+            "state": {
+              "type": "file-explorer",
+              "state": {}
+            }
+          },
+          {
+            "id": "76705a21fcc65ccb",
+            "type": "leaf",
+            "state": {
+              "type": "search",
+              "state": {
+                "query": "",
+                "matchingCase": false,
+                "explainSearch": false,
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical"
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300
+  },
+  "right": {
+    "id": "136abd8485753f35",
+    "type": "split",
+    "children": [
+      {
+        "id": "139c5d05c2b09c65",
+        "type": "tabs",
+        "children": [
+          {
+            "id": "c2ff9c5385af88ab",
+            "type": "leaf",
+            "state": {
+              "type": "backlink",
+              "state": {
+                "file": "python/905_Sort_Array_By_Parity.md",
+                "collapseAll": false,
+                "extraContext": false,
+                "sortOrder": "alphabetical",
+                "showSearch": false,
+                "searchQuery": "",
+                "backlinkCollapsed": false,
+                "unlinkedCollapsed": true
+              }
+            }
+          }
+        ]
+      }
+    ],
+    "direction": "horizontal",
+    "width": 300,
+    "collapsed": true
+  },
+  "active": "9e387c7edc753daa",
+  "lastOpenFiles": [
+    "python/905_Sort_Array_By_Parity.md",
+    "python/011_container_with_most_water.md",
+    "python/009-palindrome_Number.md",
+    "python/010-Regular_expression_matching.md",
+    "python/008_string_to_integer.md",
+    "python/001-two_sum.md",
+    "hashtable.md",
+    "python/006_zigzag_conversion.md",
+    "python/005_Longest_Palindromic_Substring.md",
+    "python/004-median_of_two_sorted_arrays.md"
+  ]
+}
