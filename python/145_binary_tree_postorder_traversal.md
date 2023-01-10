@@ -4,16 +4,16 @@ Given a binary tree, return the postorder traversal of its nodes' values.
 
 For example:
 Given binary tree {1,#,2,3},
-   1
-    \
-     2
-    /
-   3
+1
+\
+ 2
+/
+3
 return [3,2,1].
 
 Note: Recursive solution is trivial, could you do it iteratively?
 
-和 94的问题一模一样，改变以下顺序就好。
+和 94 的问题一模一样，改变以下顺序就好。
 
 ```Python
 # Definition for a binary tree node.
@@ -39,6 +39,20 @@ class Solution:
             self.helper(root.right, res)
             res.append(root.val)
 
+```
+
+```python
+class Solution:
+    def postorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        ret = []
+        stack = [root]
+        while stack:
+            node = stack.pop()
+            if node:
+                ret.append(node.val)
+                stack.append(node.left)
+                stack.append(node.right)
+        return ret[::-1]
 ```
 
 下面尝试下使用非递归的方式实现
