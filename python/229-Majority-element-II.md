@@ -6,9 +6,7 @@ Hint:
 
 How many majority elements could it possibly have?
 
-
 #### 无他，和第一版没差别，就是返回一个列表
-
 
 ```python
 class Solution(object):

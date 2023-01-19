@@ -47,3 +47,58 @@ class Solution:
                 len(password) > 7 and \
                 all([password[i] != password[i+1] for i in range(len(password) - 1)])
 ```
+
+换个思路，挨个计算，然后求和
+
+```python
+import string
+class Solution:
+    def strongPasswordCheckerII(self, password: str) -> bool:
+        n = len(password)
+        if n < 8: return False
+        rec = [0] * 4
+        special = "!@#$%^&*()-+"
+        for i in range(n):
+            if i != n - 1 and password[i] == password[i+1]:
+                return False
+            if password[i] in string.ascii_lowercase and rec[0] == 0:
+                rec[0] += 1
+            elif password[i] in string.ascii_uppercase and rec[1] == 0:
+                rec[1] += 1
+            elif password[i] in string.digits and rec[2] == 0:
+                rec[2] += 1
+            elif password[i] in special and rec[3] == 0:
+                rec[3] += 1
+        return sum(rec) == 4
+```
+
+再来一个cpp的版本：
+
+```cpp
+class Solution {
+public:
+    bool strongPasswordCheckerII(string password) {
+        int n = password.size();
+        if(n<8){
+            return false;
+        }
+        vector<int> res(4, 0);
+        string special = "!@#$%^&*()-+";
+        for(int i=0;i<n;i++){
+            if(i!=n-2&&password[i]==password[i+1]){
+                return false;
+            }
+            if(password[i]>='a'&&password[i]<='z'&&res[0]==0){
+                res[0]++;
+            }else if(password[i]>='A'&&password[i]<='Z'&&res[1]==0){
+                res[1]++;
+            }else if(password[i]>='0'&&password[i]<='9'&&res[2]==0){
+                res[2]++;
+            }else if(special.find(password[i])!=special.npos&&res[3]==0){
+                res[3]++;
+            }
+        }
+        return accumulate(res.begin(), res.end(), 0)==4;
+    }
+};
+```
