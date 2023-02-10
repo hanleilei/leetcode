@@ -34,3 +34,21 @@ class Solution(object):
             njump+=1
         return njump
 ```
+
+
+Explanation
+
+The main idea is based on greedy. Let's say the range of the current jump is [curBegin, curEnd], curFarthest is the farthest point that all points in [curBegin, curEnd] can reach. Once the current point reaches curEnd, then trigger another jump, and set the new curEnd with curFarthest, then keep the above steps, as the following:
+
+```python
+class Solution:
+    def jump(self, nums: List[int]) -> int:
+        jumps, curEnd, curFarthest = 0, 0, 0
+
+        for i in range(len(nums) - 1):
+            curFarthest = max(curFarthest, i + nums[i])
+            if i == curEnd:
+                jumps += 1
+                curEnd = curFarthest
+        return jumps
+```
