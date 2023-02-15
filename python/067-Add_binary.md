@@ -19,3 +19,9 @@ class Solution(object):
         """
         return bin(eval('0b'+a) +eval('0b'+b))[2:]
 ```
+
+```python
+class Solution:
+    def addBinary(self, a: str, b: str) -> str:
+        return bin(int(str(a), 2) + int(str(b), 2))[2:]
+```
