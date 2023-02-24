@@ -60,3 +60,4 @@ target/
 # vscode
 .vscode
 t.py
+t.sh

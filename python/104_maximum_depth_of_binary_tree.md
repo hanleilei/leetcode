@@ -37,24 +37,20 @@ class Solution(object):
 #         self.right = None
 
 class Solution:
-    def maxDepth(self, root):
-        """
-        :type root: TreeNode
-        :rtype: int
-        """
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0
 
         res = 0
-        q = collections.deque()
-        q.append(root)
-        while q:
+        dq = collections.deque()
+        dq.append(root)
+        while dq:
             res += 1
-            for i in range(len(q)):
-                p = q.popleft()
+            for i in range(len(dq)):
+                p = dq.popleft()
                 if p.left:
-                    q.append(p.left)
+                    dq.append(p.left)
                 if p.right:
-                    q.append(p.right)
+                    dq.append(p.right)
         return res
 ```

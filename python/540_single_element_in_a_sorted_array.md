@@ -10,7 +10,7 @@ Input: [3,3,7,7,10,11,11]
 Output: 10
 Note: Your solution should run in O(log n) time and O(1) space
 
-## 使用Counter，直接搞定
+使用Counter，直接搞定
 
 ```python
 class Solution(object):
@@ -24,4 +24,14 @@ class Solution(object):
         for k, v in Counter(nums).items():
             d[v] = k
         return d[1]
+```
+数学问题而已，奇怪我之前怎么了。。？？
+
+```python
+class Solution:
+    def singleNonDuplicate(self, nums: List[int]) -> int:
+        res = 0
+        for i in nums:
+            res ^= i
+        return res
 ```
