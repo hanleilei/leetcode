@@ -43,6 +43,7 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *,cover
+.pytest_cache
 
 # Translations
 *.mo
@@ -56,6 +57,7 @@ docs/_build/
 
 # PyBuilder
 target/
+.obsidian
 
 # vscode
 .vscode
