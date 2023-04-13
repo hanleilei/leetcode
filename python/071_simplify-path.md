@@ -26,3 +26,21 @@ class Solution(object):
         import os
         return os.path.abspath(path)
 ```
+
+```python
+class Solution:
+    def simplifyPath(self, path: str) -> str:
+        p = path.split("/")
+        res = list()
+        
+        for i in p:
+            if i == "." or i == "":
+                continue
+            elif i == "..":
+                if len(res) > 0:
+                    res.pop()
+            else:
+                res.append(i)
+        return "/" + "/".join(res)
+
+```

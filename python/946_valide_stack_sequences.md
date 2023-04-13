@@ -44,3 +44,19 @@ class Solution:
                 cur.pop()
         return i == len(popped)
 ```
+来一个自己的算法：
+
+```python
+class Solution:
+    def validateStackSequences(self, pushed: List[int], popped: List[int]) -> bool:
+        stack = list()
+        index = 0
+
+        for i in pushed:
+            stack.append(i)
+            while stack and popped[index] == stack[-1]:
+                stack.pop()
+                index += 1
+            
+        return popped[index:] == stack[::-1] 
+```

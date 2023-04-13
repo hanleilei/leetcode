@@ -26,7 +26,7 @@ But the following [1,2,2,null,3,null,3] is not:
 
 Bonus points if you could solve it both recursively and iteratively.
 
-#### 先想到的办法，还是递归。。和之前的题目差别多。
+先想到的办法，还是递归。。和之前的题目差别多。
 
 ```python
 # Definition for a binary tree node.

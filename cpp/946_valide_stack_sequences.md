@@ -27,7 +27,6 @@ Explanation: 1 cannot be popped before 2.
 3. pushed is a permutation of popped.
 4. pushed and popped have distinct values.
 
-
 ```cpp
 bool validateStackSequences(vector<int>& pushed, vector<int>& popped) {
         stack<int> s;
