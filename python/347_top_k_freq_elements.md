@@ -62,3 +62,11 @@ class Solution(object):
         res = sorted(freq, key=lambda x: (-freq[x], x))
         return res[0:k]
 ```
+
+来个骚的。。
+
+```python
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        return [k for k, _ in collections.Counter(nums).most_common(k)]
+```
