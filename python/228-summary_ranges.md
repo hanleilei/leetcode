@@ -5,7 +5,10 @@ Given a sorted integer array without duplicates, return the summary of its range
 For example, given [0,1,2,4,5,7], return ["0->2","4->5","7"].
 
 
-#### 坦白的讲，我没有做出来，看明白了下面的算法，https://leetcode.com/discuss/42199/6-lines-in-python 转换为二维数组的方式。后面的几个算法都很简洁。。
+坦白的讲，我没有做出来，看明白了下面的算法，https://leetcode.com/discuss/42199/6-lines-in-python 转换为二维数组的方式。后面的几个算法都很简洁。。
+
+先看一个stefan的方法：
+
 ```python
 class Solution(object):
     def summaryRanges(self, nums):
@@ -37,7 +40,7 @@ class Solution:
             x += 1
         return ans
 ```
-
+再来一个stefan 的方法：
 ```python
 def summaryRanges(self, nums):
     ranges, r = [], []
@@ -59,3 +62,26 @@ def summaryRanges(self, nums):
         r[1:] = `n`,
     return map('->'.join, ranges)
 ```
+时光荏苒啊。。我记得方法。。。
+
+```python
+class Solution:
+    def summaryRanges(self, nums: List[int]) -> List[str]:
+        res = list()
+        i = 0
+        nums.append(float(inf))
+
+        while i < len(nums)-1:
+            t = list()
+            t.append(nums[i])
+            while nums[i] + 1 == nums[i+1]:
+                i += 1
+            t.append(nums[i])
+            if t[0] != t[1]:
+                res.append("->".join([str(i) for i in t]))
+            else:
+                res.append(str(t[0]))
+            i += 1
+        return res
+```
+方法没有第一个简洁。
