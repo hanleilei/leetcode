@@ -84,4 +84,18 @@ class Solution:
             i += 1
         return res
 ```
-方法没有第一个简洁。
+再来一个很清爽易懂的方法：
+
+```python
+class Solution:
+    def summaryRanges(self, nums: List[int]) -> List[str]:
+        i, result, n = 0, [], len(nums)
+        
+        while i < n:
+            begin = end = i
+            while end < n - 1 and nums[end] + 1 == nums[end + 1]: end += 1
+            result.append(str(nums[begin]) + ("->" + str(nums[end])) *(begin != end))     
+            i = end + 1
+        
+        return result
+```
