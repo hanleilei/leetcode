@@ -39,3 +39,13 @@ select Name as Customers from Customers where Id not in (select CustomerId from 
 ```SQL
 SELECT Customers.Name AS Customers FROM (Customers LEFT JOIN Orders ON Customers.Id = Orders.CustomerId) WHERE Orders.CustomerId IS NULL
 ```
+
+再来一个，还是left join的方法速度快。
+
+```sql
+select c.name as Customers
+from Customers c
+left join Orders o
+on o.customerId = c.id
+where o.customerId is NULL
+```
