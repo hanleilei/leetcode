@@ -75,3 +75,33 @@ from
 order by
 	employee_id asc
 ```
+
+受到bard的启发：
+
+```sql
+# Write your MySQL query statement below
+SELECT
+  employee_id,
+  CASE
+    WHEN employee_id % 2 = 1 AND name NOT LIKE 'M%' THEN salary
+    ELSE 0
+  END AS bonus
+FROM employees
+ORDER BY employee_id;
+```
+
+主要这个是有case语句
+
+再看看Pandas的方法：
+
+```python
+import pandas as pd
+
+def calculate_special_bonus(employees: pd.DataFrame) -> pd.DataFrame:
+    employees['bonus'] = employees.apply(
+        lambda x: x['salary'] if x['employee_id'] % 2 and not x['name'].startswith('M') else 0,
+        axis = 1
+    )
+    df = employees[['employee_id', 'bonus']].sort_values('employee_id')
+    return df
+```

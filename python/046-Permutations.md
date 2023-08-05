@@ -80,6 +80,29 @@ class Solution:
         return res
 ```
 
+或者：
+
+```python
+class Solution:
+    def backtrack(self, nums, ind, result):        
+        def swap(a,b):
+            nums[a],nums[b]=nums[b],nums[a]
+            
+        if ind==len(nums)-1:
+            result.append(nums[:])
+            return
+        
+        for i in range(ind,len(nums)):
+            swap(ind, i)
+            self.backtrack(nums, ind+1, result)
+            swap(i,ind)
+            
+    def permute(self, nums: List[int]) -> List[List[int]]: 
+        result=[]
+        self.backtrack(nums, 0, result)
+        return result
+```
+
 再来一个, 这个方法非常之巧妙
 
 ```Python
