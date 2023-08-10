@@ -14,33 +14,11 @@ Write a function to determine if a given target is in the array.
 
 The array may contain duplicates
 
-#### 和33一样，继续抖机灵。。
-
-```python
-class Solution(object):
-    def search(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: bool
-        """
-        if target in nums:
-            return True
-        else:
-            return False
-
-```
-
-这样抖机灵不好，还是正常的按照二分法来做。注意会有重复元素.
+参考33题，正常的按照二分法来做。注意会有重复元素.
 
 ```python
 class Solution:
-    def search(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: bool
-        """
+    def search(self, nums: List[int], target: int) -> bool:
         l, r = 0, len(nums)-1
         while l <= r:
             mid = l + (r-l)//2
@@ -63,5 +41,4 @@ class Solution:
                 else:
                     r = mid - 1
         return False
-        
 ```
