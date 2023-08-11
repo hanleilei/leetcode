@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "25fee1991a91bae1",
+        "id": "733f6480f7f6dcf0",
         "type": "tabs",
         "children": [
           {
-            "id": "314db3b404211c9b",
+            "id": "79454c39466b035e",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -52,12 +52,21 @@
                 "sortOrder": "alphabetical"
               }
             }
+          },
+          {
+            "id": "f5cccd1511a550e6",
+            "type": "leaf",
+            "state": {
+              "type": "bookmarks",
+              "state": {}
+            }
           }
         ]
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "136abd8485753f35",
@@ -90,8 +99,19 @@
     "width": 300,
     "collapsed": true
   },
-  "active": "314db3b404211c9b",
+  "left-ribbon": {
+    "hiddenItems": {
+      "switcher:Open quick switcher": false,
+      "graph:Open graph view": false,
+      "canvas:Create new canvas": false,
+      "command-palette:Open command palette": false,
+      "markdown-importer:Open format converter": false
+    }
+  },
+  "active": "79454c39466b035e",
   "lastOpenFiles": [
+    "python/002_add_two_numbers.md",
+    "python/001_two_sum.md",
     "python/003_Longest_Substring_Without_Repeating_Characters.md",
     "python/059_spiral_matrix_II.md",
     "python/056_merge_intervals.md",
