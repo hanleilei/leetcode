@@ -36,7 +36,7 @@ class Solution:
                 l2.next = head
                 l2 = l2.next
             head = head.next
-        l2.next = None
+        l2.next = None  # important! avoid cycle in linked list. otherwise u will get TLE.
         l1.next = h2.next
         return h1.next
 

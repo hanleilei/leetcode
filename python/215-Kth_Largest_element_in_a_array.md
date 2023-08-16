@@ -1,26 +1,27 @@
 # Kth Largest Element in an Array
 
+Given an integer array nums and an integer k, return the kth largest element in the array.
 
-Find the kth largest element in an unsorted array. Note that it is the kth largest element in the sorted order, not the kth distinct element.
+Note that it is the kth largest element in the sorted order, not the kth distinct element.
 
-For example,
-Given [3,2,1,5,6,4] and k = 2, return 5.
+Can you solve it without sorting?
 
-Note:
-You may assume k is always valid, 1 ≤ k ≤ array's length.
+Example 1:
+```
+Input: nums = [3,2,1,5,6,4], k = 2
+Output: 5
+```
 
+Example 2:
+```
+Input: nums = [3,2,3,1,2,4,5,5,6], k = 4
+Output: 4
+```
 
-
-#### 很简单的问题，求列表逆序，然后或去k－1的索引元素值
-```python
-class Solution(object):
-    def findKthLargest(self, nums, k):
-        """
-        :type nums: List[int]
-        :type k: int
-        :rtype: int
-        """
-        return sorted(nums,reverse=True)[k-1]
+Constraints:
+```
+1 <= k <= nums.length <= 105
+-104 <= nums[i] <= 104
 ```
 
 下面是caikehe的解法全集。但是其中也就最后一个使用快速排序的解法最有价值，其次使用堆排序的解法。
@@ -87,4 +88,39 @@ def partition(self, nums, l, r):
         l += 1
     nums[low], nums[r] = nums[r], nums[low]
     return low
+```
+
+这个问题，第一反应的答案就是：quick select或者heap：
+
+```python
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        return self.quickSelect(nums, 0, len(nums)-1, k)
+
+    def quickSelect(self, nums, start, n, k): # quick select
+        pos = self.partition(nums, start, n)
+        if pos == k-1:
+            return nums[pos]
+        elif pos >= k:
+            return self.quickSelect(nums, start, pos - 1, k)
+        return self.quickSelect(nums, pos + 1, n, k)
+
+    def partition(self, nums, left, right):
+        pivot = nums[right] # pick the last one as pivot
+        i = left
+        for j in range(left, right): # left to right -1
+            if nums[j] > pivot: # the larger elements are in left side
+                nums[j], nums[i] = nums[i], nums[j]
+                i += 1
+        nums[right], nums[i] = nums[i], nums[right] # swap the i and the last element
+        return i
+```
+
+或者：
+
+```python
+import heapq
+class Solution:
+    def findKthLargest(self, nums: List[int], k: int) -> int:
+        return heapq.nlargest(k, nums)[-1]
 ```
