@@ -24,7 +24,7 @@ Output: [1,2,3,4,8,12,11,10,9,5,6,7]
 ```
 
 注意求矩阵转置的写法：
-[*zip(*matrix)][::-1]
+```[*zip(*matrix)][::-1]```
 
 ```python
 class Solution:
