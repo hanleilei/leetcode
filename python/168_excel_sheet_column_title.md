@@ -3,7 +3,7 @@
 Given a positive integer, return its corresponding column title as appear in an Excel sheet.
 
 For example:
-
+```
     1 -> A
     2 -> B
     3 -> C
@@ -11,8 +11,9 @@ For example:
     26 -> Z
     27 -> AA
     28 -> AB
+```
 
-##### 需要对于python中的chr和ord函数非常了解，然后很多就很好做。
+需要对于python中的chr和ord函数非常了解，然后很多就很好做。
 
 ```python
 class Solution(object):
@@ -56,4 +57,18 @@ class Solution(object):
         # if n not in self.alpha:
         #     self.alpha[n] = res
         return res
+```
+
+上面的方法，有点不是太容易理解，再来一个简单点的：
+
+```Python
+class Solution:
+    def convertToTitle(self, n: int) -> str:
+        capitals = string.ascii_uppercase
+        result = []
+        while n > 0:
+            result.append(capitals[(n-1)%26])
+            n = (n-1) // 26
+        result.reverse()
+        return ''.join(result)
 ```
