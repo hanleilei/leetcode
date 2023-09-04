@@ -2,8 +2,9 @@
 
 Given a positive integer n, generate a square matrix filled with elements from 1 to n2 in spiral order.
 
-##Example:
-```
+## Example
+
+```text
 Input: 3
 Output:
 [
@@ -12,9 +13,10 @@ Output:
  [ 7, 6, 5 ]
 ]
 ```
+
 还是stefan大神的答案最吊。。(https://leetcode.com/problems/spiral-matrix-ii/discuss/22282/4-9-lines-Python-solutions)
 
-```
+```text
 ||  =>  |9|  =>  |8|      |6 7|      |4 5|      |1 2 3|
                  |9|  =>  |9 8|  =>  |9 6|  =>  |8 9 4|
                                      |8 7|      |7 6 5|
