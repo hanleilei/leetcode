@@ -4,11 +4,11 @@
     "type": "split",
     "children": [
       {
-        "id": "733f6480f7f6dcf0",
+        "id": "3c707749feedce65",
         "type": "tabs",
         "children": [
           {
-            "id": "79454c39466b035e",
+            "id": "ca2704c9660666df",
             "type": "leaf",
             "state": {
               "type": "empty",
@@ -65,8 +65,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300,
-    "collapsed": true
+    "width": 300
   },
   "right": {
     "id": "136abd8485753f35",
@@ -108,7 +107,7 @@
       "markdown-importer:Open format converter": false
     }
   },
-  "active": "79454c39466b035e",
+  "active": "4d94c38bd057246f",
   "lastOpenFiles": [
     "SQL/2082_The_Number_of_Rich_Customers.md",
     "SQL/1795_Rearrange_Products_Table.md",
