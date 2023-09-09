@@ -50,69 +50,6 @@ Output: [[3,null],[3,0],[3,null]]
 
 似乎别的大神的方案都有点复杂，这个还是非常简练的算法：
 
-```python
-"""
-# Definition for a Node.
-class Node:
-    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
-        self.val = int(x)
-        self.next = next
-        self.random = random
-"""
-
-class Solution:
-    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        if not head:
-            return
-        m = n = head
-        dic = {}
-        while m:
-            dic[m]  = Node(m.val)
-            m = m.next
-
-        while n:
-            dic[n].next = dic.get(n.next)
-            dic[n].random = dic.get(n.random)
-            n = n.next
-
-        return dic[head]
-```
-
-```python
-"""
-# Definition for a Node.
-class Node:
-    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
-        self.val = int(x)
-        self.next = next
-        self.random = random
-"""
-
-class Solution:
-    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        if not head:
-            return head
-
-        cur = head
-        while cur:
-            deep_copy = Node(cur.val)
-            deep_copy.next = cur.next
-            cur.next = deep_copy
-            cur = deep_copy.next
-            
-        cur = head
-        while cur:
-            cur.next.random = cur.random.next if cur.random else None
-            cur = cur.next.next
-            
-        cur = head
-        deep_copy = head_copy = head.next if head else None
-        while cur:
-            cur.next = cur = deep_copy.next
-            deep_copy.next = deep_copy = cur.next if cur else None
-            
-        return head_copy
-```
 
 An intuitive solution is to keep a hash table for each node in the list, via which we just need to iterate the list in 2 rounds respectively to create nodes and assign the values for their random pointers. As a result, the space complexity of this solution is O(N), although with a linear time complexity.
 

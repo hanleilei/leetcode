@@ -1,5 +1,7 @@
 # coin change II
 
+[[dp]]
+
 You are given coins of different denominations and a total amount of money. Write a function to compute the number of combinations that make up that amount. You may assume that you have infinite number of each kind of coin.
 
 Example 1:
@@ -16,7 +18,7 @@ Explanation: there are four ways to make up the amount:
 
 Example 2:
 
-```
+```text
 Input: amount = 3, coins = [2]
 Output: 0
 Explanation: the amount of 3 cannot be made up just with coins of 2.
@@ -24,13 +26,14 @@ Explanation: the amount of 3 cannot be made up just with coins of 2.
 
 Example 3:
 
-```
+```text
 Input: amount = 10, coins = [10]
 Output: 1
 ```
 
 Note:
-```
+
+```text
 You can assume that
 
 0 <= amount <= 5000
@@ -56,5 +59,8 @@ class Solution:
 ```
 
 从这个代码可以看到影响时间的几个方面：
+
 1. 数组生成的时候，不要用加号.
 2. 在做遍历的时候，尽量选取较小的组合，如嵌套的range语句.
+
+本题目和[377 Combination sum IV](https://leetcode.com/problems/combination-sum-iv/solutions/111860/coin-change-and-this-problem/) 一模一样
