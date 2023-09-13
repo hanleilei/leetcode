@@ -1,5 +1,7 @@
 # search for range
 
+[[binary search]]
+
 Given a sorted array of integers, find the starting and ending position of a given target value.
 
 Your algorithm's runtime complexity must be in the order of O(log n).
@@ -10,24 +12,19 @@ For example,
 Given [5, 7, 7, 8, 8, 10] and target value 8,
 return [3, 4].
 
-#### 主要还是想清楚问题怎么解决， 这里用了collections里面的Counter库。或者二分法。
-
-
+主要还是想清楚问题怎么解决， 这里用了collections里面的Counter库。或者二分法。
 
 ```python
-class Solution(object):
-    def searchRange(self, nums, target):
-        """
-        :type nums: List[int]
-        :type target: int
-        :rtype: List[int]
-        """
-        from collections import Counter
-        if target in nums:
-            return [nums.index(target),Counter(nums)[target]+ nums.index(target)-1]
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        left, right = 0, len(nums) - 1
+        res = [i for i, v in enumerate(nums) if v == target]
+        if len(res) >0:
+            return [res[0], res[-1]]
         else:
-            return [-1,-1]
+            return [-1, -1]
 ```
+
 二分法：
 
 ```python
@@ -55,8 +52,8 @@ class Solution:
                     i += 1
                 break
         return res
-    
 ```
+
 再来一个标准库的：
 
 ```python
@@ -79,4 +76,40 @@ class Solution:
             r = -1
 
         return [l, r]
+```
+
+最后再来一个速度最快的：
+
+```python
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        left, right = -1, -1
+        i = 0
+        j = len(nums)-1
+        flag = 0
+        while i <= j:
+            m = (i+j) // 2
+            if nums[m] < target:
+                i = m + 1
+            elif nums[m] > target:
+                j = m - 1
+            else:
+                i = m + 1
+                flag = 1
+        right = i - 1
+
+        i = 0
+        j = right - 1
+
+        while i <= j:
+            m = (i + j) // 2
+            if nums[m] < target:
+                i = m + 1
+            elif nums[m] > target:
+                j = m - 1
+            else:
+                j = m - 1
+                flag = 1
+        left = j + 1
+        return [left, right] if flag else [-1, -1]
 ```
