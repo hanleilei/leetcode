@@ -4,8 +4,9 @@ Given a string S and a string T, count the number of distinct subsequences of S 
 
 A subsequence of a string is a new string which is formed from the original string by deleting some (can be none) of the characters without disturbing the relative positions of the remaining characters. (ie, "ACE" is a subsequence of "ABCDE" while "AEC" is not).
 
-Example 1:
-```
+## Example 1
+
+```text
 Input: S = "rabbbit", T = "rabbit"
 Output: 3
 Explanation:
@@ -20,8 +21,10 @@ rabbbit
 rabbbit
 ^^^ ^^^
 ```
-Example 2:
-```
+
+## Example 2
+
+```text
 Input: S = "babgbag", T = "bag"
 Output: 5
 Explanation:

@@ -37,6 +37,8 @@ After calling your function, the tree should look like:
 4->5->6->7 -> NULL
 ```
 
+先来的stefan的方法，现在通过不了了（2023/09/15）
+
 ```python
 # Definition for binary tree with next pointer.
 # class TreeLinkNode:
@@ -118,6 +120,8 @@ class Solution:
         return root
 ```
 
+我就知道会有这样的bfs方法，配上一个临时数组和对于数组宽度为长度的遍历。
+
 ```Python
 
 # Definition for binary tree with next pointer.
@@ -147,3 +151,33 @@ class Solution:
             queue = [n for n in tmp if n]
         return root
 ```
+
+再来一个labuladong的递归方法：
+
+```python
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+"""
+
+class Solution:
+    def connect(self, root: 'Optional[Node]') -> 'Optional[Node]':
+        if root:
+            self.connectTwoNode(root.left, root.right)
+        return root
+
+    def connectTwoNode(self, left, right):
+        if left is None or right is None:
+            return 
+        left.next = right
+        self.connectTwoNode(left.left, left.right)
+        self.connectTwoNode(right.left, right.right)
+        self.connectTwoNode(left.right, right.left)
+```
+
+可能我的境界还没有达到，目前还是觉得labuladong的方法最容易理解。
