@@ -44,7 +44,7 @@ Constraints:
 All integers in nums are unique.
 ```
 
-最终这类问题最好的办法还是单调栈：https://leetcode.com/problems/maximum-binary-tree/solutions/258364/python-o-n-solution-with-explanation/?orderBy=most_votes
+最终这类问题最好的办法还是[单调栈](https://leetcode.com/problems/maximum-binary-tree/solutions/258364/python-o-n-solution-with-explanation/?orderBy=most_votes)
 
 Intuition
 We want to optimize from O(n^2) time complexity, O(nlogn) doesn't seem like very promising, so we try O(n). Basically, if we need O(n) solution, we can only have constant operation during the traverse of the list. Therefore, we need something the keep track of the traversing memory. We then brainstorm several data structures that can help us keep track of this kind of memory.
@@ -63,7 +63,7 @@ After step 2, we either in the situation of 0, or 1, either way, we append last 
 After traversing, the bottom of stack is the root node because the bottom is always the largest value we have seen so far (during the traversing of list).
 
 Space complexity:
-Worst O(n) in the case that the list is sortedin descending order.
+Worst O(n) in the case that the list is sorted in descending order.
 
 ```python
 # Definition for a binary tree node.
@@ -111,4 +111,65 @@ class Solution:
             stack.append(node)
 
         return stack[0]
+```
+
+或者，我们可以参考labuladong的方案，直接从题目含义出手：
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def constructMaximumBinaryTree(self, nums: List[int]) -> Optional[TreeNode]:
+        return self.build(nums, 0, len(nums) - 1)
+
+    # 定义：将 nums[lo..hi] 构造成符合条件的树，返回根节点
+    def build(self, nums: List[int], lo: int, hi: int) -> TreeNode:
+        # base case
+        if lo > hi:
+            return None
+
+        # 找到数组中的最大值和对应的索引
+        index, maxVal = -1, -sys.maxsize
+        for i in range(lo, hi+1):
+            if maxVal < nums[i]:
+                index = i
+                maxVal = nums[i]
+
+        # 先构造出根节点
+        root = TreeNode(maxVal)
+        # 递归调用构造左右子树
+        root.left = self.build(nums, lo, index - 1)
+        root.right = self.build(nums, index + 1, hi)
+        
+        return root
+```
+
+或者不用辅助函数
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def constructMaximumBinaryTree(self, nums: List[int]) -> Optional[TreeNode]:
+        if not nums:
+            return None
+        
+        # 找到数组中的最大值
+        maxVal = max(nums)
+        index = nums.index(maxVal)
+        
+        root = TreeNode(maxVal)
+        # 递归调用构造左右子树
+        root.left = self.constructMaximumBinaryTree(nums[:index])
+        root.right = self.constructMaximumBinaryTree(nums[index+1:])
+        
+        return root
 ```

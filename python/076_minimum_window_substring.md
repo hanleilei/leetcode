@@ -1,18 +1,20 @@
 # Minimum Window Substring
 
+[[sliding window]]
+
 Given a string S and a string T, find the minimum window in S which will contain all the characters in T in complexity O(n).
 
-Example:
+## Example
 
-```
+```text
 Input: S = "ADOBECODEBANC", T = "ABC"
 Output: "BANC"
 ```
 
-Note:
+## Note
 
-If there is no such window in S that covers all characters in T, return the empty string "".
-If there is such window, you are guaranteed that there will always be only one unique minimum window in S.
+- If there is no such window in S that covers all characters in T, return the empty string "".
+- If there is such window, you are guaranteed that there will always be only one unique minimum window in S.
 
 这个毫无疑问是最优解, 76ms：
 
@@ -154,4 +156,40 @@ class Solution:
                     matchedUniqueChars -= 1
                 hash[source[i]] -= 1
         return minWindowString
+```
+
+参考labuladong的方法，实现了sliding windows。
+
+注意我们是怎么实现对于t中有多个重复字符串的，用了valid的变量，只有满足数量时，才会进行变化。
+
+```python
+class Solution:
+    def minWindow(self, s: str, t: str) -> str:
+        left, right = 0, 0
+        windows, need = defaultdict(int), Counter(t)
+        valid = 0 #用来判断t中不管有多少个重复元素，某个重复元素满足条件则加一
+        start = 0
+        size = float('inf')
+
+        while right < len(s):
+            c = s[right]
+            right += 1
+
+            if c in need:
+                windows[c] += 1
+                if windows[c] == need[c]: # 判断元素数量来决定是否增加或者减少。
+                    valid += 1 
+            
+            while valid == len(need): # 所以用valid 等于need就可以判断开始窗口缩小，这思路牛逼。
+                if right - left < size:
+                    start = left
+                    size = right - left
+                
+                d = s[left]
+                left += 1
+                if d in need:
+                    if windows[d] == need[d]:
+                        valid -= 1
+                    windows[d] -= 1
+        return "" if size == float('inf') else s[start:start + size]
 ```
