@@ -1,5 +1,7 @@
 # remove duplicate from sorted list
 
+[[2points]]
+
 Given a sorted linked list, delete all duplicates such that each element appear only once.
 
 For example,
@@ -60,3 +62,28 @@ class Solution(object):
                 p=p.next
         return head
 ```
+
+直接和26题类似：
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        if head is None:
+            return 
+        slow = head
+        fast = head
+        while fast:
+            if fast.val != slow.val:
+                slow.next = fast
+                slow = slow.next
+            fast = fast.next
+        slow.next = None
+        return head
+        
+```
+

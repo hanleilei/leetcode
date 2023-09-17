@@ -58,8 +58,10 @@ docs/_build/
 # PyBuilder
 target/
 .obsidian
+.obsidian/*
 
 # vscode
 .vscode
 t.py
 t.sh
+.leetcode

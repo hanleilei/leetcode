@@ -1,6 +1,6 @@
 # Longest Substring Without Repeating Characters
 
-[[sliding window]]
+[[sliding window]] 
 
 Given a string, find the length of the longest substring without repeating characters.
 
@@ -127,7 +127,7 @@ class Solution:
         return res
 ```
 
-再来一个labuladong的方法：
+再来一个 labuladong 的方法：
 
 ```python
 class Solution:
@@ -135,7 +135,6 @@ class Solution:
         left, right = 0, 0
         windows = defaultdict(int)
         res = 0
-        size = len(s)
 
         while right < len(s):
             c = s[right]
@@ -149,6 +148,7 @@ class Solution:
             res = max(res, right - left)
         return res
 ```
+
 这里可以算是模板的简化版本。
 
 ## 总结

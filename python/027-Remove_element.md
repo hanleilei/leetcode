@@ -1,5 +1,7 @@
 # remove element
 
+[[2points]]
+
 Given an array and a value, remove all instances of that value in place and return the new length.
 
 Do not allocate extra space for another array, you must do this in place with constant memory.
@@ -43,4 +45,18 @@ class Solution:
                 nums[i] = x
                 i += 1
         return i
+```
+
+还是套用双指针的模板：
+
+```python
+class Solution:
+    def removeElement(self, nums: List[int], val: int) -> int:
+        slow = fast = 0
+        while fast < len(nums):
+            if nums[fast] != val:
+                nums[slow] = nums[fast]
+                slow += 1
+            fast += 1
+        return slow
 ```

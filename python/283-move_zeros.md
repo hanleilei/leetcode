@@ -1,5 +1,7 @@
 # Move Zeros
 
+[[2points]]
+
 Given an array nums, write a function to move all 0's to the end of it while maintaining the relative order of the non-zero elements.
 
 For example, given nums = [0, 1, 0, 3, 12], after calling your function, nums should be [1, 3, 12, 0, 0].
@@ -8,7 +10,7 @@ Note:
 You must do this in-place without making a copy of the array.
 Minimize the total number of operations.
 
-#### 还好，就是要理解 python 中列表的处理方式
+还好，就是要理解 python 中列表的处理方式
 
 ```python
 class Solution(object):
@@ -39,4 +41,24 @@ class Solution:
                 if count != i:
                     nums[i] = 0
                 count += 1
+```
+
+和27题目类似，唯一的差别就是多加上一个循环，把最后的几个元素变成0
+
+```python
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        slow, fast = 0, 0
+        while fast < len(nums):
+            if nums[fast] != 0:
+                nums[slow] = nums[fast]
+                slow += 1
+            fast += 1
+        for slow in range(slow, len(nums)):
+            nums[slow]= 0
+
+        return nums
 ```

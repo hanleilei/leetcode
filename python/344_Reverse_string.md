@@ -1,37 +1,41 @@
 # reverse string
 
-Write a function that takes a string as input and returns the string reversed.
+[[2points]]
 
-Example:
-Given s = "hello", return "olleh".
+Write a function that reverses a string. The input string is given as an array of characters s.
 
-##### 很简单，回文。。
+You must do this by modifying the input array in-place with O(1) extra memory.
 
-```python
-class Solution(object):
-    def reverseString(self, s):
-        """
-        :type s: str
-        :rtype: str
-        """
-        return s[::-1]
+## Example 1
 
+```text
+Input: s = ["h","e","l","l","o"]
+Output: ["o","l","l","e","h"]
 ```
-双指针
+
+## Example 2
+
+```text
+Input: s = ["H","a","n","n","a","h"]
+Output: ["h","a","n","n","a","H"]
+```
+
+## Constraints
+
+- `1 <= s.length <= 105`
+- `s[i]` is a printable ascii character.
+
+直接上双指针的方法：
+
 ```python
 class Solution:
-   def reverseString(self, s):
-       """
-       :type s: str
-       :rtype: str
-       """
-       s = [i for i in s]
-       l, r = 0, len(s)-1
-
-       while l < r:
-           s[l], s[r] = s[r], s[l]
-           l += 1
-           r -= 1
-       return ''.join(s)
-
+    def reverseString(self, s: List[str]) -> None:
+        """
+        Do not return anything, modify s in-place instead.
+        """
+        start, end = 0, len(s) - 1
+        while start <= end :
+            s[start], s[end] = s[end], s[start]
+            start += 1
+            end -= 1
 ```
