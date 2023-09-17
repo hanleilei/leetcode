@@ -1,18 +1,12 @@
----
-title: counting bits
-tags: [Import-c6ed]
-created: '2022-03-11T02:22:36.129Z'
-modified: '2022-05-01T02:06:47.142Z'
----
+# counting bits
 
-## counting bits
+[[bitmap]]
 
 Given an integer n, return an array ans of length n + 1 such that for each i (0 <= i <= n), ans[i] is the number of 1's in the binary representation of i.
 
- 
-
 Example 1:
-```
+
+```text
 Input: n = 2
 Output: [0,1,1]
 Explanation:
@@ -20,8 +14,10 @@ Explanation:
 1 --> 1
 2 --> 10
 ```
+
 Example 2:
-```
+
+```text
 Input: n = 5
 Output: [0,1,1,2,1,2]
 Explanation:
@@ -36,7 +32,6 @@ Explanation:
 Constraints:
 
 ```0 <= n <= 105```
- 
 
 Follow up:
 
@@ -44,6 +39,7 @@ It is very easy to come up with a solution with a runtime of O(n log n). Can you
 Can you do it without using any built-in function (i.e., like __builtin_popcount in C++)?
 
 非常容易想到的两种办法
+
 ```python
 class Solution:
     def countBits(self, num: int) -> List[int]:
@@ -51,7 +47,6 @@ class Solution:
         for i in range(1, len(r)):
             r[i] = r[i & (i-1)] + 1
         return r
-
 ```
 
 ```python
