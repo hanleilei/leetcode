@@ -59,9 +59,11 @@ docs/_build/
 target/
 .obsidian
 .obsidian/*
+.bosidian.css
 
 # vscode
 .vscode
 t.py
 t.sh
 .leetcode
+
