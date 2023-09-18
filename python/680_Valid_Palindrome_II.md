@@ -2,19 +2,24 @@
 
 Given a non-empty string s, you may delete at most one character. Judge whether you can make it a palindrome.
 
-### Example 1:
-```
+## Example 1
+
+```text
 Input: "aba"
 Output: True
 ```
-### Example 2:
-```
+
+## Example 2
+
+```text
 Input: "abca"
 Output: True
 Explanation: You could delete the character 'c'.
 ```
-### Note:
-The string will only contain lowercase characters a-z. The maximum length of the string is 50000.
+
+## Note
+
+- The string will only contain lowercase characters a-z. The maximum length of the string is 50000.
 
 下面的这个纯粹就是思路问题：
 先双指针，然后确定找到出现的第一个不同字符的位置。然后根据这两个位置的坐标，由于不确定是删除哪个字符，所以就可以得到两个数组，他们的偏移位置为1。

@@ -8,8 +8,10 @@ Note:
 
 All numbers (including target) will be positive integers.
 The solution set must not contain duplicate combinations.
-Example 1:
-```
+
+## Example 1
+
+```text
 Input: candidates = [2,3,6,7], target = 7,
 A solution set is:
 [
@@ -17,8 +19,10 @@ A solution set is:
   [2,2,3]
 ]
 ```
-Example 2:
-```
+
+## Example 2
+
+```text
 Input: candidates = [2,3,5], target = 8,
 A solution set is:
 [
@@ -74,3 +78,29 @@ class Solution:
         dfs(target, [])
         return result
 ```
+
+讲真，最容易理解的还是看我们 labuladong 的方法。
+
+```python
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        self.res = list()
+        self.stack = list()
+        self.total = 0
+        self.backtrack(candidates, target, 0)
+        return self.res
+
+    def backtrack(self, candidate, target, id):
+        if self.total > target: return
+        if self.total == target:
+            self.res.append(self.stack[:])
+            return
+        for i in range(id, len(candidate)):
+            self.stack.append(candidate[i])
+            self.total += candidate[i]
+            self.backtrack(candidate, target, i)
+            self.total -= candidate[i]
+            self.stack.pop()
+```
+
+注意这里是用res来存储最终的结果，stack来存储中间过程的结果，入栈和出栈。total来计算当前还是有多少剩余的数量。

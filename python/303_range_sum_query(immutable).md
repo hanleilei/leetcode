@@ -1,9 +1,12 @@
 # range sum query
 
+[[prefix sum]]
+
 Given an integer array nums, find the sum of the elements between indices i and j (i ≤ j), inclusive.
 
 Example:
-```
+
+```text
 Given nums = [-2, 0, 3, -5, 2, -1]
 
 sumRange(0, 2) -> 1
@@ -11,11 +14,12 @@ sumRange(2, 5) -> -1
 sumRange(0, 5) -> -3
 ```
 
-## Note:
+## Note
+
 1. You may assume that the array does not change.
 2. There are many calls to sumRange function.
 
-## 思路：
+## 思路
 
 先保存一个数组，数组中的每个元素都是从零到当前位置的数值之和。然后在后续直接遍历这个数组，如果求一段数字，只需要做两个数组元素的差值就可以了。
 

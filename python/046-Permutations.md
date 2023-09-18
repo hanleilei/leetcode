@@ -1,10 +1,13 @@
 # Permutations
 
+[[dfs]] [[backtrack]]
+
 Given a collection of distinct numbers, return all possible permutations.
 
 For example,
 [1,2,3] have the following permutations:
-```
+
+```text
 [
   [1,2,3],
   [1,3,2],
@@ -14,9 +17,11 @@ For example,
   [3,2,1]
 ]
 ```
+
 Subscribe to see which companies asked this question
 
-###### 方法
+## 方法
+
 直接用itertools里面的方法迭代，注意生成的是元祖，需要转换成列表
 
 ```python
@@ -64,7 +69,6 @@ class Solution:
 
 或者
 
-
 ```python
 class Solution:
     def permute(self, nums):
@@ -80,7 +84,7 @@ class Solution:
         return res
 ```
 
-或者：
+或者带上swap，这也是最快的方法，不用每次在一个列表中遍历。
 
 ```python
 class Solution:
@@ -124,3 +128,43 @@ class Solution:
                 res.pop()
 
 ```
+
+和上面的巧妙方法类似，labuladong的模板方法：
+
+```python
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        # 记录「路径」
+        track = []
+        # 「路径」中的元素会被标记为 true，避免重复使用
+        used = [False] * len(nums)
+        
+        self.backtrack(nums, track, used)
+        return self.res
+
+    # 路径：记录在 track 中
+    # 选择列表：nums 中不存在于 track 的那些元素（used[i] 为 false）
+    # 结束条件：nums 中的元素全都在 track 中出现
+    def backtrack(self, nums: List[int], track: List[int], used: List[bool]):
+        # 触发结束条件
+        if len(track) == len(nums):
+            self.res.append(track.copy())
+            return
+        
+        for i in range(len(nums)):
+            # 排除不合法的选择
+            if used[i]: 
+                # nums[i] 已经在 track 中，跳过
+                continue
+            # 做选择
+            track.append(nums[i])
+            used[i] = True
+            # 进入下一层决策树
+            self.backtrack(nums, track, used)
+            # 取消选择
+            track.pop()
+            used[i] = False
+```
+
+上面的算法复杂度很高O(N**2 * N!)
+
+这个方法不是最快的，但是是最容易理解的。

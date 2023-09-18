@@ -61,6 +61,7 @@ class Solution(object):
         return s[(centerIndex  - maxLen)//2: (centerIndex  + maxLen)//2]
 
 ```
+
 直接在leetcode的blog上也有：https://articles.leetcode.com/longest-palindromic-substring-part-ii/
 
 还有这个算法，需要仔细考虑以下：
@@ -90,4 +91,26 @@ class Solution:
 
         return s[start:start + maxLen]
 ```
+
 上面的算法由于添加了新的test case，现在不能通过了，例如："ac"
+
+这类回文的问题，我们可以从中间往两边扩展，注意有一个条件要求就是i的位置，和i可以是单数或者双数，即回文的长度可以是单数或者单数。
+
+```python
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        def isvalid(s, l, r):
+            while l >= 0 and r < len(s) and s[l] == s[r]:
+                l -= 1
+                r += 1
+            return s[l + 1:r]
+
+        res = ""
+
+        for i in range(len(s)):
+            s1 = isvalid(s, i, i)
+            s2 = isvalid(s, i, i+1)
+            res = res if len(res) > len(s1) else s1
+            res = res if len(res) > len(s2) else s2
+        return res
+```
