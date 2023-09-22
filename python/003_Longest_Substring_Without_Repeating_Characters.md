@@ -158,3 +158,26 @@ class Solution:
 这里我们可以建立一个 HashMap，建立每个字符和其最后出现位置之间的映射，然后我们需要定义两个变量 res 和 left，其中 res 用来记录最长无重复子串的长度，left 指向该无重复子串左边的起始位置的前一个，由于是前一个，所以初始化就是-1，然后我们遍历整个字符串，对于每一个遍历到的字符，如果该字符已经在 HashMap 中存在了，并且如果其映射值大于 left 的话，那么更新 left 为当前映射值。然后映射值更新为当前坐标 i，这样保证了 left 始终为当前边界的前一个位置，然后计算窗口长度的时候，直接用 i-left 即可，用来更新结果 res。
 
 这里解释下程序中那个 if 条件语句中的两个条件 m.count(s[i]) && m[s[i]] > left，因为一旦当前字符 s[i]在 HashMap 已经存在映射，说明当前的字符已经出现过了，而若 m[s[i]] > left 成立，说明之前出现过的字符在我们的窗口内，那么如果要加上当前这个重复的字符，就要移除之前的那个，所以我们让 left 赋值为 m[s[i]]，由于 left 是窗口左边界的前一个位置（这也是 left 初始化为-1 的原因，因为窗口左边界是从 0 开始遍历的），所以相当于已经移除出滑动窗口了。举一个最简单的例子"aa"，当 i=0 时，我们建立了 a->0 的映射，并且此时结果 res 更新为 1，那么当 i=1 的时候，我们发现 a 在 HashMap 中，并且映射值 0 大于 left 的-1，所以此时 left 更新为 0，映射对更新为 a->1，那么此时 i-left 还为 1，不用更新结果 res，那么最终结果 res 还为 1re
+
+----
+
+好吧，一周不到，模版忘光了，不过用下面的逻辑也做出来了：
+
+```python
+class Solution:
+    def lengthOfLongestSubstring(self, s: str) -> int:
+        d = set()
+        res = 0
+        left, right = 0, 0
+
+        while right < len(s):
+            if s[right] not in d:
+                d.add(s[right])
+                right += 1
+                res = max(res, right - left)
+            else:
+                d.remove(s[left])
+                left += 1
+
+        return res
+```

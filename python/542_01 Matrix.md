@@ -103,3 +103,23 @@ class Solution:  # 520 ms, faster than 96.50%
 ```
 
 想不到前几天还在面试一家公司的时候遇到这个问题。。
+
+```python
+class Solution:
+    def updateMatrix(self, mat: List[List[int]]) -> List[List[int]]:
+        row, col = len(mat), len(mat[0])
+        dq = deque([(i, j) for i in range(row) for j in range(col) if mat[i][j] == 0])
+        visited = set(dq)
+
+        while dq:
+            x, y = dq.popleft()
+            for dx, dy in [(0, 1), (0, -1), (1, 0), (-1, 0)]:
+                i, j = x + dx, y + dy
+                if 0 <= i < row and 0 <= j < col:
+                    if (i, j) not in visited:
+                        visited.add((i, j))
+                        dq.append((i, j))
+                        mat[i][j] = mat[x][y] + 1
+        return mat
+```
+

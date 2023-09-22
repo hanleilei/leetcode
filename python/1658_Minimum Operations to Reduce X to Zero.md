@@ -1,6 +1,6 @@
 # Minimum Operations to Reduce X to Zero
 
-[[slidingWindow]]
+[[slidingWindow]] [[prefixSum]]
 
 You are given an integer array nums and an integer x. In one operation, you can either remove the leftmost or the rightmost element from the array nums and subtract its value from x. Note that this modifies the array for future operations.
 
@@ -37,6 +37,10 @@ Explanation: The optimal solution is to remove the last three elements and the f
 
 典型的sliding windows问题
 
+首先，不管怎么选取，最终结果就是`sum(nums) - x`作为最后留下的切片之和target。所以这就将问题变成：求满足target的最大切片的数量。
+
+再转换一下思路：是不是前缀和更合适呢？
+
 ```python
 class Solution:
     def minOperations(self, nums: List[int], x: int) -> int:
@@ -56,3 +60,29 @@ class Solution:
 
         return len(nums) - res if res != float('-inf') else -1
 ```
+
+下面是我肝了一个小时才搞定的前缀和+dict的方法，有点被恶心到了。
+
+```python
+class Solution:
+    def minOperations(self, nums: List[int], x: int) -> int:
+        target = sum(nums) - x
+        prefix = dict()
+        prefix[nums[0]] = 0
+        ans = float('-inf')
+        for i in range(1, len(nums)):
+            nums[i] = nums[i] + nums[i-1]
+            prefix[nums[i]] = i
+        if target in prefix:
+            ans = prefix[target] + 1  # 这个+1也是个细节
+        if nums[-1] < x: # 排除边界条件，如果前缀和的最大元素比x还要小，那么没必要计算了。
+            return -1
+
+        for right in range(len(prefix)):
+            if nums[right] - target in prefix:
+                ans = max(ans, right - prefix[nums[right] - target]) # 这里要不要+1 呢？显然不需要
+
+        return -1 if ans == float('-inf') else  len(nums) - ans
+```
+
+细节有点多，搅合在一起，思路要理顺，大的方向知道，但是细节抠起来就有点麻烦了，都是套路。。会想一下自己上次写前缀和是什么时候了？
