@@ -21,20 +21,10 @@ Explanation:
 ### 这个算是抖了个机灵，完全利用了collections库里面的Counter函数。
 
 ```python
-class Solution(object):
-    def findTheDifference(self, s, t):
-        """
-        :type s: str
-        :type t: str
-        :rtype: str
-        """
-        from collections import Counter
-        a = Counter(s)
-        b = Counter(t)
-        b.subtract(a)
-        for i in b.keys():
-            if b[i]:
-                return i
+class Solution:
+    def findTheDifference(self, s: str, t: str) -> str:
+        d = Counter(t) - Counter(s)
+        return list(d.keys())[0]
 ```
 
 再来一个：

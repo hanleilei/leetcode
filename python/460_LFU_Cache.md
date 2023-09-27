@@ -7,15 +7,12 @@ put(key, value) - Set or insert the value if the key is not already present. Whe
 
 Note that the number of times an item is used is the number of calls to the get and put functions for that item since it was inserted. This number is set to zero when the item is removed.
 
-
-
 Follow up:
 Could you do both operations in O(1) time complexity?
 
+## Example
 
-
-Example:
-```
+```text
 LFUCache cache = new LFUCache( 2 /* capacity */ );
 
 cache.put(1, 1);
