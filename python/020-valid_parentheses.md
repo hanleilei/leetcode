@@ -1,10 +1,12 @@
 # valid parentheses
 
+[[stack]]
+
 Given a string containing just the characters '(', ')', '{', '}', '[' and ']', determine if the input string is valid.
 
 The brackets must close in the correct order, "()" and "()[]{}" are all valid but "(]" and "([)]" are not.
 
-###### 注意算法，稍微多动一下脑筋
+注意算法，稍微多动一下脑筋, 非常典型的 stack 问题
 
 ```python
 class Solution(object):
@@ -26,7 +28,6 @@ class Solution(object):
                     return False
 
         return len(q) == 0
-
 ```
 
 ```python

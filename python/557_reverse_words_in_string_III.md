@@ -9,8 +9,6 @@ Note: In the string, each word is separated by single space and there will not b
 
 Subscribe to see which companies asked this question.
 
-#### 呃。。
-
 ```python
 class Solution(object):
     def reverseWords(self, s):
@@ -22,4 +20,10 @@ class Solution(object):
         for i in s.split(" "):
             a.append(i[::-1])
         return ' '.join(a)
+```
+
+```python
+class Solution:
+    def reverseWords(self, s: str) -> str:
+        return " ".join([i[::-1] for i in s.split(" ")])
 ```
