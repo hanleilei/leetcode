@@ -113,3 +113,30 @@ class Solution:
         left = j + 1
         return [left, right] if flag else [-1, -1]
 ```
+
+再来一个很好理解的：
+
+```python
+class Solution:
+    def searchRange(self, nums: List[int], target: int) -> List[int]:
+        size = len(nums)
+        if size == 0:
+            return [-1, -1]
+        
+        if nums[0] <= target and nums[-1] >= target:
+            left, right = 0, size - 1
+            while left <= right:
+                mid = left + (right - left ) // 2
+                if nums[mid] == target:
+                    right = left = mid
+                    while left - 1 >= 0 and nums[left-1] == target:
+                        left -= 1
+                    while right + 1 <= size - 1 and nums[right + 1] == target:
+                        right += 1
+                    return [left, right]
+                elif num[mid] < target:
+                    left = mid += 1
+                else:
+                    right = mid - 1
+        return [-1, -1]
+```

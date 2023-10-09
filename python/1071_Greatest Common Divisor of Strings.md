@@ -4,26 +4,30 @@ For two strings s and t, we say "t divides s" if and only if s = t + ... + t (i.
 
 Given two strings str1 and str2, return the largest string x such that x divides both str1 and str2.
 
- 
+## Example 1
 
-Example 1:
-```
+```text
 Input: str1 = "ABCABC", str2 = "ABC"
 Output: "ABC"
 ```
-Example 2:
-```
+
+## Example 2
+
+```text
 Input: str1 = "ABABAB", str2 = "ABAB"
 Output: "AB"
 ```
-Example 3:
-```
+
+## Example 3
+
+```text
 Input: str1 = "LEET", str2 = "CODE"
 Output: ""
 ```
 
-Constraints:
-```
+## Constraints
+
+```text
 1 <= str1.length, str2.length <= 1000
 str1 and str2 consist of English uppercase letters.
 ```
@@ -45,4 +49,14 @@ class Solution:
         size = math.gcd(len(str1), len(str2))
         
         return str2[:size] if str2[:size] * (len(str1) // size) == str1 and str1[:size] * (len(str2) // size) == str2 else ""
+```
+
+```python
+class Solution:
+    def gcdOfStrings(self, str1: str, str2: str) -> str:
+        s = math.gcd(len(str1), len(str2))
+        if str1 == str1[:s] * (len(str1) // s) and str2 == str2[:s] * (len(str2)//s) and str1[:s] == str2[:s]:
+            return str1[:s]
+        else:
+            return ""
 ```
