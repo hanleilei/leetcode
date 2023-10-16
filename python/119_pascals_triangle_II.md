@@ -69,3 +69,26 @@ class Solution:
             res.append(t_list)
         return res[-1]
 ```
+
+来一个复制很多次的方法：
+
+```python
+class Solution:
+    def getRow(self, rowIndex: int) -> List[int]:
+        row  = [1]
+        for _ in range(rowIndex):
+            row = [0] + row + [0]
+            row = [row[i] + row[i+ 1] for i in range(len(row)-1)]
+        return row
+```
+
+同样思路，但是速度快很多：
+
+```python
+class Solution:
+    def getRow(self, rowIndex: int) -> List[int]:
+        row  = [1]
+        for _ in range(rowIndex):
+            row = [x + y for x, y in zip([0] + row, row + [0])]
+        return row
+```

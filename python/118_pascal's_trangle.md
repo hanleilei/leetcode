@@ -163,3 +163,18 @@ class Solution:
             res += [list(map(lambda x, y: x+y, res[-1] + [0], [0] + res[-1]))]
         return res[:numRows]
 ```
+
+来一个更简洁的：
+
+```python
+class Solution:
+    def generate(self, numRows: int) -> List[List[int]]:
+        row  = [1]
+        res = list()
+        res.append(row)
+        for _ in range(numRows-1):
+            row = [0] + row + [0]
+            row = [row[i] + row[i+ 1] for i in range(len(row)-1)]
+            res.append(row)
+        return res
+```
