@@ -1,19 +1,26 @@
 # Contains Duplicate III
 
+[[sliding window]] [[bucketsort]]
+
 Given an array of integers, find out whether there are two distinct indices i and j in the array such that the absolute difference between nums[i] and nums[j] is at most t and the absolute difference between i and j is at most k.
 
 Example 1:
-```
+
+```text
 Input: nums = [1,2,3,1], k = 3, t = 0
 Output: true
 ```
+
 Example 2:
-```
+
+```text
 Input: nums = [1,0,1,1], k = 1, t = 2
 Output: true
 ```
+
 Example 3:
-```
+
+```text
 Input: nums = [1,5,9,1,5,9], k = 2, t = 3
 Output: false
 ```
@@ -81,7 +88,8 @@ class Solution:
                 del buckets[nums[i - k] // width]
         return False
 ```
-用的这个 sortedcontainers 确实不错，详细可以参考这个文档 http://www.grantjenks.com/docs/sortedcontainers/ 和这个： https://stackoverflow.com/questions/17857496/built-in-binary-search-tree-in-python， leetcode也将其作为可以默认导入一部分：
+
+用的这个 sortedcontainers 确实不错，详细可以参考这个文档`http://www.grantjenks.com/docs/sortedcontainers/` 和这个： `https://stackoverflow.com/questions/17857496/built-in-binary-search-tree-in-python`， leetcode也将其作为可以默认导入一部分：
 
 In this problem we need to iterate over window of size k+1 and check if there is numbers with difference <=t in this window. What we need to do efficiently is to add and remove elements from our window, and my choice of data structure is BST, which is implemented in SortedList in python. So on each step we have sorted list of elements in this window. Imagine the case:
 
@@ -89,7 +97,7 @@ In this problem we need to iterate over window of size k+1 and check if there is
 
 Complexity: time complexity is O(n log k), because we do n steps, each one with O(log k) complexity to do binary search, remove and add elements. Space complexity is O(k) to keep our SortedList updated.
 
-https://leetcode.com/problems/contains-duplicate-iii/discuss/824603/Python-SortedList-O(n-log-k)-solution-explained.
+`https://leetcode.com/problems/contains-duplicate-iii/discuss/824603/Python-SortedList-O(n-log-k)-solution-explained`.
 
 ```python
 class Solution:

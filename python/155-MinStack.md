@@ -1,13 +1,17 @@
 # Min Stack
 
+[[stack]]
+
 Design a stack that supports push, pop, top, and retrieving the minimum element in constant time.
 
 push(x) -- Push element x onto stack.
 pop() -- Removes the element on top of the stack.
 top() -- Get the top element.
 getMin() -- Retrieve the minimum element in the stack.
-Example:
-```
+
+## Example
+
+```text
 MinStack minStack = new MinStack();
 minStack.push(-2);
 minStack.push(0);
@@ -18,7 +22,7 @@ minStack.top();      --> Returns 0.
 minStack.getMin();   --> Returns -2.
 ```
 
-#### 很简单的问题，没有任何难度，直接用deque就好了，似乎之前leetcode的测试文件有问题。
+很简单的问题，没有任何难度，直接用deque就好了，似乎之前leetcode的测试文件有问题。
 
 ```python
 from collections import deque
@@ -77,7 +81,6 @@ class MinStack(object):
         self.q = deque()
         self.min_stack = deque()
 
-
     def push(self, x):
         """
         :type x: int
@@ -89,15 +92,12 @@ class MinStack(object):
         except:
             self.min_stack.append(x)
 
-
     def pop(self):
         """
         :rtype: void
         """
         self.q.pop()
         self.min_stack.pop()
-
-
 
     def top(self):
         """
@@ -110,8 +110,6 @@ class MinStack(object):
         :rtype: int
         """
         return self.min_stack[-1]
-
-
 
 # Your MinStack object will be instantiated and called as such:
 # obj = MinStack()

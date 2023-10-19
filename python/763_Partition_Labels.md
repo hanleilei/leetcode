@@ -2,9 +2,9 @@
 
 A string S of lowercase letters is given. We want to partition this string into as many parts as possible so that each letter appears in at most one part, and return a list of integers representing the size of these parts.
 
-## Example 1:
+## Example 1
 
-```
+```text
 Input: S = "ababcbacadefegdehijhklij"
 Output: [9,7,8]
 Explanation:
@@ -13,7 +13,7 @@ This is a partition so that each letter appears in at most one part.
 A partition like "ababcbacadefegde", "hijhklij" is incorrect, because it splits S into less parts.
 ```
 
-### Note:
+## Note
 
 1. S will have length in range [1, 500].
 2. S will consist of lowercase letters ('a' to 'z') only.
@@ -76,20 +76,4 @@ class Solution:
                 l = i+1
         return res
 
-```
-
-```Python
-class Solution:
-    def partitionLabels(self, S: str) -> List[int]:
-        d = {}
-        res = []
-        l, r = 0, 0
-        for i,v in enumerate(S):
-            d[v] = i
-        for i in range(len(S)):
-            r = max(r, d[S[i]])
-            if i == r:
-                res.append(i-l+1)
-                l = i+1
-        return res
 ```

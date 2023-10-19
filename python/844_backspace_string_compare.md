@@ -56,34 +56,18 @@ class Solution:
 再来一个冗余比较多的：
 
 ```python
-class Solution(object):
-    def backspaceCompare(self, S, T):
-        """
-        :type S: str
-        :type T: str
-        :rtype: bool
-        """
-        stt = list()
-        sts = list()
-        if len(S) == 0 and len(T) == 0:
-            return True
-        for i in range(len(S)):
-            try:
-                if S[i] != '#':
-                    sts.append(S[i])
+class Solution:
+    def backspaceCompare(self, s: str, t: str) -> bool:
+        def verify(s):
+            a = list()
+            for i in s:
+                if i == "#":
+                    if len(a) > 0:
+                        a.pop()
                 else:
-                    sts.pop()
-            except:
-                pass
-        for i in range(len(T)):
-            try:
-                if T[i] != "#":
-                    stt.append(T[i])
-                else:
-                    stt.pop()
-            except:
-                pass
-        return ''.join(stt) == ''.join(sts)
+                    a.append(i)
+            return a
+        return verify(s) == verify(t)
 ```
 
 还是用reduce的版本比较好。。上面的重复代码可以写成函数。
