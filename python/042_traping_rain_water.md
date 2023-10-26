@@ -1,5 +1,7 @@
 # trapping rain water
 
+[[MonotonicStack]] [[stack]]
+
 Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap after raining.
 
 ![](http://www.leetcode.com/static/images/problemset/rainwatertrap.png)
@@ -59,7 +61,9 @@ class Solution:
 
         return result
 ```
+
 再来一个很巧妙的算法, 从两边向中间遍历:
+
 ```python
 class Solution:
     def trap(self, height: List[int]) -> int:

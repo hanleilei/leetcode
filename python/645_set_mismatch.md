@@ -45,6 +45,8 @@ class Solution:
         return [sum(nums) - sum(set(nums)), sum(range(1, len(nums)+1)) - sum(set(nums))]
 ```
 
+现在 2023-10-25， 我也能直接撸出来上面的方法了。
+
 再来一个官方的方法，从 Java 翻译过来：
 
 ```python

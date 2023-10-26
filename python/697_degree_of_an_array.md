@@ -1,4 +1,4 @@
-## Degree of an Array
+# Degree of an Array
 
 Given a non-empty array of non-negative integers nums, the degree of this array is defined as the maximum frequency of any one of its elements.
 
@@ -49,7 +49,7 @@ class Solution:
         res = float('inf')
         for k, v in nums_freq.items():
             if len(v) == max_degree:
-                res = min(res, nums_freq[k][-1] - nums_freq[k][0] + 1)
+                res = min(res, v[-1] - v[0] + 1)
         return res
 
 ```

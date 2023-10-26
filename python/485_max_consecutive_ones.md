@@ -12,7 +12,7 @@ Note:
 The input array will only contain 0 and 1.
 The length of input array is a positive integer and will not exceed 10,000
 
-#### 照旧一个计数器就可以
+照旧一个计数器就可以
 
 ```python
 class Solution(object):
