@@ -1,4 +1,4 @@
-## Non-decreasing Array
+# Non-decreasing Array
 
 Given an array nums with n integers, your task is to check if it could become non-decreasing by modifying at most one element.
 
@@ -6,7 +6,7 @@ We define an array is non-decreasing if nums[i] <= nums[i + 1] holds for every i
 
 Example 1:
 
-```
+```text
 Input: nums = [4,2,3]
 Output: true
 Explanation: You could modify the first 4 to 1 to get a non-decreasing array.
@@ -14,7 +14,7 @@ Explanation: You could modify the first 4 to 1 to get a non-decreasing array.
 
 Example 2:
 
-```
+```text
 Input: nums = [4,2,1]
 Output: false
 Explanation: You can't get a non-decreasing array by modify at most one element.
@@ -22,7 +22,7 @@ Explanation: You can't get a non-decreasing array by modify at most one element.
 
 Constraints:
 
-```
+```text
 n == nums.length
 1 <= n <= 104
 -105 <= nums[i] <= 105
@@ -30,7 +30,7 @@ n == nums.length
 
 要用到贪心算法：
 
-```
+```text
 算法思想
 贪心算法
 
@@ -113,12 +113,12 @@ Taking above things into consideration, below is my implemenation using greeedy.
 ```python
 class Solution:
     def checkPossibility(self, nums: List[int]) -> bool:
-        cnt_violations=0
+        count=0
         for i in range(1, len(nums)):
             if nums[i]<nums[i-1]:
-                if cnt_violations==1:
+                if count==1:
                     return False
-                cnt_violations+=1
+                count+=1
                 if i>=2 and nums[i-2]>nums[i]:
                     nums[i]=nums[i-1]
         return True

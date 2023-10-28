@@ -13,7 +13,7 @@ Input:
 Output:
 [2,3]
 
-#### 很简单，一个集合，一个列表。。
+很简单，一个集合，一个列表。。
 
 ```python
 class Solution(object):
@@ -31,4 +31,15 @@ class Solution(object):
                 s.add(i)
         return res
 
+```
+
+再来一个：
+
+```python
+class Solution:
+    def findDuplicates(self, nums: List[int]) -> List[int]:
+        d = defaultdict(int)
+        for i in nums:
+            d[i] += 1
+        return [k for k, v in d.items() if v == 2]
 ```

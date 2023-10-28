@@ -14,20 +14,12 @@ Input:
 Output:
 [5,6]
 
-## 理解题目，从 1 到数组长度范围内，然后用集合解决。
+理解题目，从 1 到数组长度范围内，然后用集合解决。
 
 ```python
-class Solution(object):
-    def findDisappearedNumbers(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[int]
-        """
-        if nums == []:
-            return []
-        min_num = 1
-        max_num = len(nums)
-        return list(set([n for n in range(1, len(nums)+1)]) - set(nums))
+class Solution:
+    def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
+        return list(set(range(1, len(nums) + 1)) - set(nums))
 ```
 
 遍历数组的方式解决：
