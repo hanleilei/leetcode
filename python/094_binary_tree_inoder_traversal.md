@@ -1,5 +1,7 @@
 # binary tree inorder traversal
 
+[[tree]]
+
 Given a binary tree, return the inorder traversal of its nodes' values.
 
 For example:
@@ -38,6 +40,7 @@ class Solution(object):
             self.helper(root.right, res)
 
 ```
+
 下面是用非递归的方式解答：
 
 ```Python

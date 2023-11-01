@@ -1,5 +1,7 @@
 # reverse linked list
 
+[[linkedlist]]
+
 Given the `head` of a singly linked list, reverse the list, and return *the reversed list*.
 
 **Example 1:**
@@ -28,7 +30,7 @@ Given the `head` of a singly linked list, reverse the list, and return *the r
 
 **Follow up:** A linked list can be reversed either iteratively or recursively. Could you implement both?
 
-#### 算法来自于udemy，很经典的问题，必须要掌握
+算法来自于udemy，很经典的问题，必须要掌握
 
 ```python
 # Definition for singly-linked list.
@@ -65,6 +67,8 @@ class Solution(object):
         return previous
 ```
 
+这样写就好理解很多了，来自 Krahets
+
 ```python
 # Definition for singly-linked list.
 # class ListNode(object):
@@ -78,12 +82,25 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
-        prev=None
-        cur=head
+        cur, pre = head, None
         while cur:
-            nex=cur.next
-            cur.next=prev
-            prev=cur
-            cur=nex
-        return prev
+            tmp = cur.next # 暂存后继节点 cur.next
+            cur.next = pre # 修改 next 引用指向
+            pre = cur      # pre 暂存 cur
+            cur = tmp      # cur 访问下一节点
+        return pre
+```
+
+再来一个递归的方法：
+
+```python
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        def recur(cur, pre):
+            if not cur: return pre     # 终止条件
+            res = recur(cur.next, cur) # 递归后继节点
+            cur.next = pre             # 修改节点引用指向
+            return res                 # 返回反转链表的头节点
+        
+        return recur(head, None)       # 调用递归并返回
 ```
