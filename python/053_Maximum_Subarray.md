@@ -1,5 +1,7 @@
 # Maximum Subarray
 
+[[dp]]
+
 Find the contiguous subarray within an array (containing at least one number) which has the largest sum.
 
 For example, given the array [-2,1,-3,4,-1,2,1,-5,4],
@@ -11,6 +13,7 @@ More practice:
 If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle
 
 以下解释来自于这个链接：http://blog.csdn.net/linhuanmars/article/details/21314059
+
 这是一道非常经典的动态规划的题目，用到的思路我们在别的动态规划题目中也很常用，以后我们称为”局部最优和全局最优解法“。
 
 基本思路是这样的，在每一步，我们维护两个变量，一个是全局最优，就是到当前元素为止最优的解是，一个是局部最优，就是必须包含当前元素的最优的解。接下来说说动态规划的递推式（这是动态规划最重要的步骤，递归式出来了，基本上代码框架也就出来了）。假设我们已知第 i 步的 global[i]（全局最优）和 local[i]（局部最优），那么第 i+1 步的表达式是：
@@ -143,6 +146,35 @@ class Solution:
             nums[i] = max(nums[i], nums[i] + nums[i-1])
         return max(nums)
 ```
+
+或者：
+
+```python
+class Solution:
+    def maxSales(self, sales: List[int]) -> int:
+        for i in range(1, len(sales)):
+            sales[i] += max(sales[i - 1], 0)
+        return max(sales)
+```
+
+或者：
+
+```python
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        ans = nums[0]
+        cur = 0
+        for num in nums:
+            if cur <= 0 :
+                cur = num
+            else:
+                cur += num
+            if cur > ans:
+                ans = cur
+        return ans
+```
+
+用标准库：
 
 ```python
 class Solution:

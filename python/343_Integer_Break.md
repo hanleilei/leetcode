@@ -53,6 +53,19 @@ class Solution:
         return cur
 ```
 
+或者：
+
+```python
+class Solution:
+    def cuttingBamboo(self, n: int) -> int:
+        dp = [1] * (n + 1)
+        cur = 1
+        for i in range(2, n + 1):
+            for j in range(1, i):
+                dp[i] = max(dp[i], dp[i-j]*j, (i-j)*j) 
+        return dp[n]
+```
+
 这破题目到最后就是数学问题了。。
 
 ```python
