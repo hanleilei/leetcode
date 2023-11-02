@@ -1,5 +1,7 @@
 # Count Nodes Equal to Average of Subtree
 
+[[tree]] [[dfs]]
+
 Given the root of a binary tree, return the number of nodes where the value of the node is equal to the average of the values in its subtree.
 
 Note:
