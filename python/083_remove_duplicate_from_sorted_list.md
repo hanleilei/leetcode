@@ -10,7 +10,7 @@ Given 1->1->2->3->3, return 1->2->3.
 
 Subscribe to see which companies asked this question.
 
-## 只能说这类题目的套路
+只能说这类题目的套路
 
 ```python
 # Definition for singly-linked list.
@@ -87,3 +87,19 @@ class Solution:
         
 ```
 
+上面的问题，只是为了解决排序数组中的重复元素，下面的方法，可以全链表去重：
+
+```python
+class Solution:
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        pre, cur = None, head
+        visited = set()
+        while cur:
+            if cur.val in visited:
+                pre.next = cur.next
+            else:
+                visited.add(cur.val)
+                pre = cur
+            cur = cur.next
+        return head
+```
