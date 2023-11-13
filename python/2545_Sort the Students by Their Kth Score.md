@@ -38,8 +38,6 @@ Return *the matrix after sorting it.*
 - `score` consists of **distinct** integers.
 - `0 <= k < n`
 
-
-
 如果是python，直接sort
 
 ```python
@@ -49,5 +47,3 @@ class Solution:
         return sorted(A, key=lambda a: -a[k])
         return sorted(score, key=itemgetter(k), reverse=True)
 ```
-
-

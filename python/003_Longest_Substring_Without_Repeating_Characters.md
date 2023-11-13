@@ -1,6 +1,6 @@
 # Longest Substring Without Repeating Characters
 
-[[slidingwindow]] [[dp]]
+[[sliding window]] [[dp]]
 
 Given a string, find the length of the longest substring without repeating characters.
 

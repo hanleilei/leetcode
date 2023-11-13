@@ -1,5 +1,7 @@
 # Range Sum Query - Mutable
 
+[[segment tree]]
+
 Given an integer array nums, find the sum of the elements between indices i and j (i ≤ j), inclusive.
 
 The update(i, val) function modifies nums by updating the element at index i to val.
@@ -32,7 +34,9 @@ class NumArray(object):
 
 ```
 
-这也能过，但是速度很慢，那就看个速度快的：
+这也能过，但是速度很慢，那就看个速度快的：
+
+直接TLE了，现在。。。
 
 ```Python
 class IndexTree(object):
@@ -86,4 +90,5 @@ class NumArray(object):
         """
         return self.tree.getSum(j+1) - self.tree.getSum(i)
 ```
+
 使用的是segment tree。

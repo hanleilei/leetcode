@@ -1,4 +1,4 @@
-2843. Count Symmetric Integers
+# Count Symmetric Integers
 
 You are given two positive integers low and high.
 
@@ -6,14 +6,15 @@ An integer x consisting of 2 * n digits is symmetric if the sum of the first n d
 
 Return the number of symmetric integers in the range [low, high].
 
-## Example 1:
+## Example 1
+
 ```text
 Input: low = 1, high = 100
 Output: 9
 Explanation: There are 9 symmetric integers between 1 and 100: 11, 22, 33, 44, 55, 66, 77, 88, and 99.
 ```
 
-## Example 2:
+## Example 2
 
 ```text
 Input: low = 1200, high = 1230
