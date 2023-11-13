@@ -119,35 +119,37 @@ class NumArray(object):
 
 「树状数组」本身是一个很简单的数据结构，但是要搞懂其为什么可以这样「查询」&「更新」还是比较困难的（特别是为什么可以这样更新），往往需要从「二进制分解」进行出发理解。
 
-```python
-class NumArray:
+```java
+class NumArray {
+    int[] tree;
+    int lowbit(int x) {
+        return x & -x;
+    }
+    int query(int x) {
+        int ans = 0;
+        for (int i = x; i > 0; i -= lowbit(i)) ans += tree[i];
+        return ans;
+    }
+    void add(int x, int u) {
+        for (int i = x; i <= n; i += lowbit(i)) tree[i] += u;
+    }
 
-    def __init__(self, nums: List[int]):
-        n = len(nums)
-        self.nums = nums
-        self.tree = [0] * (n + 1)
-        for i in range(n):
-            self.add(i + 1, nums[i])
-
-    def lowbit(self, x: int) -> int:
-        return x & -x
+    int[] nums;
+    int n;
+    public NumArray(int[] _nums) {
+        nums = _nums;
+        n = nums.length;
+        tree = new int[n + 1];
+        for (int i = 0; i < n; i++) add(i + 1, nums[i]);
+    }
     
-    def query(self, x: int) -> int:
-        ans, i = 0, x
-        while i > 0:
-            ans += self.tree[i]
-            i -= self.lowbit(i)
-        return ans
+    public void update(int i, int val) {
+        add(i + 1, val - nums[i]);
+        nums[i] = val;
+    }
     
-    def add(self, x: int, u: int) -> None:
-        while x <= len(self.nums):
-            self.tree[x] += u
-            x += self.lowbit(x)
-
-    def update(self, index: int, val: int) -> None:
-        self.add(index + 1, val - self.nums[index])
-        self.nums[index] = val
-
-    def sumRange(self, left: int, right: int) -> int:
-        return self.query(right + 1) - self.query(left)
+    public int sumRange(int l, int r) {
+        return query(r + 1) - query(l);
+    }
+}
 ```

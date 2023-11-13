@@ -119,35 +119,45 @@ class NumArray(object):
 
 「树状数组」本身是一个很简单的数据结构，但是要搞懂其为什么可以这样「查询」&「更新」还是比较困难的（特别是为什么可以这样更新），往往需要从「二进制分解」进行出发理解。
 
-```python
-class NumArray:
+```go
+type NumArray struct {
+    tree []int
+    nums []int
+}
 
-    def __init__(self, nums: List[int]):
-        n = len(nums)
-        self.nums = nums
-        self.tree = [0] * (n + 1)
-        for i in range(n):
-            self.add(i + 1, nums[i])
+func lowbit(x int) int {
+    return x & -x
+}
 
-    def lowbit(self, x: int) -> int:
-        return x & -x
-    
-    def query(self, x: int) -> int:
-        ans, i = 0, x
-        while i > 0:
-            ans += self.tree[i]
-            i -= self.lowbit(i)
-        return ans
-    
-    def add(self, x: int, u: int) -> None:
-        while x <= len(self.nums):
-            self.tree[x] += u
-            x += self.lowbit(x)
+func (this *NumArray)query(x int) (ans int) {
+    for i := x; i > 0; i -= lowbit(i) {
+        ans += this.tree[i]
+    }
+    return 
+}
 
-    def update(self, index: int, val: int) -> None:
-        self.add(index + 1, val - self.nums[index])
-        self.nums[index] = val
+func (this *NumArray)add(x, u int) {
+    for i := x; i <= len(this.nums); i += lowbit(i) {
+        this.tree[i] += u
+    }
+}
 
-    def sumRange(self, left: int, right: int) -> int:
-        return self.query(right + 1) - self.query(left)
+func Constructor(nums []int) NumArray {
+    n := len(nums)
+    tree := make([]int, n + 1)
+    a := NumArray{tree, nums}
+    for i := 0; i < n; i++ {
+        a.add(i + 1, nums[i])
+    }
+    return a
+}
+
+func (this *NumArray) Update(index int, val int) {
+    this.add(index + 1, val - this.nums[index])
+    this.nums[index] = val
+}
+
+func (this *NumArray) SumRange(left int, right int) int {
+    return this.query(right + 1) - this.query(left)
+}
 ```
