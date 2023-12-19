@@ -65,6 +65,7 @@ class Solution:
             self.bstToGst(root.left)
         return root
 ```
+
 或者：
 
 ```python
