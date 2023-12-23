@@ -1,8 +1,32 @@
-# Implement strStr().
+# Find the Index of the First Occurrence in a String
 
-Returns the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
+Given two strings needle and haystack, return the index of the first occurrence of needle in haystack, or -1 if needle is not part of haystack.
 
-##### 基本用的算是穷举法，非常土，下次有机会看下kmp算法。注意corner case
+## Example 1
+
+```text
+Input: haystack = "sadbutsad", needle = "sad"
+Output: 0
+Explanation: "sad" occurs at index 0 and 6.
+The first occurrence is at index 0, so we return 0.
+```
+
+## Example 2
+
+```text
+Input: haystack = "leetcode", needle = "leeto"
+Output: -1
+Explanation: "leeto" did not occur in "leetcode", so we return -1.
+```
+
+## Constraints
+
+```text
+1 <= haystack.length, needle.length <= 104
+haystack and needle consist of only lowercase English characters.
+```
+
+基本用的算是穷举法，非常土，下次有机会看下kmp算法。注意corner case
 
 ```python
 class Solution(object):
@@ -37,20 +61,12 @@ class Solution(object):
         return -1        
 ```
 
-再来一个简单粗暴的：
+或者find方法：
 
 ```python
-class Solution(object):
-    def strStr(self, haystack, needle):
-        """
-        :type haystack: str
-        :type needle: str
-        :rtype: int
-        """
-        try:
-            return haystack.index(needle)
-        except:
-            return -1
+class Solution:
+    def strStr(self, haystack: str, needle: str) -> int:
+        return haystack.find(needle)
 ```
 
 似乎做一下很小的修改，就可以将速度提高到最快：
