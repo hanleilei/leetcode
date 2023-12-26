@@ -1,5 +1,7 @@
 # Remove Stones to Minimize the Total
 
+[[heap]]
+
 You are given a **0-indexed** integer array `piles`, where `piles[i]` represents the number of stones in the `ith` pile, and an integer `k`. You should apply the following operation **exactly** `k` times:
 
 - Choose any `piles[i]` and **remove** `floor(piles[i] / 2)` stones from it.
@@ -132,8 +134,11 @@ impl Solution {
     }
 }
 ```
-下面的这个写法，目前还是有点看不懂 
+
 #TODO
+
+下面的这个写法，目前还是有点看不懂
+
 ```rust
 impl Solution {
     pub fn min_stone_sum(piles: Vec<i32>, mut k: i32) -> i32 {
