@@ -8,8 +8,8 @@ Add a new element with a value of m + 1 to the array.
 Increase your score by m.
 Return the maximum score you can achieve after performing the operation exactly k times.
 
-
 ## Example 1
+
 ```text
 Input: nums = [1,2,3,4,5], k = 3
 Output: 18
@@ -22,6 +22,7 @@ It can be proven, that 18 is the maximum answer that we can achieve.
 ```
 
 ## Example 2
+
 ```text
 Input: nums = [5,5,5], k = 2
 Output: 11
