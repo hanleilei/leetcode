@@ -4,7 +4,7 @@ Given the root node of a binary search tree and two integers low and high, retur
 
 Example 1:
 
-```
+```text
 ![](https://assets.leetcode.com/uploads/2020/11/05/bst1.jpg)
 
 Input: root = [10,5,15,3,7,null,18], low = 7, high = 15
@@ -14,7 +14,7 @@ Explanation: Nodes 7, 10, and 15 are in the range [7, 15]. 7 + 10 + 15 = 32.
 
 Example 2:
 
-```
+```text
 ![](https://assets.leetcode.com/uploads/2020/11/05/bst2.jpg)
 Input: root = [10,5,15,3,7,13,18,1,null,6], low = 6, high = 10
 Output: 23
@@ -51,4 +51,37 @@ class Solution:
                 stack.append(node.right)
                 stack.append(node.left)
         return res
+```
+
+```python
+class Solution:
+    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+        self.res = 0
+        self.helper(root, low, high)
+        return self.res
+
+    def helper(self, root, low, high):
+        if root:
+            self.helper(root.left, low, high)
+            # res.append(root.val)
+            if low<=root.val<=high:
+                self.res+=root.val
+            self.helper(root.right, low, high)
+```
+
+```python
+class Solution:
+    def rangeSumBST(self, root: Optional[TreeNode], low: int, high: int) -> int:
+        def dfs(node):
+            nonlocal ans
+            if node:
+                if low <= node.val <= high:
+                    ans += node.val
+                if low < node.val:
+                    dfs(node.left)
+                if node.val < high:
+                    dfs(node.right)
+        ans = 0
+        dfs(root)
+        return ans
 ```

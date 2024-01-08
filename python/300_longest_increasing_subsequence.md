@@ -1,18 +1,51 @@
 # longest increasing subsequence
 
-Given an unsorted array of integers, find the length of longest increasing subsequence.
+[[dp]] [[binarysearch]]
 
-Example:
-```
-Input: [10,9,2,5,3,7,101,18]
+Given an integer array nums, return the length of the longest strictly increasing subsequence.
+
+## Example 1
+
+```text
+Input: nums = [10,9,2,5,3,7,101,18]
 Output: 4
 Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4.
 ```
-Note:
 
-There may be more than one LIS combination, it is only necessary for you to return the length.
-Your algorithm should run in O(n2) complexity.
-Follow up: Could you improve it to O(n log n) time complexity?
+## Example 2
+
+```text
+Input: nums = [0,1,0,3,2,3]
+Output: 4
+```
+
+## Example 3
+
+```text
+Input: nums = [7,7,7,7,7,7,7]
+Output: 1
+```
+
+## Constraints
+
+```text
+1 <= nums.length <= 2500
+-104 <= nums[i] <= 104
+```
+
+这个就是标准的dp问题：
+
+```python
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        n = len(nums)
+        dp = [1] * n
+        for i in range(n):
+            for j in range(i):
+                if nums[i] > nums[j] and dp[i] < dp[j] + 1:
+                    dp[i] = dp[j] + 1
+        return max(dp)
+```
 
 先来一个自己实现的二分查找：
 
@@ -41,7 +74,6 @@ class Solution:
 ```
 
 ```python
-
 class Solution:
     def lengthOfLIS(self, nums):
         """
@@ -72,6 +104,33 @@ class Solution:
 
 上标准库：
 
+Greedy with Binary Search
+
+Let's construct the idea from following example.
+Consider the example nums = [2, 6, 8, 3, 4, 5, 1], let's try to build the increasing subsequences starting with an empty one: sub1 = [].
+
+1. Let pick the first element, sub1 = [2].
+2. 6 is greater than previous number, sub1 = [2, 6]
+3. 8 is greater than previous number, sub1 = [2, 6, 8]
+4. 3 is less than previous number, we can't extend the subsequence sub1, but we must keep 3 because in the future there may have the longest subsequence start with [2, 3], sub1 = [2, 6, 8], sub2 = [2, 3].
+5. With 4, we can't extend sub1, but we can extend sub2, so sub1 = [2, 6, 8], sub2 = [2, 3, 4].
+6. With 5, we can't extend sub1, but we can extend sub2, so sub1 = [2, 6, 8], sub2 = [2, 3, 4, 5].
+7. With 1, we can't extend neighter sub1 nor sub2, but we need to keep 1, so sub1 = [2, 6, 8], sub2 = [2, 3, 4, 5], sub3 = [1].
+8. Finally, length of longest increase subsequence = len(sub2) = 4.
+
+In the above steps, we need to keep different sub arrays (sub1, sub2..., subk) which causes poor performance. But we notice that we can just keep one sub array, when new number x is not greater than the last element of the subsequence sub, we do binary search to find the smallest element >= x in sub, and replace with number x.
+
+Let's run that example nums = [2, 6, 8, 3, 4, 5, 1] again:
+
+1. Let pick the first element, sub = [2].
+2. 6 is greater than previous number, sub = [2, 6]
+3. 8 is greater than previous number, sub = [2, 6, 8]
+4. 3 is less than previous number, so we can't extend the subsequence sub. We need to find the smallest number >= 3 in sub, it's 6. Then we overwrite it, now sub = [2, 3, 8].
+5. 4 is less than previous number, so we can't extend the subsequence sub. We overwrite 8 by 4, so sub = [2, 3, 4].
+6. 5 is greater than previous number, sub = [2, 3, 4, 5].
+7. 1 is less than previous number, so we can't extend the subsequence sub. We overwrite 2 by 1, so sub = [1, 3, 4, 5].
+8. Finally, length of longest increase subsequence = len(sub) = 4.
+
 ```python
 class Solution:
     def lengthOfLIS(self, nums):
@@ -89,21 +148,20 @@ class Solution:
                 stack[idx] = n
         return len(stack)
 ```
+
 或者：
+
 ```python
 class Solution:
-    def lengthOfLIS(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        import bisect
-        res = []
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        dp = []
+
         for n in nums:
-            index = bisect.bisect_left(res, n)
-            if index == len(res):
-                res.append(n)
+            index = bisect.bisect_left(dp, n)
+            if index == len(dp):
+                dp.append(n)
             else:
-                res[index] = n
-        return len(res)
+                dp[index] = n
+        
+        return len(dp)
 ```
