@@ -2,6 +2,8 @@
 
 Consider all the leaves of a binary tree, from left to right order, the values of those leaves form a leaf value sequence.
 
+![](https://s3-lc-upload.s3.amazonaws.com/uploads/2018/07/16/tree.png)
+
 For example, in the given tree above, the leaf value sequence is (6, 7, 4, 9, 8).
 
 Two binary trees are considered leaf-similar if their leaf value sequence is the same.
@@ -9,6 +11,8 @@ Two binary trees are considered leaf-similar if their leaf value sequence is the
 Return true if and only if the two given trees with head nodes root1 and root2 are leaf-similar.
 
 Example 1:
+
+![](https://assets.leetcode.com/uploads/2020/09/03/leaf-similar-1.jpg)
 
 ```
 Input: root1 = [3,5,1,6,2,9,8,null,null,7,4], root2 = [3,5,1,6,7,4,2,null,null,null,null,null,null,9,8]
@@ -49,4 +53,24 @@ class Solution:
         if root.right is not None:
             self.preorder(root.right, s)
 
+```
+
+来一个dfs的：
+
+```python
+class Solution:
+    def leafSimilar(self, root1: Optional[TreeNode], root2: Optional[TreeNode]) -> bool:
+        def gen_leaves(root):
+            leaves = list()
+            stack = [root]
+            while stack:
+                node = stack.pop()
+                if not node.left and not node.right:
+                    leaves.append(node.val)
+                if node.left:
+                    stack.append(node.left)
+                if node.right:
+                    stack.append(node.right)
+            return leaves
+        return gen_leaves(root1) == gen_leaves(root2)
 ```
