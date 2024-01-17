@@ -78,3 +78,16 @@ class Solution:
         n = 1 + sum(x >= y for x, y in pairwise(word))
         return 3 * n - len(word)
 ```
+
+```python
+class Solution:
+    def addMinimum(self, word: str) -> int:
+        dp = 2
+        n = len(word)
+        for i in range(1, n):
+            if word[i - 1] < word[i]:
+                dp -= 1
+            else:
+                dp += 2
+        return dp
+```
