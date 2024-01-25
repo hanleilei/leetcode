@@ -12,9 +12,6 @@ You may assume the string contains only lowercase alphabets.
 Follow up:
 What if the inputs contain unicode characters? How would you adapt your solution to such case?
 
-##### 字典，很简单就搞定了
-
-
 ```python
 class Solution(object):
     def isAnagram(self, s, t):
@@ -25,4 +22,17 @@ class Solution(object):
         """
         from collections import Counter
         return dict(Counter(t)) == dict(Counter(s))
+```
+
+或者：
+
+```python
+class Solution(object):
+    def isAnagram(self, s, t):
+        """
+        :type s: str
+        :type t: str
+        :rtype: bool
+        """
+        return sorted(s) == sorted(t)
 ```
