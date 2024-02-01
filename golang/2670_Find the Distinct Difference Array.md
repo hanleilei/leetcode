@@ -43,44 +43,22 @@ For index i = 4, there are 3 distinct elements in the prefix and no elements in 
 
 有点阅读理解的问题。。
 
-```python
-class Solution:
-    def distinctDifferenceArray(self, nums: List[int]) -> List[int]:
-        right = defaultdict(int)
-        for i in nums:
-            right[i] += 1
-        
-        left = defaultdict(int)
-        res = list()
-        for i in nums:
-            if right[i] > 1:
-                right[i] -= 1
-                # left[i] += 1
-            elif right[i] == 1:
-                del right[i]
-            left[i] += 1
-            res.append(len(left) - len(right))
-        return res
-```
-
-```python
-class Solution:
-    def distinctDifferenceArray(self, nums: List[int]) -> List[int]:
-        n = len(nums)
-        s = set()
-        pre = [0] * n
-        suf = [0] * (n+1)
-        for i in range(n-1,0,-1):
-            s.add(nums[i])
-            suf[i] = len(s)
-        
-        s.clear()
-
-        ans = [0] * n
-        for i in range(n):
-            s.add(nums[i])
-            pre[i] = len(s)
-            ans[i] = pre[i] - suf[i+1]
-        
-        return ans
+```golang
+func distinctDifferenceArray(nums []int) []int {
+    n := len(nums)
+    ans := make([]int, n)
+    head, end := make(map[int]int), make(map[int]int)
+    for _, v := range nums {
+        end[v]++
+    }
+    for i, v := range nums {
+        head[v]++
+        end[v]--
+        if end[v] == 0 {
+            delete(end, v)
+        }
+        ans[i] = len(head) - len(end)
+    }
+    return ans
+}
 ```
