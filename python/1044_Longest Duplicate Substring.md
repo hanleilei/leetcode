@@ -24,9 +24,6 @@ Return **any** duplicated substring that has the longest possible length. If
 这个居然可以用二分法。。
 
 
-
-
-
 ```python
 class Solution:
     def longestDupSubstring(self, s: str) -> str:

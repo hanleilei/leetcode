@@ -21,7 +21,6 @@ class Solution(object):
         for i in range(len(matrix)):
             for j in range(i+1, len(matrix)):
                 matrix[i][j], matrix[j][i] = matrix[j][i], matrix[i][j]
-
 ```
 
 看到了stefan大大的解法 (https://leetcode.com/problems/rotate-image/discuss/18884/Seven-Short-Solutions-(1-to-7-lines))

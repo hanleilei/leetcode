@@ -1,20 +1,29 @@
 # group anagrams
 
-Given an array of strings, group anagrams together.
+Given an array of strings strs, group the anagrams together. You can return the answer in any order.
 
-For example, given: ["eat", "tea", "tan", "ate", "nat", "bat"],
-Return:
+An Anagram is a word or phrase formed by rearranging the letters of a different word or phrase, typically using all the original letters exactly once.
 
-[
-  ["ate", "eat","tea"],
-  ["nat","tan"],
-  ["bat"]
-]
-Note: All inputs will be in lower-case.
+Example 1:
 
-Subscribe to see which companies asked this question.
+Input: strs = ["eat","tea","tan","ate","nat","bat"]
+Output: [["bat"],["nat","tan"],["ate","eat","tea"]]
+Example 2:
 
-## 需要用到setdefault就可以实现
+Input: strs = [""]
+Output: [[""]]
+Example 3:
+
+Input: strs = ["a"]
+Output: [["a"]]
+
+Constraints:
+
+1 <= strs.length <= 104
+0 <= strs[i].length <= 100
+strs[i] consists of lowercase English letters.
+
+需要用到setdefault就可以实现
 
 ```python
 class Solution(object):
@@ -27,5 +36,15 @@ class Solution(object):
         for s in strs:
             t = ''.join(sorted(s))
             d.setdefault(t,[]).append(s)
+        return list(d.values())
+```
+
+```python
+class Solution:
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        d = defaultdict(list)
+        for s in strs:
+            t = "".join(sorted(s))
+            d[t].append(s)
         return list(d.values())
 ```
