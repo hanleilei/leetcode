@@ -6,7 +6,7 @@ Ugly numbers are positive numbers whose prime factors only include 2, 3, 5. For 
 
 Note that 1 is typically treated as an ugly number.
 
-##### 很简单，配置一下循环
+很简单，配置一下循环
 
 ```python
 class Solution(object):

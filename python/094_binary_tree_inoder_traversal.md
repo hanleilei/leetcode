@@ -68,3 +68,19 @@ class Solution(object):
             res.append(node.val)
             root = node.right
 ```
+
+```python
+class Solution:
+    def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
+        st, cur, ret = [], root, []
+        while cur or st:
+            if cur:
+                st.append(cur)
+                cur = cur.left
+            else:
+                node = st.pop()
+                ret.append(node.val)
+                cur = node.right
+
+        return ret
+```
