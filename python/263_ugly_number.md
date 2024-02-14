@@ -24,6 +24,7 @@ class Solution(object):
 
         return num == 1
 ```
+换一种方法：
 
 ```python3
 class Solution:
