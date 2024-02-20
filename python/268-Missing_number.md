@@ -8,7 +8,18 @@ Given nums = [0, 1, 3] return 2.
 Note:
 Your algorithm should run in linear runtime complexity. Could you implement it using only constant extra space complexity?
 
-#### 方法很多种，可以使用集合的方式，不过看网友的方式更简单，直接对于列表求和
+方法很多种：
+
+用集合的方式：
+
+```python
+class Solution:
+    def missingNumber(self, nums: List[int]) -> int:
+        s = set(list(range(max(nums)))) - set(nums)
+        return s.pop() if s else max(nums) + 1
+```
+
+不过看网友的方式更简单，直接对于列表求和
 
 ```python
 # 集合的方式 not passed in website: reported: type set error
@@ -24,7 +35,9 @@ class Solution(object):
             return set([i for i in range(min(nums),max(nums)+1)]) - set(nums)
 
 ```
-#### 用列表求和的方式
+
+用列表求和的方式
+
 ```python
 # I make it done, got idea from others
 class Solution(object):
