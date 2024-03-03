@@ -47,3 +47,20 @@ class Solution(object):
         slow.next = slow.next.next
         return head
 ```
+
+再来一个
+
+```python
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
+        p = ListNode(0)
+        p.next = head
+        fast = slow = p
+        for _ in range(n+1):
+            fast = fast.next
+        while fast:
+            fast = fast.next
+            slow = slow.next
+        slow.next = slow.next.next
+        return p.next
+```

@@ -1,5 +1,7 @@
 # binary tree level order traversal
 
+[[tree]]
+
 Given a binary tree, return the level order traversal of its nodes' values. (ie, from left to right, level by level).
 
 For example:
@@ -135,6 +137,7 @@ class Solution(object):
             level = [leaf for leaf in temp if leaf]
         return ans
 ```
+
 下面的版本更容易理解
 
 ```python

@@ -1,5 +1,7 @@
 # Find Bottom Left Tree Value
 
+[[tree]]
+
 Given the root of a binary tree, return the leftmost value in the last row of the tree.
 
 Example 1:
@@ -41,4 +43,28 @@ class Solution:
             if node.left:
                 dq.append(node.left)
         return res
+```
+
+还有就是直接拿102 的层序遍历：
+
+```python
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def findBottomLeftValue(self, root: Optional[TreeNode]) -> int:
+        stack = [(root, 0)]
+        res = []
+        while stack:
+            node, level = stack.pop()
+            if node:
+                if len(res) < level+1:
+                    res.insert(0, [])
+                res[-(level+1)].append(node.val)
+                stack.append((node.right, level+1))
+                stack.append((node.left, level+1))
+        return res[::-1][-1][0]
 ```
