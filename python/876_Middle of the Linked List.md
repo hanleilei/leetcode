@@ -43,3 +43,20 @@ class Solution:
             slow = slow.next
         return slow.next if fast.next else slow
 ```
+
+有点是我想多了。。直接简化一下：
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        fast, slow = head, head
+        while fast and fast.next:
+            fast = fast.next.next
+            slow = slow.next
+        return slow
+```
