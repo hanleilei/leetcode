@@ -1,5 +1,7 @@
 # convert sorted list to binary search tree
 
+[[tree]]
+
 Given a singly linked list where elements are sorted in ascending order, convert it to a height balanced BST.
 
 For this problem, a height-balanced binary tree is defined as a binary tree in which the depth of the two subtrees of every node never differ by more than 1.
@@ -60,4 +62,36 @@ class Solution:
         return root
         
         
+```
+
+再来一个和上一个题目类似方案。
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
+class Solution:
+    def sortedListToBST(self, head: Optional[ListNode]) -> Optional[TreeNode]:
+        nums = list()
+        while head:
+            nums.append(head.val)
+            head = head.next
+            
+        def helper(left, right):
+            if left > right:
+                return None
+            mid = (left+right)//2
+            root = TreeNode(nums[mid])
+            root.left = helper(left,mid-1)
+            root.right = helper(mid+1, right)
+            return root
+        return helper(0,len(nums)-1)
 ```
