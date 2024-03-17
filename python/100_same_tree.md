@@ -33,7 +33,6 @@ class Solution(object):
 ```python
 class Solution:
     def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
-    def isSameTree1(self, p, q):
         if p and q:
             return p.val == q.val and self.isSameTree(p.left, q.left) and self.isSameTree(p.right, q.right)
         else:
