@@ -13,8 +13,6 @@ You are given an array trust where trust[i] = [ai, bi] representing that the per
 
 Return the label of the town judge if the town judge exists and can be identified, or return -1 otherwise.
 
- 
-
 Example 1:
 
 Input: n = 2, trust = [[1,2]]
@@ -27,7 +25,6 @@ Example 3:
 
 Input: n = 3, trust = [[1,3],[2,3],[3,1]]
 Output: -1
- 
 
 Constraints:
 
@@ -37,7 +34,6 @@ trust[i].length == 2
 All the pairs of trust are unique.
 ai != bi
 1 <= ai, bi <= n
-
 
 1.如果存在法官，那么所有人都会信任法官，在结合条件1，可以得出信任法官的人数为n-1。
 2.如果不存在法官，那么也可能存在某些人被所有人信任，这个人的信任人数也为n-1，但是他也会信任别人。
@@ -98,5 +94,28 @@ class Solution:
             indegree[j] += 1
         for i in range(1, n+1):
             if indegree[i] == n-1 and outdegree[i] == 0: return i
+        return -1
+```
+
+Intuition:
+Consider trust as a graph, all pairs are directed edge.
+The point with in-degree - out-degree = N - 1 become the judge.
+
+Explanation:
+Count the degree, and check at the end.
+
+Time Complexity:
+Time O(T + N), space O(N)
+
+```python
+class Solution:
+    def findJudge(self, N: int, trust: List[List[int]]) -> int:
+        count = [0] * (N + 1)
+        for i, j in trust:
+            count[i] -= 1
+            count[j] += 1
+        for i in range(1, N + 1):
+            if count[i] == N - 1:
+                return i
         return -1
 ```
