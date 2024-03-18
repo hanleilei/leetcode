@@ -69,3 +69,26 @@ class RangeModule:
             subtrack.append(right)
         self.track[start:end] = subtrack
 ```
+
+再来一个简单一点的：
+
+```python
+from bisect import bisect_left, bisect_right
+
+class RangeModule:
+
+    def __init__(self):
+        self.nums = []
+
+    def addRange(self, left, right):
+        i, j = bisect_left(self.nums, left), bisect_right(self.nums, right)
+        self.nums[i:j] = [left]*(i%2 == 0) + [right]*(j%2 == 0)
+
+    def queryRange(self, left, right):
+        i, j = bisect_right(self.nums, left), bisect_left(self.nums, right)
+        return i == j and i%2 == 1
+
+    def removeRange(self, left, right):
+        i, j = bisect_left(self.nums, left), bisect_right(self.nums, right)
+        self.nums[i:j] = [left]*(i%2 == 1) + [right]*(j%2 == 1)
+```
