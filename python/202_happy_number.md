@@ -13,7 +13,8 @@ Example: 19 is a happy number
 Credits:
 Special thanks to @mithmatt and @ts for adding this problem and creating all test cases.
 
-##### 关键点就在于如何判断循环停止，有一个办法就是如果列表中出现两次平方和的结果一致，就可以终止这个循环。这个问题用递归的解法似乎更简单，但是不喜欢，下面是一个非递归的解法
+
+关键点就在于如何判断循环停止，有一个办法就是如果列表中出现两次平方和的结果一致，就可以终止这个循环。这个问题用递归的解法似乎更简单，但是不喜欢，下面是一个非递归的解法
 
 ```python
 class Solution:
@@ -31,4 +32,17 @@ class Solution:
                 s.add(n)
         return n == 1
 
+```
+
+```python
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        s = set()
+        while n != 1:
+            n = sum([int(i) ** 2 for i in str(n)])
+            if n in s:
+                return False
+            else:
+                s.add(n)
+        return True
 ```
