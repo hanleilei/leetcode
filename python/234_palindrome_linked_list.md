@@ -5,9 +5,8 @@ Given a singly linked list, determine if it is a palindrome.
 Follow up:
 Could you do it in O(n) time and O(1) space?
 
-先求链表的反转，可见leetcode 206.
+先求链表的反转，可见 206.
 判断回文主要是前半部分和后半部分的比较，若能将后半部分反转（仍然是单链表），则可以方便的判断回文。该思路在实现上有多种方法，效率上也有差异。若能不借助多余的空间实现反转单链表后半部分，则可以实现空间复杂度 O(1) 的要求。
-
 
 ```python
 # Definition for singly-linked list.

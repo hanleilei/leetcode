@@ -30,7 +30,21 @@ class Solution(object):
             else:
                 s.add(i)
         return res
+```
 
+换个思路：
+
+```python
+class Solution:
+    def findDuplicates(self, nums: List[int]) -> List[int]:
+        s = set(nums)
+        res = list()
+        for i in nums:
+            if i in s:
+                s.remove(i)
+            else:
+                res.append(i)
+        return res
 ```
 
 再来一个：

@@ -69,6 +69,13 @@ class Solution(object):
 
 这样写就好理解很多了，来自 Krahets
 
+设置三个节点pre、cur、next
+
+（1）每次查看cur节点是否为NULL，如果是，则结束循环，获得结果
+（2）如果cur节点不是为NULL，则先设置临时变量next为cur的下一个节点
+（3）让cur的下一个节点变成指向pre，而后pre移动cur，cur移动到next
+（4）重复（1）（2）（3）
+
 ```python
 # Definition for singly-linked list.
 # class ListNode(object):
