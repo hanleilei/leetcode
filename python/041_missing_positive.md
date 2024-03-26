@@ -29,6 +29,8 @@ class Solution(object):
                 return i+1
 ```
 
+现在上面的方法，不能ac了，加了一个测试用例：[2**32-1]
+
 再来一个讨论群用 cpp 写，点赞最多的：
 
 ```python
@@ -57,3 +59,16 @@ class Solution:
 ```
 
 感觉自己的智商被碾压了。。
+
+或者：
+
+```python
+class Solution:
+    def firstMissingPositive(self, nums: List[int]) -> int:
+        s = set(nums)
+        c = 1
+        while s:
+            if c not in s:
+                return c
+            c += 1
+```

@@ -63,45 +63,46 @@ class LRUCache(object):
 # param_1 = obj.get(key)
 # obj.put(key,value)
 ```
+
 以下是一个快速的版本
 
 ```python
 # Fast Solution
 from collections import deque
 class LRUCache(object):
-	def __init__(self, capacity):
-		self.capacity = capacity
-		self.queue = deque()
-		self.map = {}
-		self.timec = 0
+    def __init__(self, capacity):
+        self.capacity = capacity
+        self.queue = deque()
+        self.map = {}
+        self.timec = 0
 
 
-	def get(self, key):
-		self.timec += 1
+    def get(self, key):
+        self.timec += 1
 
-		if (not key in self.map):
-			return -1
+        if (not key in self.map):
+            return -1
 
-		val, _ = self.map[key]
-		self.map[key] = (val, self.timec)
-		self.queue.appendleft((key, val, self.timec))        
+        val, _ = self.map[key]
+        self.map[key] = (val, self.timec)
+        self.queue.appendleft((key, val, self.timec))        
 
-		return val       
+        return val       
 
 
-	def put(self, key, value):
-		self.timec += 1
-		self.map[key] = (value, self.timec)
-		self.queue.appendleft((key, value, self.timec))
+    def put(self, key, value):
+        self.timec += 1
+        self.map[key] = (value, self.timec)
+        self.queue.appendleft((key, value, self.timec))
 
-		self.fix_queue()       
-	def fix_queue(self):
-		while len(self.map) > self.capacity:
-			key, val, time = self.queue.pop()
-			val_r, time_r = self.map[key]
+        self.fix_queue()       
+    def fix_queue(self):
+        while len(self.map) > self.capacity:
+            key, val, time = self.queue.pop()
+            val_r, time_r = self.map[key]
 
-			if (val == val_r and time_r == time):
-				self.map.pop(key)    
+            if (val == val_r and time_r == time):
+                self.map.pop(key)    
 ```
 
 ```python
@@ -159,4 +160,26 @@ class LRUCache(object):
                         del self.dic[rem]
                         del self.data[rem]
                         break
+```
+
+直接上OrderedDict，这里面有很多很好的函数：
+
+```python
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        self.od = OrderedDict()
+        self.size = capacity
+
+    def get(self, key: int) -> int:
+        if key in self.od:
+            self.od.move_to_end(key) # 直接将key移动到末尾
+            return self.od.get(key)
+        return -1
+
+    def put(self, key: int, value: int) -> None:
+        self.od[key] = value
+        if len(self.od) > self.size:
+            self.od.popitem(last=False) # last = True 就是当作stack 操作，否则当作 queue 操作。
+        self.od.move_to_end(key)
 ```
