@@ -104,3 +104,11 @@ class Solution:
 ```
 
 这个方法其实非常巧妙，比方说 s= 'abdc', t = 'abab', 或者 s = 'paper', t = 'title' 也就是说，如果是同一个模式，之前遇到的值，则直接比较，如果之前没有遇到，加入字典。
+
+```python
+class Solution:
+    def isIsomorphic(self, s: str, t: str) -> bool:
+        d1, d2 = dict(zip(s, t)), dict(zip(t, s))
+        res1, res2 = [d1[i] for i in s], [d2[i] for i in t]
+        return ''.join(res1) == t and "".join(res2) == s
+```
