@@ -12,17 +12,17 @@ Return the string after making it good. The answer is guaranteed to be unique un
 
 Notice that an empty string is also good.
 
-Example 1:
+## Example 1
 
-```
+```text
 Input: s = "leEeetcode"
 Output: "leetcode"
 Explanation: In the first step, either you choose i = 1 or i = 2, both will result "leEeetcode" to be reduced to "leetcode".
 ```
 
-Example 2:
+## Example 2
 
-```
+```text
 Input: s = "abBAcC"
 Output: ""
 Explanation: We have many possible scenarios, and all lead to the same answer. For example:
@@ -30,45 +30,21 @@ Explanation: We have many possible scenarios, and all lead to the same answer. F
 "abBAcC" --> "abBA" --> "aA" --> ""
 ```
 
-Example 3:
+## Example 3
 
-```
+```text
 Input: s = "s"
 Output: "s"
 ```
 
-Constraints:
+## Constraints
 
-```
+```text
 1 <= s.length <= 100
 s contains only lower and upper case English letters.
 ```
 
-完全翻译题目：
-
-```python
-class Solution:
-    def makeGood(self, s: str) -> str:
-        while True:
-            if s == self.eliminate(s):
-                return s
-            s = self.eliminate(s)
-
-    def eliminate(self, s):
-        i = 0
-        res = list()
-        s += "&"
-
-        while i < len(s) - 1:
-            if s[i] != s[i+1] and (s[i].lower() == s[i+1] or s[i].upper() == s[i+1]):
-                i += 2
-            else:
-                res.append(s[i])
-                i += 1
-        return "".join(res)
-```
-
-但是，上面的算法是智障行为，正确的方法是用 stack：
+方法是用 stack：
 
 ```python
 class Solution:
@@ -100,3 +76,19 @@ class Solution:
 
         return "".join(stack)
 ```
+
+或者现在自己的方法：
+
+```python
+class Solution:
+    def makeGood(self, s: str) -> str:
+        stack = list()
+        for i in s:
+            if stack and stack[-1] != i and stack[-1].lower() == i.lower():
+                stack.pop()
+            else:
+                stack.append(i)
+        return ''.join(stack)
+```
+
+看起来自己还是有点长进。。
