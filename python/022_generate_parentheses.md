@@ -1,5 +1,7 @@
 # Generate Parentheses
 
+[[dfs]]
+
 Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
 
 For example, given n = 3, a solution set is:
@@ -12,7 +14,7 @@ For example, given n = 3, a solution set is:
   "()()()"
 ]
 
-#### 利用递归，注意满足的两个条件：左括号一定要大于零，右括号一定要大于零，且大于左括号的数量
+利用递归，注意满足的两个条件：左括号一定要大于零，右括号一定要大于零，且大于左括号的数量
 
 ```python
 class Solution(object):
@@ -50,13 +52,30 @@ class Solution:
             if len(S) == 2 * n:
                 ans.append(S)
                 return
-            if left < n:
+            if left < n:k
                 backtrack(S+'(',left + 1, right)
             if right < left:
                 backtrack(S+')',left,right + 1)
 
         backtrack()
         return ans
+```
+
+```python
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        res = list()
+        self.helper(n, n, "", res)
+        return res
+
+    def helper(self, left, right, path, res):
+        if left == 0 and right == 0:
+            res.append(path)
+            return
+        if left > 0:
+            self.helper(left - 1, right, path + "(", res)
+        if right > 0 and left < right:
+            self.helper(left, right - 1, path + ")", res)
 ```
 
 和一个dp的方案：
@@ -77,8 +96,6 @@ I bet you see the overlapping subproblems here. Here is the code:
 
 (you could see in the code that x represents one j-pair solution and y represents one (i - j - 1) pair solution, and we are taking into account all possible of combinations of them)
 
-
-
 ```Python
 class Solution:
     def generateParenthesis(self, n: int) -> List[str]:
@@ -89,6 +106,7 @@ class Solution:
                 dp[i] += ['(' + x + ')' + y for x in dp[j] for y in dp[i - j - 1]]
         return dp[n]
 ```
+
 看看caikehe的方案：
 
 毫无疑问，这个非常好理解！
@@ -115,6 +133,7 @@ class Solution:
 Solution 1
 
 I used a few "tricks"... how many can you find? :-)
+
 ```python
 def generateParenthesis(self, n):
     def generate(p, left, right, parens=[]):
@@ -123,6 +142,8 @@ def generateParenthesis(self, n):
         if not right:    parens += p,
         return parens
     return generate('', n, n)
+```
+
 Solution 2
 
 Here I wrote an actual Python generator. I allow myself to put the yield q at the end of the line because it\'s not that bad and because in "real life" I use Python 3 where I just say yield from generate(...).
@@ -137,8 +158,9 @@ def generateParenthesis(self, n):
             for q in generate(p + ')', left, right-1): yield q
     return list(generate('', n, n))
 ```
+
 Solution 3
-#
+
 Improved version of this. Parameter open tells the number of "already opened" parentheses, and I continue the recursion as long as I still have to open parentheses (n > 0) and I haven't made a mistake yet (open >= 0).
 
 ```python
