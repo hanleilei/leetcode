@@ -1,5 +1,7 @@
 # string compression
 
+[[2points]]
+
 Given an array of characters chars, compress it using the following algorithm:
 
 Begin with an empty string s. For each group of **consecutive repeating characters** in chars:
@@ -63,4 +65,25 @@ class Solution:
         for i in range(len(res)):
             chars[i] = res[i]
         return len(res)
+```
+
+还可以尝试用双指针实现：
+
+```python
+class Solution:
+    def compress(self, chars: List[str]) -> int:
+        walker, runner = 0, 0
+        while runner < len(chars):
+            chars[walker] = chars[runner]
+            count = 1
+            while runner + 1 < len(chars) and chars[runner] == chars[runner + 1]:
+                runner += 1
+                count += 1
+            if count > 1:
+                for c in str(count):
+                    chars[walker + 1] = c
+                    walker += 1
+            runner += 1
+            walker += 1
+        return walker
 ```
