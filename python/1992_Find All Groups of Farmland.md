@@ -82,6 +82,8 @@ class Solution:
         return group
 ```
 
+再来一个非常棒的方法，有点类似于dfs，但实际上是flood fill。
+
 Initialize an empty list result to store the coordinates of the top-left and bottom-right corners of each group of farmland.
 Traverse the 2D matrix land using two nested loops.
 For each cell in land, if the cell contains farmland (value = 1), call the findFarmlandCoordinates method to find the coordinates of the farmland group.
@@ -169,3 +171,84 @@ class Solution:
 ```
 
 这么看来，DFS还是蛮套路的，找到一个点持续向下和向右遍历，直到找到边界，然后返回结果。
+
+
+在看一个dfs的方法：
+
+```python
+class Solution:
+    def findFarmland(self, land: List[List[int]]) -> List[List[int]]:
+        def dfs(x, y):
+            # This function performs DFS to mark all connected farmland and find the boundaries
+            stack = [(x, y)]
+            min_row, min_col = x, y
+            max_row, max_col = x, y
+            visited.add((x, y))
+            
+            while stack:
+                cur_x, cur_y = stack.pop()
+                for dx, dy in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                    nx, ny = cur_x + dx, cur_y + dy
+                    if 0 <= nx < rows and 0 <= ny < cols and (nx, ny) not in visited and land[nx][ny] == 1:
+                        visited.add((nx, ny))
+                        stack.append((nx, ny))
+                        min_row = min(min_row, nx)
+                        min_col = min(min_col, ny)
+                        max_row = max(max_row, nx)
+                        max_col = max(max_col, ny)
+            
+            return (min_row, min_col, max_row, max_col)
+        
+        rows, cols = len(land), len(land[0])
+        visited = set()
+        result = []
+        
+        for i in range(rows):
+            for j in range(cols):
+                if land[i][j] == 1 and (i, j) not in visited:
+                    # Found a new piece of farmland
+                    min_row, min_col, max_row, max_col = dfs(i, j)
+                    result.append([min_row, min_col, max_row, max_col])
+        
+        return result
+```
+
+和 bfs：
+
+```python
+class Solution:
+    def findFarmland(self, land: List[List[int]]) -> List[List[int]]:
+        rows, cols = len(land), len(land[0])
+        result = []
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+        visited = set()
+        
+        def bfs(start_row, start_col):
+            queue = deque([(start_row, start_col)])
+            visited.add((start_row, start_col))
+            min_row, min_col, max_row, max_col = start_row, start_col, start_row, start_col
+            
+            while queue:
+                cur_row, cur_col = queue.popleft()
+                
+                for dr, dc in directions:
+                    new_row, new_col = cur_row + dr, cur_col + dc
+                    
+                    if 0 <= new_row < rows and 0 <= new_col < cols and (new_row, new_col) not in visited and land[new_row][new_col] == 1:
+                        visited.add((new_row, new_col))
+                        queue.append((new_row, new_col))
+                        min_row = min(min_row, new_row)
+                        min_col = min(min_col, new_col)
+                        max_row = max(max_row, new_row)
+                        max_col = max(max_col, new_col)
+            
+            return [min_row, min_col, max_row, max_col]
+        
+        for i in range(rows):
+            for j in range(cols):
+                if land[i][j] == 1 and (i, j) not in visited:
+                    farmland = bfs(i, j)
+                    result.append(farmland)
+        
+        return result
+```

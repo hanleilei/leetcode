@@ -62,7 +62,7 @@ class Solution:
         visited = set('0000')
 
         while queue:
-            (string, steps) = queue.popleft()
+            string, steps = queue.popleft()
             if string == target:
                 return steps
             elif string in dead_set:
@@ -78,7 +78,40 @@ class Solution:
         return -1
 ```
 
-再来一个速度快的：
+再来一个速度最快的：
+
+```python
+class Solution:
+    def openLock(self, deadends: List[str], target: str) -> int:
+        if target == "0000":
+            return 0
+        if '0000' in (deadends := set(deadends)):
+            return -1
+        
+        transitions = {str(i): (str((i+1) %10), str((i-1) % 10)) for i in range(10)}
+        start, end = {'0000'}, {target}
+        deadends.add("0000")
+        deadends.add(target)
+        turn = 1
+        while start and end:
+            if len(start) > len(end):
+                start, end = end, start
+            temp = set()
+            for state in start:
+                for i in range(4):
+                    for j in transitions[state[i]]:
+                        new_state = state[:i] + j + state[i + 1:]
+                        if new_state in end:
+                            return turn
+                        if new_state not in deadends:
+                            deadends.add(new_state)
+                            temp.add(new_state)
+            start = temp
+            turn += 1
+        return -1
+```
+
+来电取巧，不适合：
 
 ```python
 class Solution:
@@ -133,3 +166,5 @@ class Solution:
 
         return ans + 2
 ```
+
+

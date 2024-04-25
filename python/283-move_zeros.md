@@ -62,3 +62,21 @@ class Solution:
 
         return nums
 ```
+
+再来一个snowball方法, 很有趣，也很有想法，来自于[olsh](https://leetcode.com/problems/move-zeroes/solutions/172432/the-easiest-but-unusual-snowball-java-solution-beats-100-o-n-clear-explanation/)：
+
+```python
+class Solution:
+    def moveZeroes(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        snowBallSize = 0
+        for i in range(len(nums)):
+            if nums[i] == 0:
+                snowBallSize += 1
+            elif snowBallSize > 0:
+                t = nums[i]
+                nums[i] = 0
+                nums[i - snowBallSize] = t
+```
