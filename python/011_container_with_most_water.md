@@ -6,7 +6,7 @@ Note: You may not slant the container and n is at least 2.
 
 Subscribe to see which companies asked this question.
 
-#### 有个高度数组，就相当于隔板的高度，求数组中任意两隔板间盛水的最大量。隔板间的距离与较低隔板的高度乘积即为盛水的容量。这个有点像是贪心法
+有个高度数组，就相当于隔板的高度，求数组中任意两隔板间盛水的最大量。隔板间的距离与较低隔板的高度乘积即为盛水的容量。这个有点像是贪心法
 
 ```python
 class Solution(object):
