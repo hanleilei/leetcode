@@ -4,22 +4,23 @@ Given an array A of strings made only from lowercase letters, return a list of a
 
 You may return the answer in any order.
 
+## Example 1
 
-
-### Example 1:
-```
+```text
 Input: ["bella","label","roller"]
 Output: ["e","l","l"]
 ```
 
-### Example 2:
-```
+## Example 2
+
+```text
 Input: ["cool","lock","cook"]
 Output: ["c","o"]
 ```
 
-### Note:
-```
+## Note
+
+```text
 1 <= A.length <= 100
 1 <= A[i].length <= 100
 A[i][j] is a lowercase letter
@@ -35,6 +36,7 @@ class Solution:
             res &= collections.Counter(a)
         return list(res.elements())
 ```
+
 oneline:
 
 ```python
@@ -64,4 +66,28 @@ class Solution:
             for i in range(letter_count):
                 return_list.append(letter)
         return return_list
+```
+
+或者好理解的：
+
+```python
+class Solution:
+    def commonChars(self, words: List[str]) -> List[str]:
+        res = Counter(words[0])
+        for i in words:
+            ans = Counter(i)
+            for k in res.keys():
+                res[k] = min(res[k], ans[k])
+        return res.elements()
+```
+
+来个速度最快的：
+
+```python
+class Solution:
+    def commonChars(self, words: List[str]) -> List[str]:
+        res = []
+        for ch in set(words[0]):
+            res += ch * min([word.count(ch) for word in words]) 
+        return res
 ```

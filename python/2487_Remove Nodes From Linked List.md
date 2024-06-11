@@ -8,7 +8,7 @@ Return the head of the modified linked list.
 
 ## Example 1
 
-![](https://assets.leetcode.com/uploads/2022/10/02/drawio.png)
+![1](https://assets.leetcode.com/uploads/2022/10/02/drawio.png)
 
 ```text
 Input: head = [5,2,13,3,8]
