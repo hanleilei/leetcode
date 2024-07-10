@@ -61,3 +61,16 @@ class Solution:
     def numWaterBottles(self, numBottles: int, numExchange: int) -> int:
         return numBottles + (numBottles-1)//(numExchange-1)
 ```
+
+```python
+class Solution:
+    def numWaterBottles(self, numBottles: int, numExchange: int) -> int:
+        res = numBottles
+        while numBottles >= numExchange:
+            full, empty = divmod(numBottles, numExchange)
+            numBottles = full + empty
+            res += full
+        return res
+```
+
+full, empty = divmod(numBottles, numExchange) 等价于： full, empty = numBottles // numExchange, numBottles % numExchange
