@@ -3,29 +3,35 @@
 Convert a non-negative integer to its english words representation. Given input is guaranteed to be less than 231 - 1.
 
 Example 1:
-```
+
+```text
 Input: 123
 Output: "One Hundred Twenty Three"
 ```
+
 Example 2:
-```
+
+```text
 Input: 12345
 Output: "Twelve Thousand Three Hundred Forty Five"
 ```
+
 Example 3:
-```
+
+```text
 Input: 1234567
 Output: "One Million Two Hundred Thirty Four Thousand Five Hundred Sixty Seven"
 ```
 
 Example 4:
-```
+
+```text
 Input: 1234567891
 Output: "One Billion Two Hundred Thirty Four Million Five Hundred Sixty Seven Thousand Eight Hundred Ninety One"
 ```
 
-
 先看看stefan大大的解法：
+
 ```python
 class Solution:
     def numberToWords(self, num):
