@@ -8,8 +8,10 @@ Note:
 
 All numbers (including target) will be positive integers.
 The solution set must not contain duplicate combinations.
+
 Example 1:
-```
+
+```text
 Input: candidates = [10,1,2,7,6,1,5], target = 8,
 A solution set is:
 [
@@ -19,8 +21,10 @@ A solution set is:
   [1, 1, 6]
 ]
 ```
+
 Example 2:
-```
+
+```text
 Input: candidates = [2,5,2,1,2], target = 5,
 A solution set is:
 [
@@ -28,7 +32,6 @@ A solution set is:
   [5]
 ]
 ```
-
 
 ```Python
 class Solution(object):
@@ -55,7 +58,6 @@ class Solution(object):
 
 
 ```
-
 
 ```Python
 class Solution:
