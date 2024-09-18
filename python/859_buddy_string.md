@@ -4,35 +4,35 @@ Given two strings A and B of lowercase letters, return true if and only if we ca
 
 Example 1:
 
-```
+```text
 Input: A = "ab", B = "ba"
 Output: true
 ```
 
 Example 2:
 
-```
+```text
 Input: A = "ab", B = "ab"
 Output: false
 ```
 
 Example 3:
 
-```
+```text
 Input: A = "aa", B = "aa"
 Output: true
 ```
 
 Example 4:
 
-```
+```text
 Input: A = "aaaaaaabc", B = "aaaaaaacb"
 Output: true
 ```
 
 Example 5:
 
-```
+```text
 Input: A = "", B = "aa"
 Output: false
 ```
@@ -45,7 +45,7 @@ A and B consist only of lowercase letters.
 
 看下 lee215 的解释：
 
-```
+```text
 If A.length() != B.length(): no possible swap
 
 If A == B, we need swap two same characters. Check is duplicated char in A.

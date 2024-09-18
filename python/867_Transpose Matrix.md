@@ -37,3 +37,20 @@ class Solution:
     def transpose(self, matrix: List[List[int]]) -> List[List[int]]:
         return zip(*matrix)
 ```
+
+```text
+转置矩阵就是把 M 行 N 列的矩阵，转成 N 行 M 列的矩阵，原来矩阵中 matrix[i][j] 的位置，会交换到新矩阵的 res[j][i] 位置。
+
+矩阵的行列数可能不等，因此不能做原地操作，需要新建数组。
+```
+
+```python
+class Solution:
+    def transpose(self, matrix: List[List[int]]) -> List[List[int]]:
+        m, n = len(matrix), len(matrix[0])
+        res = [[0] * m for i in range(n)]
+        for i in range(m):
+            for j in range(n):
+                res[j][i] = matrix[i][j]
+        return res
+```

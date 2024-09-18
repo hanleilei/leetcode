@@ -1,12 +1,20 @@
 # largest number
 
-Given a list of non negative integers, arrange them such that they form the largest number.
+Given a list of non-negative integers nums, arrange them such that they form the largest number and return it. Since the result may be very large, so you need to return a string instead of an integer.
 
-For example, given [3, 30, 34, 5, 9], the largest formed number is 9534330.
+Example 1:
 
-Note: The result may be very large, so you need to return a string instead of an integer.
+Input: nums = [10,2]
+Output: "210"
+Example 2:
 
-比较的是字符串，然后用的是python2 的cmp方法，比较两个字符串连接后的大小
+Input: nums = [3,30,34,5,9]
+Output: "9534330"
+
+Constraints:
+
+1 <= nums.length <= 100
+0 <= nums[i] <= 109
 
 ```python
 class Solution:
@@ -66,5 +74,103 @@ class Solution:
         
         strs = [str(num) for num in nums]
         strs.sort(key = functools.cmp_to_key(sort_rule), reverse=True)
-        return ''.join(strs)
+        return ''.join(strs).lstrip("0") or "0
+```
+
+quick sort:
+
+```python
+class Solution:
+    def largestNumber(self, nums: List[int]) -> str:
+        self.quicksort(nums, 0, len(nums) - 1)
+        return str(int("".join(map(str, nums))))
+
+    def quicksort(self, nums, l, r):
+        if l > r:
+            return 
+        
+        pos = self.partition(nums, l, r)
+        self.quicksort(nums, l, pos - 1)
+        self.quicksort(nums, pos + 1, r)
+
+    def partition(self, nums, l, r):
+        low = l
+        while l < r:
+            if self.compare(nums[l], nums[r]):
+                nums[l], nums[low] = nums[low], nums[l]
+                low += 1
+            l += 1
+        nums[low], nums[r] = nums[r], nums[low]
+        return low
+    
+    def compare(self, m, n):
+        return str(m) + str(n) > str(n) + str(m)
+```
+
+selection sort
+
+```python
+class Solution:
+    def largestNumber(self, nums: List[int]) -> str:
+        for i in range(len(nums), 0, -1):
+            tmp = 0
+            for j in range(i):
+                if not self.compare(nums[j], nums[tmp]):
+                    tmp = j
+            nums[tmp], nums[i-1] = nums[i-1], nums[tmp]
+        return str(int("".join(map(str, nums))))
+    
+    def compare(self, n1, n2):
+        return str(n1) + str(n2) > str(n2) + str(n1)
+```
+
+insert sort
+
+```python
+class Solution:
+    def largestNumber(self, nums: List[int]) -> str:
+        for i in range(len(nums)):
+            pos, cur = i, nums[i]
+            while pos > 0 and not self.compare(nums[pos-1], cur):
+                nums[pos] = nums[pos-1]  # move one-step forward
+                pos -= 1
+            nums[pos] = cur
+        return str(int("".join(map(str, nums))))
+    
+    def compare(self, n1, n2):
+        return str(n1) + str(n2) > str(n2) + str(n1)
+```
+
+merge sort
+
+```python
+class Solution:
+    def largestNumber(self, nums: List[int]) -> str:
+        nums = self.mergeSort(nums, 0, len(nums)-1)
+        return str(int("".join(map(str, nums))))
+        
+    def mergeSort(self, nums, l, r):
+        if l > r:
+            return 
+        if l == r:
+            return [nums[l]]
+        mid = l + (r-l)//2
+        left = self.mergeSort(nums, l, mid)
+        right = self.mergeSort(nums, mid+1, r)
+        return self.merge(left, right)
+        
+    def merge(self, l1, l2):
+        res, i, j = [], 0, 0
+        while i < len(l1) and j < len(l2):
+            if not self.compare(l1[i], l2[j]):
+                res.append(l2[j])
+                j += 1
+            else:
+                res.append(l1[i])
+                i += 1
+        res.extend(l1[i:] or l2[j:])
+        return res
+    
+    def compare(self, n1, n2):
+        return str(n1) + str(n2) > str(n2) + str(n1)
 ```
