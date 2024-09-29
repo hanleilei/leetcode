@@ -20,6 +20,14 @@ class Solution(object):
         return [int(j) for j in sorted(str(i) for i in range(1, n+1))]
 ```
 
+或者：
+
+```python
+class Solution:
+    def lexicalOrder(self, n: int) -> List[int]:
+        return sorted(range(1, n + 1), key=str)
+```
+
 烂透了的算法，只能排序到50000左右的数字。当然可能是因为leetcode的要求苛刻。
 
 当然还有递归算法：
@@ -39,6 +47,7 @@ class Solution(object):
         solve(1)
         return result
 ```
+
 居然运行了1.4秒多，让我通过了，下面再看看还有其他什么更好的算法没有。其实也就是把上面的算法改造成正常的形式。
 
 ```python
@@ -60,6 +69,7 @@ class Solution(object):
         return result
 
 ```
+
 用时1.3秒，用stack的数据结构，一直在压栈，设定一个判断栈是否为空的条件。
 
 ```python
@@ -89,3 +99,46 @@ class Solution(object):
 ```
 
 这个算法更是没什么好说的还是用迭代的方式更快，如果用copy模块的deepcopy方法反而慢了。
+
+```python
+class Solution:
+    def lexicalOrder(self, n: int) -> List[int]:
+        res = []
+        num = 1
+        for _ in range(n):
+            res.append(num)
+            if num * 10 <= n:
+                num *= 10
+            else:
+                while num % 10 == 9 or num + 1 > n:
+                    num //= 10
+                num += 1
+        return res
+```
+
+```text
+The idea is pretty simple. If we look at the order we can find out we just keep adding digit from 0 to 9 to every digit and make it a tree.
+Then we visit every node in pre-order. 
+       1        2        3    ...
+      /\        /\       /\
+   10 ...19  20...29  30...39   ....
+```
+
+```python
+class Solution:
+    def lexicalOrder(self, n: int) -> List[int]:
+        res = list()
+        for i in range(1, 10):
+            self.dfs(i, n, res)
+        return res
+    
+    def dfs(self, cur: int, n: int, res: List[int]):
+        if cur > n:
+            return 
+        else:
+            res.append(cur)
+            for i in range(10):
+                if 10 * cur + i > n:
+                    return 
+                self.dfs(10 * cur + i, n, res)
+```

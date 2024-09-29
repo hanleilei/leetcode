@@ -40,7 +40,7 @@ class Solution:
         return res
 ```
 
-然后看看stephan大神的写法，非常的飘逸
+然后看看stephan大神的写法，非常的飘逸
 
 ```python
 class Solution:
