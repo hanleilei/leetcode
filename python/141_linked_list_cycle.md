@@ -5,7 +5,7 @@ Given a linked list, determine if it has a cycle in it.
 Follow up:
 Can you solve it without using extra space?
 
-###### 很经典，也很简单的方法：一个快，一个慢的遍历整个链表，如果有环，它们就会相遇。
+很经典，也很简单的方法：一个快，一个慢的遍历整个链表，如果有环，它们就会相遇。
 
 这个blog里面就描述的非常好：https://blog.csdn.net/linhuanmars/article/details/21200601
 

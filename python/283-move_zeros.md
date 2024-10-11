@@ -71,12 +71,11 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        snowBallSize = 0
+        snowBallSize = 0  # 记录遇到的 0 的个数
         for i in range(len(nums)):
             if nums[i] == 0:
-                snowBallSize += 1
+                snowBallSize += 1  # 增加"雪球"的大小
             elif snowBallSize > 0:
-                t = nums[i]
-                nums[i] = 0
-                nums[i - snowBallSize] = t
+                # 交换非 0 元素和"雪球"的第一个 0
+                nums[i - snowBallSize], nums[i] = nums[i], 0
 ```
