@@ -34,6 +34,7 @@ class Solution:
 
         return head
 ```
+
 下面是一个更清晰的算法实现，用字典，不过还是有点感觉是在抖机灵。。
 
 ```python
@@ -123,7 +124,7 @@ class Solution(object):
         return None
 ```
 
-似乎，这个才是最终都最佳答案，java和cpp都是这种写法：
+似乎，这个才是最终的最佳答案，java和cpp都是这种写法：
 
 ```python
 # Definition for singly-linked list.
