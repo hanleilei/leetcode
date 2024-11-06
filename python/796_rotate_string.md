@@ -17,14 +17,9 @@ Note:
 A and B will have length at most 100.
 
 ```Python
-class Solution(object):
-    def rotateString(self, A, B):
-        """
-        :type A: str
-        :type B: str
-        :rtype: bool
-        """
-        return len(A) == len(B) and B in A + A
+class Solution:
+    def rotateString(self, s: str, goal: str) -> bool:
+        return len(s) == len(goal) and goal in s + s
 ```
 
 ```rust
