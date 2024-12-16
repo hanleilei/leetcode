@@ -53,3 +53,24 @@ class Solution:
             heapq.heappush(gifts, -floor(sqrt(-heapq.heappop(gifts))))
         return -sum(gifts)
 ```
+
+呃，有点忘记了heapq的用法了：
+
+```python
+class Solution:
+    def pickGifts(self, gifts: List[int], k: int) -> int:
+        # 将所有礼物的负数值加入堆（模拟最大堆）
+        nums = [-i for i in gifts]
+        heapify(nums)  # 转化为最小堆
+
+        for _ in range(k):
+            # 弹出最大值（堆顶负数最小）
+            max_val = -heappop(nums)
+            # 计算新值
+            min_val = floor(sqrt(max_val))
+            # 将新值重新加入堆
+            heappush(nums, -min_val)
+
+        # 计算剩余值的总和
+        return -sum(nums)
+```
