@@ -31,6 +31,7 @@ Explanation: There is no i and j that satisfy the conditions.
 class Solution:
     def checkIfExist(self, arr: List[int]) -> bool:
         s = Counter(arr)
+        # 判断是否有多个0
         if s[0] > 1:return True
         for n in arr:
             if s[n*2] and n != 0:

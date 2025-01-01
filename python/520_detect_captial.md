@@ -9,14 +9,14 @@ We define the usage of capitals in a word to be right when one of the following 
 
 Example 1:
 
-```
+```text
 Input: word = "USA"
 Output: true
 ```
 
 Example 2:
 
-```
+```text
 Input: word = "FlaG"
 Output: false
 ```
