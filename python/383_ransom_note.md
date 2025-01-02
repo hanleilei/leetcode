@@ -22,3 +22,14 @@ class Solution(object):
         from collections import Counter
         return not Counter(ransomNote) - Counter(magazine)
 ```
+
+```python
+class Solution:
+    def canConstruct(self, ransomNote: str, magazine: str) -> bool:
+        rc = dict(Counter(ransomNote))
+        mc = dict(Counter(magazine))
+        for k, v in rc.items():
+            if k not in mc or v> mc[k]:
+                return False
+        return True
+```

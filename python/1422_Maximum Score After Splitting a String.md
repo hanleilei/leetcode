@@ -55,3 +55,91 @@ class Solution:
             res = max(res, zero + ones)
         return res
 ```
+
+```rust
+impl Solution {
+    pub fn max_score(s: String) -> i32 {
+        let mut left = 0;
+        let mut right = s.chars().filter(|&c| c == '1').count() as i32;
+        let mut res = 0;
+
+        for c in s.chars().take(s.len() - 1){
+            if c == '0' {
+                left += 1;
+            } else {
+                right -= 1;
+            }
+            res = res.max(left + right);
+        }
+        res
+    }
+}
+```
+
+```java
+class Solution {
+    public int maxScore(String s) {
+        int left = 0;
+        int right = 0;
+        int res = 0;
+
+        for (char c: s.toCharArray()){
+            if (c == '1'){
+                right++;
+            }
+        }
+        for (int i = 0; i < s.length() - 1; i++){
+            if (s.charAt(i) == '0'){
+                left++;
+            } else {
+                right--;
+            }
+            res = Math.max(res, left + right);
+        }
+        return res;   
+    }
+}
+```
+
+```c++
+class Solution {
+public:
+    int maxScore(string s) {
+        int left = 0;
+        int right = std::count(s.begin(), s.end(), '1');
+        int res = 0;
+        for (size_t i = 0; i < s.length() - 1; ++i){
+            if (s[i] == '0'){
+                left++;
+            }else{
+                right--;
+            }
+            res = std::max(res, left + right);
+        }
+        return res;
+    }
+};
+```
+
+```go
+func maxScore(s string) int {
+    left, right := 0, 0
+    for _, ch := range s{
+        if ch == '1' {
+            right++
+        }
+    }
+    res := 0
+    for i := 0; i < len(s) - 1; i++ {
+        if s[i] == '0'{
+            left++
+        } else {
+            right--
+        }
+        if left + right > res {
+            res = left + right
+        }
+    }
+    return res
+}
+```

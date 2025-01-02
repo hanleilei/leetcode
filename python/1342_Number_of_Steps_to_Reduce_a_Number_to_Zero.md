@@ -1,4 +1,4 @@
-## Number of Steps to Reduce a Number to Zero
+# Number of Steps to Reduce a Number to Zero
 
 Given an integer num, return the number of steps to reduce it to zero.
 
@@ -6,7 +6,7 @@ In one step, if the current number is even, you have to divide it by 2, otherwis
 
 Example 1:
 
-```
+```text
 Input: num = 14
 Output: 6
 Explanation:
@@ -20,7 +20,7 @@ Step 6) 1 is odd; subtract 1 and obtain 0.
 
 Example 2:
 
-```
+```text
 Input: num = 8
 Output: 4
 Explanation:
@@ -32,14 +32,14 @@ Step 4) 1 is odd; subtract 1 and obtain 0.
 
 Example 3:
 
-```
+```text
 Input: num = 123
 Output: 12
 ```
 
 Constraints:
 
-```
+```text
 0 <= num <= 106
 ```
 
