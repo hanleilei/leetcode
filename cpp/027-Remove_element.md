@@ -1,5 +1,7 @@
 # remove element
 
+[[2points]]
+
 Given an array and a value, remove all instances of that value in place and return the new length.
 
 Do not allocate extra space for another array, you must do this in place with constant memory.
@@ -31,6 +33,7 @@ public:
     }
 };
 ```
+
 下面的方法是超级牛逼的，只要4ms。。
 
 ```cpp
@@ -46,12 +49,30 @@ public:
     int removeElement(vector<int>& nums, int val) {
         auto cur = 0;
 
-		for(auto i=0; i < nums.size(); i++) {
-			if (nums[i] != val) {
-				nums[cur] = nums[i];
-				cur++;
-			}
-		}
-		return cur;
+        for(auto i=0; i < nums.size(); i++) {
+            if (nums[i] != val) {
+                nums[cur] = nums[i];
+                cur++;
+            }
+        }
+        return cur;
     }
+```
+
+```cpp
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int slow = 0;
+        int fast = 0;
+        while (fast < nums.size()){
+            if (nums[fast] != val){
+                nums[slow] = nums[fast];
+                slow++;
+            }
+            fast++;
+        }
+        return slow;
+    }
+};
 ```

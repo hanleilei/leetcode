@@ -64,3 +64,17 @@ class Solution:
             fast += 1
         return slow + 1
 ```
+
+```java
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int unique = 1; // 用于跟踪唯一元素的下标
+        for (int i = 1; i < nums.length; i++) {
+            if (nums[i] != nums[unique - 1]) {
+                nums[unique++] = nums[i];
+            }
+        }
+        return unique;
+    }
+}
+```

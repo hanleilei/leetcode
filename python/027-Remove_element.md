@@ -52,11 +52,40 @@ class Solution:
 ```python
 class Solution:
     def removeElement(self, nums: List[int], val: int) -> int:
-        slow = fast = 0
+        slow, fast = 0, 0
         while fast < len(nums):
             if nums[fast] != val:
                 nums[slow] = nums[fast]
                 slow += 1
             fast += 1
         return slow
+```
+
+```go
+func removeElement(nums []int, val int) int {
+    slow := 0
+    for fast := 0; fast < len(nums); fast++ {
+        if nums[fast] != val {
+            nums[slow] = nums[fast]
+            slow++
+        }
+    }
+    return slow
+}
+
+```
+
+```rust
+impl Solution {
+    pub fn remove_element(nums: &mut Vec<i32>, val: i32) -> i32 {
+        let mut slow = 0;
+        for fast in 0..nums.len() {
+            if nums[fast] != val {
+                nums[slow] = nums[fast];
+                slow += 1;
+            }
+        }
+        slow as i32
+    }
+}
 ```
