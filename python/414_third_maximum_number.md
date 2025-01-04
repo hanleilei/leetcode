@@ -8,14 +8,14 @@ Input: [3, 2, 1]
 Output: 1
 
 Explanation: The third maximum is 1.
-----
+
 Example 2:
 Input: [1, 2]
 
 Output: 2
 
 Explanation: The third maximum does not exist, so the maximum (2) is returned instead.
-----
+
 Example 3:
 Input: [2, 2, 3, 1]
 
@@ -23,7 +23,8 @@ Output: 1
 
 Explanation: Note that the third maximum here means the third maximum distinct number.Both numbers with value 2 are both considered as second maximum.
 
-#### 抖个机灵，用heapq里面的函数解决。
+可以用heapq里面的函数解决。
+
 ```python
 class Solution(object):
     def thirdMax(self, nums):
@@ -37,4 +38,24 @@ class Solution(object):
             return a[-1]
         else:
             return max(a)
+```
+
+```python
+class Solution:
+    def thirdMax(self, nums: List[int]) -> int:
+        nums = list(set(nums))
+        if len(nums) < 3:
+            return sorted(nums)[-1]
+        return nlargest(3, nums)[-1]
+```
+
+```python
+class Solution:
+    def thirdMax(self, nums: List[int]) -> int:
+        snums = sorted(list(set(nums)))
+
+        if len(snums) > 2:
+            return snums[-3]
+        else:
+            return snums[-1]
 ```

@@ -41,3 +41,10 @@ class Solution:
     def heightChecker(self, heights: List[int]) -> int:
         return sum([l != r for l, r in zip(heights, sorted(heights))])
 ```
+
+```python
+class Solution:
+    def heightChecker(self, heights: List[int]) -> int:
+        nums = sorted(heights)
+        return sum([1 for i in range(len(nums)) if nums[i] != heights[i]])
+```

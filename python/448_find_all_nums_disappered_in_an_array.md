@@ -41,3 +41,10 @@ class Solution:
 
         return [i+1 for i in range(len(res)) if res[i] == 0]
 ```
+
+```python
+class Solution:
+    def findDisappearedNumbers(self, nums: List[int]) -> List[int]:
+        c = Counter(nums)
+        return [i for i in range(1, len(nums) + 1) if i not in c]
+```

@@ -87,3 +87,24 @@ class Solution:
                 res += len(set(s[i+1:j]))
         return res
 ```
+
+思路：
+1. 确定每个字符的第一次出现和最后一次出现的位置
+2. 确定中间的字符的个数
+3. 遍历所有的字符，把中间的字符的个数加起来.
+
+```python
+class Solution:
+    def countPalindromicSubsequence(self, s: str) -> int:
+        res = 0
+        mapping = defaultdict(list)
+        for index, val in enumerate(s):
+            mapping[val].append(index)
+        
+        for k, vals in mapping.items():
+            if len(vals) == 1:
+                continue
+            start, end = vals[0], vals[-1]
+            res += len(set(s[start+1:end]))
+        return res
+```
