@@ -6,9 +6,9 @@ We define the pivot index as the index where the sum of the numbers to the left 
 
 If no such index exists, we should return -1. If there are multiple pivot indexes, you should return the left-most pivot index.
 
-## Example 1:
+## Example 1
 
-```
+```text
 Input:
 nums = [1, 7, 3, 6, 5, 6]
 Output: 3
@@ -17,9 +17,9 @@ The sum of the numbers to the left of index 3 (nums[3] = 6) is equal to the sum 
 Also, 3 is the first index where this occurs.
 ```
 
-## Example 2:
+## Example 2
 
-```
+```text
 Input:
 nums = [1, 2, 3]
 Output: -1
@@ -27,7 +27,7 @@ Explanation:
 There is no index that satisfies the conditions in the problem statement.
 ```
 
-## Note:
+## Note
 
 - The length of nums will be in the range [0, 10000].
 - Each element nums[i] will be an integer in the range [-1000, 1000]

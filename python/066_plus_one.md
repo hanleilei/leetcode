@@ -51,3 +51,26 @@ class Solution:
         newNumber[0] = 1
         return newNumber
 ```
+
+思路：
+
+1. 配置flag 为1，从最后一位开始遍历，如果小于9，直接加flag， 然后flag配置为0。
+2. 这样，如果是最后一位是0，则其他位置什么都不变。
+3. 如果遇到9，看flag是多少，如果当前位置不是最右边（这个通过flag来判断），则跳过
+4. 最后再判断flag，这个是针对999这种情况的，如果是999，则最后一位是0，其他位置都是0，所以需要在最前面加1。
+
+```python
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        res = list()
+        flag = 1
+        for i in range(len(digits) - 1, -1 ,-1):
+            if digits[i] < 9:
+                digits[i] += flag
+                flag = 0
+            else:
+                if flag:
+                    digits[i] = 0
+                    flag = 1
+        return [1] + digits if flag else digits
+```

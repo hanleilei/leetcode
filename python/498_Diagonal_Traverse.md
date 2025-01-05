@@ -2,8 +2,6 @@
 
 Given a matrix of M x N elements (M rows, N columns), return all elements of the matrix in diagonal order as shown in the below image.
 
-
-
 Example:
 
 Input:
@@ -17,12 +15,20 @@ Output:  [1,2,4,7,5,3,6,8,9]
 
 Explanation:
 
-![](https://assets.leetcode.com/uploads/2018/10/12/diagonal_traverse.png)
+![1](https://assets.leetcode.com/uploads/2018/10/12/diagonal_traverse.png)
 
-Note:
+Example 2:
 
-The total number of elements of the given matrix will not exceed 10,000.
+Input: mat = [[1,2],[3,4]]
+Output: [1,2,3,4]
 
+Constraints:
+
+- m == mat.length
+- n == mat[i].length
+- 1 <= m, n <= 104
+- 1 <= m * n <= 104
+- `-10**5 <= mat[i][j] <= 10**5`
 
 ```python
 from collections import deque, defaultdict
