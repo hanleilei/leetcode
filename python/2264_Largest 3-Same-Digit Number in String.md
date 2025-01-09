@@ -73,3 +73,24 @@ class Solution:
                 count = 1
         return max(res) * 3 if res else ""
 ```
+
+```python
+class Solution:
+    def largestGoodInteger(self, num: str) -> str:
+        n = len(num)
+        res = ""
+        for i in range(n - 2):
+            if num[i] == num[i+1] == num[i+2]:
+                res = max(res, num[i:i+3])
+        return res
+```
+
+```python
+class Solution:
+    def largestGoodInteger(self, num: str) -> str:
+        digits = '9876543210'
+        for n in digits:
+            if n * 3 in num:
+                return n*3
+        return ""
+```
