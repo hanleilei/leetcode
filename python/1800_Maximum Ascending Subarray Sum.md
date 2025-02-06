@@ -39,3 +39,29 @@ class Solution:
                 max_val = nums[i]
         return max(res, max_val)
 ```
+
+```python
+class Solution:
+    def maxAscendingSum(self, nums: List[int]) -> int:
+        max_val, res = 0, 0
+        for i in range(len(nums)):
+            if i == 0 or  nums[i] > nums[i - 1]:
+                max_val += nums[i]
+            else:
+                max_val = nums[i]
+            res = max(max_val, res)
+        return res
+```
+
+```python
+class Solution:
+    def maxAscendingSum(self, nums: List[int]) -> int:
+        max_val, res = nums[0], nums[0]
+        for i in range(1, len(nums)):
+            if nums[i] > nums[i - 1]:
+                max_val += nums[i]     
+                res = max(max_val, res)       
+            else:
+                max_val = nums[i]
+        return res
+```
