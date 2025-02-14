@@ -13,15 +13,18 @@ Note that you can only apply the described operation if nums contains at least t
 
 Return the minimum number of operations needed so that all elements of the array are greater than or equal to k.
 
-Example 1:
+## Example 1
 
+```text
 Input: nums = [2,11,10,1,3], k = 10
 Output: 2
 Explanation: In the first operation, we remove elements 1 and 2, then add 1 * 2 + 2 to nums. nums becomes equal to [4, 11, 10, 3].
 In the second operation, we remove elements 3 and 4, then add 3 * 2 + 4 to nums. nums becomes equal to [10, 11, 10].
 At this stage, all the elements of nums are greater than or equal to 10 so we can stop.
 It can be shown that 2 is the minimum number of operations needed so that all elements of the array are greater than or equal to 10.
-Example 2:
+```
+
+## Example 2
 
 Input: nums = [1,1,2,4,9], k = 20
 Output: 4
@@ -32,12 +35,14 @@ After four operations, nums becomes equal to [33].
 At this stage, all the elements of nums are greater than 20 so we can stop.
 It can be shown that 4 is the minimum number of operations needed so that all elements of the array are greater than or equal to 20.
 
-Constraints:
+## Constraints
 
 2 <= nums.length <= 2 * 105
 1 <= nums[i] <= 109
 1 <= k <= 109
 The input is generated such that an answer always exists. That is, there exists some sequence of operations after which all elements of the array are greater than or equal to k.
+
+超时。。。
 
 ```python
 class Solution:
@@ -66,4 +71,19 @@ class Solution:
             heapreplace(nums, nums[0] + x * 2)
             ans += 1
         return ans
+```
+
+或者：
+
+```python
+class Solution:
+    def minOperations(self, nums: List[int], k: int) -> int:
+        res = 0
+        heapify(nums)
+        n = heappop(nums)
+        while n < k:
+            x = 2 * n + heappop(nums)
+            n = heappushpop(nums, x)
+            res += 1
+        return res
 ```
