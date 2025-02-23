@@ -16,6 +16,7 @@ Input: "cbbd"
 Output: "bb"
 
 #### manacher 算法
+
 Given a string S, we are to find the longest sub-string s of S such that the reverse of s is exactly the same as s.
 
 First insert a special character ‘#’ between each pair of adjacent characters of S, in front of S and at the back of S. After that, we only need to check palindrome sub-strings of odd length.
@@ -59,7 +60,6 @@ class Solution(object):
         # Find the maximum element in P.
         maxLen, centerIndex = max((n, i) for i, n in enumerate(P))
         return s[(centerIndex  - maxLen)//2: (centerIndex  + maxLen)//2]
-
 ```
 
 直接在leetcode的blog上也有：https://articles.leetcode.com/longest-palindromic-substring-part-ii/

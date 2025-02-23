@@ -16,7 +16,7 @@
     1067. 范围内的数字计数（会员题）2025
     1742. 盒子中小球的最大数量 *请使用非暴力做法解决
     2719. 统计整数数目
-
+    
     1744. Number of Digit One
     1745. Numbers At Most N Given Digit Set
     1746. Numbers With Repeated Digits

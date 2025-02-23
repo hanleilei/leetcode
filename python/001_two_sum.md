@@ -32,7 +32,6 @@ class Solution(object):
             if n in d:
                 return [d[n], i]
             d[target - n] = i
-
 ```
 
 this will execute in less than 60 ms

@@ -4,15 +4,18 @@
 
 Given n pairs of parentheses, write a function to generate all combinations of well-formed parentheses.
 
-For example, given n = 3, a solution set is:
+Example 1:
 
-[
-  "((()))",
-  "(()())",
-  "(())()",
-  "()(())",
-  "()()()"
-]
+Input: n = 3
+Output: ["((()))","(()())","(())()","()(())","()()()"]
+Example 2:
+
+Input: n = 1
+Output: ["()"]
+
+Constraints:
+
+1 <= n <= 8
 
 利用递归，注意满足的两个条件：左括号一定要大于零，右括号一定要大于零，且大于左括号的数量
 
@@ -170,4 +173,38 @@ def generateParenthesis(self, n, open=0):
                [')' + p for p in self.generateParenthesis(n, open-1)]
     return [')' * open] * (not n)
 
+```
+
+再来一个很牛的方法：
+
+如果 n = 2， 那么递归树就长这样：
+
+```text
+                                       (0, 0, '')
+                                         |    
+                                    (1, 0, '(')  
+                                   /           \
+                            (2, 0, '((')      (1, 1, '()')
+                               /                 \
+                        (2, 1, '(()')           (2, 1, '()(')
+                           /                       \
+                    (2, 2, '(())')                (2, 2, '()()')
+                              |                                 |
+                    res.append('(())')             res.append('()()')
+```
+
+```python
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        def dfs(left, right, s):
+            if len(s) == n * 2:
+                res.append(s)
+                return
+            if left < n:
+                dfs(left + 1, right, s + '(')
+            if right < left:
+                dfs(left, right + 1, s + ')')
+        res = list()
+        dfs(0, 0, "")
+        return res
 ```

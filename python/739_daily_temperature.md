@@ -1,12 +1,28 @@
 # daily Temperatures
 
-Given a list of daily nns T, return a list such that, for each day in the input, tells you how many days you would have to wait until a warmer temperature. If there is no future day for which this is possible, put 0 instead.
+[[stack]]
 
-For example, given the list of temperatures T = [73, 74, 75, 71, 69, 72, 76, 73], your output should be [1, 1, 4, 2, 1, 1, 0, 0].
+Given an array of integers temperatures represents the daily temperatures, return an array answer such that answer[i] is the number of days you have to wait after the ith day to get a warmer temperature. If there is no future day for which this is possible, keep answer[i] == 0 instead.
 
-Note: The length of temperatures will be in the range [1, 30000]. Each temperature will be an integer in the range [30, 100].
+Example 1:
 
-## 绝妙的算法，原来可以用这样的方式遍历数组啊。。。之前还都是用 for i in range(size -1)，现在看来太土了
+Input: temperatures = [73,74,75,71,69,72,76,73]
+Output: [1,1,4,2,1,1,0,0]
+Example 2:
+
+Input: temperatures = [30,40,50,60]
+Output: [1,1,1,0]
+Example 3:
+
+Input: temperatures = [30,60,90]
+Output: [1,1,0]
+
+Constraints:
+
+1 <= temperatures.length <= 105
+30 <= temperatures[i] <= 100
+
+ 绝妙的算法，原来可以用这样的方式遍历数组啊。。。之前还都是用 for i in range(size -1)，现在看来太土了
 
 ```python
 class Solution:
