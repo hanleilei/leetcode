@@ -44,7 +44,7 @@ class Solution:
         return True
 ```
 
-这个思路很巧妙，节约了很多重复计算。。
+差分熟组：
 
 ```python
 class Solution:
