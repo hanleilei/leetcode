@@ -23,3 +23,10 @@ class Solution:
             n //= 2
         return n == 1
 ```
+
+```python
+class Solution:
+    def isPowerOfTwo(self, n: int) -> bool:
+        num = bin(n)[2:]
+        return num[0] == '1' and sum([int(i) for i in num[1:]]) == 0
+```

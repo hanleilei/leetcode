@@ -38,11 +38,12 @@ class Solution:
         return zip(*matrix)
 ```
 
-```text
+
 转置矩阵就是把 M 行 N 列的矩阵，转成 N 行 M 列的矩阵，原来矩阵中 matrix[i][j] 的位置，会交换到新矩阵的 res[j][i] 位置。
 
 矩阵的行列数可能不等，因此不能做原地操作，需要新建数组。
-```
+
+对角线翻转，只需要从头模拟一遍即可。
 
 ```python
 class Solution:
@@ -53,4 +54,26 @@ class Solution:
             for j in range(n):
                 res[j][i] = matrix[i][j]
         return res
+```
+
+来个速度快的：
+
+```python
+class Solution:
+    def transpose(self, matrix: List[List[int]]) -> List[List[int]]:
+        result = []
+        count = len(matrix[0])
+        for j in range(count):
+            tmp = []
+            for i in range(len(matrix)):
+                tmp.append(matrix[i][j])
+            result.append(tmp)
+        return result
+```
+
+```python
+class Solution:
+    def transpose(self, matrix: List[List[int]]) -> List[List[int]]:
+        import numpy as np
+        return np.transpose(matrix).tolist()
 ```
