@@ -3,6 +3,7 @@
 There are two sorted arrays nums1 and nums2 of size m and n respectively. Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
 
 ###### 对列表的操作
+
 ```python
 class Solution(object):
     def findMedianSortedArrays(self, nums1, nums2):
@@ -17,7 +18,7 @@ class Solution(object):
         if len(lst)%2==1:
             return lst[len(lst)//2]
         else:
-            return (lst[len(lst)//2]+lst[len(lst)//2-1])/2.0
+            return (lst[len(lst)//2]+lst[len(lst)//2-1]) / 2.0
 ```
 
 不能那么直接的sorted了，上二分法：
@@ -98,6 +99,7 @@ class Solution:
 ```
 
 再来一个自制的算法：
+
 1. 先对两个数组求逆；
 2. 每次pop出最后一个元素比较，小的元素放到目标列表中。
 3. 再来判断哪个列表为空，把不为空的别表求逆序，然后放入目标队列末尾

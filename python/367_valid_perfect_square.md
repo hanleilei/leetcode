@@ -13,7 +13,7 @@ Example 2:
 Input: 14
 Returns: False
 
-##### 用sqrt，用最简单粗暴的方法，计算最少
+用sqrt，用最简单粗暴的方法，计算最少
 
 ```python
 class Solution(object):
@@ -29,6 +29,7 @@ class Solution(object):
         else:
             return False
 ```
+
 上面的方法太老土，看下面的几个方法：
 
 1. 二分法：
