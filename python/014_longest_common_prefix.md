@@ -22,7 +22,7 @@ class Solution(object):
         return res
 ```
 
-### 参考[网页](http://blog.csdn.net/coder_orz/article/details/51706442)，还有两个算法，一个是先排序:
+参考[网页](http://blog.csdn.net/coder_orz/article/details/51706442)，还有两个算法，一个是先排序:
 
 ```python
 class Solution(object):
@@ -41,6 +41,7 @@ class Solution(object):
             res += strs[0][i]
         return res
 ```
+
 还有一个是使用zip方法，非常简练, 能超过100%的人：
 
 ```python
@@ -79,7 +80,7 @@ class Solution(object):
         return min(strs)
 ```
 
-注意这里的 zip(\*strs)的做法，可以通过这样的方式求转置。
+注意这里的 `zip(*strs)`的做法，可以通过这样的方式求转置。
 
 还有一个先找到最短长度的方法：
 
@@ -98,4 +99,18 @@ class Solution:
                 if s[i] != v:
                     return s[:i]
         return shortest
+```
+
+这里的zip方法，也可以这样写：
+
+```python
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        ans = ''
+        for i in list(zip(*strs)):
+            if len(set(i)) == 1:
+                ans += i[0]
+            else:
+                break
+        return ans
 ```
