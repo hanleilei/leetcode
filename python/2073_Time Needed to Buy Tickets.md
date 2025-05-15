@@ -52,6 +52,22 @@ class Solution:
         return res
 ```
 
+或者：
+
+```python
+class Solution:
+    def timeRequiredToBuy(self, tickets: List[int], k: int) -> int:
+        res = 0
+        for i in range(len(tickets)):
+            if i <= k:
+                res += min(tickets[i], tickets[k])
+            else:
+                res += min(tickets[i], tickets[k] - 1)
+        return res
+```
+
+感觉还是前面的更好。
+
 写成单行：
 
 ```python
@@ -59,3 +75,30 @@ class Solution:
     def timeRequiredToBuy(self, tickets: List[int], k: int) -> int:
         return sum(min(v, tickets[k] if i <= k else tickets[k] - 1) for i, v in enumerate(tickets))
 ```
+
+labuladong 解法：
+
+```python
+class Solution:
+    def timeRequiredToBuy(self, tickets: List[int], k: int) -> int:
+        queue = deque(range(len(tickets)))
+        res = 0
+        while queue:
+            # 队头的人买票
+            front = queue.popleft()
+            res += 1
+            tickets[front] -= 1
+            
+            if front == k and tickets[front] == 0:
+                # 如果是 k 号买完票了，返回总时间
+                return res
+
+            if tickets[front] == 0:
+                continue
+
+            # 如果还要继续买票，重新排到队尾
+            queue.append(front)
+        return time
+```
+
+能工作，但是低效。

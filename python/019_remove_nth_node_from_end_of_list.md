@@ -11,7 +11,7 @@ Note:
 Given n will always be valid.
 Try to do this in one pass.
 
-**好吧，我不是一次性过去的，现在算是理解双指针的含义了，整个程序分成三部分：**
+整个程序分成三部分：
 
 1. 设定一个指针先走 n 步，然后记录位置
 2. 再来一个指针从头开始，两个指针齐头并进

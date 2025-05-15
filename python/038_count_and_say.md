@@ -1,16 +1,41 @@
 # Count and say
 
-The count-and-say sequence is the sequence of integers beginning as follows:
-1, 11, 21, 1211, 111221, ...
+The count-and-say sequence is a sequence of digit strings defined by the recursive formula:
 
-1 is read off as "one 1" or 11.
-11 is read off as "two 1s" or 21.
-21 is read off as "one 2, then one 1" or 1211.
-Given an integer n, generate the nth sequence.
+countAndSay(1) = "1"
+countAndSay(n) is the run-length encoding of countAndSay(n - 1).
+Run-length encoding (RLE) is a string compression method that works by replacing consecutive identical characters (repeated 2 or more times) with the concatenation of the character and the number marking the count of the characters (length of the run). For example, to compress the string "3322251" we replace "33" with "23", replace "222" with "32", replace "5" with "15" and replace "1" with "11". Thus the compressed string becomes "23321511".
 
-Note: The sequence of integers will be represented as a string.
+Given a positive integer n, return the nth element of the count-and-say sequence.
 
-### 一开始理解错了题目意思，不是简单的计算某个数字，而是类似于递归的计算。而且我们现在实用的算法比udemy的简单。
+Example 1:
+
+Input: n = 4
+
+Output: "1211"
+
+Explanation:
+
+countAndSay(1) = "1"
+countAndSay(2) = RLE of "1" = "11"
+countAndSay(3) = RLE of "11" = "21"
+countAndSay(4) = RLE of "21" = "1211"
+
+Example 2:
+
+Input: n = 1
+
+Output: "1"
+
+Explanation:
+
+This is the base case.
+
+Constraints:
+
+1 <= n <= 30
+
+一开始理解错了题目意思，不是简单的计算某个数字，而是类似于递归的计算。而且我们现在实用的算法比udemy的简单。
 
 ```python
 class Solution(object):
@@ -35,7 +60,8 @@ class Solution(object):
             start = curr
         return "".join(result)
 ```
-### 下面是udemy上介绍的算法改写，似乎没有上面的简洁，但是更容易理解：
+
+下面是udemy上介绍的算法改写，似乎没有上面的简洁，但是更容易理解：
 
 ```python
 class Solution(object):
@@ -82,7 +108,7 @@ class Solution(object):
         return r
 ```
 
-### 用enumernate来实现，似乎更简洁：
+用enumernate来实现，似乎更简洁：
 
 ```python
 class Solution:
