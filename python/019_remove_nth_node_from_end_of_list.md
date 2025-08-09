@@ -24,13 +24,8 @@ Try to do this in one pass.
 #         self.val = x
 #         self.next = None
 
-class Solution(object):
-    def removeNthFromEnd(self, head, n):
-        """
-        :type head: ListNode
-        :type n: int
-        :rtype: ListNode
-        """
+class Solution:
+    def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
         # 初始化
         fast = slow = head
         # 步骤1

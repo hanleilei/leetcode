@@ -20,12 +20,7 @@ Output: 1->2->2->4->3->5
 #         self.next = None
 
 class Solution:
-    def partition(self, head, x):
-        """
-        :type head: ListNode
-        :type x: int
-        :rtype: ListNode
-        """
+    def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
         h1 = l1 = ListNode(0)
         h2 = l2 = ListNode(0)
         while head:
@@ -39,5 +34,4 @@ class Solution:
         l2.next = None  # important! avoid cycle in linked list. otherwise u will get TLE.
         l1.next = h2.next
         return h1.next
-
 ```

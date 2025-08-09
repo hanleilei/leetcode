@@ -22,7 +22,7 @@ Input: 1->1->1->2->3
 Output: 2->3
 ```
 
-## Constraints:
+## Constraints
 
 ```text
 The number of nodes in the list is in the range [0, 300].
@@ -79,5 +79,46 @@ class Solution:
                     cur.next = cur.next.next
             else:
                 cur = cur.next
+        return dummy.next
+```
+
+```python
+class Solution:
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode(next=head)
+        pre = dummy
+        while head:
+            if head.next and head.next.val == head.val:
+                while head.next and head.next.val == head.val:
+                    head = head.next
+                pre.next = head.next
+            else:
+                pre = pre.next
+            head = head.next
+        return dummy.next
+```
+
+```python
+class Solution:
+    def deleteDuplicates(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode(0, head)
+        prev = dummy
+        current = head
+
+        while current:
+            # Check if the current node is a duplicate
+            if current.next and current.val == current.next.val:
+                # Skip all duplicates
+                while current.next and current.val == current.next.val:
+                    current = current.next
+                # Link the previous node to the next unique node
+                prev.next = current.next
+            else:
+                # Move the previous pointer only if no duplicates were found
+                prev = prev.next
+            
+            # Move to the next node
+            current = current.next
+
         return dummy.next
 ```
