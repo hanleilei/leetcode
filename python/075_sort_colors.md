@@ -44,3 +44,28 @@ class Solution(object):
                 nums[r], nums[i] = nums[i], nums[r]
                 r -= 1
 ```
+
+```python
+class Solution:
+    def sortColors(self, a: List[int]) -> None:
+        a[:]=chain(*starmap(repeat,sorted(Counter(a).items())))
+```
+
+```python
+class Solution:
+    def sortColors(self, a: List[int]) -> None:
+        a[:]=[0]*(c:=Counter(a))[0]+[1]*c[1]+[2]*c[2]
+```
+
+```python
+class Solution:
+    def sortColors(self, a: List[int]) -> None:
+        z = o = t = -1
+        for v in a:
+            a[t:=t+1] = 2
+            if v < 2:
+                a[o:=o+1] = 1
+                if v < 1:
+                    a[z:=z+1] = 0
+```
+
