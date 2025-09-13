@@ -31,9 +31,9 @@ Constraints:
 - `-10**5 <= mat[i][j] <= 10**5`
 
 问题的关键：
+
 1. 找到元素的索引和
 2. 判断索引和的奇偶性，来决定元素的方向。
-
 
 ```python
 from collections import deque, defaultdict
@@ -175,5 +175,89 @@ class Solution:
         for diagonal in range(m + n - 1):
             res.extend(d[diagonal])
         
+        return res
+```
+
+来一个最快的：
+
+```python
+class Solution:
+    def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
+        ans = []
+        m, n = len(mat), len(mat[0])
+        for i in range(m + n - 1):
+            if i % 2:
+                x = 0 if i < n else i - n + 1
+                y = i if i < n else n - 1
+                while x < m and y >= 0:
+                    ans.append(mat[x][y])
+                    x += 1
+                    y -= 1
+            else:
+                x = i if i < m else m - 1
+                y = 0 if i < m else i - m + 1
+                while x >= 0 and y < n:
+                    ans.append(mat[x][y])
+                    x -= 1
+                    y += 1
+        return ans
+```
+
+```python
+class Solution:
+    def findDiagonalOrder(self, matrix: List[List[int]]) -> List[int]:
+        nums = []
+        m = len(matrix)
+        if m == 0:
+            return nums
+        n = len(matrix[0])
+        if n == 0:
+            return nums
+
+        bXFlag = True
+        for i in range(m + n - 1):  # 注意这里 C++ for < m+n，其实只需要 m+n-1 条对角线
+            pm = m if bXFlag else n
+            pn = n if bXFlag else m
+
+            x = i if i < pm else pm - 1
+            y = i - x
+
+            while x >= 0 and y < pn:
+                nums.append(matrix[x][y] if bXFlag else matrix[y][x])
+                x -= 1
+                y += 1
+
+            bXFlag = not bXFlag
+
+        return nums
+```
+
+```python
+class Solution:
+    def findDiagonalOrder(self, mat: List[List[int]]) -> List[int]:
+        m, n = len(mat), len(mat[0])
+        r = c = 0
+        res = []
+        
+        # 使用 for 循环，最大循环次数为矩阵元素总数
+        for _ in range(m * n):
+            res.append(mat[r][c])
+            
+            if (r + c) % 2 == 0:  # 向上移动
+                if c == n - 1:  # 到达右边界
+                    r += 1
+                elif r == 0:  # 到达上边界
+                    c += 1
+                else:  # 正常向上移动
+                    r -= 1
+                    c += 1
+            else:  # 向下移动
+                if r == m - 1:  # 到达下边界
+                    c += 1
+                elif c == 0:  # 到达左边界
+                    r += 1
+                else:  # 正常向下移动
+                    c -= 1
+                    r += 1
         return res
 ```
