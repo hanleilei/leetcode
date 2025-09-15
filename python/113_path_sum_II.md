@@ -1,4 +1,4 @@
-# path sum
+# path sum II
 
 [[tree]]
 
