@@ -72,7 +72,6 @@ class Solution:
                     self._n_queens(n, cols, res)
                     cols.pop()
         return res
-        
 ```
 
 caikehe 的方法：
@@ -118,7 +117,7 @@ class Solution:
             for i in range(n):
                 if board[i][col] == 'Q':
                     return False
-            
+
             # 检查右上方是否有皇后
             i = row - 1
             j = col + 1
@@ -127,7 +126,7 @@ class Solution:
                     return False
                 i -= 1
                 j += 1
-            
+
             # 检查左上方是否有皇后
             i = row - 1
             j = col - 1
@@ -136,7 +135,7 @@ class Solution:
                     return False
                 i -= 1
                 j -= 1
-            
+
             return True
 
         def backtrack(row):
@@ -144,7 +143,7 @@ class Solution:
             if row == n:
                 result.append([''.join(b) for b in board])
                 return
-            
+
             for col in range(n):
                 # 排除不合法选择
                 if not isValid(row, col):
@@ -155,7 +154,7 @@ class Solution:
                 backtrack(row + 1)
                 # 撤销选择
                 board[row][col] = '.'
-        
+
         backtrack(0)
         return result
 ```

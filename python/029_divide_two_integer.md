@@ -62,7 +62,7 @@ class Solution:
         if (a>0 and b >0) or (a<0 and b<0):
             flag = False
         else: flag = True
-        
+
         # 用绝对值进行除法运算
         a = abs(a)
         b = abs(b)
@@ -80,7 +80,7 @@ class Solution:
                 t <<= 1
             a -= t                   # 跳出内循环while时，t=nb
             res += n                 # 针对剩余a-nb值，采用“更相减损术”求对b的倍数，并加到n里面，即为最后的商值
-        
+
         # 对绝对值计算的结果，补上正负号
         if flag: res = - res
 
