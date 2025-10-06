@@ -74,3 +74,13 @@ class Solution:
 ```
 
 full, empty = divmod(numBottles, numExchange) 等价于： full, empty = numBottles // numExchange, numBottles % numExchange
+
+```python
+class Solution:
+    def numWaterBottles(self, numBottles: int, numExchange: int) -> int:
+        res = numBottles
+        while numBottles >= numExchange:
+            res += (numBottles // numExchange)
+            numBottles = numBottles // numExchange + numBottles % numExchange
+        return res
+```
