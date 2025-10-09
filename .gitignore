@@ -66,4 +66,5 @@ target/
 t.py
 t.sh
 .leetcode
+.ruff_cache
 

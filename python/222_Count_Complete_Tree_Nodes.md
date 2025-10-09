@@ -1,5 +1,7 @@
 # Count Complete Tree Nodes
 
+[[tree]]
+
 Given a complete binary tree, count the number of nodes.
 
 ## Note:

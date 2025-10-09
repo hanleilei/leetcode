@@ -70,3 +70,26 @@ class Solution:
                         dq.append(node.right)
         return res
 ```
+
+或者：
+
+```python
+class Solution:
+    def minDepth(self, root: Optional[TreeNode]) -> int:
+        res = float("inf")
+        if not root:
+            return 0
+
+        def dfs(node, depth):
+            nonlocal res
+            if not node.left and not node.right:
+                res = min(res, depth)
+                return
+            if node.left:
+                dfs(node.left, depth + 1)
+            if node.right:
+                dfs(node.right, depth + 1)
+
+        dfs(root, 1)
+        return res
+```
