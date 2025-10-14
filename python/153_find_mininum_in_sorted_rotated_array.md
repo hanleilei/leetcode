@@ -42,7 +42,7 @@ class Solution(object):
         i = 0
         j = len(nums) - 1
         while i < j:
-            m = i + (j - i) / 2
+            m = i + (j - i) // 2
             if nums[m] > nums[j]:
                 i = m + 1
             else:

@@ -144,7 +144,7 @@ class Solution:
             return 0
 
         is_prime = [True] * n
-        num = n / 2
+        num = n // 2
         for i in xrange(3, n, 2):
             if i * i >= n:
                 break

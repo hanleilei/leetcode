@@ -56,7 +56,7 @@ Solution(object):
            return start
        if start + 1 == end:
            return [start, end][num[start] < num[end]]
-       mid = (start + end) / 2
+       mid = (start + end) // 2
        if num[mid] < num[mid - 1]:
            return self.search(num, start, mid - 1)
        if num[mid] < num[mid + 1]:
