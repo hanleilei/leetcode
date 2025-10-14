@@ -110,7 +110,8 @@ class Solution:
         for i in range(len(s)):
             s1 = isvalid(s, i, i)
             s2 = isvalid(s, i, i+1)
-            res = res if len(res) > len(s1) else s1
-            res = res if len(res) > len(s2) else s2
+            res = max(res, s1, s2, key=len)
+            # res = res if len(res) > len(s1) else s1
+            # res = res if len(res) > len(s2) else s2
         return res
 ```
