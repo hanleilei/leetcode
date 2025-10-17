@@ -1,6 +1,6 @@
 # container with most water
 
-[[greedy]]
+[[greedy]] [[2points]]
 
 You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).
 
@@ -25,8 +25,8 @@ Output: 1
 Constraints:
 
 n == height.length
-2 <= n <= 105
-0 <= height[i] <= 104
+2 <= n <= 10**5
+0 <= height[i] <= 10**4
 
 有个高度数组，就相当于隔板的高度，求数组中任意两隔板间盛水的最大量。隔板间的距离与较低隔板的高度乘积即为盛水的容量。这个有点像是贪心法
 
