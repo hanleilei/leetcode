@@ -4,15 +4,24 @@
 
 Given n non-negative integers representing an elevation map where the width of each bar is 1, compute how much water it is able to trap after raining.
 
+## Example 1
+
 ![](http://www.leetcode.com/static/images/problemset/rainwatertrap.png)
 
-The above elevation map is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped. Thanks Marcos for contributing this image!
-
-Example:
-```
-Input: [0,1,0,2,1,0,1,3,2,1,2,1]
+Input: height = [0,1,0,2,1,0,1,3,2,1,2,1]
 Output: 6
-```
+Explanation: The above elevation map (black section) is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped.
+
+## Example 2
+
+Input: height = [4,2,0,3,2,5]
+Output: 9
+
+## Constraints
+
+n == height.length
+1 <= n <= 2 * 10**4
+0 <= height[i] <= 10**5
 
 ```python
 class Solution:
@@ -37,8 +46,6 @@ class Solution:
             if min(rightmax, leftmostarr[i]) > height[i]:
                 total += min(rightmax, leftmostarr[i]) - height[i]
         return total
-
-
 ```
 
 ```Python
@@ -103,5 +110,27 @@ class Solution:
                 else:
                     res += max_right - height[right]
                 right -= 1
+        return res
+```
+
+再来一个DP的方法：
+
+```python
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        n = len(height)
+        pre_max = [0] * n
+        pre_max[0] = height[0]
+        for i in range(1, n):
+            pre_max[i] = max(pre_max[i-1], height[i])
+        
+        suf_max = [0] * n
+        suf_max[-1] = height[-1]
+        for i in range(n - 2, -1, -1):
+            suf_max[i] = max(suf_max[i+1], height[i])
+        
+        res = 0
+        for h, p, s in zip(height, pre_max, suf_max):
+            res += min(p, s) - h
         return res
 ```
