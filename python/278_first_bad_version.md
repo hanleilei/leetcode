@@ -27,7 +27,7 @@ class Solution(object):
         """
         left = 0; right = n - 1
         while left <= right:
-            mid = int((left + right) / 2)
+            mid = (left + right) // 2
             if not isBadVersion(mid):
                 left = mid + 1
             else:

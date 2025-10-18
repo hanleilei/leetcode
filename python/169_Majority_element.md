@@ -95,7 +95,7 @@ class Solution:
 ```python
         ###这是自己的版本
         rec={}
-        max=len(nums)/2
+        max=len(nums)//2
         for i in nums:
             if i in rec:
                 rec[i]+=1

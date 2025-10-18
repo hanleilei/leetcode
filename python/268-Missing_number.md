@@ -64,5 +64,5 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        return (1+len(nums))*len(nums)/2-sum(nums)
+        return (1+len(nums))*len(nums)//2-sum(nums)
 ```

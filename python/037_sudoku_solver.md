@@ -37,10 +37,10 @@ class Solution(object):
             for j in range(9):
                 if j != y and board[x][j] == board[x][y]:
                     return False
-            i = 3 * (x / 3)
-            while i < 3 * (x / 3 + 1):
-                j = 3 * (y / 3)
-                while j < 3 * (y / 3 + 1):
+            i = 3 * (x // 3)
+            while i < 3 * (x // 3 + 1):
+                j = 3 * (y // 3)
+                while j < 3 * (y // 3 + 1):
                     if (i != x or j != y) and board[i][j] == board[x][y]:
                         return False
                     j += 1
@@ -86,7 +86,7 @@ class Solution(object):
                     d[(i//3, j//3)] = d.get((i//3, j//3), []) + [ele]
                 else: val[(i,j)] = []
         for (i,j) in val.keys():
-            inval = d.get(("r",i),[])+d.get(("c",j),[])+d.get((i/3,j/3),[])
+            inval = d.get(("r",i),[])+d.get(("c",j),[])+d.get((i//3,j//3),[])
             val[(i,j)] = [n for n in a if n not in inval ]
         return val
 

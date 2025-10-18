@@ -61,7 +61,7 @@ class Solution:
         for x in range(size):
             low, high = 0, len(dp) - 1
             while low <= high:
-                mid = int((low + high) / 2)
+                mid = (low + high) // 2
                 if dp[mid] >= nums[x]:
                     high = mid - 1
                 else:
@@ -85,7 +85,7 @@ class Solution:
             left, right = 0, len(LIS) - 1
             # Find the first index "left" which satisfies LIS[left] >= target
             while left <= right:
-                mid = left + int((right - left) / 2)
+                mid = left + (right - left) // 2
                 if LIS[mid] >= target:
                     right = mid - 1
                 else:

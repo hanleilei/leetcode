@@ -139,7 +139,7 @@ class Solution:
         last_level = 0
         left, right = 0, 2**height-1
         while left <= right:
-            mid = (left+right)/2
+            mid = (left+right)//2
             if self.getKthNode(root, height, mid) is None:
                 right = mid - 1
             else:

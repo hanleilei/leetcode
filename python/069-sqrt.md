@@ -47,7 +47,7 @@ class Solution(object):
                 high = mid - 1
             else:
                 low = mid + 1
-            mid = (low + high) / 2
+            mid = (low + high) // 2
         return mid
 ```
 

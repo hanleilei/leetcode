@@ -42,7 +42,7 @@ class Solution:
 
         while low <= high:
             mid = low + (high - low) // 2
-            num = matrix[int(mid / cols)][mid % cols]
+            num = matrix[int(mid // cols)][mid % cols]
 
             if num == target:
                 return True
