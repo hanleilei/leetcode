@@ -69,7 +69,7 @@ class Solution:
         return result
 ```
 
-再来一个很巧妙的算法, 从两边向中间遍历:
+再来一个很巧妙的算法, 从两边向中间遍历，也就是相向双指针：
 
 ```python
 class Solution:
@@ -113,7 +113,7 @@ class Solution:
         return res
 ```
 
-再来一个DP的方法：
+再来一个前缀和+后缀和的方法：
 
 ```python
 class Solution:

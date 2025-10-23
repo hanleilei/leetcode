@@ -1,14 +1,18 @@
 # intersection of two linked list
 
+[[linkedlist]]
+
 Given the heads of two singly linked-lists headA and headB, return the node at which the two lists intersect. If the two linked lists have no intersection at all, return null.
 
 For example, the following two linked lists begin to intersect at node c1:
 
+```text
 A:          a1 → a2
                    ↘
                      c1 → c2 → c3
                    ↗
 B:     b1 → b2 → b3
+```
 
 ![1](https://assets.leetcode.com/uploads/2021/03/05/160_statement.png)
 
