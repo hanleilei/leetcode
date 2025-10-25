@@ -61,3 +61,10 @@ class Solution:
         d = n % 7
         return (49 + 7 * f) * f // 2 + (2 * f + d + 1) * d // 2
 ```
+
+```python
+class Solution:
+    def totalMoney(self, n: int) -> int:
+        x, y = divmod(n, 7)
+        return x * sum(range(1, 8)) +  x * (x - 1) // 2 * 7 + x * y + sum(range(1, y + 1))
+```
