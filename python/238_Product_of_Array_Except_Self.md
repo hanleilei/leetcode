@@ -18,8 +18,9 @@ Output: [0,0,9,0,0]
 
 Constraints:
 
-2 <= nums.length <= 105
--30 <= nums[i] <= 30
+- 2 <= nums.length <= 10**5
+- -30 <= nums[i] <= 30
+
 The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
 
 Follow up: Can you solve the problem in O(1) extra space complexity? (The output array does not count as extra space for space complexity analysis.).)
@@ -48,4 +49,19 @@ class Solution(object):
             pivot = nums[j] * pivot
         return ans
 
+```
+
+```python
+class Solution:
+    def productExceptSelf(self, nums: List[int]) -> List[int]:
+        n = len(nums)
+        pre = [1] * n
+        for i in range(1, n):
+            pre[i] = pre[i - 1] * nums[i - 1]
+
+        suf = [1] * n
+        for i in range(n - 2, -1, -1):
+            suf[i] = suf[i + 1] * nums[i + 1]
+
+        return [p * s for p, s in zip(pre, suf)]
 ```

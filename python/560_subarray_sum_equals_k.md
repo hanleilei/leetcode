@@ -1,13 +1,29 @@
 # subarray sum equals k
 
-Given an array of integers and an integer k, you need to find the total number of continuous subarrays whose sum equals to k.
+[[prefixSum]]
+
+Given an array of integers nums and an integer k, return the total number of subarrays whose sum equals to k.
+
+A subarray is a contiguous non-empty sequence of elements within an array.
+
+ 
 
 Example 1:
-Input:nums = [1,1,1], k = 2
+
+Input: nums = [1,1,1], k = 2
 Output: 2
-Note:
-The length of the array is in range [1, 20,000].
-The range of numbers in the array is [-1000, 1000] and the range of the integer k is [-1e7, 1e7].
+Example 2:
+
+Input: nums = [1,2,3], k = 3
+Output: 2
+ 
+
+Constraints:
+
+1 <= nums.length <= 2 * 10 ** 4
+-1000 <= nums[i] <= 1000
+-10 ** 7 <= k <= 10 ** 7
+
 
 利用字典cnt统计前N项和出现的个数:
 
@@ -28,5 +44,25 @@ class Solution:
             res += count.get(cur - k, 0)
             count[cur] = count.get(cur, 0) + 1
         return res
+```
 
+经典的前缀和问题
+
+```python
+class Solution:
+    def subarraySum(self, nums: List[int], k: int) -> int:
+        if len(nums) < 2:
+            return 1 if nums[0] == k else 0
+        
+        n = len(nums)
+        pre_sum = [0] * (n + 1)
+        for i in range(1, n+1):
+            pre_sum[i] = pre_sum[i-1] + nums[i-1]
+
+        seen = defaultdict(int)
+        res = 0
+        for s in pre_sum:
+            res += seen[s - k] #关键
+            seen[s] += 1
+        return res
 ```

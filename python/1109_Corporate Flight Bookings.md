@@ -49,3 +49,62 @@ class Solution:
                 res[r] -= d
         return list(accumulate(res))
 ```
+
+```python
+class Solution:
+    def corpFlightBookings(self, bookings: List[List[int]], n: int) -> List[int]:
+        diff = [0] * (n + 1)  # 初始化 n+1 避免越界
+        for first, last, seats in bookings:
+            diff[first - 1] += seats
+            if last < n:  # 防止越界（但 n+1 已经解决）
+                diff[last] -= seats
+            # 或者直接 diff[last] -= seats（因为 diff 是 n+1 长度）
+        res = [0] * n
+        res[0] = diff[0]
+        for i in range(1, n):
+            res[i] = res[i - 1] + diff[i]
+        return res
+```
+
+```python
+class Solution:
+    def corpFlightBookings(self, bookings, n):
+        # nums 初始化为全 0
+        nums = [0] * n
+        # 构造差分解法
+        df = self.Difference(nums)
+
+        for booking in bookings:
+            # 注意转成数组索引要减一哦
+            i = booking[0] - 1
+            j = booking[1] - 1
+            val = booking[2]
+            # 对区间 nums[i..j] 增加 val
+            df.increment(i, j, val)
+        # 返回最终的结果数组
+        return df.result()
+
+    class Difference:
+        # 差分数组
+        def __init__(self, nums):
+            assert len(nums) > 0
+            self.diff = [0] * len(nums)
+            # 构造差分数组
+            self.diff[0] = nums[0]
+            for i in range(1, len(nums)):
+                self.diff[i] = nums[i] - nums[i - 1]
+
+        # 给闭区间 [i, j] 增加 val（可以是负数）
+        def increment(self, i, j, val):
+            self.diff[i] += val
+            if j + 1 < len(self.diff):
+                self.diff[j + 1] -= val
+
+        def result(self):
+            res = [0] * len(self.diff)
+            # 根据差分数组构造结果数组
+            res[0] = self.diff[0]
+            for i in range(1, len(self.diff)):
+                res[i] = res[i - 1] + self.diff[i]
+            return res
+```

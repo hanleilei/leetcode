@@ -81,3 +81,38 @@ class Solution:
             leftsum += x
         return -1
 ```
+
+```python
+class Solution:
+    def pivotIndex(self, nums: List[int]) -> int:
+        total = sum(nums)
+        left = 0
+        for i in range(len(nums)):
+            if total - nums[i] == left * 2:
+                return i
+            else:
+                left += nums[i]
+        return -1
+```
+
+还可以用前缀和：
+
+```python
+class Solution:
+    def pivotIndex(self, nums: List[int]) -> int:
+        n = len(nums)
+        preSum = [0] * (n + 1)
+        preSum[0] = 0
+        # 计算 nums 的前缀和
+        for i in range(1, n + 1):
+            preSum[i] = preSum[i - 1] + nums[i - 1]
+        # 根据前缀和判断左半边数组和右半边数组的元素和是否相同
+        for i in range(1, len(preSum)):
+            # 计算 nums[i-1] 左侧和右侧的元素和
+            leftSum = preSum[i - 1] - preSum[0]
+            rightSum = preSum[n] - preSum[i]
+            if leftSum == rightSum:
+                # 相对 nums 数组，preSum 数组有一位索引偏移
+                return i - 1
+        return -1
+```
