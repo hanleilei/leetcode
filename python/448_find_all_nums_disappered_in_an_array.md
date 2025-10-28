@@ -1,18 +1,29 @@
 # find all numbers disappeared in an array
 
-Given an array of integers where 1 ≤ a[i] ≤ n (n = size of array), some elements appear twice and others appear once.
+[[hashtable]]
 
-Find all the elements of [1, n] inclusive that do not appear in this array.
+Given an array nums of n integers where nums[i] is in the range [1, n], return an array of all the integers in the range [1, n] that do not appear in nums.
 
-Could you do it without extra space and in O(n) runtime? You may assume the returned list does not count as extra space.
+ 
 
-Example:
+Example 1:
 
-Input:
-[4,3,2,7,8,2,3,1]
+Input: nums = [4,3,2,7,8,2,3,1]
+Output: [5,6]
+Example 2:
 
-Output:
-[5,6]
+Input: nums = [1,1]
+Output: [2]
+ 
+
+Constraints:
+
+n == nums.length
+1 <= n <= 105
+1 <= nums[i] <= n
+ 
+
+Follow up: Could you do it without extra space and in O(n) runtime? You may assume the returned list does not count as extra space.
 
 理解题目，从 1 到数组长度范围内，然后用集合解决。
 
