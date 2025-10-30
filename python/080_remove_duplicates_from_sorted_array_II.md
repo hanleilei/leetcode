@@ -1,38 +1,44 @@
-# remove duplicates from sorted array II
+# Remove Duplicates from Sorted Array II
 
-Follow up for "Remove Duplicates":
-What if duplicates are allowed at most twice?
+[[array]]
 
-For example,
-Given sorted array nums = [1,1,1,2,2,3],
+## Problem Description
 
-Your function should return length = 5, with the first five elements of nums being 1, 1, 2, 2 and 3. It doesn't matter what you leave beyond the new length.
+Given an integer array `nums` sorted in **non-decreasing order**, remove some duplicates **in-place** such that each unique element appears **at most twice**. The **relative order** of the elements should be kept the **same**.
 
-Subscribe to see which companies asked this question.
+Since it is impossible to change the length of the array in some languages, you must instead have the result be placed in the **first part** of the array `nums`. More formally, if there are `k` elements after removing the duplicates, then the first `k` elements of `nums` should hold the final result. It does not matter what you leave beyond the first `k` elements.
 
-### 下面是我想到的答案，不够优雅，但是在我自己的机器上工作，网页上提交就是不过。。。奇了怪了
+Return `k` *after placing the final result in the first* `k` *slots of* `nums`.
 
+Do **not** allocate extra space for another array. You must do this by **modifying the input array in-place** with O(1) extra memory.
 
-```python
-class Solution(object):
-    def removeDuplicates(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        existed = list()
-        d = dict()
-        for i in nums:
-            if i in d.keys():
-                d[i]+= 1
-            else:
-                d[i]=1
-            if d[i] <= 2:
-                existed.append(i)
-        return len(existed)
+## Examples
+
+**Example 1:**
+
+```text
+Input: nums = [1,1,1,2,2,3]
+Output: 5, nums = [1,1,2,2,3,_]
+Explanation: Your function should return k = 5, with the first five elements of nums being 1, 1, 2, 2 and 3 respectively.
+It does not matter what you leave beyond the returned k (hence they are underscores).
 ```
 
-这个是网上的票最多的答案，我是想不出来这么优雅的解答：
+**Example 2:**
+
+```text
+Input: nums = [0,0,1,1,1,1,2,3,3]
+Output: 7, nums = [0,0,1,1,2,3,3,_,_]
+Explanation: Your function should return k = 7, with the first seven elements of nums being 0, 0, 1, 1, 2, 3 and 3 respectively.
+It does not matter what you leave beyond the returned k (hence they are underscores).
+```
+
+## Constraints
+
+- `1 <= nums.length <= 3 * 10^4`
+- `-10^4 <= nums[i] <= 10^4`
+- `nums` is sorted in **non-decreasing** order.
+
+## 解法一：双指针法（最优解）
 
 ```python
 class Solution(object):
@@ -49,7 +55,17 @@ class Solution(object):
         return i
 ```
 
-再看了这个，顿时感觉自己Low爆了：
+**核心思想：**
+
+- 使用双指针技术，`i`表示当前要放置元素的位置
+- 关键判断条件：`i < 2 or n > nums[i-2]`
+  - `i < 2`：前两个位置直接放置
+  - `n > nums[i-2]`：当前元素大于已放置的倒数第二个元素，说明不会造成连续三个相同
+
+**时间复杂度：** O(n)
+**空间复杂度：** O(1)
+
+## 解法二：双指针变体
 
 ```python
 class Solution(object):
@@ -58,7 +74,8 @@ class Solution(object):
         :type nums: List[int]
         :rtype: int
         """
-        if len(nums) <= 2: return len(nums)
+        if len(nums) <= 2: 
+            return len(nums)
 
         end = 2
         for n in nums[2:]:
@@ -68,3 +85,26 @@ class Solution(object):
 
         return end
 ```
+
+这是解法一的变体，显式处理边界情况，从第三个元素开始遍历。逻辑相同但代码更清晰。
+
+## 算法原理
+
+这类题目的核心是"允许最多k个重复"的通用模板：
+
+```python
+def removeDuplicates(nums, k):
+    i = 0
+    for n in nums:
+        if i < k or n > nums[i-k]:
+            nums[i] = n
+            i += 1
+    return i
+```
+
+对于本题k=2，所以条件变成`i < 2 or n > nums[i-2]`。
+
+## 相关题目
+
+- [26. Remove Duplicates from Sorted Array](026_remove_duplicate_from_sorted_array.md) - 删除排序数组中的重复项
+- [27. Remove Element](027_remove_element.md) - 移除元素
