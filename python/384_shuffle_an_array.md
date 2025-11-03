@@ -2,81 +2,110 @@
 
 Shuffle a set of numbers without duplicates.
 
-### Example:
+## Example
 
 ```java
 // Init an array with set 1, 2, and 3.
-int[] nums = {1,2,3};
-Solution solution = new Solution(nums);
+# Shuffle an Array
 
-// Shuffle the array [1,2,3] and return its result. Any permutation of [1,2,3] must equally likely to be returned.
-solution.shuffle();
+[[array]] [[random]] [[fisher-yates]]
 
-// Resets the array back to its original configuration [1,2,3].
-solution.reset();
+## Problem Description
 
-// Returns the random shuffling of array [1,2,3].
-solution.shuffle();
+Given an integer array `nums` without duplicates, design an algorithm to shuffle the array randomly. Implement the `Solution` class:
+
+- `Solution(int[] nums)`: Initializes the object with the integer array `nums`.
+- `int[] reset()`: Resets the array to its original configuration and returns it.
+- `int[] shuffle()`: Returns a random shuffling of the array.
+
+## Example
+
+```text
+Input: ["Solution", "shuffle", "reset", "shuffle"]
+       [[[1, 2, 3]], [], [], []]
+Output: [null, [3, 1, 2], [1, 2, 3], [1, 3, 2]]
+
+Explanation:
+Solution solution = new Solution([1, 2, 3]);
+solution.shuffle(); // Returns [3, 1, 2] (any permutation with equal probability)
+solution.reset();   // Returns [1, 2, 3]
+solution.shuffle(); // Returns [1, 3, 2]
 ```
 
-来一个第一次就想到的方案
+### Constraints
+
+- 1 <= nums.length <= 200
+- -10^6 <= nums[i] <= 10^6
+- All elements are unique
+- At most 5 * 10^4 calls will be made to `reset` and `shuffle`
+
+---
+
+## 解法一：Fisher-Yates 洗牌算法（最优解）
 
 ```python
 import random
-import copy
 class Solution:
+    def __init__(self, nums: List[int]):
+        self.origin = nums[:]
+        self.nums = nums[:]
 
-    def __init__(self, nums):
-        """
-        :type nums: List[int]
-        """
-        self.nums = nums
-        self.orig = copy.copy(nums)
+    def reset(self) -> List[int]:
+        self.nums = self.origin[:]
+        return self.nums
 
+    def shuffle(self) -> List[int]:
+        # Fisher-Yates 洗牌，保证每个排列等概率
+        for i in range(len(self.nums) - 1, 0, -1):
+            j = random.randint(0, i)
+            self.nums[i], self.nums[j] = self.nums[j], self.nums[i]
+        return self.nums
+```
 
-    def reset(self):
-        """
-        Resets the array to its original configuration and return it.
-        :rtype: List[int]
-        """
-        return self.orig
+**核心思想：**
 
+- 每次从未处理区间随机选一个数交换到当前位置，保证所有排列等概率。
 
-    def shuffle(self):
-        """
-        Returns a random shuffling of the array.
-        :rtype: List[int]
-        """
+**时间复杂度：** O(n)
+**空间复杂度：** O(n)
+
+---
+
+## 解法二：直接用random.shuffle（简洁但不考察原理）
+
+```python
+import random
+class Solution:
+    def __init__(self, nums: List[int]):
+        self.origin = nums[:]
+        self.nums = nums[:]
+
+    def reset(self) -> List[int]:
+        self.nums = self.origin[:]
+        return self.nums
+
+    def shuffle(self) -> List[int]:
         random.shuffle(self.nums)
         return self.nums
 ```
 
-再来一个速度快的：
+**说明：**
 
-```python
-import random
-class Solution:
+- `random.shuffle` 内部实现也是 Fisher-Yates 算法。
+- 适合面试时快速实现，但建议理解原理。
 
-    def __init__(self, nums: List[int]):
-        self.nums = nums
+---
 
+## 算法分析
 
-    def reset(self) -> List[int]:
-        """
-        Resets the array to its original configuration and return it.
-        """
-        return self.nums
+| 方法                | 时间复杂度 | 空间复杂度 | 备注           |
+|---------------------|------------|------------|----------------|
+| Fisher-Yates 洗牌   | O(n)       | O(n)       | 推荐，等概率   |
+| random.shuffle      | O(n)       | O(n)       | 简洁，等概率   |
 
+---
 
-    def shuffle(self) -> List[int]:
-        """
-        Returns a random shuffling of the array.
-        """
-        return sorted(self.nums, key=lambda x: random.random())
+## 相关题目
 
-
-# Your Solution object will be instantiated and called as such:
-# obj = Solution(nums)
-# param_1 = obj.reset()
-# param_2 = obj.shuffle()
-```
+- [398. Random Pick Index](398_random_pick_index.md)
+- [382. Linked List Random Node](382_Linked List Random Node.md)
