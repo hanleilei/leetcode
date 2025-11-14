@@ -39,35 +39,58 @@ Explanation: The sum that is closest to the target is 0. (0 + 0 + 0 = 0).
 ```python
 class Solution:
     def threeSumClosest(self, nums: List[int], target: int) -> int:
+class Solution:
+    def threeSumClosest(self, nums: List[int], target: int) -> int:
+        if len(nums) < 3:
+            # 保护不足三个
+            return sum(nums)
+        # sort原地排序
         nums.sort()
+        # 预设前三数为最优解
+        best = nums[0] + nums[1] + nums[2]
         n = len(nums)
-        closest = float('inf')
-        
+        # 外层固定第一个下标i
         for i in range(n - 2):
-            # 跳过重复元素，虽然题目保证唯一解，但可以优化性能
+            # 外层去重 去除相同起点
             if i > 0 and nums[i] == nums[i - 1]:
                 continue
-                
-            left, right = i + 1, n - 1
-            
-            while left < right:
-                closest = nums[i] + nums[left] + nums[right]
-                
-                # 如果找到完全匹配，直接返回
-                if closest == target:
+            # 计算i起点理论最小和
+            min_sum = nums[i] + nums[i + 1] + nums[i + 2]
+            # 更新候选best
+            if abs(min_sum - target) < abs(best - target):
+                best = min_sum
+            # 若最小和已经 > target 则直接跳过本轮
+            if min_sum >= target:
+                # 如果恰好等于 target，则为当前最优
+                if min_sum == target:
                     return target
-                
-                # 更新最接近的和
-                if abs(closest - target) < abs(closest - target):
-                    closest = closest
-                
-                # 移动指针
-                if closest < target:
-                    left += 1
-                else:
-                    right -= 1
-        
-        return closest
+                continue
+            # 最大和：i与右侧最大的两个数
+            max_sum = nums[i] + nums[n - 1] + nums[n - 2]
+            # 尝试更新候选
+            if abs(max_sum - target) < abs(best - target):
+                best = max_sum
+            # 若最大和仍偏小，则当前i无解，进入下一轮
+            if max_sum <= target:
+                continue
+            # 双指针搜索，此时target位于 min_sun, max_sum 之间
+            l, r = i + 1, n - 1
+            while l < r:
+                # 当前和
+                s = nums[i] + nums[l] + nums[r]
+                # 命中更接近的和则更新
+                if abs(s - target) < abs(best - target):
+                    best = s
+                # 最优解
+                if s == target:
+                    return target
+                # 偏小右移
+                if s < target:
+                    l += 1
+                # 偏大左移
+                else: 
+                    r -= 1
+        return best
 ```
 
 **核心思想：**
@@ -131,7 +154,44 @@ class Solution:
 
 ## 解法三：暴力法（参考）
 
-## 算法分析
+```python
+class Solution:
+    def threeSumClosest(self, nums: List[int], target: int) -> int:
+class Solution:
+    def threeSumClosest(self, nums: List[int], target: int) -> int:
+        nums.sort()
+        n = len(nums)
+        closest_sum = float('inf')
+        min_diff = float('inf')
+
+        for i in range(n - 2):
+            # 跳过重复元素（可选优化）
+            if i > 0 and nums[i] == nums[i - 1]:
+                continue
+
+            left, right = i + 1, n - 1
+
+            while left < right:
+                current_sum = nums[i] + nums[left] + nums[right]
+                
+                # 如果找到完全匹配，直接返回
+                if current_sum == target:
+                    return target
+                
+                # 更新最接近的和
+                current_diff = abs(current_sum - target)
+                if current_diff < min_diff:
+                    min_diff = current_diff
+                    closest_sum = current_sum
+                
+                # 移动指针
+                if current_sum < target:
+                    left += 1
+                else:
+                    right -= 1
+
+        return closest_sum
+```
 
 ### 与3Sum的区别
 

@@ -47,27 +47,27 @@ Output: []
 使用标准库的heapq方法实现
 
 ```python
-# Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class Solution:
+    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
 
-class Solution(object):
-    def mergeKLists(self, lists):
-        current = dummy = ListNode(0)
+        # Monkey patch ListNode so heapq can compare them by val
+        ListNode.__lt__ = lambda self, other: self.val < other.val
 
+        dummy = tail = ListNode(0)
         heap = []
-        for sorted_list in lists:
-            if sorted_list:
-                heapq.heappush(heap, (sorted_list.val, sorted_list))
+        push = heapq.heappush
+        pop = heapq.heappop
+
+        for node in lists:
+            if node:
+                push(heap, node)
 
         while heap:
-            smallest = heapq.heappop(heap)[1]
-            current.next = smallest
-            current = current.next
-            if smallest.next:
-                heapq.heappush(heap, (smallest.next.val, smallest.next))
+            node = pop(heap)
+            tail.next = node
+            tail = node
+            if node.next:
+                push(heap, node.next)
 
         return dummy.next
 

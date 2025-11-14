@@ -123,3 +123,25 @@ class Solution:
             dfs(i, amount, 0)
         return self.res if self.res < float('inf') else -1
 ```
+
+再来一个bfs的版本：
+
+```python
+class Solution:
+    def coinChange(self, coins: List[int], amount: int) -> int:
+        if not amount:
+            return 0
+
+        dp = 1<<amount
+        ans = 0
+        while dp:
+            ans+=1
+            temp = 0
+            for coin in coins:
+                temp |= dp>>coin
+
+                if temp & 1:
+                    return ans
+            dp = temp
+        return -1
+```

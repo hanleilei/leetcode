@@ -12,7 +12,7 @@ This is a comprehensive algorithm learning repository focused on LeetCode proble
 - **File Format**: Markdown files containing problem description, multiple solution approaches, and complexity analysis
 
 ### Algorithm Topic Categorization
-- **Topic Files**: `hashtable.md`, `dp.md`, `bfs.md`, `dfs.md`, `tree.md`, etc.
+- **Topic Files**: `greedy.md`, `heap.md`, `stack.md`, `hashtable.md`, `dp.md`, `bfs.md`, `dfs.md`, `tree.md`, `2points.md`, `linkedlist.md`, `binarysearch.md`, etc.
 - **Purpose**: Quick reference for problems by algorithmic pattern
 - **Content**: Links to related problems, often with difficulty ratings
 
