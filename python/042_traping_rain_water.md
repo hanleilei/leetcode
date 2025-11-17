@@ -134,3 +134,33 @@ class Solution:
             res += min(p, s) - h
         return res
 ```
+
+再来一个：
+
+思路：
+
+1. 先找到最高点，无所谓哪一个。
+2. 最左指针，往最高点走，记录最大值，并且如果最大值大于当前值，累加最大值与当前值的差。
+3. 最右指针，后面同理
+
+```python
+class Solution:
+    def trap(self, h: List[int]) -> int:
+        n = len(h)
+        highest = h.index(max(h))
+        res = 0
+        lmax, rmax = h[0], h[n-1]
+        for i in range(highest):
+            # lmax = max(lmax, h[i])
+            if lmax < h[i]:
+                lmax = h[i]
+
+            res += lmax - h[i]
+        for i in range(n-2, highest, -1):
+            # rmax = max(rmax, h[i])
+            if rmax < h[i]:
+                rmax = h[i]
+
+            res += rmax - h[i]
+        return res
+```
