@@ -1,5 +1,7 @@
 # plus one
 
+[[simulation]]
+
 Given a non-negative integer represented as a non-empty array of digits, plus one to the integer.
 
 You may assume the integer do not contain any leading zero, except the number 0 itself.
@@ -73,4 +75,36 @@ class Solution:
                     digits[i] = 0
                     flag = 1
         return [1] + digits if flag else digits
+```
+
+```cpp
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        digits.back() += 1;
+        for (int i = digits.size() - 1; i >= 0 && digits[i] == 10; i--){
+            digits[i] = 0;
+            if (i == 0) digits.insert(digits.begin(), 1);
+            else digits[i-1] += 1;
+        }
+        return digits;
+    }
+};
+```
+
+```python
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        # 在最后一位加1
+        digits[-1] += 1
+        for i in range(len(digits) - 1, -1, -1):
+            # 如果当前位为10，需要进位
+            if digits[i] == 10:
+                digits[i] = 0
+                # 如果是最左边一位，插入 1
+                if i == 0:
+                    digits.insert(0, 1)
+                else:
+                    digits[i - 1] += 1
+        return digits
 ```

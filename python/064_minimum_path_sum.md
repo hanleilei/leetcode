@@ -67,3 +67,52 @@ class Solution:
                 dp[j] = min(dp[j], dp[j-1]) + grid[i][j]
         return dp[-1]
 ```
+
+$$
+[
+dp_{i,j} =
+\begin{cases}
+    grid_{i,j}, & \text{if } i = 0 \text{ and } j = 0 \\
+    dp_{i-1,j} + grid_{i,j}, & \text{if } j = 0 \\
+    dp_{i,j-1} + grid_{i,j}, & \text{if } i = 0 \\
+    min(dp_{i-1,j}, dp_{i,j-1}) + grid_{i,j}, & \text{otherwise}
+\end{cases}
+]
+$$
+
+```python
+class Solution:
+    def minPathSum(self, grid: List[List[int]]) -> int:
+        n, m = len(grid), len(grid[0])
+        dp = [[0] * m for _ in range(n)]
+        for i in range(m):
+            for j in range(n):
+                if i == 0 and j == 0:
+                    dp[j][i] = grid[j][i]
+                elif i == 0:
+                    dp[j][i] = dp[j - 1][i] + grid[j][i]
+                elif j == 0:
+                    dp[j][i] = dp[j][i - 1] + grid[j][i]
+                else:
+                    dp[j][i] = min(dp[j - 1][i], dp[j][i - 1]) + grid[j][i]
+        return dp[-1][-1]
+```
+
+```cpp
+class Solution {
+public:
+    int minPathSum(vector<vector<int>>& grid) {
+        int n = grid.size(), m = grid[0].size();
+        int dp[n][m];
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < m; j++){
+                if (i == 0 && j == 0) dp[i][j] = grid[i][j];
+                else if (i == 0) dp[i][j] = dp[i][j-1] + grid[i][j];
+                else if (j == 0) dp[i][j] = dp[i-1][j] + grid[i][j];
+                else dp[i][j] = min(dp[i-1][j], dp[i][j-1]) + grid[i][j];
+            }
+        }
+        return dp[n-1][m-1];
+    }
+};
+```

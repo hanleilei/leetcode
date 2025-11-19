@@ -1,5 +1,7 @@
 # sort character by frequency
 
+[[heap]]
+
 Given a string, sort it in decreasing order based on the frequency of characters.
 
 ## Example 1:
@@ -81,4 +83,20 @@ class Solution:
         s = list(s)
         s.sort(key=lambda x:(-cnt[x], x))
         return "".join(s)
+```
+
+手搓一个比较傻的，套路都一样
+
+```python
+class Solution:
+    def frequencySort(self, s: str) -> str:
+        c = Counter(s)
+        d = defaultdict(list)
+        for k, v in c.items():
+            d[v].append(k)
+        res = list()
+        for i in sorted(d.keys(), reverse=True):
+            for j in d[i]:
+                res.append(j * i)
+        return ''.join(res)
 ```

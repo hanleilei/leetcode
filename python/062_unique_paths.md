@@ -38,7 +38,9 @@ There are total m+n-2 moves to go from Top-Left to Bottom-Right.
 In m+n-2 moves, there are m-1 down moves and n-1 right moves.
 You can imagine there are m+n-2 moves as: X X X ... X X X
 X can be one of two values: down D or right R.
-So, basically, it means we need to calculate how many ways we could choose m-1 down moves from m+n-2 moves, or n-1 right moves from m+n-2 moves.
+So, basically, it means we need to calculate how many ways we could choose m-1
+down moves from m+n-2 moves, or n-1 right moves from m+n-2 moves.
+
 So total `ways = C(m+n-2, m-1) = C(m+n-2, n-1) = (m+n-2)! / (m-1)! / (n-1)!`.
 
 可以用排列组合来求解，一共要走(m-1)+(n-1)步，其中(m-1)步向下，(n-1)向右，且有公式 mCn = n!/m!(n-m)! ，那么可以用下面的代码求解：
@@ -62,9 +64,19 @@ class Solution:
             ans *= i
             ans //= j
             j += 1
-            
         return ans
 ```
+
+```python
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        res = 1
+        for i in range(min(m, n) - 1):
+            res *= n + m -2 -i
+            res //= i + 1
+        return res
+```
+
 
 Complexity
 
@@ -78,7 +90,9 @@ Then `dp[m-1][n-1]` is our result.
 There are maximum 2 ways to cell (r, c), that is:
 From upper cell, `dp[r][c] += dp[r-1][c]`
 From left cell, `dp[r][c] += dp[r][c-1]`
-当然了，更常见的一种做法就是动态规划，要到达一个格子只有从它上面或者左边的格子走过来，递推关系式：`dp[i][j]=dp[i-1][j]+dp[i][j-1]`。初始化条件是左边和上边都只有一条路径，索性在初始化时把所有格子初始化为 1。这个也是速度最快的方法。
+当然了，更常见的一种做法就是动态规划，要到达一个格子只有从它上面或者左边的格子走过来，
+递推关系式：`dp[i][j]=dp[i-1][j]+dp[i][j-1]`。初始化条件是左边和上边都只有一条路径，
+索性在初始化时把所有格子初始化为 1。这个也是速度最快的方法。
 
 ```python
 class Solution(object):
@@ -97,7 +111,8 @@ Space: O(M*N)
 
 ## Solution 2: Bottom up DP (Space Optimized)
 
-Since we only access 2 states: current state dp and previous state dpPrev, we can reduce the space complexity to O(M).
+Since we only access 2 states: current state dp and previous state dpPrev,
+we can reduce the space complexity to O(M).
 
 ```python
 class Solution:
@@ -118,7 +133,9 @@ Complexity
 Time: O(M*N), where M <= 100 is number of rows, N <= 100 is number of columns.
 Space: O(M)
 
-这种优化是对上述方法空间的一种优化，使得空间复杂度从原来的 O(n\*m)下降为 O(n)。对于起点到点(i,j)的路径总数：ways[j]= 起点到点(i-1, j) 的路径总数：ways[j] + 起点到点(i, j-1)的路径总数 ways[j-1]，于是我们就得到递推式：ways[j] = ways[j] + ways[j-1]
+这种优化是对上述方法空间的一种优化，使得空间复杂度从原来的 O(n\*m)下降为 O(n)。对于起点到点(i,j)的路径总数：
+ways[j]= 起点到点(i-1, j) 的路径总数：ways[j] + 起点到点(i, j-1)的路径总数 ways[j-1]，
+于是我们就得到递推式：ways[j] = ways[j] + ways[j-1]
 
 ```python
 class Solution(object):

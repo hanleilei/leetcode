@@ -1,190 +1,361 @@
-# edit distance
+# 72. Edit Distance
 
-Given two words word1 and word2, find the minimum number of operations required to convert word1 to word2.
+## 问题描述
+
+Given two words word1 and word2, find the minimum number of
+operations required to convert word1 to word2.
 
 You have the following 3 operations permitted on a word:
 
-Insert a character
-Delete a character
-Replace a character
+1. Insert a character
+2. Delete a character
+3. Replace a character
 
-Example 1:
+## 示例
 
-```comment
+**Example 1:**
+
+```text
 Input: word1 = "horse", word2 = "ros"
 Output: 3
-Explanation:
-horse -> rorse (replace 'h' with 'r')
-rorse -> rose (remove 'r')
-rose -> ros (remove 'e')
 ```
 
-Example 2:
+Explanation:
 
-```comment
+- horse -> rorse (replace 'h' with 'r')
+- rorse -> rose (remove 'r')
+- rose -> ros (remove 'e')
+
+**Example 2:**
+
+```text
 Input: word1 = "intention", word2 = "execution"
 Output: 5
+```
+
 Explanation:
-intention -> inention (remove 't')
-inention -> enention (replace 'i' with 'e')
-enention -> exention (replace 'n' with 'x')
-exention -> exection (replace 'n' with 'c')
-exection -> execution (insert 'u')
-```
 
-这个其实算得上是一个非常经典的题目了，参考GeekForGeek的解释：https://www.geeksforgeeks.org/dynamic-programming-set-5-edit-distance/
+- intention -> inention (remove 't')
+- inention -> enention (replace 'i' with 'e')
+- enention -> exention (replace 'n' with 'x')
+- exention -> exection (replace 'n' with 'c')
+- exection -> execution (insert 'u')
 
-What are the subproblems in this case?
-The idea is process all characters one by one staring from either from left or right sides of both strings.
-Let us traverse from right corner, there are two possibilities for every pair of character being traversed.
-```
-m: Length of str1 (first string)
-n: Length of str2 (second string)
-```
-If last characters of two strings are same, nothing much to do. Ignore last characters and get count for remaining strings. So we recur for lengths m-1 and n-1.
-Else (If last characters are not same), we consider all operations on ‘str1’, consider all three operations on last character of first string, recursively compute minimum cost for all three operations and take minimum of three values.
-```
-Insert: Recur for m and n-1
-Remove: Recur for m-1 and n
-Replace: Recur for m-1 and n-1
-```
+## 约束条件
 
-状态转移方程可以得到了，中止条件也很清楚，直接用递归解决问题：
+- 0 <= word1.length, word2.length <= 500
+- word1 and word2 consist of lowercase English letters.
 
-```python
-class Solution:
-    def minDistance(self, word1, word2):
-        """
-        :type word1: str
-        :type word2: str
-        :rtype: int
-        """
-        m, n = len(word1), len(word2)
-        if m==0:
-            return n
+## 解法分析
 
-        # If second string is empty, the only option is to
-        # remove all characters of first string
-        if n==0:
-            return m
-        return self.editDistDP(word1, word2, m, n)
+这是一个经典的动态规划问题，也被称为编辑距离（Levenshtein
+Distance）。
 
-    # A Dynamic Programming based Python program for edit
-    # distance problem
-    def editDistDP(self, str1, str2, m, n):
-        # Create a table to store results of subproblems
-        dp = [[0 for x in range(n+1)] for x in range(m+1)]
+### 核心思路
 
-        # Fill d[][] in bottom up manner
-        for i in range(m+1):
-            for j in range(n+1):
+定义 $dp[i][j]$ 表示将 word1 的前 i 个字符转换为 word2 的前 j
+个字符所需的最少操作数。
 
-                # If first string is empty, only option is to
-                # isnert all characters of second string
-                if i == 0:
-                    dp[i][j] = j    # Min. operations = j
+状态转移方程：
 
-                # If second string is empty, only option is to
-                # remove all characters of second string
-                elif j == 0:
-                    dp[i][j] = i    # Min. operations = i
+1. 如果 $word1[i-1] = word2[j-1]$，字符相同：
+   - $dp[i][j] = dp[i-1][j-1]$
 
-                # If last characters are same, ignore last char
-                # and recur for remaining string
-                elif str1[i-1] == str2[j-1]:
-                    dp[i][j] = dp[i-1][j-1]
+2. 如果字符不同，取三种操作的最小值：
+   - 插入：$dp[i][j] = dp[i][j-1] + 1$
+   - 删除：$dp[i][j] = dp[i-1][j] + 1$
+   - 替换：$dp[i][j] = dp[i-1][j-1] + 1$
 
-                # If last character are different, consider all
-                # possibilities and find minimum
-                else:
-                    dp[i][j] = 1 + min(dp[i][j-1],        # Insert
-                                       dp[i-1][j],        # Remove
-                                       dp[i-1][j-1])    # Replace
+边界条件：
 
-        return dp[m][n]
-```
+- $dp[0][j] = j$（word1为空，需要插入j个字符）
+- $dp[i][0] = i$（word2为空，需要删除i个字符）
 
-再来一个速度更快的：
+参考资料：[GeeksforGeeks - Edit Distance](https://www.geeksforgeeks.org/dynamic-programming-set-5-edit-distance/)
 
-```python
-class Solution:
-    def minDistance(self, word1, word2):
-        """
-        :type word1: str
-        :type word2: str
-        :rtype: int
-        """
-        return self.dfs(word1,word2,(0,0),{})
+## 解法
 
-    def dfs(self,word1,word2,pos,memo):
-        if pos in memo:
-            return memo[pos]
-        i,j = pos
-        if i == len(word1):
-            memo[pos] = len(word2) - j
-            return memo[pos]
-        if j == len(word2):
-            memo[pos] = len(word1) - i
-            return memo[pos]
-        if word1[i] == word2[j]:
-            ans = self.dfs(word1,word2,(i + 1,j + 1),memo)
-        else:
-            ans = min(self.dfs(word1,word2,(i + 1,j + 1),memo),self.dfs(word1,word2,(i + 1,j),memo),self.dfs(word1,word2,(i,j + 1),memo)) + 1
-        memo[pos] = ans
-        return ans
-```
+### 方法1：二维DP（推荐）
 
-再来一个heap版本的：
-
-```python
-class Solution:
-    def minDistance(self, word1, word2):
-        """
-        :type word1: str
-        :type word2: str
-        :rtype: int
-        """
-        import heapq
-        heap = [(0, word1, word2)]
-        seen = set()
-        while heap:
-            distance, w1, w2 = heapq.heappop(heap)
-
-            if w1 == w2:
-                return distance
-
-            if (w1, w2) in seen:
-                continue
-            else:
-                seen.add((w1,w2))
-
-            if w1 and w2 and w1[-1] == w2[-1]:
-                heapq.heappush(heap, (distance, w1[:-1], w2[:-1]))
-            else:
-                if w1:
-                    heapq.heappush(heap, (distance+1, w1[:-1], w2))
-                if w2:
-                    heapq.heappush(heap, (distance+1, w1, w2[:-1]))
-                if w1 and w2:
-                    heapq.heappush(heap,(distance+1, w1[:-1], w2[:-1]))
-
-```
-
-再来一个deque的版本，也是最快的版本：
+标准的动态规划解法，清晰易懂。自底向上
 
 ```python
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
-        visit, dq = set(), collections.deque([(word1, word2, 0)])
-        while True:
-            w1, w2, d = dq.popleft()
-            if (w1, w2) not in visit:
-                if w1 == w2:
-                    return d
-                visit.add((w1, w2))
-                while w1 and w2 and w1[0] == w2[0]:
-                    w1, w2 = w1[1:], w2[1:]
-                d += 1
-                dq.extend([(w1[1:], w2[1:], d), (w1, w2[1:], d),
-                           (w1[1:], w2, d)])
+        m, n = len(word1), len(word2)
+
+        # 创建DP表，dp[i][j]表示word1前i个字符转换为word2前j个字符的最小操作数
+        dp = [[0] * (n + 1) for _ in range(m + 1)]
+
+        # 初始化边界条件
+        for i in range(m + 1):
+            dp[i][0] = i  # word2为空，需要删除i个字符
+        for j in range(n + 1):
+            dp[0][j] = j  # word1为空，需要插入j个字符
+
+        # 填充DP表
+        for i in range(1, m + 1):
+            for j in range(1, n + 1):
+                if word1[i - 1] == word2[j - 1]:
+                    # 字符相同，不需要操作
+                    dp[i][j] = dp[i - 1][j - 1]
+                else:
+                    # 字符不同，取三种操作的最小值
+                    dp[i][j] = min(
+                        dp[i - 1][j] + 1,      # 删除word1[i]
+                        dp[i][j - 1] + 1,      # 插入word2[j]
+                        dp[i - 1][j - 1] + 1   # 替换word1[i]为word2[j]
+                    )
+
+        return dp[m][n]
 ```
+
+### 方法2：空间优化的DP
+
+由于 $dp[i][j]$ 只依赖于 $dp[i-1][j-1]$、$dp[i-1][j]$ 和 $dp[i][j-1]$，可以将空间复杂度优化到O(n)。
+
+```python
+class Solution:
+    def minDistance(self, word1: str, word2: str) -> int:
+        m, n = len(word1), len(word2)
+
+        # 只使用一维数组
+        dp = list(range(n + 1))
+
+        for i in range(1, m + 1):
+            prev = dp[0]  # 保存dp[i-1][j-1]
+            dp[0] = i
+
+            for j in range(1, n + 1):
+                temp = dp[j]  # 保存当前值，作为下一次的prev
+
+                if word1[i - 1] == word2[j - 1]:
+                    dp[j] = prev
+                else:
+                    dp[j] = min(dp[j], dp[j - 1], prev) + 1
+
+                prev = temp
+
+        return dp[n]
+```
+
+### 方法3：记忆化递归（DFS + Memo）
+
+自顶向下的递归方法，使用记忆化避免重复计算。
+
+```python
+class Solution:
+    def minDistance(self, word1: str, word2: str) -> int:
+        memo = {}
+
+        def dfs(i, j):
+            # 记忆化
+            if (i, j) in memo:
+                return memo[(i, j)]
+
+            # 边界条件
+            if i == len(word1):
+                return len(word2) - j
+            if j == len(word2):
+                return len(word1) - i
+
+            # 字符相同，无需操作
+            if word1[i] == word2[j]:
+                result = dfs(i + 1, j + 1)
+            else:
+                # 三种操作取最小值
+                result = min(
+                    dfs(i + 1, j + 1),  # 替换
+                    dfs(i + 1, j),      # 删除
+                    dfs(i, j + 1)       # 插入
+                ) + 1
+
+            memo[(i, j)] = result
+            return result
+
+        return dfs(0, 0)
+```
+
+或者：
+
+```python
+class Solution:
+    def minDistance(self, word1: str, word2: str) -> int:
+        n, m = len(s), len(t)
+        @cache  # 缓存装饰器，避免重复计算 dfs 的结果（记忆化）
+        def dfs(i: int, j: int) -> int:
+            if i < 0:
+                return j + 1
+            if j < 0:
+                return i + 1
+            if s[i] == t[j]:
+                return dfs(i - 1, j - 1)
+            return min(dfs(i - 1, j), dfs(i, j - 1), dfs(i - 1, j - 1)) + 1
+        return dfs(n - 1, m - 1)
+```
+
+或者：
+
+```python
+class Solution:
+    def minDistance(self, word1: str, word2: str) -> int:
+        import functools
+        @functools.lru_cache(None)
+        def helper(i, j):
+            if i == len(word1) or j == len(word2):
+                return len(word1) - i + len(word2) - j
+            if word1[i] == word2[j]:
+                return helper(i + 1, j + 1)
+            else:
+                inserted = helper(i, j + 1)
+                deleted = helper(i + 1, j)
+                replaced = helper(i + 1, j + 1)
+                return min(inserted, deleted, replaced) + 1
+        return helper(0, 0)
+```
+
+### 方法4：BFS
+
+使用BFS搜索最短路径，时间复杂度较高，仅作理解用。
+
+```python
+class Solution:
+    def minDistance(self, word1: str, word2: str) -> int:
+        m, n = len(word1), len(word2)
+        dq, visited, res = deque([(0, 0)]), {(0, 0)}, 0
+        while dq:
+            size = len(dq)
+            for i in range(size):
+                x, y = dq.popleft()
+                while x < m and y < n and word1[x] == word2[y]:
+                    x += 1
+                    y += 1
+                if x == m and y == n:
+                    return res
+
+                if x < m and y < n and (replace_xy:= (x + 1, y + 1)) not in visited:
+                    visited.add(replace_xy)
+                    dq.append(replace_xy)
+                if x < m and (delete_xy:= (x + 1, y)) not in visited:
+                    visited.add(delete_xy)
+                    dq.append(delete_xy)
+                if y < n and (insert_xy:= (x, y + 1)) not in visited:
+                    visited.add(insert_xy)
+                    dq.append(insert_xy)
+            res += 1
+        return res
+```
+
+这个BFS算法在leetcode的环境中表现最好，原因是：
+
+✅ 提前终止：找到答案立即返回（DP必须填完整个表）
+✅ 跳过相同字符：减少实际处理的状态数
+✅ 测试用例友好：LeetCode测试中编辑距离通常较小
+
+但是还是建议用dp，毕竟我一下子就能看得懂dp，这个bfs还是要想一下的。
+
+## 算法分析
+
+### 复杂度分析
+
+| 方法 | 时间复杂度 | 空间复杂度 | 说明 |
+|------|-----------|-----------|------|
+| 二维DP | O(m·n) | O(m·n) | 标准DP，最直观 |
+| 空间优化DP | O(m·n) | O(n) | 滚动数组优化空间 |
+| 记忆化递归 | O(m·n) | O(m·n) | 递归+备忘录 |
+| BFS | O(m·n) | O(m·n) | 速度最快，但是略复杂 |
+
+二维DP详细分析：
+
+- 时间：双重循环遍历所有状态，每个状态O(1)计算
+- 空间：需要(m+1)×(n+1)的二维数组
+- 实际运行：对于500长度字符串，需要约250K空间，完全可接受
+
+### 执行过程示例
+
+以 word1="horse", word2="ros" 为例，构建DP表：
+
+```text
+    ""  r  o  s
+""   0  1  2  3
+h    1  1  2  3
+o    2  2  1  2
+r    3  2  2  2
+s    4  3  3  2
+e    5  4  4  3
+
+DP表构建过程：
+
+- $dp[0][*]$: 插入0~3个字符
+- $dp[*][0]$: 删除0~5个字符
+- $dp[1][1]$: h->r, 需要1次替换
+- $dp[2][2]$: ho->ro, o相同，取 $dp[1][1]=1$
+- $dp[5][3]$: horse->ros, 最终答案=3
+
+```
+
+操作路径回溯 - 从 $dp[5][3]=3$ 回溯到 $dp[0][0]$：
+
+1. horse -> rorse (替换h为r, $dp[5][3] \to dp[4][2]$)
+2. rorse -> rose (删除r, $dp[4][2] \to dp[3][2]$)
+3. rose -> ros (删除e, $dp[3][2] \to dp[3][3]$)
+
+## 常见错误
+
+### 错误1：状态转移方程理解错误
+
+错误示例：混淆了三种操作的含义，忘记+1
+
+```python
+dp[i][j] = min(
+    dp[i][j - 1],      # 应该加1
+    dp[i - 1][j],      # 应该加1
+    dp[i - 1][j - 1]   # 应该加1
+)
+```
+
+**原因：** 每种操作都需要+1表示增加一次操作
+
+### 错误2：边界条件处理错误
+
+错误示例：未初始化边界
+
+```python
+dp = [[0] * (n + 1) for _ in range(m + 1)]
+# 直接开始填充会导致第一行第一列错误
+```
+
+**原因：** $dp[i][0]$ 和 $dp[0][j]$ 必须初始化为i和j
+
+### 错误3：字符索引错误
+
+错误示例：使用i和j直接访问字符（应该是word1\[i-1\]和word2\[j-1\]）
+
+```python
+if word1[i] == word2[j]:
+    dp[i][j] = dp[i-1][j-1]
+```
+
+**原因：** dp数组索引从1开始，但字符串索引从0开始
+
+### 错误4：空间优化时prev变量维护错误
+
+错误示例：未正确保存上一轮的值
+
+```python
+for j in range(1, n + 1):
+    if word1[i-1] == word2[j-1]:
+        dp[j] = prev  # prev可能已经被覆盖
+```
+
+**原因：** 需要在更新前保存当前值作为下一次的prev
+
+## 相关题目
+
+- [0583. Delete Operation for Two Strings](./583_delete_operation_for_two_strings.md)
+- [0712. Minimum ASCII Delete Sum for Two Strings](./712_minimum_ascii_delete_sum_for_two_strings.md)
+- [1143. Longest Common Subsequence](./1143_longest_common_subsequence.md)
+- [0161. One Edit Distance](./161_one_edit_distance.md)
+- [1035. Uncrossed Lines](./1035_uncrossed_lines.md)
+
+

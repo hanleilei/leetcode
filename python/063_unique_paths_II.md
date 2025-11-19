@@ -70,3 +70,56 @@ class Solution:
                 dp[i][j] = dp[i - 1][j] + dp[i][j - 1]
         return dp[m - 1][n - 1]
 ```
+
+$$
+[
+cnt_{i,j} =
+\begin{cases}
+    0, & \text{if } \text{isObs}(i, j) \\
+    1, & \text{if } i = 0 \text{ and } j = 0 \\
+    cnt_{i-1,j}, & \text{if } j = 0 \\
+    cnt_{i,j-1}, & \text{if } i = 0 \\
+    cnt_{i-1,j} + cnt_{i,j-1}, & \text{otherwise}
+\end{cases}
+]
+$$
+```cpp
+class Solution {
+public:
+    int uniquePathsWithObstacles(vector<vector<int>>& obstacleGrid) {
+        int n = obstacleGrid.size();
+        int m = obstacleGrid[0].size();
+        int dp[n][m];
+        for (int i = 0; i < n; i++){
+            for (int j = 0; j < m;j++){
+                if (obstacleGrid[i][j] == 1) dp[i][j] = 0;
+                else if (i ==0 && j == 0) dp[i][j] = 1;
+                else{
+                    dp[i][j] = 0;
+                    if (i > 0) dp[i][j] += dp[i-1][j];
+                    if (j > 0) dp[i][j] += dp[i][j-1];
+                }
+            }
+        }
+        return dp[n-1][m-1];
+    }
+};
+```
+
+```python
+class Solution:
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
+        n, m = len(obstacleGrid), len(obstacleGrid[0])
+        dp = [[0] * m for _ in range(n)]
+        for i in range(n):
+            for j in range(m):
+                if obstacleGrid[i][j] == 1:
+                    dp[i][j] = 0
+                elif i == 0 and j == 0:
+                    dp[i][j] = 1
+                else:
+                    dp[i][j] += dp[i - 1][j] if i > 0 else 0
+                    dp[i][j] += dp[i][j - 1] if j > 0 else 0
+
+        return dp[-1][-1]
+```
