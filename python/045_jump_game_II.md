@@ -57,3 +57,22 @@ class Solution:
                 curEnd = curFarthest
         return jumps
 ```
+
+```cpp
+class Solution {
+public:
+    int jump(vector<int>& nums) {
+        int n = nums.size();
+        int cur = 0, next = 0;
+        int level = 0;
+        for (int i = 0; i < n - 1; i++){
+            next = max(next, i + nums[i]);
+            if (i == cur){
+                level ++;
+                cur = next;
+            }
+        }
+        return level;
+    }
+};
+```

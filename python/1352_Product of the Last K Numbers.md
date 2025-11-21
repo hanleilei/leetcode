@@ -49,19 +49,26 @@ Follow-up: Can you implement both GetProduct and Add to work in O(1) time comple
 
 ```python
 class ProductOfNumbers:
-
+    # 前缀积数组
+    # preProduct[i] / preProduct[j] 就是 [i, j] 之间的元素积
     def __init__(self):
-        self.h = [1]        
+        # 初始化放一个 1，便于计算后续添加元素的乘积
+        self.preProduct = [1]
 
     def add(self, num: int) -> None:
         if num == 0:
-            self.h = [1]
-        else:
-            self.h.append(self.h[-1] * num)
+            # 如果添加的元素是 0，则前面的元素积都废了
+            self.preProduct = [1]
+            return
+        # 前缀积数组中每个元素
+        self.preProduct.append(self.preProduct[-1] * num)
 
     def getProduct(self, k: int) -> int:
-        if k >= len(self.h): return 0
-        return self.h[-1] // self.h[-k - 1]
+        if k >= len(self.preProduct):
+            # 不足 k 个元素，是因为最后 k 个元素存在 0
+            return 0
+        # 计算最后 k 个元素积
+        return self.preProduct[-1] // self.preProduct[-k-1]
 ```
 
 ```c++

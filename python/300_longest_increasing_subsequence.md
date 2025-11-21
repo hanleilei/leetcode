@@ -165,3 +165,49 @@ class Solution:
         
         return len(dp)
 ```
+
+
+```cpp
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+        vector<int> lis(nums.size(), INT_MAX);
+        for (auto x: nums){
+            lis[ranges::lower_bound(lis, x) - lis.begin()] = x;
+        }
+        return ranges::lower_bound(lis, INT_MAX) - lis.begin();
+    }
+};
+```
+
+```python
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        # lis 数组维护目前可能的最长上升子序列的“最小尾部”值
+        lis: List[int] = []
+        
+        for x in nums:
+            # 找到第一个 >= x 的位置（相当于 lower_bound）
+            pos = bisect.bisect_left(lis, x)
+            if pos == len(lis):
+                # x 比当前所有尾部都大，直接接在后面
+                lis.append(x)
+            else:
+                # 用 x 替换该位置的元素，使尾部更小，有利于后续延长
+                lis[pos] = x
+        
+        return len(lis)
+```
+
+```python
+class Solution:
+    def lengthOfLIS(self, nums: List[int]) -> int:
+        lis = [sys.maxsize] * len(nums)   # 相当于 INT_MAX
+        for x in nums:
+            # lower_bound 返回第一个 >= x 的位置的索引
+            idx = bisect.bisect_left(lis, x)
+            lis[idx] = x
+        # 找到第一个仍是 sys.maxsize 的位置，即有效长度
+        idx = bisect.bisect_left(lis, sys.maxsize)
+        return idx
+```

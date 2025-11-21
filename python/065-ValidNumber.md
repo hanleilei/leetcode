@@ -107,7 +107,7 @@ class Solution:
 
 ### 方法2：有限状态机（DFA）
 
-使用状态机严格按照规则验证。
+使用状态机严格按照规则验证。这个。。作为扩展了解一下吧，估计这辈子用不到。
 
 ```mermaid
 stateDiagram-v2
@@ -243,6 +243,64 @@ class Solution:
                 return False
 
         return seen_digit
+```
+
+### 方法5: 模拟
+
+字符串大模拟，根据「有效数字定义」梳理规则即可。
+
+本题有多种解法：「正则」、「DFA」、「模拟」...
+
+「模拟」是在各类场景中最容易实现的方式，只要头脑不发热都能写出来。
+
+将字符串以 e/E 进行分割后，其实规则十分简单：
+
+如果存在 e/E ：左侧可以「整数」或「浮点数」，右侧必须是「整数」
+如果不存在 e/E ：整段可以是「整数」或「浮点数」
+关键在于如何实现一个 check 函数用于判断「整数」或「浮点数」：
+
++/- 只能出现在头部
+. 最多出现一次
+至少存在一个数字
+
+```java
+class Solution {
+    public boolean isNumber(String s) {
+        int n = s.length();
+        char[] cs = s.toCharArray();
+        int idx = -1;
+        for (int i = 0; i < n; i++) {
+            if (cs[i] == 'e' || cs[i] == 'E') {
+                if (idx == -1) idx = i;
+                else return false;
+            }
+        }
+        boolean ans = true;
+        if (idx != -1) {
+            ans &= check(cs, 0, idx - 1, false);
+            ans &= check(cs, idx + 1, n - 1, true);
+        } else {
+            ans &= check(cs, 0, n - 1, false);
+        }
+        return ans;
+    }
+    boolean check(char[] cs, int start, int end, boolean mustInteger) {
+        if (start > end) return false;
+        if (cs[start] == '+' || cs[start] == '-') start++;
+        boolean hasDot = false, hasNum = false;
+        for (int i = start; i <= end; i++) {
+            if (cs[i] == '.') {
+                if (mustInteger || hasDot) return false;
+                hasDot = true;
+            } else if (cs[i] >= '0' && cs[i] <= '9') {
+                hasNum = true;
+            } else {
+                return false;
+            }
+        }
+        return hasNum;
+    }
+}
 ```
 
 ## 算法分析

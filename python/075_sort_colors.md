@@ -126,3 +126,39 @@ class Solution:
 - [215. Kth Largest Element in an Array](215_kth_largest_element_in_an_array.md) - 数组中的第K个最大元素
 - [324. Wiggle Sort II](324_wiggle_sort_ii.md) - 摆动排序 II
 
+```cpp
+class Solution {
+public:
+    void sortColors(vector<int>& nums) {
+        int zero = 0, two = nums.size() - 1;
+        for (int i = 0; i <= two; i++){
+            while (nums[i] == 2 && i <= two) swap(nums[i], nums[two--]);
+            if (nums[i] == 0) swap(nums[i], nums[zero++]);
+        }
+    }
+};
+```
+
+```python
+class Solution:
+    def sortColors(self, nums: List[int]) -> None:
+        """
+        Do not return anything, modify nums in-place instead.
+        """
+        zero = 0
+        two = len(nums) - 1
+        i = 0
+        
+        while i <= two:
+            # 先处理2：持续交换直到当前位置不是2
+            while nums[i] == 2 and i <= two:
+                nums[i], nums[two] = nums[two], nums[i]
+                two -= 1
+            
+            # 再处理0：如果当前是0，与zero位置交换
+            if nums[i] == 0:
+                nums[i], nums[zero] = nums[zero], nums[i]
+                zero += 1
+            
+            i += 1
+```

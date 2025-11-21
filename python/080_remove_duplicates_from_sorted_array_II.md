@@ -55,6 +55,32 @@ class Solution(object):
         return i
 ```
 
+```cpp
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int len = 0;
+        for (int i = 0; i < nums.size(); i++){
+            if (len < 2 || nums[len-2] != nums[i]){
+                nums[len++] = nums[i];
+            }
+        }
+        return len;
+    }
+};
+```
+
+```python
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        res = 0
+        for i in range(len(nums)):
+            if res < 2 or nums[res - 2] != nums[i]:
+                nums[res]= nums[i]
+                res += 1
+        return res
+```
+
 **核心思想：**
 
 - 使用双指针技术，`i`表示当前要放置元素的位置

@@ -164,3 +164,59 @@ class Solution:
 - [143. Reorder List](../143_reorder_list.md)
 
 经典问题，使用快慢指针就可以，由于k可能非常大，但是k如果大于链表长度，就会做重复的工作，所以先要得到链表长度，然后取模。
+
+```cpp
+class Solution {
+public:
+    ListNode* rotateRight(ListNode* head, int k) {
+        if (!head) return head;
+        ListNode* root = new ListNode(-1, head);
+        int n = 0;
+        ListNode* tail = root;
+        while (tail-> next){
+            tail = tail->next;
+            n++;
+        }
+        k %= n;
+        int step = n - k;
+        ListNode* kNode = root;
+        while (step --){
+            kNode = kNode->next;
+        }
+        tail->next = root->next;
+        root->next = kNode->next;
+        kNode->next = nullptr;
+        return root->next;
+    }
+};
+```
+
+```python
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        if not head:
+            return head
+
+        root = ListNode(-1, head)
+        n = 0
+        tail = root
+        while tail.next:
+            tail = tail.next
+            n += 1
+        
+        k %= n
+        step = n - k
+        knode = root
+        for _ in range(step):
+            knode = knode.next
+        
+        tail.next = root.next
+        root.next = knode.next
+        knode.next = None
+        return root.next
+```

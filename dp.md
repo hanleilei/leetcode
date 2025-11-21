@@ -21,3 +21,18 @@
     1745. Numbers At Most N Given Digit Set
     1746. Numbers With Repeated Digits
     1747. Find All Good Strings (Very tough, prerequisite-KMP)
+
+对于dp，我们可以用类似这样的latex语法来写状态转移方程：
+
+$$
+[
+cnt_{i,j} =
+\begin{cases}
+    0, & \text{if } \text{isObs}(i, j) \\
+    1, & \text{if } i = 0 \text{ and } j = 0 \\
+    cnt_{i-1,j}, & \text{if } j = 0 \\
+    cnt_{i,j-1}, & \text{if } i = 0 \\
+    cnt_{i-1,j} + cnt_{i,j-1}, & \text{otherwise}
+\end{cases}
+]
+$$
