@@ -64,6 +64,7 @@ target/
 # vscode
 .vscode
 t.py
+t.cpp
 t.sh
 .leetcode
 .ruff_cache

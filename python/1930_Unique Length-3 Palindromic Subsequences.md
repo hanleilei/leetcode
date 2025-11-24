@@ -80,7 +80,7 @@ class Solution:
         res = 0
         for i, v in enumerate(s):
             d[v].append(i)
-        
+
         for c in d.keys():
             i, j = d[c][0], d[c][-1]
             if i > -1:
@@ -89,6 +89,7 @@ class Solution:
 ```
 
 思路：
+
 1. 确定每个字符的第一次出现和最后一次出现的位置
 2. 确定中间的字符的个数
 3. 遍历所有的字符，把中间的字符的个数加起来.
@@ -100,11 +101,17 @@ class Solution:
         mapping = defaultdict(list)
         for index, val in enumerate(s):
             mapping[val].append(index)
-        
+
         for k, vals in mapping.items():
             if len(vals) == 1:
                 continue
             start, end = vals[0], vals[-1]
             res += len(set(s[start+1:end]))
         return res
+```
+
+```python
+class Solution:
+    def countPalindromicSubsequence(self, s: str) -> int:
+        return sum([len(set(s[s.index(c)+1:s.rindex(c)])) for c in set(s)])
 ```
