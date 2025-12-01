@@ -2,7 +2,7 @@
 
 Write a function to find the longest common prefix string amongst an array of strings.
 
-### 使用最挫的算法，挨个遍历，居然也能过：
+## 使用最挫的算法，挨个遍历，居然也能过：
 
 ```python
 class Solution(object):
@@ -113,4 +113,20 @@ class Solution:
             else:
                 break
         return ans
+```
+
+上面的方法，都是基于python的特性，比较简洁。但是，如果是其他语言该怎么实现呢？
+
+```python
+class Solution:
+    def longestCommonPrefix(self, strs: List[str]) -> str:
+        res = ""
+        strs = sorted(strs)
+        first = strs[0]
+        last = strs[-1]
+        for i in range(min(len(first), len(last))):
+            if first[i] != last[i]:
+                return res
+            res += first[i]
+        return res
 ```

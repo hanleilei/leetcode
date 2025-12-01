@@ -1,5 +1,7 @@
 # Minimum Add to Make Parentheses Valid
 
+[[stack]]
+
 A parentheses string is valid if and only if:
 
 It is the empty string,
@@ -36,7 +38,7 @@ class Solution:
     def minAddToMakeValid(self, S: str) -> int:
         while "()" in S:
             S = S.replace("()", "")
-        
+
         return len(S)
 ```
 
@@ -54,4 +56,20 @@ class Solution:
                 else:
                     ans += 1
         return ans + open
+```
+
+```python
+class Solution:
+    def minAddToMakeValid(self, s: str) -> int:
+        stack = list()
+        d = {")": "("}
+        for i in s:
+            if i not in d:
+                stack.append(i)
+            else:
+                if stack and stack[-1]== d[i]:
+                    stack.pop()
+                else:
+                    stack.append(i)
+        return len(stack)
 ```

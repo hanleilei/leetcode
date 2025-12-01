@@ -1,6 +1,6 @@
 # Remove Duplicates from Sorted Array II
 
-[[array]]
+[[array]] [[2points]]
 
 ## Problem Description
 

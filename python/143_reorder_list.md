@@ -6,11 +6,14 @@ reorder it to: L0→Ln→L1→Ln-1→L2→Ln-2→…
 You may not modify the values in the list's nodes, only nodes itself may be changed.
 
 Example 1:
-```
+
+```text
 Given 1->2->3->4, reorder it to 1->4->2->3.
 ```
+
 Example 2:
-```
+
+```text
 Given 1->2->3->4->5, reorder it to 1->5->2->4->3.
 ```
 
@@ -56,6 +59,7 @@ class Solution:
             p1 = tmp1; p2 = tmp2
 
 ```
+
 再来一个更简洁的版本：
 
 ```python
@@ -92,5 +96,3 @@ class Solution:
         return
 
 ```
-
-再来上面版本的繁琐版本，zitao

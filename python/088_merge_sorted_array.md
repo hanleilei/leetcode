@@ -56,18 +56,15 @@ class Solution:
         """
         Do not return anything, modify nums1 in-place instead.
         """
-        i = m - 1  # nums1的最后一个有效元素
-        j = n - 1  # nums2的最后一个元素
-        k = m + n - 1  # 合并后数组的最后位置
-
-        while j >= 0:
-            if i >= 0 and nums1[i] > nums2[j]:
-                nums1[k] = nums1[i]
-                i -= 1
+        index = m + n - 1
+        while n > 0:
+            if m > 0 and nums1[m-1] > nums2[n - 1]:
+                nums1[index] = nums1[m - 1]
+                m -= 1
             else:
-                nums1[k] = nums2[j]
-                j -= 1
-            k -= 1
+                nums1[index] = nums2[n - 1]
+                n -= 1
+            index -= 1
 ```
 
 **核心思想：**
@@ -94,9 +91,9 @@ class Solution:
         """
         # 保存nums1的副本
         nums1_copy = nums1[:m]
-        
+
         i = j = k = 0
-        
+
         # 合并两个数组
         while i < m and j < n:
             if nums1_copy[i] <= nums2[j]:
@@ -106,13 +103,13 @@ class Solution:
                 nums1[k] = nums2[j]
                 j += 1
             k += 1
-        
+
         # 处理剩余元素
         while i < m:
             nums1[k] = nums1_copy[i]
             i += 1
             k += 1
-            
+
         while j < n:
             nums1[k] = nums2[j]
             j += 1

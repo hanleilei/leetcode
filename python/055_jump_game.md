@@ -1,6 +1,6 @@
 # jump game
 
-[[Micorsoft]]
+[[Micorsoft]] [[greedy]]
 
 Given an array of non-negative integers, you are initially positioned at the first index of the array.
 
@@ -101,3 +101,12 @@ public:
 };
 ```
 
+```python
+class Solution:
+    def canJump(self, nums: List[int]) -> bool:
+        maxPos = 0
+        for i in range(len(nums)):
+            if i > maxPos: return False
+            maxPos = max(i + nums[i], maxPos)
+        return True
+```

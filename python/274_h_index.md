@@ -6,7 +6,7 @@ According to the definition of h-index on Wikipedia: "A scientist has index h if
 
 Example:
 
-```
+```text
 Input: citations = [3,0,6,1,5]
 Output: 3
 Explanation: [3,0,6,1,5] means the researcher has 5 papers in total and each of them had
@@ -83,11 +83,11 @@ h 指数想说的是这样一件事情：一个人的论文根据被引用的次
 h 指数是 论文数量，不是引用次数。 h 指数是 论文数量，不是引用次数。 h 指数是 论文数量，不是引用次数。
 
 题目要求返回的是论文数量。再看看题目的示例：
-![](https://pic.leetcode-cn.com/1625998400-VBXQNr-image.png)
+![1625998400 VBXQNr Image image](https://pic.leetcode-cn.com/1625998400-VBXQNr-image.png)
 {:align=center}
 
 这个例子有点儿特殊，论文被引用了 3 次，篇数有 3 篇。再来看一个更一般的例子：
-![](https://pic.leetcode-cn.com/1625998502-XMZfqD-image.png)
+![1625998502 XMZfqD Image image](https://pic.leetcode-cn.com/1625998502-XMZfqD-image.png)
 {:align=center}
 
 结论：这条分割线越靠左边，说明被引用的次数很多，文章还很多，h 指数越高。
@@ -127,3 +127,18 @@ h 指数是 论文数量，不是引用次数。 h 指数是 论文数量，不�
                 right = mid - 1
         return left
 ```
+
+再次回顾，好垃圾的题目！
+
+```python
+class Solution:
+    def hIndex(self, citations: List[int]) -> int:
+        n = len(citations)
+        citations.sort()
+
+        for i,v in enumerate(citations):
+            if n - i <= v:
+                return n - i
+        return 0
+```
+

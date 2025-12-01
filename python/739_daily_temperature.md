@@ -22,7 +22,7 @@ Constraints:
 1 <= temperatures.length <= 105
 30 <= temperatures[i] <= 100
 
- 绝妙的算法，原来可以用这样的方式遍历数组啊。。。之前还都是用 for i in range(size -1)，现在看来太土了
+绝妙的算法，原来可以用这样的方式遍历数组啊。。。之前还都是用 for i in range(size -1)，现在看来太土了
 
 ```python
 class Solution:

@@ -38,3 +38,13 @@ class Solution:
                 d[n] = i
         return [d[n] for n in nums]
 ```
+
+```python
+class Solution:
+    def smallerNumbersThanCurrent(self, nums: List[int]) -> List[int]:
+        sorted_nums = sorted(nums)
+        res = list()
+        for i in nums:
+            res.append(bisect_left(sorted_nums, i))
+        return res
+```
