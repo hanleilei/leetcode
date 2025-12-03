@@ -1,5 +1,7 @@
 # reverse node in k group
 
+[[linkedlist]]
+
 Given a linked list, reverse the nodes of a linked list k at a time and return its modified list.
 
 k is a positive integer and is less than or equal to the length of the linked list. If the number of nodes is not a multiple of k then left-out nodes in the end should remain as it is.
@@ -16,7 +18,6 @@ Note:
 
 Only constant extra memory is allowed.
 You may not alter the values in the list's nodes, only nodes itself may be changed.
-
 
 ```Python
 # Definition for singly-linked list.
@@ -57,10 +58,38 @@ class Solution(object):
 
         return ret
 ```
+
+或者：
+
+```python
+class Solution:
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        n = 0
+        cur = head
+        while cur: 
+            n += 1
+            cur = cur.next
+        p = dummy = ListNode(next=head)
+        pre, cur = None, head
+
+        while n >= k:
+            n -= k
+            for _  in range(k):
+                nxt = cur.next
+                cur.next = pre
+                pre = cur
+                cur = nxt
+
+            nxt = p.next
+            nxt.next = cur
+            p.next = pre
+            p = nxt
+        return dummy.next
+```
+
 再来一个直观的：
 
 先看Leetcode 206的reverse linkedlist的问题：
-
 
 ```Python
 class Solution:

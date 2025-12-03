@@ -47,7 +47,7 @@ class Solution:
     def reverseBetween(self, head: Optional[ListNode], m: int, n: int) -> Optional[ListNode]:
         """
         在位置m到n之间反转链表，原地操作，一次遍历
-        
+
         思路：
         1. 创建虚拟头节点处理边界情况
         2. 找到m-1位置的节点作为反转段的前驱
@@ -56,33 +56,33 @@ class Solution:
         """
         if not head or not head.next:
             return head
-        
+
         # 创建虚拟头节点
         dummy = ListNode(0)
         dummy.next = head
-        
+
         # pre：指向反转段前一个节点
         pre = dummy
-        
+
         # 移动到第m-1个节点的位置
         for _ in range(m - 1):
             pre = pre.next
-        
+
         # curr：指向反转段的第一个节点
         curr = pre.next
-        
+
         # 逐个将后续节点提取到前面（共n-m个节点需要反转）
         for _ in range(n - m):
             # tmp：下一个要提的节点
             tmp = curr.next
-            
+
             # 将tmp从链表中移出
             curr.next = tmp.next
-            
+
             # 将tmp插入到反转段的最前面（即pre.next）
             tmp.next = pre.next
             pre.next = tmp
-        
+
         return dummy.next
 ```
 
@@ -99,7 +99,7 @@ class Solution:
   curr指向2，tmp指向3
   操作：2.next = 4, 3.next = 2, dummy.next = 3
   结果：1 -> 3 -> 2 -> 4 -> 5
-  
+
 第二步：提取节点4（curr.next）
   curr指向2，tmp指向4
   操作：2.next = 5, 4.next = 3, 1后面.next = 4
@@ -133,17 +133,17 @@ class Solution:
             # 到达反转区间的末尾+1
             if count == n + 1:
                 return node
-            
+
             # 递归到下一个节点
             next_node = reverse_recursive(node.next, m, n, count + 1)
-            
+
             # 反向阶段：从最深处开始交换
             if count >= m:
                 # 交换当前节点和下一个节点的值
                 node.val, next_node.val = next_node.val, node.val
-            
+
             return next_node
-        
+
         reverse_recursive(head, m, n)
         return head
 ```

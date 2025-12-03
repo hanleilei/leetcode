@@ -50,7 +50,6 @@ class Solution:
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
         """
         判断链表是否为回文：使用快慢指针找中点，反转后半部分，再比较
-        
         思路：
         1. 使用快慢指针找到链表中点
         2. 反转后半部分
@@ -58,13 +57,13 @@ class Solution:
         """
         if not head or not head.next:
             return True
-        
+
         # 步骤1：快慢指针找中点
         slow = fast = head
         while fast and fast.next:
             slow = slow.next
             fast = fast.next.next
-        
+
         # 步骤2：反转后半部分
         prev = None
         curr = slow
@@ -73,7 +72,7 @@ class Solution:
             curr.next = prev
             prev = curr
             curr = next_temp
-        
+
         # 步骤3：比较前半部分和反转后的后半部分
         left, right = head, prev
         while right:  # right先到None（奇数长度链表中点不比较）
@@ -81,8 +80,47 @@ class Solution:
                 return False
             left = left.next
             right = right.next
-        
+
         return True
+```
+
+或者：
+
+```python   
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+class Solution:
+    def isPalindrome(self, head: Optional[ListNode]) -> bool:
+        slow = fast = head
+
+        while fast and fast.next:
+            slow = slow.next
+            fast = fast.next.next
+
+        if fast:
+            slow = slow.next
+
+        left = head
+        right = self.reverse((slow))
+        while right:
+            if left.val != right.val:
+                return False
+            left = left.next
+            right = right.next
+        return True
+
+    def reverse(self, head: ListNode) -> ListNode:
+        pre = None
+        cur = head
+        while cur:
+            next = cur.next
+            cur.next = pre
+            pre = cur
+            cur = next
+        return pre        
 ```
 
 **算法分析：**
@@ -114,7 +152,7 @@ class Solution:
     def isPalindrome(self, head: Optional[ListNode]) -> bool:
         """
         使用栈存储前半部分值，与后半部分比较
-        
+
         思路：
         1. 快慢指针找中点
         2. 快指针扫描时将前半部分压栈
@@ -122,26 +160,26 @@ class Solution:
         """
         if not head or not head.next:
             return True
-        
+
         stack = []
         slow = fast = head
-        
+
         # 快慢指针，同时将前半部分压栈
         while fast and fast.next:
             stack.append(slow.val)
             slow = slow.next
             fast = fast.next.next
-        
+
         # 奇数长度链表时，跳过中间节点
         if fast:
             slow = slow.next
-        
+
         # 后半部分与栈比较
         while slow:
             if stack.pop() != slow.val:
                 return False
             slow = slow.next
-        
+
         return True
 ```
 
@@ -169,14 +207,14 @@ class Solution:
         """
         if not head or not head.next:
             return True
-        
+
         # 将链表所有值存入数组
         values = []
         curr = head
         while curr:
             values.append(curr.val)
             curr = curr.next
-        
+
         # 判断数组是否回文
         return values == values[::-1]
 ```

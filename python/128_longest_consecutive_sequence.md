@@ -51,6 +51,22 @@ class Solution:
         return res
 ```
 
+或者：
+
+```python
+class Solution:
+    def longestConsecutive(self, nums: List[int]) -> int:
+        nums = set(nums)
+        res = 0
+        for n in nums:
+            if n - 1 not in nums:
+                size = 1
+                while n + size in nums:
+                    size += 1
+                res = max(res, size)
+        return res
+```
+
 ### 算法思路
 
 1. **集合转换**：将数组转换为哈希集合，实现O(1)的查找时间
@@ -76,6 +92,8 @@ class Solution:
 
 ## 解法二：排序后遍历
 
+这个不满足题目要求的O(n)时间复杂度，但实现简单。
+
 ```python
 class Solution:
     def longestConsecutive(self, nums: List[int]) -> int:
@@ -85,11 +103,11 @@ class Solution:
         """
         if not nums:
             return 0
-        
+
         nums.sort()
         max_length = 1
         current_length = 1
-        
+
         for i in range(1, len(nums)):
             # 跳过重复元素
             if nums[i] == nums[i-1]:
@@ -101,7 +119,7 @@ class Solution:
             else:
                 max_length = max(max_length, current_length)
                 current_length = 1
-        
+
         return max(max_length, current_length)
 ```
 

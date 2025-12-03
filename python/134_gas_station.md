@@ -1,5 +1,7 @@
 # gas station
 
+[[greedy]]
+
 There are N gas stations along a circular route, where the amount of gas at station i is gas[i].
 
 You have a car with an unlimited gas tank and it costs cost[i] of gas to travel from station i to its next station (i+1). You begin the journey with an empty tank at one of the gas stations.
@@ -13,7 +15,8 @@ Note:
 * Each element in the input arrays is a non-negative integer.
 
 Example 1:
-```
+
+```text
 Input:
 gas  = [1,2,3,4,5]
 cost = [3,4,5,1,2]
@@ -29,8 +32,10 @@ Travel to station 2. Your tank = 6 - 4 + 3 = 5
 Travel to station 3. The cost is 5. Your gas is just enough to travel back to station 3.
 Therefore, return 3 as the starting index.
 ```
+
 Example 2:
-```
+
+```text
 Input:
 gas  = [2,3,4]
 cost = [3,4,3]
@@ -74,28 +79,30 @@ class Solution(object):
 
 下面的这个算法更简洁：
 
-```python
-class Solution(object):
-    def canCompleteCircuit(self, gas, cost):
-        """
-        :type gas: List[int]
-        :type cost: List[int]
-        :rtype: int
-        """
-        if not gas or not cost or len(gas) != len(cost):
-            return -1
+完全是贪心的套路：
 
+1. 如果总油量小于总消耗，必然无解，返回-1
+2. 从第0个加油站开始，计算当前油量，如果当前油量小于0，说明从start到当前位置i之间的任何一个加油站都不可能作为起点，更新起点为i+1，并将当前油量清0。
+3. 遍历结束后，返回起点
+
+```python
+class Solution:
+    def canCompleteCircuit(self, gas: List[int], cost: List[int]) -> int:
+        if sum(gas) < sum(cost):
+            return -1
+        size = len(gas)
+        min_val = 0
         start = 0
         total = 0
-        sums = 0
         for i in range(len(gas)):
             total += gas[i] - cost[i]
-            sums += gas[i] - cost[i]
-            if sums < 0:
+            if total < min_val:
                 start = i + 1
-                sums = 0
+                min_val = total
+        if total < 0:
+            return -1
+        return start
 
-        return start if total >= 0 else -1
 ```
 
 再来一个更加简洁的，反正都是用贪心：
@@ -128,7 +135,6 @@ class Solution:
                 ans = i
         return (ans + 1) %length if oil >= 0 else -1
 ```
-
 
 ```java
 class Solution {
