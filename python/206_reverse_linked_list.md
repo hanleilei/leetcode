@@ -54,13 +54,13 @@ class Solution:
         # 初始化三个指针
         prev = None     # 前一个节点
         curr = head     # 当前节点
-        
+
         while curr:
             t = curr.next          # 暂存下一个节点
             curr.next = prev       # 反转当前节点的指向
             prev = curr            # 移动prev指针
             curr = t               # 移动curr指针
-        
+
         return prev  # prev就是新的头节点
 ```
 
@@ -144,11 +144,11 @@ class Solution:
         def reverse_helper(curr, prev):
             if not curr:
                 return prev  # 递归终止条件，返回新的头节点
-            
+
             next_temp = curr.next    # 保存下一个节点
             curr.next = prev         # 反转当前节点的指向
             return reverse_helper(next_temp, curr)  # 递归处理下一个节点
-        
+
         return reverse_helper(head, None)
 ```
 
@@ -169,14 +169,14 @@ class Solution:
         # 递归终止条件
         if not head or not head.next:
             return head
-        
+
         # 递归反转子链表
         new_head = self.reverseList(head.next)
-        
+
         # 反转当前节点和下一个节点的指向
         head.next.next = head
         head.next = None
-        
+
         return new_head
 ```
 

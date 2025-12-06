@@ -1,4 +1,4 @@
-参考： https://leetcode.com/tag/monotonic-stack/
+参考： <https://leetcode.com/tag/monotonic-stack/>
 
 ### Introduction
 
@@ -35,17 +35,17 @@ We can use the following template to build a stack that keep the monotonous prop
 function buildMonoStack(arr) {
   // initialize an empty stack
   stack = [];
-  
+
   // iterate through all the elements in the array
   for (i = 0 to arr.length - 1)) {
     while (stack is not empty && element represented by stack top `OPERATOR` arr[i]) {
       // if the previous condition is satisfied, we pop the top element
       let stackTop = stack.pop();
-  
+
       // do something with stackTop here e.g.
       // nextGreater[stackTop] = i
     }
-  
+
     if (stack.length) {
       // if stack has some elements left
       // do something with stack top here e.g.
@@ -55,10 +55,8 @@ function buildMonoStack(arr) {
     // at the ened, we push the current index into the stack
      stack.push(i);
   }
-  
+
   // At all points in time, the stack maintains its monotonic property
 }
 ```
-
-
 

@@ -6,7 +6,7 @@ Given n non-negative integers representing an elevation map where the width of e
 
 ## Example 1
 
-![](http://www.leetcode.com/static/images/problemset/rainwatertrap.png)
+![Rainwatertrap image](http://www.leetcode.com/static/images/problemset/rainwatertrap.png)
 
 Input: height = [0,1,0,2,1,0,1,3,2,1,2,1]
 Output: 6
@@ -123,12 +123,12 @@ class Solution:
         pre_max[0] = height[0]
         for i in range(1, n):
             pre_max[i] = max(pre_max[i-1], height[i])
-        
+
         suf_max = [0] * n
         suf_max[-1] = height[-1]
         for i in range(n - 2, -1, -1):
             suf_max[i] = max(suf_max[i+1], height[i])
-        
+
         res = 0
         for h, p, s in zip(height, pre_max, suf_max):
             res += min(p, s) - h
@@ -163,4 +163,24 @@ class Solution:
 
             res += rmax - h[i]
         return res
+```
+
+再来一个自底向上计算的单调栈方法：
+
+```python
+class Solution:
+    def trap(self, height: List[int]) -> int:
+        ans = 0
+        stack = list()
+        for i, h in enumerate(height):
+            while stack and h >= height[stack[-1]]:
+                bottom_h = height[stack.pop()]
+                if len(stack) == 0:
+                    break
+
+                left = stack[-1]
+                dh = min(height[left], h) - bottom_h
+                ans += dh * (i - left - 1)
+            stack.append(i)
+        return ans
 ```

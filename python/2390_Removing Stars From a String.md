@@ -1,22 +1,24 @@
 # Removing Stars From a String
 
+[[stack]]
+
 You are given a string s, which contains stars *.
 
 In one operation, you can:
 
-* Choose a star in s.
-* Remove the closest non-star character to its left, as well as remove the star itself.
-* 
+- Choose a star in s.
+- Remove the closest non-star character to its left, as well as remove the star itself.
+
 Return the string after all stars have been removed.
 
-## Note:
+## Note
 
 The input will be generated such that the operation is always possible.
 It can be shown that the resulting string will always be unique.
- 
 
-## Example 1:
-```
+## Example 1
+
+```text
 Input: s = "leet**cod*e"
 Output: "lecoe"
 Explanation: Performing the removals from left to right:
@@ -26,18 +28,19 @@ Explanation: Performing the removals from left to right:
 There are no more stars, so we return "lecoe".
 ```
 
-## Example 2:
-```
+## Example 2
+
+```text
 Input: s = "erase*****"
 Output: ""
 Explanation: The entire string is removed, so we return an empty string.
 ```
 
-## Constraints:
+## Constraints
 
-* 1 <= s.length <= 105
-* s consists of lowercase English letters and stars *.
-* The operation above can be performed on s.
+- 1 <= s.length <= 10^5
+- s consists of lowercase English letters and stars.
+- The operation above can be performed on s.
 
 **这也能medium**
 
