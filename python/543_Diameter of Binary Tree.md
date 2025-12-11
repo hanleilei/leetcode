@@ -10,7 +10,7 @@ The length of a path between two nodes is represented by the number of edges bet
 
 ## Example 1
 
-![](https://assets.leetcode.com/uploads/2021/03/06/diamtree.jpg)
+![Diamtree](https://assets.leetcode.com/uploads/2021/03/06/diamtree.jpg)
 
 ```text
 Input: root = [1,2,3,4,5]
@@ -43,14 +43,14 @@ class Solution:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
         self.res = 0
         self.dfs(root)
-        return self.res - 1
+        return self.res
 
     def dfs(self, node):
         if node is None:
             return 0
         l = self.dfs(node.left)
         r = self.dfs(node.right)
-        self.res = max(self.res, l + r + 1)
+        self.res = max(self.res, l + r)
         return max(l, r) + 1
 ```
 
@@ -58,13 +58,13 @@ class Solution:
 class Solution:
     def diameterOfBinaryTree(self, root: Optional[TreeNode]) -> int:
         self.ans = 0
-        
+
         def depth(p):
             if not p: return 0
             left, right = depth(p.left), depth(p.right)
             self.ans = max(self.ans, left+right)
             return 1 + max(left, right)
-            
+
         depth(root)
         return self.ans
 ```

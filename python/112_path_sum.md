@@ -56,7 +56,7 @@ The number of nodes in the tree is in the range [0, 5000].
 #         self.right = None
 
 class Solution(object):
-    def hasPathSum(self, root, sum):
+    def hasPathSum(self, root, targetsum):
         """
         :type root: TreeNode
         :type sum: int
@@ -65,8 +65,8 @@ class Solution(object):
         if root == None:
             return False
         if root.left == None and root.right == None:
-            return root.val == sum
-        return self.hasPathSum(root.left, sum - root.val) or self.hasPathSum(root.right, sum - root.val)
+            return root.val == targetsum
+        return self.hasPathSum(root.left, targetsum - root.val) or self.hasPathSum(root.right, targetsum - root.val)
 ```
 
 似乎，不是很清晰，看到还有一个更清晰的版本：
@@ -79,27 +79,19 @@ class Solution(object):
 #         self.left = None
 #         self.right = None
 
-class Solution(object):
-    def hasPathSum(self, root, sum):
-        """
-        :type root: TreeNode
-        :type sum: int
-        :rtype: bool
-        """
-        return self.go(root,0,sum)
-
-    def go(self,root,current,target):
+class Solution:
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
         if not root:
             return False
-        if not root.left and not root.right:
-            if current+root.val==target:
-                return True
-            return False
-        if self.go(root.right,current+root.val,target):
-            return True
-        if self.go(root.left,current+root.val,target):
-            return True
-        return False
+        return self.helper(root, targetSum)
+
+    def helper(self, node, targetSum):
+        targetSum -= node.val
+
+        if not node.left and not node.right:
+            return targetSum == 0
+
+        return (self.helper(node.left, targetSum) or self.helper(node.right, targetSum))
 
 ```
 
@@ -114,18 +106,21 @@ class Solution(object):
 #         self.right = None
 
 class Solution:
-    def hasPathSum(self, root: TreeNode, tar: int) -> bool:
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
         if not root:
             return False
-        res = []
-        stack = [(root, [root.val])]
+        res = list()
+        stack = [(root, 0)]
+
         while stack:
-            curr, ls = stack.pop()
-            if not curr.left and not curr.right and sum(ls) == tar:
-                return True
-            if curr.right:
-                stack.append((curr.right, ls+[curr.right.val]))
-            if curr.left:
-                stack.append((curr.left, ls+[curr.left.val]))
+            node, curr = stack.pop()
+            curr += node.val
+            if not node.left and not node.right:
+                if curr == targetSum:
+                    return True
+            if node.left:
+                stack.append((node.left, curr))
+            if node.right:
+                stack.append((node.right, curr))
         return False
 ```
