@@ -57,18 +57,16 @@ class Solution:
         通过计数学生偏好，避免模拟整个过程
         时间复杂度：O(n)，空间复杂度：O(1)
         """
-        from collections import Counter
-        
         # 统计学生偏好
         count = Counter(students)
-        
+
         # 按顺序检查三明治
         for i, sandwich in enumerate(sandwiches):
             if count[sandwich] == 0:
                 # 没有学生喜欢当前三明治，剩余学生都无法进食
                 return len(sandwiches) - i
             count[sandwich] -= 1
-        
+
         # 所有学生都能进食
         return 0
 ```
@@ -122,17 +120,17 @@ class Solution:
         时间复杂度：O(n²)，空间复杂度：O(n)
         """
         from collections import deque
-        
+
         student_queue = deque(students)
         sandwich_stack = deque(sandwiches)
-        
+
         # 记录连续多少个学生拒绝了顶部三明治
         consecutive_rejections = 0
-        
+
         while student_queue and sandwich_stack:
             current_student = student_queue[0]
             top_sandwich = sandwich_stack[0]
-            
+
             if current_student == top_sandwich:
                 # 学生喜欢顶部三明治，取走并离开
                 student_queue.popleft()
@@ -142,11 +140,11 @@ class Solution:
                 # 学生不喜欢，移到队尾
                 student_queue.append(student_queue.popleft())
                 consecutive_rejections += 1
-                
+
                 # 如果所有学生都拒绝了当前三明治，结束
                 if consecutive_rejections == len(student_queue):
                     break
-        
+
         return len(student_queue)
 ```
 
@@ -173,7 +171,7 @@ class Solution:
         # 直接统计两种偏好的数量
         count_0 = students.count(0)
         count_1 = students.count(1)
-        
+
         for sandwich in sandwiches:
             if sandwich == 0:
                 if count_0 > 0:
@@ -185,7 +183,7 @@ class Solution:
                     count_1 -= 1
                 else:
                     return count_0 + count_1
-        
+
         return 0
 ```
 

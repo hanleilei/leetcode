@@ -246,3 +246,19 @@ class Solution:
             bb = bb.next
         return aa
 ```
+
+这个算法很巧妙：
+
+1. 使用两个指针分别遍历两个链表
+2. 当一个指针到达链表末尾时，将其重定向到另一个链表的头部
+3. 这样两个指针最终会在交点处相遇，或者都到达末尾（无交点）
+
+```python
+class Solution:
+    def getIntersectionNode(self, headA: ListNode, headB: ListNode) -> Optional[ListNode]:
+        pA, pB = headA, headB
+        while pA != pB:
+            pA = pA.next if pA else headB
+            pB = pB.next if pB else headA
+        return pA
+```

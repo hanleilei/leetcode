@@ -1,6 +1,6 @@
 # Maximum Binary Tree
 
-[[tree]]
+[[tree]] [[MonotonicStack]] [[stack]]
 
 You are given an integer array nums with no duplicates. A maximum binary tree can be built recursively from nums using the following algorithm:
 
@@ -11,7 +11,7 @@ Return the maximum binary tree built from nums.
 
 ## Example 1
 
-![](https://assets.leetcode.com/uploads/2020/12/24/tree1.jpg)
+![Tree1 image](https://assets.leetcode.com/uploads/2020/12/24/tree1.jpg)
 
 Input: nums = [3,2,1,6,0,5]
 Output: [6,3,5,null,2,0,null,null,1]
@@ -31,7 +31,7 @@ Explanation: The recursive calls are as follow:
 
 ## Example 2
 
-![](https://assets.leetcode.com/uploads/2020/12/24/tree2.jpg)
+![Tree2 image](https://assets.leetcode.com/uploads/2020/12/24/tree2.jpg)
 
 ```text
 Input: nums = [3,2,1]
@@ -76,43 +76,19 @@ Worst O(n) in the case that the list is sorted in descending order.
 #         self.right = right
 class Solution:
     def constructMaximumBinaryTree(self, nums: List[int]) -> Optional[TreeNode]:
-        stk = []
-        for i in nums:
-            node = TreeNode(i)
-            while stk and i > stk[-1].val:
-                curr = stk.pop()
-                node.left = curr
-            if stk:
-                stk[-1].right = node
-            stk.append(node)
-        return stk[0]
-```
-
-```python
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
-class Solution:
-    def constructMaximumBinaryTree(self, nums: List[int]) -> Optional[TreeNode]:
         if not nums:
             return None
-        stack = []  #build a decreasing stack
-        for i in nums:
-            node = TreeNode(i)
-            lastpop = None
 
-            while stack and stack[-1].val < i:  #popping process
-                lastpop = stack.pop()
-            node.left = lastpop
-
+        stack = []
+        for num in nums:
+            current_node = TreeNode(num)
+            while stack and stack[-1].val < num:
+                current_node.left = stack.pop()
             if stack:
-                stack[-1].right = node
-            stack.append(node)
+                stack[-1].right = current_node
+            stack.append(current_node)
 
-        return stack[0]
+        return stack[0]  # 根节点是栈底元素   
 ```
 
 或者，我们可以参考labuladong的方案，直接从题目含义出手：
@@ -135,18 +111,15 @@ class Solution:
             return None
 
         # 找到数组中的最大值和对应的索引
-        index, maxVal = -1, -sys.maxsize
-        for i in range(lo, hi+1):
-            if maxVal < nums[i]:
-                index = i
-                maxVal = nums[i]
+        max_val = max(nums)
+        index = nums.index(max_val)
 
         # 先构造出根节点
-        root = TreeNode(maxVal)
+        root = TreeNode(max_val)
         # 递归调用构造左右子树
         root.left = self.build(nums, lo, index - 1)
         root.right = self.build(nums, index + 1, hi)
-        
+
         return root
 ```
 
@@ -163,15 +136,15 @@ class Solution:
     def constructMaximumBinaryTree(self, nums: List[int]) -> Optional[TreeNode]:
         if not nums:
             return None
-        
+
         # 找到数组中的最大值
         maxVal = max(nums)
         index = nums.index(maxVal)
-        
+
         root = TreeNode(maxVal)
         # 递归调用构造左右子树
         root.left = self.constructMaximumBinaryTree(nums[:index])
         root.right = self.constructMaximumBinaryTree(nums[index+1:])
-        
+
         return root
 ```

@@ -9,13 +9,14 @@ You may assume that duplicates do not exist in the tree.
 
 For example, given
 
-```
+```text
 preorder = [3,9,20,15,7]
 inorder = [9,3,15,20,7]
 ```
 
 Return the following binary tree:
-```
+
+```text
     3
    / \
   9  20
@@ -58,7 +59,24 @@ class Solution:
             tree.left = self.buildTree(preorder, inorder[0:index])
             tree.right = self.buildTree(preorder, inorder[index+1:])
             return tree
-        
+```
+
+dfs:
+
+```python
+class Solution:
+    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+        index = {x:i for i, x in enumerate(inorder)}
+
+        def dfs(pre_l, pre_r, in_l, in_r):
+            if pre_l == pre_r:
+                return None
+
+            left_size = index[preorder[pre_l]] - in_l
+            left = dfs(pre_l+1, pre_l+1+left_size, in_l, in_l+left_size)
+            right = dfs(pre_l+1+left_size, pre_r, in_l+left_size+1, in_r)
+            return TreeNode(preorder[pre_l], left, right)
+        return dfs(0, len(preorder), 0, len(inorder))
 ```
 
 stack

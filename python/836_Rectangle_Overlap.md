@@ -6,19 +6,21 @@ Two rectangles overlap if the area of their intersection is positive.  To be cle
 
 Given two (axis-aligned) rectangles, return whether they overlap.
 
-### Example 1:
-```
+## Example 1
+
+```text
 Input: rec1 = [0,0,2,2], rec2 = [1,1,3,3]
 Output: true
 ```
 
-### Example 2:
-```
+### Example 2
+
+```text
 Input: rec1 = [0,0,1,1], rec2 = [1,0,2,1]
 Output: false
 ```
 
-### Notes:
+### Notes
 
 1. Both rectangles rec1 and rec2 are lists of 4 integers.
 2. All coordinates in rectangles will be between -10^9 and 10^9.
@@ -49,4 +51,13 @@ class Solution:
         """
 
         return rec1[0] < rec2[2] and rec2[0] < rec1[2] and rec1[1] < rec2[3] and rec2[1] < rec1[3]
+```
+
+```python
+class Solution:
+    def isRectangleOverlap(self, rec1: List[int], rec2: List[int]) -> bool:
+        # 如果一个矩形在另一个矩形的左侧、右侧、上方或下方，则不重叠
+        if rec1[0] >= rec2[2] or rec1[2] <= rec2[0] or rec1[3] <= rec2[1] or rec1[1] >= rec2[3]:
+            return False
+        return True
 ```

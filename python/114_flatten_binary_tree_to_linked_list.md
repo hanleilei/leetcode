@@ -340,7 +340,7 @@ impl Solution {
 }
 ```
 
-### 后续遍历
+### 后序遍历
 
 ```python
         def helper(root):

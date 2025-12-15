@@ -12,7 +12,7 @@ Return the number of ways to divide the corridor. Since the answer may be very l
 
 ## Example 1
 
-![](https://assets.leetcode.com/uploads/2021/12/04/1.png)
+![1 image](https://assets.leetcode.com/uploads/2021/12/04/1.png)
 
 ```text
 Input: corridor = "SSPPSPS"
@@ -24,7 +24,7 @@ Note that in each of the ways, each section has exactly two seats.
 
 ## Example 2
 
-![](https://assets.leetcode.com/uploads/2021/12/04/2.png)
+![2 image](https://assets.leetcode.com/uploads/2021/12/04/2.png)
 
 ```text
 Input: corridor = "PPSPSP"
@@ -35,7 +35,7 @@ Installing any would create some section that does not have exactly two seats.
 
 ## Example 3
 
-![](https://assets.leetcode.com/uploads/2021/12/12/3.png)
+![3 image](https://assets.leetcode.com/uploads/2021/12/12/3.png)
 
 ```text
 Input: corridor = "S"
@@ -50,6 +50,7 @@ n == corridor.length
 1 <= n <= 105
 corridor[i] is either 'S' or 'P'.
 ```
+
 from lee215
 
 Assume a[i] is the index of ith seat,
@@ -100,14 +101,13 @@ class Solution:
         left  = 0 
         mid   = 0
         right = 1  
-        
+
         for item in corridor : 
             if item == "S" : 
                 left = mid 
                 mid, right = right, mid 
             else : 
                 right = (right + left) % mod 
-        
+
         return left 
 ```
-

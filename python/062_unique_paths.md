@@ -8,7 +8,7 @@ The test cases are generated so that the answer will be less than or equal to 2 
 
 ## Example 1
 
-![](https://assets.leetcode.com/uploads/2018/10/22/robot_maze.png)
+![Robot Maze image](https://assets.leetcode.com/uploads/2018/10/22/robot_maze.png)
 
 ```text
 Input: m = 3, n = 7
@@ -74,6 +74,15 @@ class Solution:
         for i in range(min(m, n) - 1):
             res *= n + m -2 -i
             res //= i + 1
+        return res
+```
+
+```python
+class Solution:
+    def uniquePaths(self, m: int, n: int) -> int:
+        res = 1
+        for i in range(1, n):
+            res = res * (m - 1 + i) // i
         return res
 ```
 
