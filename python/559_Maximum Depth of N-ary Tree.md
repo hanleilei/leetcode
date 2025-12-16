@@ -10,13 +10,13 @@ Nary-Tree input serialization is represented in their level order traversal, eac
 
 Example 1:
 
-![](https://assets.leetcode.com/uploads/2018/10/12/narytreeexample.png)
+![Narytreeexample image](https://assets.leetcode.com/uploads/2018/10/12/narytreeexample.png)
 
 Input: root = [1,null,3,2,4,null,5,6]
 Output: 3
 Example 2:
 
-![](https://assets.leetcode.com/uploads/2019/11/08/sample_4_964.png)
+![Sample 4 964 image](https://assets.leetcode.com/uploads/2019/11/08/sample_4_964.png)
 
 Input: root = [1,null,2,3,4,5,null,null,6,7,null,8,null,9,10,null,null,11,null,12,null,13,null,null,14]
 Output: 5
@@ -25,6 +25,8 @@ Constraints:
 
 The total number of nodes is in the range [0, 104].
 The depth of the n-ary tree is less than or equal to 1000.
+
+DFS：
 
 ```python
 """
@@ -52,6 +54,24 @@ class Solution:
             depth+=1
 
         return depth
+```
+
+递归版：
+
+```python
+class Solution:
+    def maxDepth(self, root: 'Node') -> int:
+        self.depth = 0
+        if not root:
+            return self.depth
+        def dfs(node, d):
+            if not node.children:
+                self.depth = max(self.depth, d)
+                return
+            for child in node.children:
+                dfs(child, d + 1)
+        dfs(root, 1)
+        return self.depth
 ```
 
 ```python

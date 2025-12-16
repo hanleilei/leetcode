@@ -10,7 +10,7 @@ If the 'reshape' operation with given parameters is possible and legal, output t
 
 Example 1:
 
-```
+```text
 Input:
 nums =
 [[1,2],
@@ -25,7 +25,7 @@ Explanation:
 The row-traversing of nums is [1,2,3,4]. The new reshaped matrix is a 1 \* 4 matrix, fill it row by row by using the previous list.
 Example 2:
 
-```
+```text
 Input:
 nums =
 [[1,2],
@@ -37,10 +37,10 @@ Output:
 ```
 
 Explanation:
-There is no way to reshape a 2 _ 2 matrix to a 2 _ 4 matrix. So output the original matrix.
+There is no way to reshape a 2 _2 matrix to a 2_ 4 matrix. So output the original matrix.
 Note:
 
-```
+```text
 The height and width of the given matrix is in range [1, 100].
 The given r and c are all positive
 ```
@@ -114,6 +114,28 @@ class Solution:
             for j in range(cols):
                 res[k//c][k%c] = mat[i][j]
                 k+=1
+
+        return res
+```
+
+最朴素的方法，还是不要玩花里胡哨的东西，直接按题意实现就好。
+
+```python
+class Solution:
+    def matrixReshape(self, mat: List[List[int]], r: int, c: int) -> List[List[int]]:
+        # 如果矩阵的总元素数与目标矩阵的元素数不匹配，返回原矩阵
+        if len(mat) * len(mat[0]) != r * c:
+            return mat
+
+        # 将矩阵拉平成一维数组
+        matrix = sum(mat, [])
+
+        # 构造目标矩阵
+        res = [[0] * c for _ in range(r)]
+
+        # 填充目标矩阵
+        for i in range(len(matrix)):
+            res[i // c][i % c] = matrix[i]
 
         return res
 ```

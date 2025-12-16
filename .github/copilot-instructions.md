@@ -27,7 +27,7 @@ Each solution file follows this structure:
 ```markdown
 # Problem Title
 
-[[tag]] (e.g., [[hashtable]])
+[[tag]] (e.g., [[hashtable]],[[dfs]], [[dfs]], [[2points]], etc.)
 
 Problem description...
 

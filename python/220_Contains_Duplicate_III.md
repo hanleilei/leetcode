@@ -116,3 +116,22 @@ class Solution:
 
         return False
 ```
+
+```python
+class Solution:
+    def containsNearbyAlmostDuplicate(self, nums: List[int], indexDiff: int, valueDiff: int) -> bool:
+        if valueDiff < 0:
+            return False
+        import sortedcontainers
+
+        window = sortedcontainers.SortedList()
+        for i, num in enumerate(nums):
+            if i > indexDiff:
+                window.remove(nums[i - indexDiff - 1])
+            pos1 = window.bisect_left(num - valueDiff)
+            pos2 = window.bisect_right(num + valueDiff)
+            if pos1 != pos2:
+                return True
+            window.add(num)
+        return False
+```
