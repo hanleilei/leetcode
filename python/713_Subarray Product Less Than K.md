@@ -37,27 +37,30 @@ Output: 0
 
 ```python
 class Solution:
-    def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
-        if k <= 1:
-            return 0
-        
+    def numSubarrayProductLessThanK(self, nums, k):
         left = 0
-        prod = 1
+        right = 0
+        # 滑动窗口，初始化为乘法单位元
+        windowProduct = 1
+        # 记录符合条件的子数组个数
         count = 0
-        
-        for right in range(len(nums)):
-            # 扩大窗口，右指针右移
-            prod *= nums[right]
-            
-            # 当乘积 >= k 时，收缩窗口，左指针右移
-            while prod >= k:
-                prod //= nums[left]
+
+        while right < len(nums):
+            # 扩大窗口，并更新窗口数据
+            windowProduct *= nums[right]
+            right += 1
+
+            while left < right and windowProduct >= k:
+                # 缩小窗口，并更新窗口数据
+                windowProduct //= nums[left]
                 left += 1
-            
-            # 以 right 结尾的满足条件的子数组个数
-            # 即从 left 到 right 的所有子数组都满足条件
-            count += right - left + 1
-        
+
+            # 现在必然是一个合法的窗口，但注意思考这个窗口中的子数组个数怎么计算：
+            # 比方说 left = 1, right = 4 划定了 [1, 2, 3] 这个窗口（right 是开区间）
+            # 但不止 [left..right] 是合法的子数组，[left+1..right], [left+2..right] 等都是合法子数组
+            # 所以我们需要把 [3], [2,3], [1,2,3] 这 right - left 个子数组都加上
+            count += right - left
+
         return count
 ```
 

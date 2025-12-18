@@ -45,7 +45,7 @@ class Solution:
         """
         left, right = 0, len(nums) - 1
         i = 0
-        
+
         while i <= right:
             if nums[i] == 0:
                 # 将0换到左边，两个指针都前进
@@ -145,20 +145,19 @@ class Solution:
         """
         Do not return anything, modify nums in-place instead.
         """
-        zero = 0
-        two = len(nums) - 1
+        zero, two = 0, len(nums) - 1
         i = 0
-        
+
         while i <= two:
             # 先处理2：持续交换直到当前位置不是2
             while nums[i] == 2 and i <= two:
                 nums[i], nums[two] = nums[two], nums[i]
                 two -= 1
-            
+
             # 再处理0：如果当前是0，与zero位置交换
             if nums[i] == 0:
                 nums[i], nums[zero] = nums[zero], nums[i]
                 zero += 1
-            
+
             i += 1
 ```

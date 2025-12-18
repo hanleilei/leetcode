@@ -1,5 +1,7 @@
 # contains duplicate II
 
+[[sliding_window]] [[hash_table]] [[array]]
+
 Given an integer array nums and an integer k, return true if there are two distinct indices i and j in the array such that nums[i] == nums[j] and abs(i - j) <= k.
 
 Example 1:
@@ -17,9 +19,9 @@ Output: false
 
 Constraints:
 
-1 <= nums.length <= 105
--109 <= nums[i] <= 109
-0 <= k <= 105
+1 <= nums.length <= 10^5
+-10^9 <= nums[i] <= 10^9
+0 <= k <= 10^5
 
 巧用enumerate和字典
 
@@ -41,5 +43,48 @@ class Solution(object):
             if n in d and m - d[n] <=k:
                 return True
             d[n] = m
+        return False
+```
+
+自制
+
+```python
+class Solution:
+    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+        left, right = 0, 0
+        window = dict()
+
+        while right < len(nums):
+            c = nums[right]
+            right += 1
+
+            if c in window:
+                if right - window[c]<= k:
+                    return True
+            window[c] = right
+        return False
+```
+
+来自labuladong
+
+```python
+class Solution:
+    def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:
+        left = 0
+        right = 0
+        window = set()
+        # 滑动窗口算法框架，维护一个大小为 k 的窗口
+        while right < len(nums):
+            # 扩大窗口
+            if nums[right] in window:
+                return True
+            window.add(nums[right])
+            right += 1
+
+            if right - left > k:
+                # 当窗口的大小大于 k 时，缩小窗口
+                window.remove(nums[left])
+                left += 1
+
         return False
 ```

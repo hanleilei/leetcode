@@ -84,11 +84,11 @@ class Solution:
                 windows[c] += 1
                 if windows[c] == need[c]: #通过这种方法判断字典元素相同，则valid加一
                     valid += 1
-            
+
             while valid == len(need):  # 如果此时valid和need是想等的，则两个字典就相等
                 if right - left == size:
                     return True
-                
+
                 d = s2[left]
                 left += 1
                 if d in need:

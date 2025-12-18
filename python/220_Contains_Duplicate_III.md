@@ -135,3 +135,58 @@ class Solution:
             window.add(num)
         return False
 ```
+
+最快：
+
+```python
+bucket_dict = dict()
+        for i in range(len(nums)):  
+            # 将 nums[i] 划分到大小为 valueDiff + 1 的桶中
+            bucket_index = nums[i] // (valueDiff + 1)
+
+            # 判断桶中是否有元素
+            if bucket_index in bucket_dict:
+                return True
+
+            # 把元素加入桶中
+            bucket_dict[bucket_index] = nums[i]
+
+            # 判断桶的左侧桶中是否有元素
+            if (bucket_index - 1) in bucket_dict and abs(bucket_dict[bucket_index - 1] - nums[i]) <= valueDiff:
+                return True
+
+            # 判断桶的右侧桶中是否有元素
+            if (bucket_index + 1) in bucket_dict and abs(bucket_dict[bucket_index + 1] - nums[i]) <= valueDiff:
+                return True
+
+            if i >= indexDiff:  # 删除最左边的桶
+                del bucket_dict[nums[i - indexDiff] // (valueDiff + 1)]
+
+        return False
+```
+
+```python
+class Solution:
+    def containsNearbyAlmostDuplicate(self, nums: List[int], k: int, t: int) -> bool:
+        from sortedcontainers import SortedList
+
+        window = SortedList()
+        for i in range(len(nums)):
+            # 为了防止 i == j，所以在扩大窗口之前先判断是否有符合题意的索引对 (i, j)
+            # 查找略大于 nums[i] 的那个元素
+            pos = window.bisect_left(nums[i])
+            if pos < len(window) and window[pos] - nums[i] <= t:
+                return True
+            # 查找略小于 nums[i] 的那个元素
+            if pos > 0 and nums[i] - window[pos - 1] <= t:
+                return True
+
+            # 扩大窗口
+            window.add(nums[i])
+
+            if len(window) > k:
+                # 缩小窗口
+                window.remove(nums[i - k])
+
+        return False
+```

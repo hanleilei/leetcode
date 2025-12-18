@@ -1,5 +1,6 @@
 # Longest Repeating Character Replacement
-cd 
+
+cd
 [[sliding window]] [[labuladong]]
 
 You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most k times.
@@ -38,29 +39,50 @@ class Solution:
         if not s:
             return 0
 
-        # 记录每个字符出现的次数
-        counter = collections.defaultdict(int)
-        left = 0
-        right = 0
-        maxlen = 0
+        n = len(s)
+        counter = [0] * 26  # 用数组比字典更快
+        left, right = 0, 0
+        max_count = 0
+        max_len = 0
+
+        for right in range(n):
+            # 扩展右边界
+            idx = ord(s[right]) - ord('A')
+            counter[idx] += 1
+            max_count = max(max_count, counter[idx])
+
+            # 如果当前窗口长度 - 最大字符数 > k，需要收缩窗口
+            while right - left + 1 - max_count > k:
+                left_idx = ord(s[left]) - ord('A')
+                counter[left_idx] -= 1
+                left += 1
+
+            max_len = max(max_len, right - left + 1)
+
+        return max_len
+```
+
+```python
+class Solution:
+    def characterReplacement(self, s: str, k: int) -> int:
+        left, right = 0, 0
+        windowCharCount = [0] * 26
+        windowMaxCount = 0
         res = 0
 
-        while left <= right and right < len(s):
-            c = s[right]
+        while right < len(s):
+            c = ord(s[right]) - ord('A')
+            windowCharCount[c] += 1
+            windowMaxCount = max(windowMaxCount, windowCharCount[c])
             right += 1
-            counter[c] += 1
-            maxlen = max(maxlen, counter[c])
 
-            # 窗口长度减去最大字符出现次数小于 k，表示需要移动左指针
-            while right - left - maxlen > k:
-                d = s[left]
+            while right - left - windowMaxCount > k:
+                windowCharCount[ord(s[left]) - ord('A')] -= 1
                 left += 1
-                counter[d] -= 1
-
-            # 更新最大长度
+            # 经过收缩后，此时一定是一个合法的窗口
             res = max(res, right - left)
-
         return res
+
 ```
 
 参考一下 lee215 的方法:
