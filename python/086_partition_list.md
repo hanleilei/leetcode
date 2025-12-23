@@ -51,7 +51,7 @@ class Solution:
     def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
         """
         将链表按值x分割，小于x的在前，大于等于x的在后，相对顺序不变
-        
+
         思路：
         1. 创建两个虚拟头节点，分别用于小于x和大于等于x的两个链表
         2. 遍历原链表，将节点分配到两个链表中
@@ -113,7 +113,7 @@ class Solution:
 第三步：连接
   more.next = None     (断开循环)
   less.next = more.next
-  
+
   结果：1 -> 2 -> 2 -> 4 -> 3 -> 5
 ```
 

@@ -69,23 +69,23 @@ class Solution:
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         """
         递归方式进行中序遍历：左 → 中 → 右
-        
+
         时间复杂度：O(n) - 每个节点访问一次
         空间复杂度：O(h) - 递归栈深度，h为树高
         """
         result = []
-        
+
         def dfs(node):
             if not node:
                 return
-            
+
             # 遍历左子树
             dfs(node.left)
             # 访问当前节点
             result.append(node.val)
             # 遍历右子树
             dfs(node.right)
-        
+
         dfs(root)
         return result
 ```
@@ -112,30 +112,26 @@ class Solution:
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         """
         使用栈模拟递归，进行迭代中序遍历
-        
+
         核心思想：
         1. 一直向左走，将节点压入栈
         2. 当左子树走尽，弹出栈顶节点（访问）
         3. 转向右子树，重复步骤1
         """
-        result = []
-        stack = []
-        current = root
-        
-        while current or stack:
+        res = list()
+        stack = list()
+
+        while root or stack:
             # 步骤1：一直向左走，压入栈
-            while current:
-                stack.append(current)
-                current = current.left
-            
+            while root:
+                stack.append(root)
+                root = root.left
             # 步骤2：左子树已处理，弹出栈顶
-            current = stack.pop()
-            result.append(current.val)
-            
+            root = stack.pop()
+            res.append(root.val)
             # 步骤3：处理右子树
-            current = current.right
-        
-        return result
+            root = root.right
+        return res
 ```
 
 **执行流程图示：**
@@ -152,20 +148,20 @@ class Solution:
 向左走：
   current=2, stack=[1]
   current=None, stack=[1,2]
-  
+
 弹出处理：
   pop 2, result=[2], current=None
-  
+
 转向右（2的右子树为空）：
   current=None, stack=[1]
-  
+
 弹出处理：
   pop 1, result=[2,1], current=3
-  
+
 处理右子树：
   current=3, stack=[]
   current=None, stack=[3]
-  
+
 弹出处理：
   pop 3, result=[2,1,3]
 ```
@@ -192,13 +188,13 @@ class Solution:
     def inorderTraversal(self, root: Optional[TreeNode]) -> List[int]:
         """
         Morris遍历：空间复杂度O(1)的遍历方法
-        
+
         核心思想：通过建立临时线索（指向后继节点），避免栈的使用
         类似于线索二叉树的遍历
         """
         result = []
         current = root
-        
+
         while current:
             # 如果没有左子树，直接访问当前节点
             if not current.left:
@@ -209,7 +205,7 @@ class Solution:
                 predecessor = current.left
                 while predecessor.right and predecessor.right != current:
                     predecessor = predecessor.right
-                
+
                 # 建立线索
                 if not predecessor.right:
                     predecessor.right = current
@@ -219,7 +215,7 @@ class Solution:
                     predecessor.right = None  # 消除线索
                     result.append(current.val)
                     current = current.right
-        
+
         return result
 ```
 

@@ -1,5 +1,7 @@
 # 703. Kth Largest Element in a Stream
 
+[[heap]]
+
 ## 问题描述
 
 Design a class to find the **kth largest element** in a stream.
@@ -57,17 +59,17 @@ class KthLargest:
         self.k = k
         self.heap = nums
         heapify(self.heap)
-        
+
         # 只保留k个最大的元素
         while len(self.heap) > k:
             heappop(self.heap)
-    
+
     def add(self, val: int) -> int:
         if len(self.heap) < self.k:
             heappush(self.heap, val)
         elif val > self.heap[0]:
             heapreplace(self.heap, val)
-        
+
         return self.heap[0]
 ```
 
@@ -81,15 +83,15 @@ class KthLargest:
         self.k = k
         self.heap = nums
         heapify(self.heap)
-        
+
         while len(self.heap) > k:
             heappop(self.heap)
-    
+
     def add(self, val: int) -> int:
         heappush(self.heap, val)
         if len(self.heap) > self.k:
             heappop(self.heap)
-        
+
         return self.heap[0]
 ```
 
@@ -104,13 +106,13 @@ class KthLargest:
         # 直接获取k个最大元素，自动构成最小堆
         self.heap = nlargest(k, nums)
         heapify(self.heap)
-    
+
     def add(self, val: int) -> int:
         if len(self.heap) < self.k:
             heappush(self.heap, val)
         elif val > self.heap[0]:
             heappushpop(self.heap, val)
-        
+
         return self.heap[0]
 ```
 
@@ -207,7 +209,7 @@ class KthLargest:
         self.k = k
         self.heap = [-x for x in nums]  # 转负数模拟最大堆
         heapq.heapify(self.heap)
-    
+
     def add(self, val):
         heapq.heappush(self.heap, -val)
         # 需要弹出k-1次才能得到第k大
@@ -226,7 +228,7 @@ class KthLargest:
         self.heap = nums
         heapq.heapify(self.heap)
         # 忘记弹出多余元素！
-    
+
     def add(self, val):
         heapq.heappush(self.heap, val)
         return heapq.nsmallest(self.k, self.heap)[-1]  # 错误且慢

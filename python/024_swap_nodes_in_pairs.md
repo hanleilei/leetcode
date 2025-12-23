@@ -1,5 +1,7 @@
 # swap nodes in pairs
 
+[[linkedlist]]
+
 Given a linked list, swap every two adjacent nodes and return its head.
 
 For example,
@@ -20,8 +22,7 @@ class Solution(object):
         :type head: ListNode
         :rtype: ListNode
         """
-        dummy = ListNode(0)
-        dummy.next = head
+        dummy = ListNode(0, head)
         pre, curr = dummy, head
         while curr and curr.next:       
             # swap node between curr and curr.next
@@ -29,7 +30,7 @@ class Solution(object):
             curr.next = pre.next.next   
             pre.next.next = curr        
             # go over 2 nodes
-            pre, curr = curr,curr.next  
+            pre, curr = curr, curr.next  
         return dummy.next
 
 ```
@@ -135,3 +136,20 @@ class Solution:
             he = E
         return he
 ```
+
+```python
+class Solution:
+    def swapPairs(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode(0, head)
+        pre, pre.next = dummy, head
+        while pre.next and pre.next.next:
+            a = pre.next
+            b = a.next
+            pre.next, b.next, a.next = b, a, b.next
+            pre = a
+        return dummy.next
+```
+
+![Fb01d74821133733e262b4a06cd8e7f8 image](https://developer.qcloudimg.com/http-save/yehe-admin/fb01d74821133733e262b4a06cd8e7f8.png)
+
+搜一下 [图解leetcode](https://zhuanlan.zhihu.com/p/632093545)，一下子很多问题就很明白了，剩下的就是代码实现的问题了。

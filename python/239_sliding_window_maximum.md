@@ -316,3 +316,36 @@ for i in range(len(nums) - k + 1):
 - [1696. Jump Game VI](./1696_jump_game_vi.md) - 单调队列DP优化
 - [0739. Daily Temperatures](./739_daily_temperatures.md)
 - [1499. Max Value of Equation](./1499_max_value_of_equation.md) - 单调队列维护最优解
+
+```python
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        d = collections.deque()
+        out = []
+        for i, n in enumerate(nums):
+            while d and nums[d[-1]] < n:
+                d.pop()
+            d += i,
+            if d[0] == i - k:
+                d.popleft()
+            if i >= k - 1:
+                out += nums[d[0]],
+        return out
+```
+
+```python
+class Solution:
+    def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
+        if not nums:
+            return []
+        window, res = deque(), []
+        for i, x in enumerate(nums):
+            if i >= k and window[0] <= i - k:
+                window.popleft()
+            while window and nums[window[-1]] <= x:
+                window.pop()
+            window.append(i)
+            if i >= k - 1:
+                res.append(nums[window[0]])
+        return res
+```

@@ -68,28 +68,23 @@ class Solution:
         return res % (len(A) + 1)
 ```
 
-我的方法, 有点low, 破坏了输入条件来避免数组越界:
+灵神的写法：
 
 ```python
 class Solution:
-    def minSubArrayLen(self, s: int, nums: List[int]) -> int:
-        left, right = 0, 0
-        res = 0
-        ans = float("inf")
-        nums.append(0)
-
-        while left <= right < len(nums):
-            if res >= s:
-                ans = min(ans, right - left)
-                res -= nums[left]
+    def minSubArrayLen(self, target: int, nums: List[int]) -> int:
+        n = len(nums)
+        ans = n + 1
+        s = 0
+        left = 0
+        for right, x in enumerate(nums):
+            s += x
+            while s - nums[left] >= target:
+                s -= nums[left]
                 left += 1
-                if left > right:
-                    right += 1
-            else:
-                res += nums[right]
-                right += 1
-
-        return ans if ans < float("inf") else 0
+            if s >= target:
+                ans = min(ans, right - left + 1)
+        return ans if ans <= n else 0
 ```
 
 时隔多年，再来自己手搓的一个滑动窗口的标准写法：

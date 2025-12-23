@@ -4,14 +4,15 @@ You are given two non-empty linked lists representing two non-negative integers.
 
 You may assume the two numbers do not contain any leading zero, except the number 0 itself.
 
-### Follow up:
+## Follow up
+
 What if you cannot modify the input lists? In other words, reversing the lists is not allowed.
 
-### Example:
+### Example
 
-![](https://assets.leetcode.com/uploads/2021/04/09/sumii-linked-list.jpg)
+![Sumii Linked List image](https://assets.leetcode.com/uploads/2021/04/09/sumii-linked-list.jpg)
 
-```
+```text
 Input: (7 -> 2 -> 4 -> 3) + (5 -> 6 -> 4)
 Output: 7 -> 8 -> 0 -> 7
 ```
@@ -66,6 +67,7 @@ class Solution:
 ```
 
 再来一个自己手搓出来的算法：
+
 1. 写一个反转链表的方法
 2. 对每个链表求反转
 3. 相加，记录进位
@@ -81,27 +83,27 @@ class Solution:
     def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
         l1_reversed = self.reverseList(l1)
         l2_reversed = self.reverseList(l2)
-        
+
         dummy = ListNode(0)
         current = dummy
         carry = 0
-        
+
         while l1_reversed or l2_reversed or carry: # 注意这里的 or 非常关键，确保链表部位空或者进位不为0
             val1 = l1_reversed.val if l1_reversed else 0
             val2 = l2_reversed.val if l2_reversed else 0
-            
+
             total = val1 + val2 + carry
             carry = total // 10
             current.next = ListNode(total % 10)。# 这里，哪怕两个链表都结束了，如果还有进位，则还需要加上一个进位的值。
             current = current.next
-            
+
             if l1_reversed:
                 l1_reversed = l1_reversed.next
             if l2_reversed:
                 l2_reversed = l2_reversed.next
-        
+
         return self.reverseList(dummy.next)
-    
+
     def reverseList(self, head):
         prev = None
         current = head
@@ -112,3 +114,27 @@ class Solution:
             current = next_node
         return prev
 ```
+
+或者：
+
+```python
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        s1, s2 = [], []
+        while l1:
+            s1.append(l1.val)
+            l1 = l1.next
+        while l2:
+            s2.append(l2.val)
+            l2 = l2.next
+        p = ListNode()
+        carry = 0
+        while s1 or s2 or carry:
+            s = (0 if not s1 else s1.pop()) + (0 if not s2 else s2.pop()) + carry
+            carry, val = divmod(s, 10)
+            p.next = ListNode(val, p.next) # 头插法
+
+        return p.next
+```
+
+注意这里用到了头插法，每次新建节点都插入到头节点的后面，从而实现了逆序构造链表。

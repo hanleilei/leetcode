@@ -8,7 +8,7 @@ You may assume the two numbers do not contain any leading zero, except the numbe
 
 Example 1:
 
-![](https://assets.leetcode.com/uploads/2020/10/02/addtwonumber1.jpg)
+![Addtwonumber1 image](https://assets.leetcode.com/uploads/2020/10/02/addtwonumber1.jpg)
 
 Input: l1 = [2,4,3], l2 = [5,6,4]
 Output: [7,0,8]
@@ -21,7 +21,6 @@ Example 3:
 
 Input: l1 = [9,9,9,9,9,9,9], l2 = [9,9,9,9]
 Output: [8,9,9,9,0,0,0,1]
- 
 
 Constraints:
 
@@ -123,7 +122,7 @@ class Solution:
         dummy = ListNode(0)
         current = dummy
         carry = 0
-        
+
         while l1 or l2 or carry: 
             val1 = l1.val if l1 else 0
             val2 = l2.val if l2 else 0
@@ -140,3 +139,30 @@ class Solution:
 ```
 
 基本都是一个套路
+
+又搓出来一个
+
+```python
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        carry = 0
+        p = cur = ListNode(0)
+        while l1 and l2:
+            val = l1.val + l2.val + carry
+            carry = val // 10
+            cur.next = ListNode(val % 10)
+            cur = cur.next
+            l1 = l1.next
+            l2 = l2.next
+
+        l = l1 if l1 else l2
+        while l:
+            val = l.val + carry
+            carry = val // 10
+            cur.next = ListNode(val % 10)
+            cur = cur.next
+            l = l.next
+        if carry:
+            cur.next = ListNode(carry)
+        return p.next
+```

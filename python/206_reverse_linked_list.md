@@ -64,6 +64,25 @@ class Solution:
         return prev  # prev就是新的头节点
 ```
 
+[图解leetcode-翻转链表](https://zhuanlan.zhihu.com/p/629861245)
+![V2 184330ea9afc495f6b177cd352c87ca9 1440w image](https://pic2.zhimg.com/v2-184330ea9afc495f6b177cd352c87ca9_1440w.jpg)
+
+```python
+class Solution:
+    def reverseList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        """
+        迭代法反转链表
+        时间复杂度：O(n)，空间复杂度：O(1)
+        """
+        # 初始化三个指针
+        curr, prev = head, None     # 当前节点和前一个节点
+
+        while curr:
+            curr.next, prev, curr = prev, curr, curr.next  # 同时更新三个指针
+
+        return prev  # prev就是新的头节点
+```
+
 ### 迭代法图解
 
 以链表 `1 -> 2 -> 3 -> null` 为例，演示反转过程：
