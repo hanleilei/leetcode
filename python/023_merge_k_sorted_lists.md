@@ -44,36 +44,7 @@ Output: []
 * lists[i] is sorted in ascending order.
 * The sum of lists[i].length will not exceed 104.
 
-使用标准库的heapq方法实现
-
-```python
-class Solution:
-    def mergeKLists(self, lists: List[Optional[ListNode]]) -> Optional[ListNode]:
-
-        # Monkey patch ListNode so heapq can compare them by val
-        ListNode.__lt__ = lambda self, other: self.val < other.val
-
-        dummy = tail = ListNode(0)
-        heap = []
-        push = heapq.heappush
-        pop = heapq.heappop
-
-        for node in lists:
-            if node:
-                push(heap, node)
-
-        while heap:
-            node = pop(heap)
-            tail.next = node
-            tail = node
-            if node.next:
-                push(heap, node.next)
-
-        return dummy.next
-
-```
-
-上面的方法，在Python3中，已经失败了，可以参考这个：
+参考这个：
 
 ```python
 # Definition for singly-linked list.

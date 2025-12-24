@@ -25,3 +25,13 @@
 | 8 | 9 |      | 7 | 8 | 9 |       | 7 | 
 +---+---+  =   +---+---+---+   -   +---+   -                  + 
 ```
+
+用python的 accumulate 方法构建前缀和
+
+```python
+from itertools import accumulate
+
+nums = [1, 2, 3, 4]
+prefix_sum = list(accumulate(nums)) # 计算前缀和
+print(prefix_sum) # 输出: [1, 3, 6, 10]
+```
