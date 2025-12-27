@@ -55,7 +55,7 @@ class Solution:
             if len(S) == 2 * n:
                 ans.append(S)
                 return
-            if left < n:k
+            if left < n:
                 backtrack(S+'(',left + 1, right)
             if right < left:
                 backtrack(S+')',left,right + 1)

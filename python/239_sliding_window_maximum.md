@@ -329,7 +329,7 @@ class Solution:
             if d[0] == i - k:
                 d.popleft()
             if i >= k - 1:
-                out += nums[d[0]],
+                out += nums[d[0]]
         return out
 ```
 

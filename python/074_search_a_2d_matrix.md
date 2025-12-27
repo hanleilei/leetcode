@@ -55,6 +55,7 @@ class Solution:
 ```
 
 再来一个不是二分法的方法：
+
 ```Python
 class Solution:
     def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
@@ -70,4 +71,15 @@ class Solution:
             else:
                 return True
         return False
+```
+
+```python
+class Solution:
+    def searchMatrix(self, matrix: List[List[int]], target: int) -> bool:
+        m = sum(matrix, [])
+        i = bisect_left(m, target)
+        if i < len(m) and m[i] == target:
+            return True
+        else:
+            return False
 ```

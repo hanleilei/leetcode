@@ -53,16 +53,50 @@ class Solution:
         cnt = s.count("Y")
 
         idx = 0
-        min = cnt
+        min_val = cnt
         for i in range(len(s)):
             if s[i] == 'Y':
                 cnt -= 1
             else:
                 cnt += 1
 
-            if cnt < min:
-                min = cnt
+            if cnt < min_val:
+                min_val = cnt
                 idx = i + 1
 
         return idx
+```
+
+```python
+class Solution:
+    def bestClosingTime(self, c: str) -> int:
+        length = len(c)
+        result = 0
+        resultIdx = -1
+        accum = 0
+        for i in range(length):
+            if c[i] == "Y":
+                accum += 1
+            else:
+                accum -= 1
+            
+            if accum > result:
+                result = accum
+                resultIdx = i
+        
+        return resultIdx + 1
+```
+
+```python
+class Solution:
+    def bestClosingTime(self, customers: str) -> int:
+        res = 0
+        min_penalty = penalty = customers.count("Y")
+
+        for i, v in enumerate(customers):
+            penalty += 1 if v == "N" else -1
+            if penalty < min_penalty:
+                min_penalty = penalty
+                res = i + 1
+        return res
 ```

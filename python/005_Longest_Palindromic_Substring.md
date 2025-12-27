@@ -117,6 +117,8 @@ class Solution:
 
 rolling hash + binary search + prefix_sum
 
+很好的思考过程，但是。。要特么面试写这样写要死翘翘。。
+
 参考这个[视频](https://www.bilibili.com/video/BV1MzBpBzEMk/?spm_id_from=333.1387.list.card_archive.click&vd_source=87d6dd47dbb44dd80e0f5eb84dd30767)
 
 ```c++
