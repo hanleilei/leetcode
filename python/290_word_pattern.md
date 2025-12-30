@@ -209,3 +209,16 @@ class Solution:
 - [242. Valid Anagram](242_valid_anagram.md) - 有效的字母异位词
 
 这道题是哈希表应用的经典题目，重点在于理解和实现双向映射关系。
+
+```python
+class Solution:
+    def wordPattern(self, p: str, s: str) -> bool:
+        t = s.split()
+        return len(set(zip(p, t))) == len(set(p)) == len(set(t)) and len(p) == len(t)
+```
+
+```python
+def wordPattern(self, pattern: str, s: str) -> bool:
+    s = s.split()
+    return list(map(pattern.index, pattern)) == list(map(s.index, s))
+```

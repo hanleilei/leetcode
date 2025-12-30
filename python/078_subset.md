@@ -106,3 +106,27 @@ class Solution:
             sol += [curr + [num] for curr in sol]
         return sol
 ```
+
+```python
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        self.res = list()
+        if nums == None:
+            return self.res
+        self.dfs(self.res, nums, list(), 0)
+        return self.res
+
+    def dfs(self, res, nums, lt, index):
+        if index == len(nums):
+            res.append(lt.copy())
+            return
+
+        # 不选当前元素
+        self.dfs(res, nums, lt, index + 1)
+        # 选当前元素
+        lt.append(nums[index])
+        self.dfs(res, nums, lt, index + 1)
+
+        # restore state 回溯
+        lt.pop()
+```

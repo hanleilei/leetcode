@@ -1,19 +1,33 @@
 # coin change
 
-# coin change
+[[dp]] [[bfs]] [[dfs]]
 
-You are given coins of different denominations and a total amount of money amount. Write a function to compute the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
+You are given an integer array coins representing coins of different denominations and an integer amount representing a total amount of money.
+
+Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return -1.
+
+You may assume that you have an infinite number of each kind of coin.
 
 Example 1:
-coins = [1, 2, 5], amount = 11
-return 3 (11 = 5 + 5 + 1)
 
+Input: coins = [1,2,5], amount = 11
+Output: 3
+Explanation: 11 = 5 + 5 + 1
 Example 2:
-coins = [2], amount = 3
-return -1.
 
-Note:
-You may assume that you have an infinite number of each kind of coin.
+Input: coins = [2], amount = 3
+Output: -1
+Example 3:
+
+Input: coins = [1], amount = 0
+Output: 0
+
+
+Constraints:
+
+1 <= coins.length <= 12
+1 <= coins[i] <= 2^31 - 1
+0 <= amount <= 10^4
 
 这个问题在leetcode和lintcode这两个oj上都有，但是由于test case的不同，相同的代码，在两边运行结果完全不同。很怪异，下面是一个最快速的版本：
 
@@ -116,8 +130,8 @@ class Solution:
             if not rem:
                 self.res = min(self.res, count)
             for i in range(pt, lenc):
-                if coins[i] <= rem < coins[i] * (self.res-count): # if hope still exists
-                    dfs(i, rem-coins[i], count+1)
+                if coins[i] <= rem < coins[i] * (self.res - count): # if hope still exists
+                    dfs(i, rem - coins[i], count + 1)
 
         for i in range(lenc):
             dfs(i, amount, 0)
@@ -145,3 +159,16 @@ class Solution:
             dp = temp
         return -1
 ```
+
+```python
+class Solution: 
+    def coinChange(self, coins: List[int], amount: int) -> int: 
+        dp: int = 1 << amount 
+        for steps in range(amount // min(coins) + 1): 
+            if dp & 1 != 0: 
+                return steps 
+            dp = reduce(lambda a, b: a | dp >> b, coins, 0) 
+        return -1
+```
+
+

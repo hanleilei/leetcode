@@ -65,7 +65,7 @@ class Solution:
             while row >= 0 and col < n:
                 if matrix[row][col] <= target:
                     # 当前列中，从行0到row的所有元素都<=target
-                    count += row + 1
+                    count += row + 1 # 从 matrix[i][0] 到 matrix[i][j] 都 <= mx
                     col += 1  # 向右移动
                 else:
                     # 当前元素>target，向上移动
@@ -86,6 +86,33 @@ class Solution:
                 right = mid
         
         return left
+```
+
+
+```python
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        n = len(matrix)
+
+        def check(mx: int) -> bool:
+            cnt = 0
+            i, j = 0, n - 1
+            while i < n and j >= 0 and cnt < k:
+                if matrix[i][j] > mx:
+                    j -= 1
+                else:
+                    cnt += j + 1
+                    i += 1
+            return cnt >= k
+        
+        left, right = matrix[0][0] - 1, matrix[-1][-1]
+        while left + 1 < right:
+            mid = left + (right - left) // 2
+            if check(mid):
+                right = mid
+            else:
+                left = mid
+        return right
 ```
 
 **算法分析：**
@@ -192,3 +219,9 @@ class Solution:
 - [373. Find K Pairs with Smallest Sums](373_find_k_pairs_with_smallest_sums.md) - 找最小和的k对数字
 - [295. Find Median from Data Stream](295_find_median_from_data_stream.md) - 数据流的中位数
 - [4. Median of Two Sorted Arrays](004-median_of_two_sorted_arrays.md) - 两个有序数组的中位数
+
+```python
+class Solution:
+    def kthSmallest(self, matrix: List[List[int]], k: int) -> int:
+        return nsmallest(k, sum(matrix, []))[-1]
+```

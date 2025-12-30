@@ -1,5 +1,7 @@
 # validate binary search tree
 
+[[tree]] [[dfs]]
+
 Given a binary tree, determine if it is a valid binary search tree (BST).
 
 Assume a BST is defined as follows:
@@ -77,5 +79,23 @@ class Solution(object):
         if root.val <= minV or root.val >= maxV: return False      
         return self.judge(root.left,minV,root.val) and \
             self.judge(root.right,root.val,maxV)
+```
 
+还有一种办法就是不用存储中序遍历的结果，而是用一个变量记录上一个访问的节点值，然后和当前节点值比较：
+
+```python
+class Solution:
+    def isValidBST(self, root: Optional[TreeNode]) -> bool:
+        self.prev = None
+        return self.helper(root)
+
+    def helper(self, root):
+        if root is None:
+            return True
+        if not self.helper(root.left):
+            return False
+        if self.prev and self.prev.val >= root.val:
+            return False
+        self.prev = root
+        return self.helper(root.right)
 ```
