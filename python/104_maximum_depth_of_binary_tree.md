@@ -1,6 +1,6 @@
 # maximum depth of binary tree
 
-[[BFS]] [[DFS]] [[Tree]] [[Binary Tree]]
+[[BFS]] [[DFS]] [[Tree]] [[BinaryTree]]
 
 Given a binary tree, find its maximum depth.
 

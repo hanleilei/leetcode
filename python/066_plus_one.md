@@ -108,3 +108,21 @@ class Solution:
                     digits[i - 1] += 1
         return digits
 ```
+
+手搓一个：
+
+```python
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        digits = digits[::-1]
+        carry = 0
+        for i in range(len(digits)):
+            if i == 0:
+                digits[i] += 1
+            else:
+                digits[i] += carry
+            carry, digits[i] = divmod(digits[i], 10)
+        if carry == 1:
+            digits.append(1)
+        return digits[::-1]
+```

@@ -1,5 +1,7 @@
 # lowest common ancestor of a binary search tree
 
+[[tree]]
+
 Given a binary search tree (BST), find the lowest common ancestor (LCA) of two given nodes in the BST.
 
 According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes v and w as the lowest node in T that has both v and w as descendants (where we allow a node to be a descendant of itself).”
@@ -39,7 +41,7 @@ class Solution:
 
 ```
 
-根据bst的特点，但是，这个算法在当前不能通过中文版的leetcode，也是醉了。。。
+根据bst的特点:
 
 ```python
 # Definition for a binary tree node.
@@ -128,42 +130,12 @@ class Solution(object):
 用下面这个逻辑实现会更好：
 
 ```python
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
 class Solution:
-    def lowestCommonAncestor(self, root, A, B):
-        """
-        :type root: TreeNode
-        :type p: TreeNode
-        :type q: TreeNode
-        :rtype: TreeNode
-        """
-        if root is None:
-            return None
-
-        if root == A or root == B:
-            return root
-
-        left_result = self.lowestCommonAncestor(root.left, A, B)
-        right_result = self.lowestCommonAncestor(root.right, A, B)
-
-        # A 和 B 一边一个
-        if left_result and right_result:
-            return root
-
-        # 左子树有一个点或者左子树有LCA
-        if left_result:
-            return left_result
-
-        # 右子树有一个点或者右子树有LCA
-        if right_result:
-            return right_result
-
-        # 左右子树啥都没有
-        return None
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if root in (None, p, q): return root
+        if root.val < p.val and root.val < q.val:
+            return self.lowestCommonAncestor(root.right, p, q)
+        if root.val > p.val and root.val > q.val:
+            return self.lowestCommonAncestor(root.left, p, q)
+        return root
 ```

@@ -1,5 +1,7 @@
 # lowest common Ancestor of a Binary Tree
 
+[[tree]]
+
 Given a binary tree, find the lowest common ancestor (LCA) of two given nodes in the tree.
 
 According to the definition of LCA on Wikipedia: “The lowest common ancestor is defined between two nodes v and w as the lowest node in T that has both v and w as descendants (where we allow a node to be a descendant of itself).”
@@ -18,25 +20,16 @@ For example, the lowest common ancestor (LCA) of nodes 5 and 1 is 3. Another exa
 不用太复杂，两个递归加上就好，深度优先遍历：
 
 ```python
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
 class Solution:
-    def lowestCommonAncestor(self, root, p, q):
-        """
-        :type root: TreeNode
-        :type p: TreeNode
-        :type q: TreeNode
-        :rtype: TreeNode
-        """
-        if not root or root == p or root == q:
+    def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
+        if root in (None, p, q):  # 找到 p 或 q 就不往下递归了，原因见上面答疑
             return root
         left = self.lowestCommonAncestor(root.left, p, q)
         right = self.lowestCommonAncestor(root.right, p, q)
-        return root if left and right else left or right
-
+        if left and right:  # 左右都找到
+            return root  # 当前节点是最近公共祖先
+        # 如果只有左子树找到，就返回左子树的返回值
+        # 如果只有右子树找到，就返回右子树的返回值
+        # 如果左右子树都没有找到，就返回 None（注意此时 right = None）
+        return left or right
 ```

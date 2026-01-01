@@ -22,3 +22,20 @@ def recursive_function(params):
 2. 找到最近最简单的方法，将其拆解为更小的子问题（可重复解决的问题）- 最近重复性
 3. 数学归纳法思维（假设函数能正确处理更小的输入）
 4. 明确递归的终止条件，防止无限递归
+
+```python
+def recursion(level, param1, param2, ..):
+    # recursion terminator
+    if level > max_level:
+        print_result
+        return
+    
+    # process login in current level
+    process_data(level, data)
+
+    # drill down
+    self.recursion(level + 1, p1, ...)
+
+    # reverse the current level status if needed.
+    reverse_state(level)
+```
