@@ -1,5 +1,7 @@
 # n queens
 
+[[dfs]] [[backtrack]]
+
 The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack each other.
 
 ![](https://leetcode.com/static/images/problemset/8-queens.png)
@@ -25,6 +27,13 @@ Output: [
 ]
 Explanation: There exist two distinct solutions to the 4-queens puzzle as shown above.
 ```
+
+这个其实是一个典型的回溯算法问题。
+
+1. 每一行放置一个皇后
+2. 检查当前放置是否合法，左下角的元素，右下角的元素，正下方的元素，都不合法。判断左下角，则需要用行号加列号相等来判断；判断右下角，则需要行号减列号相等来判断。
+3. 递归放置下一行皇后
+4. 回溯，撤销当前行的皇后，尝试下一列
 
 ```python
 class Solution:

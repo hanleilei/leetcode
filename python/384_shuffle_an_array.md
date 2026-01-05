@@ -51,8 +51,7 @@ class Solution:
         self.nums = nums[:]
 
     def reset(self) -> List[int]:
-        self.nums = self.origin[:]
-        return self.nums
+        return self.origin[:]
 
     def shuffle(self) -> List[int]:
         # Fisher-Yates 洗牌，保证每个排列等概率
