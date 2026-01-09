@@ -1,12 +1,13 @@
 # 191. Number of 1 Bits
 
+[[bitManipulation]]
+
 Write a function that takes the binary representation of an unsigned integer and returns the number of '1' bits it has (also known as the Hamming weight).
 
 Note:
 
 Note that in some languages, such as Java, there is no unsigned integer type. In this case, the input will be given as a signed integer type. It should not affect your implementation, as the integer's internal binary representation is the same, whether it is signed or unsigned.
 In Java, the compiler represents the signed integers using 2's complement notation. Therefore, in Example 3, the input represents the signed integer. -3.
-
 
 ## Example 1
 
@@ -38,25 +39,41 @@ Explanation: The input binary string 11111111111111111111111111111101 has a tota
 The input must be a binary string of length 32.
 ```
 
-OMG, so easy
+这类题目，如果用标准库之类的 `bin(n).count('1')` 得到答案，可能就不那么合适了，还是要用位运算。
 
 ```python
-class Solution(object):
-    def hammingWeight(self, n):
-        """
-        :type n: int
-        :rtype: int
-        """
-        return bin(n).count('1')
+class Solution:
+    def hammingWeight(self, n: int) -> int:
+        res = 0
+        while n != 0:
+            n &= (n - 1)
+            res += 1
+        return  res
+```
+
+cpp版本：
+
+```cpp
+class Solution {
+public:
+    int hammingWeight(int n) {
+        int res = 0;
+        for (; n; n &= n - 1)
+            ++res;
+        return res;
+    }
+};
 ```
 
 ```python
 class Solution:
     def hammingWeight(self, n: int) -> int:
         res = 0
-        for i in bin(n):
-            if i == "1":
+        mask = 1
+        for i in range(32):
+            if n & mask:
                 res += 1
+            mask = mask << 1
         return res
 ```
 

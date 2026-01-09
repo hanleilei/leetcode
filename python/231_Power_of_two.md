@@ -1,8 +1,10 @@
 # Power of two
 
+[[bitManipulation]]
+
 Given an integer, write a function to determine if it is a power of two.
 
-#### 这个看起来容易，起始还是要熟悉布尔运算中的与运算
+这个看起来容易，起始还是要熟悉布尔运算中的与运算
 
 ```python
 class Solution(object):
@@ -22,11 +24,4 @@ class Solution:
         while n % 2 == 0 and n != 0:
             n //= 2
         return n == 1
-```
-
-```python
-class Solution:
-    def isPowerOfTwo(self, n: int) -> bool:
-        num = bin(n)[2:]
-        return num[0] == '1' and sum([int(i) for i in num[1:]]) == 0
 ```

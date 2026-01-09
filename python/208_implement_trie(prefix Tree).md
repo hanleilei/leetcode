@@ -1,5 +1,7 @@
 # implement Trie
 
+[[trie]]
+
 Implement a trie with insert, search, and startsWith methods.
 
 Example:
@@ -77,50 +79,36 @@ class Trie:
 
 ```python
 from collections import defaultdict
-class Trie:
 
+class TrieNode:
     def __init__(self):
-        """
-        Initialize your data structure here.
-        """
-        self.root = defaultdict()
+        self.children = defaultdict(TrieNode)  # 使用 defaultdict
+        self.is_end = False  # 明确标识单词结束
 
-    def insert(self, word):
-        """
-        Inserts a word into the trie.
-        :type word: str
-        :rtype: void
-        """
-        current = self.root
-        for letter in word:
-            current = current.setdefault(letter, {})
-        current.setdefault("_end")
+class Trie:
+    def __init__(self):
+        self.root = TrieNode()
 
-    def search(self, word):
-        """
-        Returns if the word is in the trie.
-        :type word: str
-        :rtype: bool
-        """
+    def insert(self, word: str) -> None:
         current = self.root
-        for letter in word:
-            if letter not in current:
+        for char in word:
+            # 这里利用了 defaultdict 的特性：如果 char 不存在，会自动创建 TrieNode
+            current = current.children[char]
+        current.is_end = True  # 标记单词结束
+
+    def search(self, word: str) -> bool:
+        current = self.root
+        for char in word:
+            if char not in current.children:
                 return False
-            current = current[letter]
-        if "_end" in current:
-            return True
-        return False
+            current = current.children[char]
+        return current.is_end  # 直接返回是否单词结束
 
-    def startsWith(self, prefix):
-        """
-        Returns if there is any word in the trie that starts with the given prefix.
-        :type prefix: str
-        :rtype: bool
-        """
+    def startsWith(self, prefix: str) -> bool:
         current = self.root
-        for letter in prefix:
-            if letter not in current:
+        for char in prefix:
+            if char not in current.children:
                 return False
-            current = current[letter]
+            current = current.children[char]
         return True
 ```

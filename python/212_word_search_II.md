@@ -1,5 +1,7 @@
 # word search II
 
+[[trie]] [[dfs]]
+
 Given a 2D board and a list of words from the dictionary, find all words in the board.
 
 Each word must be constructed from letters of sequentially adjacent cell, where "adjacent" cells are those horizontally or vertically neighboring. The same letter cell may not be used more than once in a word.
@@ -161,39 +163,63 @@ class Solution:
             self.used[i][j] = False
 ```
 
-最后来 stefan 的：
-
-但是现在超时了，参考一下。
+原来stefan的版本剪枝不够，修改后的版本：
 
 ```python
-# class Solution:
-#     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
-from functools import reduce
-from collections import defaultdict
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.word = None
+
 class Solution:
-    def findWords(self, board, words):
-        root = {}
+    def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
+        # 构建Trie
+        root = TrieNode()
         for word in words:
             node = root
             for c in word:
-                node = node.setdefault(c, {})
-            node[None] = True
-        board = {i + 1j*j: c
-                 for i, row in enumerate(board)
-                 for j, c in enumerate(row)}
-
-        found = []
-        def search(node, z, word):
-            if node.pop(None, None):
-                found.append(word)
-            c = board.get(z)
-            if c in node:
-                board[z] = None
-                for k in range(4):
-                    search(node[c], z + 1j**k, word + c)
-                board[z] = c
-        for z in board:
-            search(root, z, '')
-
-        return found
+                if c not in node.children:
+                    node.children[c] = TrieNode()
+                node = node.children[c]
+            node.word = word
+        
+        rows, cols = len(board), len(board[0])
+        result = []
+        
+        def dfs(node, i, j):
+            if i < 0 or i >= rows or j < 0 or j >= cols:
+                return
+            
+            c = board[i][j]
+            if c == '#' or c not in node.children:
+                return
+            
+            curr_node = node.children[c]
+            
+            # 找到单词
+            if curr_node.word:
+                result.append(curr_node.word)
+                curr_node.word = None  # 避免重复
+            
+            # 标记为已访问
+            board[i][j] = '#'
+            
+            # 四个方向
+            dfs(curr_node, i+1, j)
+            dfs(curr_node, i-1, j)
+            dfs(curr_node, i, j+1)
+            dfs(curr_node, i, j-1)
+            
+            # 恢复
+            board[i][j] = c
+            
+            # 优化：如果当前节点没有子节点，删除它
+            if not curr_node.children and not curr_node.word:
+                node.children.pop(c, None)
+        
+        for i in range(rows):
+            for j in range(cols):
+                dfs(root, i, j)
+        
+        return result
 ```

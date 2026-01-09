@@ -1,20 +1,24 @@
 # triangle
 
-Given a `triangle` array, return *the minimum path sum from top to bottom*.
+[[dp]]
 
-For each step, you may move to an adjacent number of the row below. More formally, if you are on index `i` on the current row, you may move to either index `i` or index `i + 1` on the next row.
+## Problem Description
+
+Given a `triangle` array, return *the minimum path sum from top to bottom*.
+
+For each step, you may move to an adjacent number of the row below. More formally, if you are on index `i` on the current row, you may move to either index `i` or index `i + 1` on the next row.
 
 **Example 1:**
 
 **Input:** triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]
 **Output:** 11
 **Explanation:** The triangle looks like:
-
-   <u>2</u>
-  <u>3</u> 4
- 6 <u>5</u> 7
-4 <u>1</u> 8 3
-
+```
+   2
+  3 4
+ 6 5 7
+4 1 8 3
+```
 The minimum path sum from top to bottom is 2 + 3 + 5 + 1 = 11 (underlined above).
 
 **Example 2:**
@@ -27,9 +31,9 @@ The minimum path sum from top to bottom is 2 + 3 + 5 + 1 = 11 (underlined above)
 - `1 <= triangle.length <= 200`
 - `triangle[0].length == 1`
 - `triangle[i].length == triangle[i - 1].length + 1`
-- `-104 <= triangle[i][j] <= 104`
+- `-10^4 <= triangle[i][j] <= 10^4`
 
-**Follow up:** Could you do this using only `O(n)` extra space, where `n` is the total number of rows in the triangle?
+**Follow up:** Could you do this using only `O(n)` extra space, where `n` is the total number of rows in the triangle?
 
 ### Note:
 
@@ -55,103 +59,136 @@ For the kth level:
 minpath[i] = min( minpath[i], minpath[i+1]) + triangle[k][i];
 ```
 
-Thus, we have the following solution
+Thus, we have the following solution：
+
+## Solution Approaches
+
+### Approach 1: Bottom-Up DP with O(n) Space (Optimal)
+
+**Key Insight:** 
+- Start from the bottom row and work upwards
+- Each position's minimum path = min(two children below) + current value
+- Can reuse a 1D array since we only need the previous row
+
+**State Transition:**
+```
+dp[i] = min(dp[i], dp[i+1]) + triangle[row][i]
+```
+
+**Time Complexity:** O(n²) where n is the number of rows
+**Space Complexity:** O(n) - only one row of DP array
 
 ```python
 class Solution:
-    def minimumTotal(self, triangle):
-        """
-        :type triangle: List[List[int]]
-        :rtype: int
-        """
-        size = len(triangle)
-        minlen = triangle[-1]
-
-        for layer in range(size - 2, -1, -1):
-            for i in range(layer + 1):
-                minlen[i] = min(minlen[i], minlen[i+1]) + triangle[layer][i]
-
-        return minlen[0]
+    def minimumTotal(self, triangle: List[List[int]]) -> int:
+        # Initialize dp array with bottom row
+        dp = triangle[-1][:]
+        
+        # Iterate from second-to-last row to top
+        for row in range(len(triangle) - 2, -1, -1):
+            for col in range(len(triangle[row])):
+                # Current min path = current value + min of two children below
+                dp[col] = triangle[row][col] + min(dp[col], dp[col + 1])
+        
+        return dp[0]
 ```
 
-```python
-class Solution:
-    def minimumTotal(self, triangle):
-        """
-        :type triangle: List[List[int]]
-        :rtype: int
-        """
-        if not triangle:
-            return 0
+### Approach 2: Bottom-Up DP (Reverse Iteration)
 
-        last = []
-
-        for i, row in enumerate(triangle):
-            n = len(row)
-
-            if i:
-                row[0] = row[0] + last[0]
-                row[n-1] = row[n-1] + last[n-2]
-
-                for j in range(1, n-1):
-                    row[j] = row[j] + min(last[j-1], last[j])
-
-            last = row
-
-        return min(triangle[-1])
-```
-
-再来看看stefan大大的方法：
-
-```python
-def minimumTotal(self, t):
-    return reduce(lambda a,b:[f+min(d,e)for d,e,f in zip(a,a[1:],b)],t[::-1])[0]
-```
-
-再来一波解释：
-
-Starting with the bottom row, I move upwards, always combining the current row and the next upper row. At the end, I have combined everything into the top row and simply return its only element. Here's a longer version with meaningful variable names:
-
-```python
-def minimumTotal(self, triangle):
-    def combine_rows(lower_row, upper_row):
-        return [upper + min(lower_left, lower_right)
-                for upper, lower_left, lower_right in
-                zip(upper_row, lower_row, lower_row[1:])]
-    return reduce(combine_rows, triangle[::-1])[0]
-```
-
-时过境迁，我们可以用动态规划的方法实现：
+**Alternative implementation** using reverse iteration through the triangle:
 
 ```python
 class Solution:
     def minimumTotal(self, triangle: List[List[int]]) -> int:
         dp = [0] * (len(triangle) + 1)
+        
+        # Process triangle from bottom to top
         for row in triangle[::-1]:
             for i, n in enumerate(row):
                 dp[i] = min(dp[i], dp[i + 1]) + n
+        
         return dp[0]
 ```
+
+### Approach 3: Top-Down DP with Memoization
+
+**Key Insight:**
+- Use DFS with memoization to avoid recalculating subproblems
+- Recursively find minimum path from each position
+
+**Time Complexity:** O(n²)
+**Space Complexity:** O(n²) for memo array + O(n) recursion stack
 
 ```python
 class Solution:
     def minimumTotal(self, triangle: List[List[int]]) -> int:
-        # 创建记忆化数组，初始为None，大小与三角形相同[1,3](@ref)
-        self.memo = [[None] * len(triangle) for _ in range(len(triangle))]
-        return self.dfs(triangle, 0, 0)
-    
-    def dfs(self, triangle, i, j):
-        # 递归终止条件：当到达三角形底部时返回0[2,3](@ref)
-        if i == len(triangle):
-            return 0
+        # Create memoization array
+        memo = [[None] * len(row) for row in triangle]
         
-        # 如果当前节点已经计算过，直接返回存储的结果[2,4](@ref)
-        if self.memo[i][j] is not None:
-            return self.memo[i][j]
+        def dfs(row: int, col: int) -> int:
+            # Base case: reached bottom of triangle
+            if row == len(triangle):
+                return 0
+            
+            # Return memoized result if available
+            if memo[row][col] is not None:
+                return memo[row][col]
+            
+            # Calculate minimum path: current value + min of two paths below
+            memo[row][col] = triangle[row][col] + min(
+                dfs(row + 1, col),
+                dfs(row + 1, col + 1)
+            )
+            
+            return memo[row][col]
         
-        # 递归计算当前节点的最小路径和：取下方两个节点的较小值加上当前节点的值[1,5](@ref)
-        self.memo[i][j] = min(self.dfs(triangle, i + 1, j), 
-                             self.dfs(triangle, i + 1, j + 1)) + triangle[i][j]
-        return self.memo[i][j]
+        return dfs(0, 0)
 ```
 
+### Approach 4: In-Place Modification (Space-Optimized)
+
+**Warning:** Modifies input array
+
+```python
+class Solution:
+    def minimumTotal(self, triangle: List[List[int]]) -> int:
+        # Start from second-to-last row
+        for row in range(len(triangle) - 2, -1, -1):
+            for col in range(len(triangle[row])):
+                # Update current cell with minimum path
+                triangle[row][col] += min(
+                    triangle[row + 1][col],
+                    triangle[row + 1][col + 1]
+                )
+        
+        return triangle[0][0]
+```
+
+---
+
+## Key Takeaways
+
+1. **Bottom-up DP is more intuitive** for this problem than top-down
+2. **Space optimization**: Only need to track one row at a time (O(n) space)
+3. **Overlapping subproblems**: Adjacent nodes share branches, perfect for DP
+4. **Optimal substructure**: Minimum path through parent = parent value + min(children paths)
+
+## Related Problems
+
+- LeetCode 64: Minimum Path Sum
+- LeetCode 931: Minimum Falling Path Sum
+
+```cpp
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        vector<int> mini = triangle[triangle.size() - 1];
+        for (int i = triangle.size() - 2; i >= 0; --i){
+            for (int j = 0; j < triangle[i].size(); ++j){
+                mini[j] = triangle[i][j] + min(mini[j], mini[j + 1]);
+            }
+        }
+        return mini[0];
+    }
+};
+```

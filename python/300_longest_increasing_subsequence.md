@@ -30,10 +30,10 @@ Output: 1
 
 ```text
 1 <= nums.length <= 2500
--104 <= nums[i] <= 104
+-10^4 <= nums[i] <= 10^4
 ```
 
-这个就是标准的dp问题：
+标准的dp问题：
 
 ```python
 class Solution:
@@ -42,9 +42,31 @@ class Solution:
         dp = [1] * n
         for i in range(n):
             for j in range(i):
-                if nums[i] > nums[j] and dp[i] < dp[j] + 1:
-                    dp[i] = dp[j] + 1
+                if nums[i] > nums[j]:
+                    dp[i] = max(dp[i], dp[j] + 1)
         return max(dp)
+```
+
+```java
+class Solution {
+    public int lengthOfLIS(int[] nums) {
+        if (nums == null || nums.length == 0){
+            return 0;
+        }
+        int res = 1;
+        int[] dp = new int[nums.length + 1];
+        for (int i = 0; i < nums.length; ++i) dp[i] = 1;
+        for (int i = 1; i < nums.length; ++i){
+            for (int j = 0; j < i; ++j){
+                if (nums[j] < nums[i]){
+                    dp[i] = Math.max(dp[i], dp[j] + 1);
+                }
+            }
+            res = Math.max(res, dp[i]);
+        }
+        return res;
+    }
+}
 ```
 
 先来一个自己实现的二分查找：
@@ -154,18 +176,15 @@ class Solution:
 ```python
 class Solution:
     def lengthOfLIS(self, nums: List[int]) -> int:
-        dp = []
-
-        for n in nums:
-            index = bisect.bisect_left(dp, n)
-            if index == len(dp):
-                dp.append(n)
-            else:
-                dp[index] = n
-        
-        return len(dp)
+        lis = [sys.maxsize] * len(nums)   # 相当于 INT_MAX
+        for x in nums:
+            # lower_bound 返回第一个 >= x 的位置的索引
+            idx = bisect.bisect_left(lis, x)
+            lis[idx] = x
+        # 找到第一个仍是 sys.maxsize 的位置，即有效长度
+        idx = bisect.bisect_left(lis, sys.maxsize)
+        return idx
 ```
-
 
 ```cpp
 class Solution {
@@ -178,36 +197,4 @@ public:
         return ranges::lower_bound(lis, INT_MAX) - lis.begin();
     }
 };
-```
-
-```python
-class Solution:
-    def lengthOfLIS(self, nums: List[int]) -> int:
-        # lis 数组维护目前可能的最长上升子序列的“最小尾部”值
-        lis: List[int] = []
-        
-        for x in nums:
-            # 找到第一个 >= x 的位置（相当于 lower_bound）
-            pos = bisect.bisect_left(lis, x)
-            if pos == len(lis):
-                # x 比当前所有尾部都大，直接接在后面
-                lis.append(x)
-            else:
-                # 用 x 替换该位置的元素，使尾部更小，有利于后续延长
-                lis[pos] = x
-        
-        return len(lis)
-```
-
-```python
-class Solution:
-    def lengthOfLIS(self, nums: List[int]) -> int:
-        lis = [sys.maxsize] * len(nums)   # 相当于 INT_MAX
-        for x in nums:
-            # lower_bound 返回第一个 >= x 的位置的索引
-            idx = bisect.bisect_left(lis, x)
-            lis[idx] = x
-        # 找到第一个仍是 sys.maxsize 的位置，即有效长度
-        idx = bisect.bisect_left(lis, sys.maxsize)
-        return idx
 ```

@@ -36,3 +36,5 @@ round 5th
 1. 面试前一周，恢复性练习。
 
 职业训练：拆分知识点 + 刻意练习 + 反馈
+
+灵的：[如何科学的刷题](https://leetcode.cn/discuss/post/3141566/ru-he-ke-xue-shua-ti-by-endlesscheng-q3yd/)
