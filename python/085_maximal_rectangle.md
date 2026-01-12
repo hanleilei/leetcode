@@ -19,7 +19,6 @@ Output: 6
 
 看注释，这个思路很赞。。
 
-
 ```python
 class Solution:
     def maximalRectangle(self, matrix):

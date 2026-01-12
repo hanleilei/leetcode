@@ -1,6 +1,6 @@
 # Search in a Binary Search Tree
 
-[[binary-search-tree]] [[tree]] [[dfs]]
+[[bst]] [[tree]] [[dfs]]
 
 ## Problem Description
 

@@ -1,5 +1,7 @@
 # average of levels in binary tree
 
+[[bfs]] [[tree]]
+
 Given a non-empty binary tree, return the average value of the nodes on each level in the form of an array.
 Example 1:
 Input:
@@ -45,5 +47,24 @@ class Solution(object):
                     newq.append(node.right)
             queue = newq
             res.append(tmp)
+        return res
+```
+
+```python
+class Solution:
+    def averageOfLevels(self, root: Optional[TreeNode]) -> List[float]:
+        res = list()
+        if not root:
+            return res
+        dq = deque([root])
+        while dq:
+            res.append(sum([i.val for i in dq]) / len(dq))
+            size = len(dq)
+            for _ in range(size):
+                node = dq.popleft()
+                if node.left:
+                    dq.append(node.left)
+                if node.right:
+                    dq.append(node.right)
         return res
 ```

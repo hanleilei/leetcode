@@ -47,3 +47,24 @@ class Solution:
             res.append(max(tmp))
         return res
 ```
+
+```python
+class Solution:
+    def largestValues(self, root: Optional[TreeNode]) -> List[int]:
+        res = []
+        if not root:
+            return res
+        dq = deque([root])
+        while dq:
+            size = len(dq)
+            vals = [i.val for i in dq if i]
+            if vals:
+                res.append(max(vals))
+            for _ in range(size):
+                node = dq.popleft()
+                if node.left:
+                    dq.append(node.left)
+                if node.right:
+                    dq.append(node.right)
+        return res
+```

@@ -79,6 +79,21 @@ Distance）。
 
 标准的动态规划解法，清晰易懂。自底向上
 
+列出状态转移方程：
+
+$$
+[
+cnt_{i,j} =
+\begin{cases}
+    0, & \text{if } i = 0 \text{ and } j = 0 \\
+    j, & \text{if } i = 0 \\
+    i, & \text{if } j = 0 \\
+    cnt_{i-1,j-1}, & \text{if } word1[i-1] = word2[j-1] \\
+    \min(cnt_{i-1,j}, cnt_{i,j-1}, cnt_{i-1,j-1}) + 1  & \text{if } word1[i-1] \neq word2[j-1]
+\end{cases}
+]
+$$
+
 ```python
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:

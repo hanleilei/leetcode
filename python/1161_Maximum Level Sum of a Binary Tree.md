@@ -1,6 +1,6 @@
 # Maximum Level Sum of a Binary Tree
 
-[[bfs]]
+[[bfs]] [[tree]]
 
 Given the root of a binary tree, the level of its root is 1, the level of its children is 2, and so on.
 

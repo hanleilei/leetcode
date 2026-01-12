@@ -1,6 +1,6 @@
 # Delete Node in a BST
 
-[[tree]]
+[[tree]] [[bst]]
 
 ## Problem Description
 

@@ -1,6 +1,6 @@
 # Even Odd Tree
 
-[[tree]]
+[[tree]] [[bfs]]
 
 A binary tree is named Even-Odd if it meets the following conditions:
 

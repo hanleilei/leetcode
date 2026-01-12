@@ -182,8 +182,7 @@ class Solution:
             idx = bisect.bisect_left(lis, x)
             lis[idx] = x
         # 找到第一个仍是 sys.maxsize 的位置，即有效长度
-        idx = bisect.bisect_left(lis, sys.maxsize)
-        return idx
+        return bisect.bisect_left(lis, sys.maxsize)
 ```
 
 ```cpp
