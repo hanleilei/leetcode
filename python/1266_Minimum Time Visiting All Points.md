@@ -51,3 +51,12 @@ class Solution:
                         abs(points[i][1] - points[i - 1][1]))
         return ans
 ```
+
+```python
+class Solution:
+    def minTimeToVisitAllPoints(self, points: List[List[int]]) -> int:
+        ans = 0
+        for (x1, y1), (x2, y2) in pairwise(points):
+            ans += max(abs(x1 - x2), abs(y1 - y2))
+        return ans
+```

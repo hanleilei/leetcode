@@ -41,6 +41,8 @@ After calling your function, the tree should look like:
 4-> 5 -> 7 -> NULL
 ```
 
+稍微要注意一下这个题目和上一个116的区别，这里是普通二叉树，不是完美二叉树。
+
 BFS + 链表
 
 ```Python

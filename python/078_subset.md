@@ -24,43 +24,25 @@ Constraints:
     -10 <= nums[i] <= 10
     All the numbers of nums are unique.
 
-不推荐这样做：
-
-```python
-class Solution(object):
-    def subsets(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
-        from itertools import combinations
-        lst = list()
-        for i in range(len(nums)+1):
-            lst += [list(j) for j in combinations(nums, i)]
-        return lst
-
-```
-
-标准库很多时候还是要少用，下面看一下这个方法：
+下面看一下这个方法：
 
 ```python
 class Solution:
     def subsets(self, nums: List[int]) -> List[List[int]]:
-        result = []
-        temp = []
+        n = len(nums)
+        ans = []
+        path = []
 
-        nums.sort()
-        def backtrack(i):
-            result.append(temp[:])
+        # 枚举选哪个：在下标 i 到 n-1 中选一个数，加到 path 末尾
+        def dfs(i: int) -> None:
+            ans.append(path.copy())  # 不选，把当前子集加入答案
+            for j in range(i, n):  # 选，枚举选择的数字
+                path.append(nums[j])
+                dfs(j + 1)  # 选 nums[j] 意味着 i 到 j-1 都跳过不选，下一个数从 j+1 开始选
+                path.pop()  # 恢复现场
 
-            for j in range(i,len(nums)):
-
-                temp.append(nums[j])
-                backtrack(j+1)
-                temp.pop()
-
-        backtrack(0)
-        return result
+        dfs(0)
+        return ans
 ```
 
 再来看看caikehe的方法：

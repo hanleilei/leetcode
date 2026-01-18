@@ -1,5 +1,7 @@
 # Add and Search Word - Data structure design
 
+[[trie]]
+
 Design a data structure that supports the following two operations:
 
 void addWord(word)
@@ -7,6 +9,7 @@ bool search(word)
 search(word) can search a literal word or a regular expression string containing only letters a-z or .. A . means it can represent any one letter.
 
 ## Example:
+
 ```
 addWord("bad")
 addWord("dad")
@@ -18,9 +21,54 @@ search("b..") -> true
 ```
 
 ## Note:
+
 You may assume that all words are consist of lowercase letters a-z
 
+## 解法1: 字典树
+
+```python
+class Node(object):
+    def __init__(self):
+        self.children = defaultdict(Node)
+        self.isword = False
+
+class WordDictionary:
+
+    def __init__(self):
+        self.trie = Node()
+
+    def addWord(self, word: str) -> None:
+        curr = self.trie
+        for w in word:
+            curr = curr.children[w]
+        curr.isword = True
+
+    def search(self, word: str) -> bool:
+        return self.match(word, 0, self.trie)
+    
+    def match(self, word, index, root):
+        if root == None:
+            return False
+        if index == len(word):
+            return root.isword
+        if word[index] != ".":
+            return root != Node and self.match(word, index + 1, root.children.get(word[index]))
+        else:
+            for child in root.children.values():
+                if self.match(word, index + 1, child):
+                    return True
+        return False
+
+
+
+# Your WordDictionary object will be instantiated and called as such:
+# obj = WordDictionary()
+# obj.addWord(word)
+# param_2 = obj.search(word)
+```
+
 方法就是构造一个字典树：
+
 ```Python
 class WordDictionary:
 
@@ -74,11 +122,11 @@ class WordDictionary:
 ```
 
 使用列表的字典，速度很快：
+
 ```Python
 class WordDictionary:
     def __init__(self):
         self.word_dict = collections.defaultdict(list)
-
 
     def addWord(self, word: str) -> None:
         if word:

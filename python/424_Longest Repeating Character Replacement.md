@@ -1,7 +1,6 @@
 # Longest Repeating Character Replacement
 
-cd
-[[sliding window]] [[labuladong]]
+[[slidingwindow]]
 
 You are given a string s and an integer k. You can choose any character of the string and change it to any other uppercase English character. You can perform this operation at most k times.
 
@@ -94,13 +93,16 @@ Now I improve from O(26n) to O(n) using a just variable maxf.
 
 ```python
     def characterReplacement(self, s, k):
-        maxf = i = 0
-        count = collections.Counter()
-        for j in range(len(s)):
-            count[s[j]] += 1
-            maxf = max(maxf, count[s[j]])
-            if j - i + 1 > maxf + k:
-                count[s[i]] -= 1
-                i += 1
-        return len(s) - i
+        res = 0
+        count = {}
+        left = 0
+        maxf = 0
+        for right in range(len(s)):
+            count[s[right]] = count.get(s[right], 0) + 1
+            maxf = max(maxf, count[s[right]])
+            while right - left + 1 - maxf > k:
+                count[s[left]] -= 1
+                left += 1
+            res = max(res, right - left + 1)
+        return res
 ```

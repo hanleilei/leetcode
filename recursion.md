@@ -37,5 +37,6 @@ def recursion(level, param1, param2, ..):
     self.recursion(level + 1, p1, ...)
 
     # reverse the current level status if needed.
+    # clear status
     reverse_state(level)
 ```

@@ -1,6 +1,6 @@
 # populating next right pointers in each node
 
-[[tree]]
+[[tree]] [[bfs]] [[dfs]]
 
 Given a binary tree
 

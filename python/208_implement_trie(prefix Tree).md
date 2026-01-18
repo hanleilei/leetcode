@@ -20,7 +20,7 @@ Note:
 * You may assume that all inputs are consist of lowercase letters a-z.
 * All inputs are guaranteed to be non-empty strings.
 
-#### 这个本来是可以有很多种思路的，但是基本上都差不多：如果数据量不是很大的话，还是可以用这种字典的方式：
+s这个本来是可以有很多种思路的，但是基本上都差不多：如果数据量不是很大的话，还是可以用这种字典的方式：
 
 ```python
 class Trie:
