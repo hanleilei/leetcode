@@ -112,3 +112,16 @@ class Solution:
         # restore state 回溯
         lt.pop()
 ```
+
+```python
+class Solution:
+    def subsets(self, nums: List[int]) -> List[List[int]]:
+        subset = [[]]
+        for n in nums:
+            newset = []
+            for s in subset:
+                ns = s + [n]
+                newset.append(ns)
+            subset.extend(newset)
+        return subset
+```

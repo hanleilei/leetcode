@@ -1,5 +1,7 @@
 # combination sum II
 
+[[dfs]] [[backtracking]]
+
 Given a collection of candidate numbers (candidates) and a target number (target), find all unique combinations in candidates where the candidate numbers sums to target.
 
 Each number in candidates may only be used once in the combination.
@@ -131,5 +133,33 @@ class Solution:
         # Start backtracking from index 0, with full target and empty path
         backtrack(0, target, [])
         
+        return res
+```
+
+```python
+class Solution:
+    def combinationSum2(self, candidates: List[int], target: int) -> List[List[int]]:
+        candidates.sort()
+        n = len(candidates)
+        res = []
+        path = []
+
+        def backtrack(i, left):
+            if left == 0:
+                res.append(path[:])
+                return 
+            
+            for j in range(i, n):
+                if left < candidates[j]:
+                    break
+                
+                if j > i and candidates[j] == candidates[j - 1]:
+                    continue
+                path.append(candidates[j])
+                backtrack(j + 1, left - candidates[j])
+                path.pop()
+
+
+        backtrack(0, target)
         return res
 ```

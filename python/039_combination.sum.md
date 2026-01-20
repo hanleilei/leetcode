@@ -1,5 +1,7 @@
 # Combination Sum
 
+[[dfs]] 
+
 Given a set of candidate numbers (candidates) (without duplicates) and a target number (target), find all unique combinations in candidates where the candidate numbers sums to target.
 
 The same repeated number may be chosen from candidates unlimited number of times.
@@ -104,3 +106,28 @@ class Solution:
 ```
 
 注意这里是用res来存储最终的结果，stack来存储中间过程的结果，入栈和出栈。total来计算当前还是有多少剩余的数量。
+
+
+```python
+class Solution:
+    def combinationSum(self, candidates: List[int], target: int) -> List[List[int]]:
+        res = []
+        path = []
+
+        def dfs(i, left):
+            if left == 0:
+                res.append(path[:])
+                return 
+            
+            if i == len(candidates) or left < 0:
+                return 
+            
+            dfs(i + 1, left)
+
+            path.append(candidates[i])
+            dfs(i, left - candidates[i])
+            path.pop()
+        dfs(0, target)
+        return res
+```
+

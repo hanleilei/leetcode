@@ -53,21 +53,6 @@ class Solution:
         return result if result <= len(nums) else 0
 ```
 
-看下lee215的方法, 非常巧妙:
-
-```python
-class Solution:
-    def minSubArrayLen(self, s, A): # List[int]) -> int:
-        i, res = 0, len(A) + 1
-        for j in range(len(A)):
-            s -= A[j]
-            while s <= 0:
-                res = min(res, j - i + 1)
-                s += A[i]
-                i += 1
-        return res % (len(A) + 1)
-```
-
 灵神的写法：
 
 ```python

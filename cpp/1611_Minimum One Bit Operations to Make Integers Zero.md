@@ -36,11 +36,12 @@ Explanation: The binary representation of 6 is "110".
 
 没思路，看lee215的方案：
 
+```text
 Intuition
 For 1XXXXXXX,
-we need to transfer it
-1XXXXXXX -> ... -> 11000000 -> 1000000 -> ... -> 0
-
+we need to transfer it:
+    1XXXXXXX -> ... -> 11000000 -> 1000000 -> ... -> 0
+```
 
 ```c++
 class Solution {
