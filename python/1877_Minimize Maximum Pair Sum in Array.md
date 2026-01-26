@@ -1,5 +1,7 @@
 # Minimize Maximum Pair Sum in Array
 
+[[2points]] [[greedy]] [[sorting]]
+
 The pair sum of a pair (a,b) is equal to a + b. The maximum pair sum is the largest pair sum in a list of pairs.
 
 For example, if we have pairs (1,5), (2,3), and (4,4), the maximum pair sum would be max(1+5, 2+3, 4+4) = max(6, 5, 8) = 8.
@@ -44,5 +46,27 @@ class Solution:
         n = len(nums)
         nums.sort()
 
-        return max(nums[i] + nums[n - i- 1] for i in range(n))
+        return max(nums[i] + nums[n - i - 1] for i in range(n // 2))
 ```
+
+```python
+class Solution:
+    def minPairSum(self, nums: List[int]) -> int:
+        nums.sort()
+        i=0
+        j=len(nums)-1
+        m=nums[i]+nums[j]
+        while(i<=j):
+            m=max(m,nums[i]+nums[j])
+            i+=1
+            j-=1
+        return m
+```
+
+```python
+class Solution:
+    def minPairSum(self, A: List[int]) -> int:
+        return max(a + b for a, b in zip(sorted(A), sorted(A)[::-1]))
+```
+
+```python

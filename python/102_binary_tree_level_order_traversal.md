@@ -409,3 +409,53 @@ node = queue.popleft()  # O(1)
 - [0103. Binary Tree Zigzag Level Order Traversal](./103_binary_tree_zigzag_level_order_traversal.md) - 锯齿形遍历
 - [0199. Binary Tree Right Side View](./199_binary_tree_right_side_view.md) - 右视图
 - [0637. Average of Levels in Binary Tree](./637_average_of_levels_in_binary_tree.md) - 每层平均值
+
+
+今天面试字节跳动，给我了这个题目:
+
+```python
+from collections import deque
+from typing import List, Optional
+
+
+class TreeNode:
+    def __init__(self, val=0, left=None, right=None):
+        self.val = val
+        self.left = left
+        self.right = right
+
+
+class Solution:
+    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+        if not root:
+            return []
+
+        res = []
+        queue = deque([root])
+        while queue:
+            size = len(queue)
+            level_nodes = []
+            for _ in range(size):
+                node = queue.popleft()
+                level_nodes.append(node.val)
+                if node.left:
+                    queue.append(node.left)
+                if node.right:
+                    queue.append(node.right)
+            res.append(level_nodes)
+        return res
+
+
+s = Solution()
+
+level = s.levelOrder(
+    TreeNode(
+        3, TreeNode(9, TreeNode(19), None), TreeNode(20, TreeNode(15), TreeNode(7))
+    )
+)
+
+levels = sum(level[::-1], [])
+print(levels)
+# Output: [19, 9, 15, 7, 20, 3]
+
+```

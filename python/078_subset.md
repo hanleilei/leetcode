@@ -24,7 +24,7 @@ Constraints:
     -10 <= nums[i] <= 10
     All the numbers of nums are unique.
 
-下面看一下这个方法：
+下面看一下这个backtrack方法：
 
 ```python
 class Solution:
@@ -34,14 +34,14 @@ class Solution:
         path = []
 
         # 枚举选哪个：在下标 i 到 n-1 中选一个数，加到 path 末尾
-        def dfs(i: int) -> None:
+        def backtrack(i: int) -> None:
             ans.append(path.copy())  # 不选，把当前子集加入答案
             for j in range(i, n):  # 选，枚举选择的数字
                 path.append(nums[j])
-                dfs(j + 1)  # 选 nums[j] 意味着 i 到 j-1 都跳过不选，下一个数从 j+1 开始选
+                backtrack(j + 1)  # 选 nums[j] 意味着 i 到 j-1 都跳过不选，下一个数从 j+1 开始选
                 path.pop()  # 恢复现场
 
-        dfs(0)
+        backtrack(0)
         return ans
 ```
 
@@ -88,6 +88,8 @@ class Solution:
             sol += [curr + [num] for curr in sol]
         return sol
 ```
+
+这个是DFS的模板代码：
 
 ```python
 class Solution:

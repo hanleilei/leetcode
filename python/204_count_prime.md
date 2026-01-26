@@ -1,5 +1,7 @@
 # count prime
 
+[[math]]
+
 Description:
 
 Count the number of prime numbers less than a non-negative number, n.
@@ -33,9 +35,9 @@ public int countPrimes(int n) {
 
 private boolean isPrime(int num) {
    if (num <= 1) return false;
-   // Loop's ending condition is i * i <= num instead of i <= sqrt(num)
+   // Loop's ending condition is i *i <= num instead of i <= sqrt(num)
    // to avoid repeatedly calling an expensive function sqrt().
-   for (int i = 2; i * i <= num; i++) {
+   for (int i = 2; i* i <= num; i++) {
       if (num % i == 0) return false;
    }
    return true;
@@ -57,24 +59,24 @@ Yes, the terminating loop condition can be p < √n, as all non-primes ≥ √n 
 The Sieve of Eratosthenes uses an extra O(n) memory and its runtime complexity is O(n log log n). For the more mathematically inclined readers, you can read more about its algorithm complexity on Wikipedia.
 
 ```Java
-public int countPrimes(int n) {
-   boolean[] isPrime = new boolean[n];
-   for (int i = 2; i < n; i++) {
-      isPrime[i] = true;
-   }
-   // Loop's ending condition is i * i < n instead of i < sqrt(n)
-   // to avoid repeatedly calling an expensive function sqrt().
-   for (int i = 2; i * i < n; i++) {
-      if (!isPrime[i]) continue;
-      for (int j = i * i; j < n; j += i) {
-         isPrime[j] = false;
-      }
-   }
-   int count = 0;
-   for (int i = 2; i < n; i++) {
-      if (isPrime[i]) count++;
-   }
-   return count;
+class Solution {
+    public int countPrimes(int n) {
+    boolean[] isPrime = new boolean[n];
+    Arrays.fill(isPrime, true);
+    // Loop's ending condition is i * i < n instead of i < sqrt(n)
+    // to avoid repeatedly calling an expensive function sqrt().
+    for (int i = 2; i * i < n; i++) {
+        if (!isPrime[i]) continue;
+        for (int j = i * i; j < n; j += i) {
+            isPrime[j] = false;
+        }
+    }
+    int count = 0;
+    for (int i = 2; i < n; i++) {
+        if (isPrime[i]) count++;
+    }
+    return count;
+    }
 }
 ```
 
@@ -140,29 +142,18 @@ def is_prime(number):
 
 ```python
 class Solution:
-    # @param {integer} n
-    # @return {integer}
-    def countPrimes(self, n):
-        if n <= 2:
-            return 0
-
-        is_prime = [True] * n
-        num = n // 2
-        for i in xrange(3, n, 2):
-            if i * i >= n:
-                break
-
-            if not is_prime[i]:
-                continue
-
-            for j in xrange(i*i, n, 2*i):
-                if not is_prime[j]:
-                    continue
-
-                num -= 1
-                is_prime[j] = False
-
-        return num
+    def countPrimes(self, n: int) -> int:
+        isPrime = [True] * n
+        for i in range(2, n):
+            if isPrime[i]:
+                for j in range(i * i, n, i):
+                    isPrime[j] = False
+        return sum(isPrime[i] for i in range(2, n))
+        # count = 0
+        # for i in range(2, n):
+        #     if isPrime[i]:
+        #         count += 1
+        # return count
 ```
 
 再来一个最快的方法：
