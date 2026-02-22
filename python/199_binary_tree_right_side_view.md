@@ -1,8 +1,11 @@
 # binary tree right side view
 
+[[bfs]] [[dfs]]
+
 Given a binary tree, imagine yourself standing on the right side of it, return the values of the nodes you can see ordered from top to bottom.
 
 Example:
+
 ```
 Input: [1,2,3,null,5,null,4]
 Output: [1, 3, 4]
@@ -18,6 +21,7 @@ Explanation:
 Solution 1: Recursive, combine right and left: 5 lines, 56 ms
 
 Compute the right view of both right and left left subtree, then combine them. For very unbalanced trees, this can be O(n^2), though.
+
 ```Python
 def rightSideView(self, root):
     if not root:
@@ -26,9 +30,11 @@ def rightSideView(self, root):
     left = self.rightSideView(root.left)
     return [root.val] + right + left[len(right):]
 ```
+
 Solution 2: Recursive, first come first serve: 9 lines, 48 ms
 
 DFS-traverse the tree right-to-left, add values to the view whenever we first reach a new record depth. This is O(n).
+
 ```python
 # Definition for a binary tree node.
 # class TreeNode(object):
@@ -53,9 +59,11 @@ class Solution(object):
         dfs(root, 0)
         return view
 ```
+
 Solution 3: Iterative, level-by-level: 7 lines, 48 ms
 
 Traverse the tree level by level and add the last value of each level to the view. This is O(n).
+
 ```python
 # Definition for a binary tree node.
 # class TreeNode(object):
@@ -119,4 +127,50 @@ def rightSideView3(self, root):
             queue.append((curr.right, level+1))
             queue.append((curr.left, level+1))
     return res
+```
+
+bfs:
+
+```Python
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        if root is None:
+            return []
+        res = []
+        dq = deque([root])
+
+        while dq:
+            size = len(dq)
+            for i in range(size):
+                node = dq.popleft()
+                if i == size - 1:
+                    res.append(node.val)
+                if node.left:
+                    dq.append(node.left)
+                if node.right:
+                    dq.append(node.right)
+        return res
+```
+
+dfs:
+
+```python
+class Solution:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        res = []
+        
+        def dfs(node, depth):
+            if not node:
+                return
+            
+            # 当前深度第一次访问（最右侧节点）
+            if depth == len(res):
+                res.append(node.val)
+            
+            # 优先访问右子树
+            dfs(node.right, depth + 1)
+            dfs(node.left, depth + 1)
+        
+        dfs(root, 0)
+        return res
 ```
