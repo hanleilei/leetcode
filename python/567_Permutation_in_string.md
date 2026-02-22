@@ -123,3 +123,32 @@ class Solution:
                     window[d] -= 1
         return False
 ```
+
+或者，直接比较两个字典是否相等：
+
+```python
+class Solution:
+    def checkInclusion(self, s1: str, s2: str) -> bool:
+        if len(s1) > len(s2):
+            return False
+        left = 0
+        right = 0
+        window = dict()
+        size = len(s1)
+        d = dict(Counter(s1))
+
+        while right < len(s2):
+            # move right
+            window[s2[right]] = window.get(s2[right], 0) + 1
+            right += 1
+
+            if right - left == size:
+                if window == d:
+                    return True
+                else:
+                    window[s2[left]] -= 1
+                    if window[s2[left]] == 0:
+                        del window[s2[left]]
+                    left += 1
+        return False
+```

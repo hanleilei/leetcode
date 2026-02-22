@@ -7,7 +7,7 @@ a = "11"
 b = "1"
 Return "100".
 
-#### 简单。。
+#### 简单
 
 ```python
 class Solution(object):

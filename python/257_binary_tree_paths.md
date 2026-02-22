@@ -1,6 +1,6 @@
 # binary tree paths
 
-[[tree]]
+[[tree]] [[dfs]] [[bfs]]
 
 Given a binary tree, return all root-to-leaf paths.
 

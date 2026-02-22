@@ -35,6 +35,16 @@ class Solution:
 
         for i in range(len(nums) - k):
             windows = windows - nums[i] + nums[i+k]
-            res = max(res, windows )
+            res = max(res, windows)
         return res / k
+```
+
+```python
+class Solution:
+    def findMaxAverage(self, nums: List[int], k: int) -> float:
+        if k == 1: return max(nums)
+        res = [sum(nums[:k])]
+        for i in range(len(nums) - k):
+            res.append(res[-1] - nums[i] + nums[i+k])
+        return max(res) / k
 ```
