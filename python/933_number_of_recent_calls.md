@@ -67,6 +67,25 @@ class RecentCounter:
         return len(self.requests)
 ```
 
+或者：
+
+```python
+from queue import Queue
+
+class RecentCounter:
+
+    def __init__(self):
+        self.q = Queue()        
+
+    def ping(self, t: int) -> int:
+        self.q.put(t)
+        while self.q.queue[0] < t - 3000:
+            # t 是递增的，所以可以从队头删除 3000 毫秒之前的请求
+            self.q.get()
+        
+        return self.q.qsize()
+```
+
 **复杂度分析**：
 
 - 时间复杂度：O(1) 摊还 - 每个元素最多被添加和删除一次

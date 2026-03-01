@@ -26,10 +26,8 @@ Explantion: All integers have 1 bit in the binary representation, you should jus
 
 ## Constraints
 
-```text
 1 <= arr.length <= 500
-0 <= arr[i] <= 104
-```
+$0 <= arr[i] <= 10^4$
 
 直接用lambda。。
 
@@ -53,4 +51,60 @@ class Solution:
         for j in sorted(d.keys()):
             res += sorted(d[j])
         return res
+```
+
+```cpp
+class Solution {
+public:
+    int HammingWeight(int x){ //Brian Kerninghan's Algorithm
+        int wt=0;
+        while(x>0)
+            x&=(x-1), wt++;
+        return wt;
+    }
+    vector<int> sortByBits(vector<int>& arr) {
+        vector<vector<int>> B(32);
+        for(int x :arr)
+            B[HammingWeight(x)].push_back(x);
+
+        for (auto& b: B)
+            sort(b.begin(), b.end());
+        int count=0;
+        for(int i=0; i<32; i++)
+            for(int x: B[i])
+                arr[count++]=x;
+        return arr;
+    }
+};
+```
+
+```cpp
+// variant using C++20 popcount
+class Solution {
+public:
+    vector<int> sortByBits(vector<int>& arr) {
+        sort(arr.begin(), arr.end(), 
+        [](unsigned x, unsigned y){
+            return popcount(x)==popcount(y)?x<y
+            : popcount(x)<popcount(y);
+        });
+        return arr;
+    }
+};
+```
+
+```cpp
+class Solution {
+public:
+    vector<int> sortByBits(vector<int>& arr) {
+        sort(arr.begin(), arr.end(), 
+        [](int x, int y){
+            if (bitset<31>(x).count()==bitset<31>(y).count())
+                return x<y;
+            else 
+                return bitset<31>(x).count()<bitset<31>(y).count();
+        });
+        return arr;
+    }
+};
 ```
