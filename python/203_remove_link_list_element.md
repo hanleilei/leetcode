@@ -1,5 +1,7 @@
 # remove link list elements
 
+[[linkedlist]]
+
 Remove all elements from a linked list of integers that have value val.
 
 Example
@@ -11,7 +13,7 @@ Special thanks to @mithmatt for adding this problem and creating all test cases.
 
 Subscribe to see which companies asked this question.
 
-# 使用“哑节点”记录链表头部, 循环遍历链表时使用pre, cur记录上一个元素和当前元素
+使用“哑节点”记录链表头部, 循环遍历链表时使用pre, cur记录上一个元素和当前元素
 
 ```python
 # Definition for singly-linked list.
@@ -35,6 +37,20 @@ class Solution(object):
                 pre.next = cur.next
             else:
                 pre = cur
+            cur = cur.next
+        return dummy.next
+```
+
+```python
+class Solution:
+    def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
+        p = dummy = ListNode(0, head)
+        cur = head
+        while cur is not None:
+            if cur.val == val:
+                p.next = cur.next
+            else:
+                p = p.next
             cur = cur.next
         return dummy.next
 ```

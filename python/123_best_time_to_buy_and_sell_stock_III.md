@@ -59,9 +59,29 @@ class Solution:
                 temp_max = max(temp_max, dp[j] - prices[j])
                 dp[j] = max(dp[j - 1], prices[j] + temp)
         return dp[len(prices) - 1]
-    
 ```
 
+```python
+class Solution:
+    def maxProfit(self, prices: List[int]) -> int:
+
+        if not prices: return 0
+        
+        n = len(prices)
+        K = 2  # 最多2次交易
+        dp = [[[0, 0] for _ in range(K+1)] for _ in range(n)]
+        
+        for k in range(K+1):
+            dp[0][k][0] = 0
+            dp[0][k][1] = -prices[0]
+        
+        for i in range(1, n):
+            for k in range(K, 0, -1):  # 逆序遍历k
+                dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])
+                dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i])
+        
+        return dp[n-1][K][0]
+```
 
 ```Python
 class Solution:

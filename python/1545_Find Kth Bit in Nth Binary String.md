@@ -1,6 +1,6 @@
 # Find Kth Bit in Nth Binary String
 
-[[string]] [[simulation]]
+[[string]] [[simulation]] [[math]]
 
 Given two positive integers n and k, the binary string Sn is formed as follows:
 
@@ -141,11 +141,51 @@ and what's the last value.
 
 Assume k = x * pow(2), where x is odd.
 The number of flip time, equals to the number of 0,1 groups in x >> 1.
-If x >> 1 is odd, we'll flip odd times. 
+If x >> 1 is odd, we'll flip odd times.
 If x >> 1 is even, we'll flip even times.
 
 ```python
 class Solution:
     def findKthBit(self, n: int, k: int) -> str:
         return str(k // (k & -k) >> 1 & 1 ^ k & 1 ^ 1)
+        # return str((k//(k&-k)>>1^~k)&1)
+```
+
+看下[灵](https://leetcode.cn/problems/find-kth-bit-in-nth-binary-string/solutions/3908610/liang-chong-xie-fa-di-gui-die-dai-python-je8p/)的代码：
+
+```python
+class Solution:
+    def findKthBit(self, n: int, k: int) -> str:
+        if n == 1:
+            return '0'
+        if k == 1 << (n - 1):
+            return '1'
+        if k < 1 << (n - 1):
+            return self.findKthBit(n - 1, k)
+        res = self.findKthBit(n - 1, (1 << n) - k)
+        return '0' if res == '1' else '1'
+```
+
+```python
+class Solution:
+    def findKthBit(self, n: int, k: int) -> str:
+        rev = 0  # 翻转次数的奇偶性
+        while True:
+            if n == 1:
+                return '1' if rev else '0'
+            if k == 1 << (n - 1):
+                return '0' if rev else '1'
+            if k > 1 << (n - 1):
+                k = (1 << n) - k
+                rev ^= 1
+            n -= 1
+```
+
+```python
+class Solution:
+    def findKthBit(self, _, k: int) -> str:
+        if k % 2:
+            return str(k // 2 % 2)
+        k //= k & -k  # 去掉 k 的尾零
+        return str(1 - k // 2 % 2)
 ```

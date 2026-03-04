@@ -138,3 +138,31 @@ class Solution:
         return (cur, prev)
 
 ```
+
+```python
+class Solution:
+    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
+        # 1. 统计链表长度
+        length = 0
+        cur = head
+        while cur:
+            length += 1
+            cur = cur.next
+        
+        # 2. 计算需要翻转的次数
+        times = length // k
+        
+        # 3. 翻转链表
+        dummy = ListNode(0, head)
+        pre = dummy
+        for _ in range(times):
+            cur = pre.next
+            for _ in range(k - 1):
+                next_node = cur.next
+                cur.next = next_node.next
+                next_node.next = pre.next
+                pre.next = next_node
+            pre = cur
+        
+        return dummy.next
+```

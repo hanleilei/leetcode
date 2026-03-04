@@ -47,3 +47,44 @@ class Solution:
                 res += 1
         return res
 ```
+
+```python
+class Solution:
+    def numSpecial(self, mat: List[List[int]]) -> int:
+        ans = 0
+        for row in mat:
+            col = -1
+            for j, x in enumerate(row):
+                if x == 0:
+                    continue
+                if col >= 0:  # 这一行有多个 1
+                    col = -1
+                    break  # 检查下一行
+                col = j  # 记录 1 的列号
+            if col < 0:
+                continue
+
+            seen1 = 0
+            for r in mat:
+                if r[col] == 0:
+                    continue
+                if seen1:  # 这一列有多个 1
+                    seen1 = 0
+                    break  # 检查下一行
+                seen1 = 1  # 这一列有 1
+            ans += seen1
+        return ans
+```
+
+```python
+class Solution:
+    def numSpecial(self, mat: List[List[int]]) -> int:
+        res = 0
+        for r in mat:
+            if sum(r) != 1:
+                continue
+            j = r.index(1)
+            if sum(r[j] for r in mat) == 1:
+                res += 1
+        return res
+```

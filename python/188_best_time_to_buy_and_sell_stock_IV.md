@@ -8,6 +8,7 @@ Note:
 You may not engage in multiple transactions at the same time (ie, you must sell the stock before you buy again).
 
 Example 1:
+
 ```
 Input: [2,4,1], k = 2
 Output: 2
@@ -15,13 +16,13 @@ Explanation: Buy on day 1 (price = 2) and sell on day 2 (price = 4), profit = 4-
 ```
 
 Example 2:
+
 ```
 Input: [3,2,6,5,0,3], k = 2
 Output: 7
 Explanation: Buy on day 2 (price = 2) and sell on day 3 (price = 6), profit = 6-2 = 4.
              Then buy on day 5 (price = 0) and sell on day 6 (price = 3), profit = 3-0 = 3.
 ```
-
 
 ```python
 class Solution(object):
@@ -71,7 +72,6 @@ class Solution(object):
         return result
 ```
 
-
 ```python
 class Solution(object):
     def maxProfit(self, k, prices):
@@ -86,19 +86,19 @@ class Solution(object):
         max_profit = 0
         #if k>= n/2, then it can't complete k transactions. The problem becomes buy-and-sell problem 2
         if k>=length/2:
-            for i in xrange(1,length):
+            for i in range(1,length):
                 max_profit += max(prices[i]-prices[i-1],0)
             return max_profit
 
         #max_global[i][j] is to store the maximum profit, at day j, and having i transactions already
         #max_local[i][j] is to store the maximum profit at day j, having i transactions already, and having transaction at day j
-        max_global = [[0]*length for _ in xrange(k+1)]
-        max_local = [[0]*length for _ in xrange(k+1)]
+        max_global = [[0] * length for _ in range(k+1)]
+        max_local = [[0] * length for _ in range(k+1)]
 
         #i indicates the transaction times, j indicates the times
-        for j in xrange(1,length):
-            cur_profit = prices[j]-prices[j-1] #variable introduced by the current day transaction
-            for i in xrange(1,k+1):
+        for j in range(1,length):
+            cur_profit = prices[j] - prices[j-1] #variable introduced by the current day transaction
+            for i in range(1,k+1):
                 #max_global depends on max_local, so updata local first, and then global.
                 max_local[i][j] = max( max_global[i-1][j-1]+max(cur_profit,0), max_local[i][j-1] + cur_profit)
                 #if cur_profit <0, then the current transaction loses money, so max_local[i][j] = max_global[i-1][j-1]
@@ -107,4 +107,26 @@ class Solution(object):
                 max_global[i][j] = max(max_global[i][j-1], max_local[i][j])
                 #This is more obvious, by looking at whether transaction on day j has influenced max_global or not.
         return max_global[k][-1] #the last day, the last
+```
+
+```python
+class Solution:
+    def maxProfit(self, k: int, prices: List[int]) -> int:
+
+        if not prices: return 0
+        
+        n = len(prices)
+        K = k  # 最多k次交易
+        dp = [[[0, 0] for _ in range(K+1)] for _ in range(n)]
+        
+        for k in range(K+1):
+            dp[0][k][0] = 0
+            dp[0][k][1] = -prices[0]
+        
+        for i in range(1, n):
+            for k in range(K, 0, -1):  # 逆序遍历k
+                dp[i][k][0] = max(dp[i-1][k][0], dp[i-1][k][1] + prices[i])
+                dp[i][k][1] = max(dp[i-1][k][1], dp[i-1][k-1][0] - prices[i])
+        
+        return dp[n-1][K][0]
 ```
