@@ -44,10 +44,10 @@ class Solution:
         # 从后往前填充结果数组
         for i in range(n - 1, -1, -1):
             if abs(nums[left]) > abs(nums[right]):
-                result[i] = nums[left] * nums[left]
+                result[i] = nums[left] ** 2
                 left += 1
             else:
-                result[i] = nums[right] * nums[right]
+                result[i] = nums[right] ** 2
                 right -= 1
         
         return result
@@ -134,4 +134,3 @@ class Solution:
 - [167. Two Sum II - Input Array Is Sorted](167_two_sum_ii_input_array_is_sorted.md) - 两数之和 II
 - [88. Merge Sorted Array](088_merge_sorted_array.md) - 合并两个有序数组
 - [283. Move Zeroes](283_move_zeroes.md) - 移动零
-

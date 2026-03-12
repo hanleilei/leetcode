@@ -60,7 +60,7 @@ class Solution:
 下面的算法是对前序遍历求逆：
 
 ```text
-	root
+ root
     / 
   1 
  / \ 
@@ -89,6 +89,14 @@ prev = Node(1)->Node(3)->Node(4) (Which is the answer)
 
 The answer use self.prev to recode the ordered tree of the right part of current node.
 Remove the left part of current node
+
+采用头插法构建链表，也就是从节点 6 开始，在 6 的前面插入 5，在 5 的前面插入 4，依此类推。
+
+为此，要按照 6→5→4→3→2→1 的顺序访问节点。如何遍历这棵树，才能实现这个顺序？
+
+按照右子树 - 左子树 - 根的顺序 DFS 这棵树。
+
+DFS 的同时，记录当前链表的头节点为 head。一开始 head 是空节点。
 
 具体来说：
 
@@ -121,6 +129,26 @@ class Solution:
         root.left = None
         root.right = self.prev
         self.prev = root
+```
+
+如果觉得那个prev写在方法外面不太好，可以把它放在方法里面：
+
+```python
+class Solution:
+    def flatten(self, root: Optional[TreeNode]) -> None:
+        def dfs(node, prev):
+            if node is None:
+                return prev
+            
+            # 右 -> 左 -> 根
+            prev = dfs(node.right, prev)
+            prev = dfs(node.left, prev)
+            
+            node.left = None
+            node.right = prev
+            return node
+        
+        dfs(root, None)
 ```
 
 ```java
@@ -359,5 +387,5 @@ class Solution:
                 root.right = root.left # 令根节点的右子树指向根节点的左子树
                 root.left = None # 置空根节点的左子树
             root = root.right # 令当前节点指向下一个节点
-        helper(root)s
+        helper(root)
 ```

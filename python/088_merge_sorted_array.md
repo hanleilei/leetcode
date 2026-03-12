@@ -1,6 +1,6 @@
 # Merge Sorted Array
 
-[[two-pointers]]
+[[2points]]
 
 ## Problem Description
 
@@ -118,20 +118,6 @@ class Solution:
 
 经典的归并排序思路，但需要额外空间存储nums1的副本。
 
-## 解法三：Python内置方法
-
-```python
-class Solution:
-    def merge(self, nums1: List[int], m: int, nums2: List[int], n: int) -> None:
-        """
-        Do not return anything, modify nums1 in-place instead.
-        """
-        nums1[m:] = nums2
-        nums1.sort()
-```
-
-最简洁的写法，但时间复杂度为O((m+n)log(m+n))。
-
 ## 算法可视化
 
 ```text
@@ -163,7 +149,6 @@ nums1 = [1,2,3,3,5,6]
 |------|------------|------------|--------|
 | 从后向前 | O(m+n) | O(1) | ✅ 最优解 |
 | 额外空间 | O(m+n) | O(m) | 逻辑清晰 |
-| 内置排序 | O((m+n)log(m+n)) | O(1) | 代码简洁 |
 
 ## 相关题目
 

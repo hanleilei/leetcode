@@ -81,3 +81,51 @@ class Solution:
             cur = not cur
         return min(change_1, len(s) - change_1)
 ```
+
+不管s的长度是什么，交替字符串只有两种形式：010101... 或者 101010...
+
+所以我们只需要统计s和这两种交替字符串的不同字符数量，取最小值即可。也就是说，如果第一种交替字符串和s不同的字符数量是x，第二种交替字符串和s不同的字符数量是len(s) - x，那么我们需要的最小操作数就是min(x, len(s) - x)。
+
+```python
+class Solution:
+    def minOperations(self, s: str) -> int:
+        diff = 0
+        for i, ch in enumerate(s):
+            if int(ch) != i % 2:
+                diff += 1
+        return min(diff, len(s) - diff)
+```
+
+```python
+class Solution:
+    def minOperations(self, s: str) -> int:
+        res = sum(i % 2 == int(c) for i, c in enumerate(s))
+        return min(res, len(s) - res)
+```
+
+现在回头看，还是最后的这个办法最好。
+
+```cpp
+class Solution {
+public:
+    int minOperations(string s) {
+        int res = 0, n = s.length();
+        for (int i = 0; i < n; ++i)
+            if (s[i] - '0' != i % 2)
+                res++;
+        return min(res, n - res);
+    }
+};
+```
+
+```java
+class Solution {
+    public int minOperations(String s) {
+        int res = 0, n = s.length();
+        for (int i = 0; i < n; ++i)
+            if (s.charAt(i) - '0' != i % 2)
+                res++;
+        return Math.min(res, n - res);
+    }
+}
+```

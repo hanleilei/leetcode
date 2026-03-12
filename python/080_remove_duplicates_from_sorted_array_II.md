@@ -134,3 +134,60 @@ def removeDuplicates(nums, k):
 
 - [26. Remove Duplicates from Sorted Array](026_remove_duplicate_from_sorted_array.md) - 删除排序数组中的重复项
 - [27. Remove Element](027_remove_element.md) - 移除元素
+
+如果是快慢指针：
+
+```python
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        if len(nums) == 0:
+            return 0
+        # 快慢指针，维护 nums[0..slow] 为结果子数组
+        slow = 0
+        fast = 0
+        # 记录一个元素重复的次数
+        count = 0
+        while fast < len(nums):
+            if nums[fast] != nums[slow]:
+                # 此时，对于 nums[0..slow] 来说，nums[fast] 是一个新的元素，加进来
+                slow += 1
+                nums[slow] = nums[fast]
+            elif slow < fast and count < 2:
+                # 此时，对于 nums[0..slow] 来说，nums[fast] 重复次数小于 2，也加进来
+                slow += 1
+                nums[slow] = nums[fast]
+            fast += 1
+            count += 1
+            if fast < len(nums) and nums[fast] != nums[fast - 1]:
+                # fast 遇到新的不同的元素时，重置 count
+                count = 0
+        # 数组长度为索引 + 1
+        return slow + 1
+```
+
+```python
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        i = 0
+        if len(nums)>2:
+            for x in nums[2:]:
+                if x !=nums[i]:
+                    nums[i+2]=x
+                    i+=1
+        return i+2
+```
+
+```python
+class Solution:
+    def removeDuplicates(self, nums: List[int]) -> int:
+        n = len(nums)
+        if n == 1 or n == 2:
+            return n
+        
+        left = 1
+        for right in range(2, n):
+            if nums[left - 1] != nums[right]:
+                left += 1
+                nums[left] = nums[right]
+        return left + 1
+```

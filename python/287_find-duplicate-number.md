@@ -1,5 +1,7 @@
 # Find the Duplicate Number
 
+[[2points]]
+
 Given an array of integers nums containing n + 1 integers where each integer is in the range [1, n] inclusive.
 
 There is only one repeated number in nums, return this repeated number.
@@ -70,7 +72,6 @@ class Solution:
             else:
                 high = mid - 1
         return low
-
 ```
 
 再来一个142题的思路：

@@ -1,5 +1,7 @@
 # path ssum III
 
+[[tree]] [[dfs]]
+
 You are given a binary tree in which each node contains an integer value.
 
 Find the number of paths that sum to a given value.
@@ -9,6 +11,7 @@ The path does not need to start or end at the root or a leaf, but it must go dow
 The tree has no more than 1,000 nodes and the values are in the range -1,000,000 to 1,000,000.
 
 Example:
+
 ```
 root = [10,5,-3,3,2,null,11,3,-2,null,1], sum = 8
 
@@ -42,19 +45,19 @@ class Solution:
             if not node:
                 return 0
 
-			# Sum of current path
+   # Sum of current path
             prefixSum += node.val
 
-			# number of paths that ends at current node
+   # number of paths that ends at current node
             path = sumHash[prefixSum - sum]
 
-			# add currentSum to prefixSum Hash
+   # add currentSum to prefixSum Hash
             sumHash[prefixSum] += 1
 
-			# traverse left and right of tree
+   # traverse left and right of tree
             path += dfs(sumHash, prefixSum, node.left) + dfs(sumHash, prefixSum, node.right)
 
-		    # remove currentSum from prefixSum Hash
+      # remove currentSum from prefixSum Hash
             sumHash[prefixSum] -= 1
 
             return path
