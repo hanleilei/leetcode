@@ -1,6 +1,6 @@
 # Subarray Product Less Than K
 
-[[sliding window]] [[array]] [[2points]]
+[[slidingwindow]] [[array]] [[2points]]
 
 ## Problem Description
 
@@ -68,10 +68,27 @@ class Solution:
 
 - 使用两个指针 left 和 right 维护一个滑动窗口
 - 右指针扩大窗口，当乘积 >= k 时左指针收缩
-- 对于每个右指针位置，满足条件的子数组个数为 `right - left + 1`
+- 对于每个右指针位置，满足条件的子数组个数为 `right - left`
 
 **时间复杂度：** O(n)（每个元素最多被访问两次）
 **空间复杂度：** O(1)
+
+```python
+class Solution:
+    def numSubarrayProductLessThanK(self, nums: List[int], k: int) -> int:
+        if k <= 1:
+            return 0
+        ans = left = 0
+        prod = 1
+        for right, x in enumerate(nums):
+            prod *= x
+            while prod >= k:  # 不满足要求
+                prod //= nums[left]
+                left += 1  # 缩小窗口
+            # 对于固定的 right，有 right-left+1 个合法的左端点
+            ans += right - left + 1
+        return ans
+```
 
 ---
 

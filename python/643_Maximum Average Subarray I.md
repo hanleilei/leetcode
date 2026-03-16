@@ -1,6 +1,6 @@
 # Maximum Average Subarray I
 
-[[sliding window]]
+[[slidingwindow]]
 
 You are given an integer array nums consisting of n elements, and an integer k.
 

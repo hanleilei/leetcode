@@ -1,6 +1,6 @@
 # Max Consecutive Ones III
 
-[[sliding_window]] [[2pointers]] [[array]]
+[[slidingwindow]] [[2points]] [[array]]
 
 Given an array A of 0s and 1s, we may change up to K values from 0 to 1.
 
@@ -104,5 +104,26 @@ class Solution:
                     ones -= 1
                 left += 1
             res = max(res, right - left)
+        return res
+```
+
+我们可以思路反转一下：我们要做的是什么，在一个窗口内，最多只能有 k 个 0，有多少个1无所谓。
+
+这样以来，我们就不需要统计窗口内有多少个1了，我们只需要统计窗口内有多少个0就行了。
+
+```python
+class Solution:
+    def longestOnes(self, nums: List[int], k: int) -> int:
+        left, right = 0, 0
+        res = -1
+        count = 0
+        
+        while right < len(nums):
+            count += 1 - nums[right]
+            while count > k:
+                count -= 1 - nums[left]
+                left += 1
+            res = max(res, right - left + 1)
+            right += 1
         return res
 ```

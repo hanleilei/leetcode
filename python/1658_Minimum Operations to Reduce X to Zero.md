@@ -80,6 +80,30 @@ class Solution:
 **时间复杂度：** O(n)
 **空间复杂度：** O(1)
 
+代码写的有点迷，主要是有判断target为0的特殊情况，其他部分是标准的滑动窗口实现。
+
+```python
+class Solution:
+    def minOperations(self, nums: List[int], x: int) -> int:
+        target = sum(nums) - x
+
+        left, right = 0, 0
+        res = -1
+        total = 0
+
+        while right < len(nums):
+            total += nums[right]
+            right += 1
+
+            while total > target and left < right:
+                total -= nums[left]
+                left += 1
+
+            if total == target:
+                res = max(res, right - left)
+        return -1 if res == -1 else len(nums) - res
+```
+
 ---
 
 ## 解法二：前缀和+哈希表

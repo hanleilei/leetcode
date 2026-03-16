@@ -1,34 +1,30 @@
 # longest substring with at least k repeating characters
 
-[[sliding window]] [[divide and conquer]] [[stack]]
+[[slidingwindow]] [[DivideConquer]] [[stack]]
 
-Find the length of the longest substring T of a given string (consists of lowercase letters only) such that every character in T appears no less than k times.
+Given a string s and an integer k, return the length of the longest substring of s such that the frequency of each character in this substring is greater than or equal to k.
+
+if no such substring exists, return 0.
 
 Example 1:
 
-```text
-Input:
-s = "aaabb", k = 3
-
-Output:
-3
-
-The longest substring is "aaa", as 'a' is repeated 3 times.
-```
+Input: s = "aaabb", k = 3
+Output: 3
+Explanation: The longest substring is "aaa", as 'a' is repeated 3 times.
 
 Example 2:
 
-```text
-Input:
-s = "ababbc", k = 2
+Input: s = "ababbc", k = 2
+Output: 5
+Explanation: The longest substring is "ababb", as 'a' is repeated 2 times and 'b' is repeated 3 times.
 
-Output:
-5
+Constraints:
 
-The longest substring is "ababb", as 'a' is repeated 2 times and 'b' is repeated 3 times.
-```
+1 <= s.length <= 10^4
+s consists of only lowercase English letters.
+1 <= k <= 10^5
 
-来一个stefan的神作。。实在是脑壳疼。。
+来一个stefan的神作。。
 
 ```python
 class Solution(object):
@@ -117,7 +113,6 @@ class Solution:
         return res
 ```
 
-
 ```python
 class Solution:
     def longestSubstring(self, s: str, k: int) -> int:
@@ -162,3 +157,39 @@ class Solution:
 ```
 
 总感觉这个题目，可能不太适合滑动窗口。。
+
+```python
+class Solution:
+    @lru_cache(None)
+    def longestSubstring(self, s: str, k: int) -> int:
+        n = len(s)
+        if k <= 1: return n
+
+        def dfs(l, r):
+            if r - l + 1 < k: 
+                return 0
+            cnt = [0]*26
+            for i in range(l, r+1):
+                cnt[ord(s[i]) - 97] += 1
+
+            # 先剥掉两侧明显不可能用的坏字符
+            while l <= r and cnt[ord(s[l]) - 97] < k:
+                l += 1
+            while l <= r and cnt[ord(s[r]) - 97] < k:
+                r -= 1
+            if r - l + 1 < k:
+                return 0
+
+            i = l
+            while i <= r:
+                if cnt[ord(s[i]) - 97] < k:
+                    j = i + 1
+                    while j <= r and cnt[ord(s[j]) - 97] < k:
+                        j += 1
+                    # 断开为左右两段递归（跳过中间整段坏字符）
+                    return max(dfs(l, i-1), dfs(j, r))
+                i += 1
+            return r - l + 1
+
+        return dfs(0, n-1)
+```

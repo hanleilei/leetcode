@@ -1,6 +1,6 @@
 # contains duplicate II
 
-[[sliding_window]] [[hash_table]] [[array]]
+[[slidingwindow]] [[hashtable]] [[array]]
 
 Given an integer array nums and an integer k, return true if there are two distinct indices i and j in the array such that nums[i] == nums[j] and abs(i - j) <= k.
 
@@ -56,14 +56,16 @@ class Solution:
 
         while right < len(nums):
             c = nums[right]
-            right += 1
-
+            
             if c in window:
-                if right - window[c]<= k:
+                if right - window[c] <= k:
                     return True
             window[c] = right
+            right += 1
         return False
 ```
+
+这个思路就很好，其实我们不需要知道所有数字的坐标，我们只需要知道每个数字最后一次出现的位置就行了。
 
 来自labuladong
 

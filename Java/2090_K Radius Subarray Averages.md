@@ -1,8 +1,6 @@
 # K Radius Subarray Averages
 
-[[slidingWindow]] 
-[[java]]
-
+[[slidingWindow]]
 
 You are given a 0-indexed array nums of n integers, and an integer k.
 
@@ -13,7 +11,6 @@ Build and return an array avgs of length n where avgs[i] is the k-radius average
 The average of x elements is the sum of the x elements divided by x, using integer division. The integer division truncates toward zero, which means losing its fractional part.
 
 For example, the average of four elements 2, 3, 1, and 5 is (2 + 3 + 1 + 5) / 4 = 11 / 4 = 2.75, which truncates to 2.
- 
 
 Example 1:
 
@@ -28,7 +25,9 @@ Explanation:
 - For the subarray centered at index 5, avg[5] = (3 + 9 + 1 + 8 + 5 + 2 + 6) / 7 = 4.
 - avg[6], avg[7], and avg[8] are -1 because there are less than k elements after each index.
 ```
+
 Example 2:
+
 ```
 Input: nums = [100000], k = 0
 Output: [100000]
@@ -36,7 +35,9 @@ Explanation:
 - The sum of the subarray centered at index 0 with radius 0 is: 100000.
   avg[0] = 100000 / 1 = 100000.
 ```
+
 Example 3:
+
 ```
 Input: nums = [8], k = 100000
 Output: [-1]
@@ -52,8 +53,8 @@ Constraints:
 
 sliding window 类型的题目
 
-
 这是一个6ms的方法，其实就是sliding window的方法，不过只实现需要求值部份的计算，其余的预先填充好了再也不动。
+
 ```java
 class Solution {
     public int[] getAverages(int[] nums, int k) {
@@ -87,7 +88,9 @@ class Solution {
     }
 }
 ```
+
 下面的代码方法基本一致，只是稍微慢了一点：
+
 ```java
 class Solution {
     public int[] getAverages(int[] nums, int k) {

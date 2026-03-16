@@ -1,6 +1,6 @@
 # Task Scheduler
 
-[[hashtable]]
+[[hashtable]] [[greedy]]
 
 You are given an array of CPU tasks, each represented by letters A to Z, and a cooling time, n. Each cycle or interval allows the completion of one task. Tasks can be completed in any order, but there's a constraint: identical tasks must be separated by at least n intervals due to cooling time.
 
@@ -38,9 +38,11 @@ There are only two types of tasks, A and B, which need to be separated by 3 inte
 
 Constraints:
 
-1 <= tasks.length <= 104
+```
+1 <= tasks.length <= 10^4
 tasks[i] is an uppercase English letter.
 0 <= n <= 100
+```
 
 思路
 
@@ -78,7 +80,6 @@ A -> B -> (单位时间) -> A -> B -> (单位时间) -> A -> B
 输出: 10
 执行顺序: A -> B -> C -> A -> B -> D -> A -> B -> C -> D
 此时如果按照上述方法计算将得到结果为 8，比数组总长度 10 要小，应返回数组长度。
-
 
 ```python
 class Solution:
