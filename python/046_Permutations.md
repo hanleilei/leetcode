@@ -162,6 +162,37 @@ class Solution:
         return res
 ```
 
+```python
+class Solution:
+    def permute(self, nums: List[int]) -> List[List[int]]:
+        n = len(nums)
+        res = []            # 存放所有排列
+        path = []           # 当前正在构建的排列
+        used = [False] * n  # 标记数组，True 表示 nums[i] 已使用
+
+        def backtrack():
+            # 1. 递归终止：path 已装满
+            if len(path) == n:
+                res.append(path.copy())   # 或 path[:] 均可
+                return
+
+            # 2. 枚举所有可选数字
+            for i in range(n):
+                if used[i]:               # 跳过已用数字
+                    continue
+                # 2.1 做选择
+                path.append(nums[i])
+                used[i] = True
+                # 2.2 进入下一层
+                backtrack()
+                # 2.3 撤销选择（回溯）
+                path.pop()
+                used[i] = False
+
+        backtrack()
+        return res
+```
+
 上面的算法复杂度很高O(N**2 * N!)
 
 这个方法不是最快的，但是是最容易理解的。
@@ -175,7 +206,7 @@ class Solution:
         ans = []
 
         # 枚举 path[i] 填 nums 的哪个数
-        def dfs(i: int) -> None:
+        def backtrack(i: int) -> None:
             if i == n:
                 ans.append(path.copy())  # 也可以写 path[:]
                 return
@@ -183,10 +214,10 @@ class Solution:
                 if not on:
                     path[i] = nums[j]  # 从没有选的数字中选一个
                     on_path[j] = True  # 已选上
-                    dfs(i + 1)
+                    backtrack(i + 1)
                     on_path[j] = False  # 恢复现场
                     # 注意 path 无需恢复现场，因为排列长度固定，直接覆盖就行
 
-        dfs(0)
+        backtrack(0)
         return ans
 ```

@@ -41,8 +41,6 @@ class Solution(object):
                 count += 1
 ```
 
-
-
 ```cpp
 class Solution {
 public:
@@ -145,4 +143,35 @@ class Solution:
             k %= fact[i]
         
         return ans
+```
+
+```python
+class Solution:
+    def getPermutation(self, n: int, k: int) -> str:
+        # 转换为0-based索引（更容易计算）
+        k -= 1
+        
+        # 预计算阶乘值
+        # factorial[i] 存储 i! 的值
+        # 例如: factorial[0]=1, factorial[1]=1, factorial[2]=2, factorial[3]=6
+        factorial = [1] * n
+        for i in range(1, n):
+            factorial[i] = factorial[i-1] * i
+        
+        # 创建可用数字列表
+        nums = [str(i) for i in range(1, n+1)]
+        
+        result = []
+        
+        # 从最高位开始确定
+        for i in range(n-1, -1, -1):
+            # 当前位确定后，剩下的排列有 i! 种
+            # index 表示应该选择第几个数字
+            index = k // factorial[i]
+            k %= factorial[i]  # 更新剩余的k
+            
+            result.append(nums[index])
+            nums.pop(index)  # 移除已使用的数字
+        
+        return ''.join(result)
 ```

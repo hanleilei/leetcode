@@ -1,5 +1,7 @@
 # Online Stock Span
 
+[[stack]]
+
 Design an algorithm that collects daily price quotes for some stock and returns the span of that stock's price for the current day.
 
 The span of the stock's price in one day is the maximum number of consecutive days (starting from that day and going backward) for which the stock price was less than or equal to the price of that day.
@@ -33,8 +35,8 @@ stockSpanner.next(85);  // return 6
 
 Constraints:
 
-- 1 <= price <= 105
-- At most 104 calls will be made to next.
+- 1 <= price <= 10^5
+- At most 10^4 calls will be made to next.
 
 ```python
 class StockSpanner:
@@ -53,4 +55,19 @@ class StockSpanner:
 # Your StockSpanner object will be instantiated and called as such:
 # obj = StockSpanner()
 # param_1 = obj.next(price)
+```
+
+```python
+class StockSpanner:
+
+    def __init__(self):
+        self.stack = [(-1, float('inf'))]
+        self.cur_day = -1        
+
+    def next(self, price: int) -> int:
+        while price >= self.stack[-1][1]:
+            self.stack.pop()
+        self.cur_day += 1
+        self.stack.append((self.cur_day, price))
+        return self.cur_day - self.stack[-2][0]
 ```

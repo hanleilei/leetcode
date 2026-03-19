@@ -1,5 +1,7 @@
 # Largest Submatrix With Rearrangements
 
+[[greedy]]
+
 You are given a binary matrix matrix of size m x n, and you are allowed to rearrange the columns of the matrix in any order.
 
 Return the area of the largest submatrix within matrix where every element of the submatrix is 1 after reordering the columns optimally.
@@ -55,9 +57,9 @@ matrix[i][j] is either 0 or 1.
 class Solution:
     def largestSubmatrix(self, matrix: List[List[int]]) -> int:
         """
-		 [ [1, 0, 1, 1]                          [ [1, 0, 1, 1]  
-		   [1, 0, 1, 0]           -->              [2, 0, 2, 0] 
-		   [0, 1, 1, 0] ]                          [0, 1, 3, 0] ]
+   [ [1, 0, 1, 1]                          [ [1, 0, 1, 1]  
+     [1, 0, 1, 0]           -->              [2, 0, 2, 0] 
+     [0, 1, 1, 0] ]                          [0, 1, 3, 0] ]
         """
         m, n = len(matrix), len(matrix[0])
         for i in range(1, m):
@@ -73,3 +75,44 @@ class Solution:
 ```
 
 其余所谓的各式各样的方法，都是上面的方法变化一下，比方说排序的时候是逆序之类的。
+
+```python
+class Solution:
+    def largestSubmatrix(self, matrix: List[List[int]]) -> int:
+        n = len(matrix[0])
+        heights = [0] * n
+        res = 0
+
+        for row in matrix:
+            for j, x in enumerate(row):
+                if x == 0:
+                    heights[j] = 0
+                else:
+                    heights[j] += 1
+
+            hs = sorted(heights)
+            for i, h in enumerate(hs):
+                res = max(res, (n - i) * h)
+        
+        return res
+```
+
+```python
+class Solution:
+    def largestSubmatrix(self, matrix: List[List[int]]) -> int:
+        if not matrix: 
+            return 0
+        m, n = len(matrix), len(matrix[0])
+        heights = [0] * n
+        max_area = 0
+
+        for row in matrix:
+            # build heights
+            for j in range(n):
+                heights[j] = heights[j] + 1 if row[j] else 0
+            # sort heights in descending order to simulate column reordering
+            sorted_heights = sorted(heights, reverse=True)
+            for j in range(n):
+                max_area = max(max_area, sorted_heights[j] * (j + 1))
+        return max_area
+```
