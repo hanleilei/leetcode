@@ -1,5 +1,7 @@
 # reshape the matrix
 
+[[binarysearch]]
+
 In MATLAB, there is a very useful function called 'reshape', which can reshape a matrix into a new one with different size but keep its original data.
 
 You're given a matrix represented by a two-dimensional array, and two positive integers r and c representing the row number and column number of the wanted reshaped matrix, respectively.
@@ -63,7 +65,7 @@ class Solution(object):
         return [list(itertools.islice(it, c)) for _ in range(r)]
 ```
 
-网上找到的 bumpy 的方法实现：
+numpy 的方法实现：
 
 ```Python
 import numpy as np
@@ -100,22 +102,14 @@ class Solution:
 ```python
 class Solution:
     def matrixReshape(self, mat: List[List[int]], r: int, c: int) -> List[List[int]]:
-        rows = len(mat)
-        cols = len(mat[0])
-        T = rows * cols
+        # 如果矩阵的总元素数与目标矩阵的元素数不匹配，返回原矩阵
+        m, n = len(mat), len(mat[0])
 
-        if r*c != T:
+        if m * n != r * c:
             return mat
 
-        res = [[0 for _ in range(c)]for _ in range(r)]
-
-        k = 0
-        for i in range(rows):
-            for j in range(cols):
-                res[k//c][k%c] = mat[i][j]
-                k+=1
-
-        return res
+        res = [mat[i][j] for i in range(m) for j in range(n)]
+        return [res[i : i + c] for i in range(0, len(res), c)]
 ```
 
 最朴素的方法，还是不要玩花里胡哨的东西，直接按题意实现就好。
@@ -128,7 +122,7 @@ class Solution:
             return mat
 
         # 将矩阵拉平成一维数组
-        matrix = sum(mat, [])
+        matrix = sum(mat, []) # 这个sum操作好骚
 
         # 构造目标矩阵
         res = [[0] * c for _ in range(r)]
@@ -138,4 +132,34 @@ class Solution:
             res[i // c][i % c] = matrix[i]
 
         return res
+```
+
+labuladong
+
+```python
+class Solution:
+    def matrixReshape(self, mat: List[List[int]], r: int, c: int) -> List[List[int]]:
+        m, n = len(mat), len(mat[0])
+        # 如果想成功 reshape，元素个数应该相同
+        if r * c != m * n:
+            return mat
+
+        res = [[0] * c for _ in range(r)]
+        for i in range(m * n):
+            self.set(res, i, self.get(mat, i))
+        return res
+
+    # 通过一维坐标访问二维数组中的元素
+    def get(self, matrix: List[List[int]], index: int) -> int:
+        m, n = len(matrix), len(matrix[0])
+        # 计算二维中的横纵坐标
+        i, j = divmod(index, n)
+        return matrix[i][j]
+
+    # 通过一维坐标设置二维数组中的元素
+    def set(self, matrix: List[List[int]], index: int, value: int) -> None:
+        m, n = len(matrix), len(matrix[0])
+        # 计算二维中的横纵坐标
+        i, j = divmod(index, n)
+        matrix[i][j] = value
 ```

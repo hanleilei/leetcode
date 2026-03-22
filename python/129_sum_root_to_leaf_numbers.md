@@ -73,6 +73,22 @@ class Solution:
 
 ```
 
+递归版本：（最佳）
+
+```python
+class Solution:
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        def dfs(node, curr_sum):
+            if not node:
+                return 0
+            curr_sum = curr_sum * 10 + node.val
+            if not node.left and not node.right:
+                return curr_sum
+            return dfs(node.left, curr_sum) + dfs(node.right, curr_sum)
+        
+        return dfs(root, 0)
+```
+
 再来看一个使用queue的BFS版本：
 
 ```python
@@ -103,6 +119,7 @@ class Solution:
 
         return res
 ```
+
 再来一个DFS的递归版本：
 
 ```python
@@ -181,4 +198,18 @@ class Solution:
                 if node.right: dfs(node.right, path)
         dfs(root, "")
         return ans
+```
+
+```python
+class Solution:
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        def dfs(node, curr_sum):
+            if not node:
+                return 0
+            curr_sum = curr_sum * 10 + node.val
+            if not node.left and not node.right:
+                return curr_sum
+            return dfs(node.left, curr_sum) + dfs(node.right, curr_sum)
+        
+        return dfs(root, 0)
 ```

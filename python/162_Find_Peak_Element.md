@@ -88,3 +88,15 @@ class Solution:
 
         return mid
 ```
+
+```python
+class Solution:
+    def findPeakElement(self, nums: List[int]) -> int:
+        left, right = -1, len(nums) - 1  # 开区间 (-1, n-1)
+        while left + 1 < right:  # 开区间不为空
+            mid = left + (right - left) // 2
+            if nums[mid] > nums[mid + 1]:  # 下坡，峰顶位置 <= mid
+                right = mid
+            else:  # 上坡，峰顶位置 > mid
+                left = mid
+        return right

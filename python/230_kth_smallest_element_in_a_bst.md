@@ -126,16 +126,18 @@ class Solution:
 ```python
 class Solution:
     def kthSmallest(self, root: Optional[TreeNode], k: int) -> int:
-        self.res = list()
-        self.dfs(root)
+        self.res = 0
+        self.rank = 0
+        self.traverse(root, k)
+        return self.res
 
-        return self.res[k-1]
-    
-    def dfs(self, root):
-        if root is None:
+    def traverse(self, root, k):
+        if not root:
+            return
+        self.traverse(root.left, k)
+        self.rank += 1
+        if k == self.rank:
+            self.res = root.val
             return 
-
-        self.dfs(root.left)
-        self.res.append(root.val)
-        self.dfs(root.right)
+        self.traverse(root.right, k)
 ```

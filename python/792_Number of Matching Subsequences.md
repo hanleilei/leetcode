@@ -1,11 +1,12 @@
 # Number of Matching Subsequences
 
+[[binarysearch]]
+
 Given a string s and an array of strings words, return the number of words[i] that is a subsequence of s.
 
 A subsequence of a string is a new string generated from the original string with some characters (can be none) deleted without changing the relative order of the remaining characters.
 
 For example, "ace" is a subsequence of "abcde".
- 
 
 Example 1:
 
@@ -16,7 +17,6 @@ Example 2:
 
 Input: s = "dsahjpjauf", words = ["ahjpjau","ja","ahbwzgqnuk","tnmlanowax"]
 Output: 2
- 
 
 Constraints:
 
@@ -118,4 +118,31 @@ class Solution:
         for i, c in enumerate(s):
             d[c].append(i)
         return sum(check(w) for w in words)
+```
+
+```python
+class Solution:
+    def numMatchingSubseq(self, s: str, words: List[str]) -> int:
+        # 使用defaultdict简化初始化
+        d = defaultdict(list)
+        for i, ch in enumerate(s):
+            d[ch].append(i)
+        
+        result = len(words)
+        for word in words:
+            compare_index = -1
+            for ch in word:
+                if ch not in d:
+                    result -= 1
+                    break
+                
+                # 二分查找大于compare_index的最小位置
+                idx_list = d[ch]
+                pos = bisect.bisect_left(idx_list, compare_index + 1)
+                if pos == len(idx_list):
+                    result -= 1
+                    break
+                compare_index = idx_list[pos]
+        
+        return result
 ```
