@@ -213,3 +213,28 @@ class Solution:
         
         return dfs(root, 0)
 ```
+
+```python
+class Solution:
+    def sumNumbers(self, root: Optional[TreeNode]) -> int:
+        res = list()
+        path = list()
+
+        def dfs(node: Optional[TreeNode]) -> None:
+            if node is None:
+                return
+            
+            path.append(str(node.val))
+            if node.left is None and node.right is None:
+                val = 0
+                for i in path:
+                    val = val * 10 + int(i)
+                res.append(val)
+            else:
+                dfs(node.left)
+                dfs(node.right)
+            path.pop()
+
+        dfs(root)
+        return sum(res)
+```

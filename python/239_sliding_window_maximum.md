@@ -1,5 +1,7 @@
 # 239. Sliding Window Maximum
 
+[[queue]] [[heap]] [[slidingwindow]]
+
 ## 问题描述
 
 You are given an array of integers `nums`, there is a sliding window
@@ -52,9 +54,6 @@ Output: [1]
 是当前窗口的最大值索引。
 
 ```python
-from typing import List
-from collections import deque
-
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         """
@@ -96,9 +95,6 @@ class Solution:
 Stefan Pochmann 的简洁实现。
 
 ```python
-from typing import List
-from collections import deque
-
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         """
@@ -134,9 +130,6 @@ class Solution:
 先处理前 k 个元素形成初始窗口，再滑动窗口。
 
 ```python
-from typing import List
-from collections import deque
-
 class Solution:
     def maxSlidingWindow(self, nums: List[int], k: int) -> List[int]:
         """
@@ -226,87 +219,6 @@ res[left] = nums[q[0]]
 
 时间复杂度为 O(n) 的原因：虽然有 while 循环，但每个元素最多
 入队和出队各一次，总操作数为 2n，均摊 O(1)。
-
-### 执行过程示例
-
-以 `nums = [1,3,-1,-3,5,3,6,7], k = 3` 为例：
-
-| i | x | 操作 | 队列q | 队列值 | left | res |
-|---|---|------|-------|--------|------|-----|
-| 0 | 1 | 入队 | [0] | [1] | -2 | - |
-| 1 | 3 | 3>1,弹0,入1 | [1] | [3] | -1 | - |
-| 2 | -1 | -1<3,入2 | [1,2] | [3,-1] | 0 | [3] |
-| 3 | -3 | -3<-1,入3 | [1,2,3] | [3,-1,-3] | 1 | [3,3] |
-| 4 | 5 | 5>all,清空,入4 | [4] | [5] | 2 | [3,3,5] |
-| 5 | 3 | 3<5,入5 | [4,5] | [5,3] | 3 | [3,3,5,5] |
-| 6 | 6 | 6>all,清空,入6 | [6] | [6] | 4 | [3,3,5,5,6] |
-| 7 | 7 | 7>6,弹6,入7 | [7] | [7] | 5 | [3,3,5,5,6,7] |
-
-关键步骤：
-
-Step 4：当 `x=5` 时，5 大于队列中所有值（3, -1, -3），全部弹出，
-队列变为 `[4]`（只有索引4）。
-
-Step 6：当 `x=6` 时，6 大于队列中所有值（5, 3），全部弹出。
-
-## 常见错误
-
-### 错误1：队列存储值而不是索引
-
-```python
-# 错误：无法判断是否过期
-q.append(x)
-
-# 正确：用索引判断
-q.append(i)
-if q[0] < left:  # 检查是否在窗口内
-    q.popleft()
-```
-
-### 错误2：判断条件用 `<` 而不是 `<=`
-
-```python
-# 错误：相等的值也要移除
-while q and nums[q[-1]] < x:
-    q.pop()
-
-# 正确：保证严格单调递减
-while q and nums[q[-1]] <= x:
-    q.pop()
-```
-
-### 错误3：忘记移除过期元素
-
-```python
-# 错误：没有检查队首是否过期
-res[left] = nums[q[0]]
-
-# 正确：先移除过期
-if q[0] < left:
-    q.popleft()
-res[left] = nums[q[0]]
-```
-
-### 错误4：窗口未形成就记录答案
-
-```python
-# 错误：left 可能是负数
-res[left] = nums[q[0]]
-
-# 正确：检查窗口是否形成
-if left >= 0:
-    res[left] = nums[q[0]]
-```
-
-### 错误5：误用 max() 函数（超时）
-
-```python
-# 错误：暴力法 O(nk) 超时
-for i in range(len(nums) - k + 1):
-    res.append(max(nums[i:i+k]))
-
-# 正确：单调队列 O(n)
-```
 
 ## 相关题目
 

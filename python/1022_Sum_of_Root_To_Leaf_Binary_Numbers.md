@@ -87,3 +87,25 @@ class Solution:
 
         return dfs(root, 0)
 ```
+
+```python
+class Solution:
+    def sumRootToLeaf(self, root: Optional[TreeNode]) -> int:
+        self.res = 0
+        path = list()
+
+        def dfs(node: Optional[TreeNode]) -> None:
+            if node is None:
+                return
+            
+            path.append(str(node.val))
+            if node.left is None and node.right is None:
+                self.res += int(''.join(path), 2) 
+            else:
+                dfs(node.left)
+                dfs(node.right)
+            path.pop()
+
+        dfs(root)
+        return self.res
+```

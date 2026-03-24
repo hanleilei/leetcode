@@ -202,3 +202,27 @@ class Solution:
         dfs(0, 0, "")
         return res
 ```
+
+```python
+class Solution:
+    def generateParenthesis(self, n: int) -> List[str]:
+        def backtrack(s: str, left: int, right: int):
+            # 终止条件：左右括号都用完了
+            if left == 0 and right == 0:
+                result.append(s)
+                return
+            
+            # 如果还有左括号可用，添加左括号
+            if left > 0:
+                backtrack(s + "(", left - 1, right)
+            
+            # 如果右括号数量大于左括号（保证括号有效），添加右括号
+            if right > left:
+                backtrack(s + ")", left, right - 1)
+        
+        result = []
+        backtrack("", n, n)
+        return result
+```
+
+上面的不同写法，无非就是传入的参数不同，两个0或者两个n，判断条件就不一样。

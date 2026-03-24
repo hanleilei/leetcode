@@ -14,7 +14,7 @@ def divide_conquer(problem, param1, param2,...):
 
     # conquer subproblems
     subresult1 = divide_conquer(subproblems[0], p1, ...)
-    subresult2 = divide_conquer(subproblems[1], p1, ... )
+    subresult2 = divide _conquer(subproblems[1], p1, ... )
     subresult3 = divide_conquer(subproblems[2], p1, ...)
     ...
     subresultN = divide_conquer(subproblems[N], p1, ...)

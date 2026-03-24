@@ -27,11 +27,11 @@ def recursive_function(params):
 def recursion(level, param1, param2, ..):
     # recursion terminator
     if level > max_level:
-        print_result
+        print_result 
         return
     
     # process login in current level
-    process_data(level, data)
+    process_data(level, data, ...)
 
     # drill down
     self.recursion(level + 1, p1, ...)
@@ -40,3 +40,9 @@ def recursion(level, param1, param2, ..):
     # clear status
     reverse_state(level)
 ```
+
+这样看来，回溯，递归和分治算法的框架是非常相似的，区别在于：
+
+- 分治算法需要将问题拆分成多个子问题，然后分别解决，聚合结果；
+- 递归通常只处理一个子问题，或者在处理多个子问题时不需要聚合结果；
+- 回溯则是在递归的基础上增加了状态重置的步骤，以便在探索不同的路径时能够回到之前的状态。

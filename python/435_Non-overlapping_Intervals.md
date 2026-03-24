@@ -1,6 +1,6 @@
 # Non-overlapping Intervals
 
-[[greedy]] [[interval overlapping]]
+[[greedy]]
 
 Given a collection of intervals, find the minimum number of intervals you need to remove to make the rest of the intervals non-overlapping.
 
@@ -38,6 +38,10 @@ Output: 0
 
 Explanation: You don't need to remove any of the intervals since they're already non-overlapping.
 ```
+
+改为计算最多可以选多少个互不重叠的区间，那么没选的区间就是要移除的区间。
+
+考虑所选区间中，最左边的那个区间。
 
 ```Python
 # Definition for an interval.
@@ -108,13 +112,12 @@ class Solution:
 ```python
 class Solution:
     def eraseOverlapIntervals(self, intervals: List[List[int]]) -> int:
-        intervals.sort(key = lambda x: x[1])d
-        total, end_point = 0, float("-inf")
-
-        for i in intervals:
-            if i[0] >= end_point:
-                total += 1 
-                end_point = i[1]
-
-        return len(intervals) - total
+        intervals.sort(key=lambda x: x[1])
+        res = 0
+        end_point = -sys.maxsize
+        for left, right in intervals:
+            if left >= end_point:
+                res += 1
+                end_point = right
+        return len(intervals) - res
 ```

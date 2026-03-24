@@ -27,16 +27,21 @@ class Solution {
         return result;
     }
     public void generateOneByOne(String sublist, List<String> result, int left, int right){
+        // terminator
         if (left == 0 && right == 0){
             result.add(sublist);
             return ;
         }
+
+        // process current logic： left > 0, right > left
+        // drill down
         if (left > 0){
             generateOneByOne(sublist + "(", result, left - 1, right);
         }
         if (right > left){
             generateOneByOne(sublist + ")", result, left, right - 1);
         }
+        // reverse state 
     }
 }
 ```

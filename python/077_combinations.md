@@ -43,10 +43,10 @@ class Solution:
             need = k - len(curr_lst)
             remain = n - first_num + 1
             available = remain - need
-            #first_num 代表当前所看的数
+            # first_num 代表当前所看的数
             for num in range(first_num, first_num+available+ 1):
                 curr_lst.append(num)
-                #回溯时候，num+1在这里的意义是我继续从他后面开始找。就不找他前面的数了。避免重复
+                # 回溯时候，num+1在这里的意义是我继续从他后面开始找。就不找他前面的数了。避免重复
                 backTracking(curr_lst, num+1)
 
                 curr_lst.pop()

@@ -36,7 +36,6 @@ class Solution(object):
         :type root: TreeNode
         :rtype: List[str]
         """
-        from collections import deque
         if not root:
             return []
         res, stack = [], deque([(root, "")])
@@ -117,4 +116,29 @@ class Solution:
             return [path]
         path += "->"
         return self.dfs(root.left, path) + self.dfs(root.right, path)
+```
+
+```python
+class Solution:
+    def binaryTreePaths(self, root: Optional[TreeNode]) -> List[str]:
+        res = list()
+
+        def dfs(node: Optional[TreeNode], path: str) -> None:
+            # terminator
+            if node is None:
+                return
+            
+            # process current logic
+            path += str(node.val)
+            if node.left is None and node.right is None:
+                res.append(path)
+                return
+            
+            # drill down
+            path += "->"
+            dfs(node.left, path)
+            dfs(node.right, path)
+
+        dfs(root, "")
+        return res
 ```

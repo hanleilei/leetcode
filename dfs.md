@@ -24,5 +24,6 @@ def dfs(self, tree):
         nodes = generate_related_nodes(node)
         stack.push(nodes)
 
-        # othere processing work
+        # other processing work
+        
 ```
