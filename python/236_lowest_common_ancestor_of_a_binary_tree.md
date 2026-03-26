@@ -23,7 +23,7 @@ For example, the lowest common ancestor (LCA) of nodes 5 and 1 is 3. Another exa
 ```python
 class Solution:
     def lowestCommonAncestor(self, root: 'TreeNode', p: 'TreeNode', q: 'TreeNode') -> 'TreeNode':
-        if root in (None, p, q):  # 找到 p 或 q 就不往下递归了，原因见上面答疑
+        if root in (None, p, q):  # 找到 p 或 q 就不往下递归了
             return root
         left = self.lowestCommonAncestor(root.left, p, q)
         right = self.lowestCommonAncestor(root.right, p, q)

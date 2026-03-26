@@ -1,18 +1,35 @@
 # Maximum Subarray
 
-[[dp]]
+[[dp]] [[DivideConquer]]
 
-Find the contiguous subarray within an array (containing at least one number) which has the largest sum.
+Given an integer array nums, find the with the largest sum, and return its sum.
 
-For example, given the array [-2,1,-3,4,-1,2,1,-5,4],
-the contiguous subarray [4,-1,2,1] has the largest sum = 6.
+Example 1:
 
-click to show more practice.
+Input: nums = [-2,1,-3,4,-1,2,1,-5,4]
+Output: 6
+Explanation: The subarray [4,-1,2,1] has the largest sum 6.
 
-More practice:
-If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle
+Example 2:
 
-以下解释来自于这个链接：http://blog.csdn.net/linhuanmars/article/details/21314059
+Input: nums = [1]
+Output: 1
+Explanation: The subarray [1] has the largest sum 1.
+
+Example 3:
+
+Input: nums = [5,4,-1,7,8]
+Output: 23
+Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
+
+Constraints:
+
+    1 <= nums.length <= 105
+    -104 <= nums[i] <= 104
+
+Follow up: If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
+
+以下解释来自于这个链接：<http://blog.csdn.net/linhuanmars/article/details/21314059>
 
 这是一道非常经典的动态规划的题目，用到的思路我们在别的动态规划题目中也很常用，以后我们称为”局部最优和全局最优解法“。
 
@@ -45,7 +62,7 @@ class Solution(object):
         return gb
 ```
 
-另外，还有一个方法，还是 DP，来自于这个链接：http://www.tuicool.com/articles/IbiMjaI
+另外，还有一个方法，还是 DP，来自于这个链接：<http://www.tuicool.com/articles/IbiMjaI>
 
 如果看过 Mark Allen Weiss 写的数据结构与算法分析一书，可以发现是第二章为了介绍算法的魅力，逐步从三次方的时间复杂度一直优化到线性时间复杂度的一个例子。有一点小区别，就是书中给的例子简化了，如果全为负数，则认为最大子序列和为 0，所以有一点点出入，不过基本思路是完全一样的。
 
@@ -68,7 +85,7 @@ class Solution(object):
         return maxSum
 ```
 
-这两个算法可以说的上是大同小异。下面在看一个 Kadane 算法，来自于这个链接：http://blog.csdn.net/joylnwang/article/details/6859677
+这两个算法可以说的上是大同小异。下面在看一个 Kadane 算法，来自于这个链接：<http://blog.csdn.net/joylnwang/article/details/6859677>
 
 对于一个包含负值的数字串 array[1...n]，要找到他的一个子串 array[i...j]（0<=i<=j<=n），使得在 array 的所有子串中，array[i...j]的和最大。
 
@@ -216,7 +233,7 @@ class Solution:
         return max_val
 ```
 
-上面的方法是通过 Kadane 算法实现，参考这个链接：https://zhuanlan.zhihu.com/p/96014673
+上面的方法是通过 Kadane 算法实现，参考这个链接：<https://zhuanlan.zhihu.com/p/96014673>
 
 速度快的版本来一个：
 

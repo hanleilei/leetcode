@@ -1,6 +1,6 @@
 # lowest common ancestor of a binary search tree
 
-[[tree]]
+[[tree]] [[bst]]
 
 Given a binary search tree (BST), find the lowest common ancestor (LCA) of two given nodes in the BST.
 

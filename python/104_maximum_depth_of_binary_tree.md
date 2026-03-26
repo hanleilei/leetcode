@@ -1,12 +1,12 @@
 # maximum depth of binary tree
 
-[[BFS]] [[DFS]] [[Tree]] [[BinaryTree]]
+[[BFS]] [[DFS]] [[Tree]] [[recursion]]
 
 Given a binary tree, find its maximum depth.
 
 The maximum depth is the number of nodes along the longest path from the root node down to the farthest leaf node
 
-先使用深度优先遍历：
+递归
 
 ```python
 # Definition for a binary tree node.
@@ -27,7 +27,7 @@ class Solution(object):
         return 1 + max(self.maxDepth(root.left), self.maxDepth(root.right))
 ```
 
-或者
+或者先使用深度优先遍历：
 
 ```python
 # Definition for a binary tree node.
@@ -68,17 +68,33 @@ class Solution:
 
 这个方法，第一次看确实不是很好理解，尤其是为什么最后还要减去1。不过理解了前序和后序遍历的位置后，就很清晰了。
 
-下面尝试广度优先遍历：
+dfs + stack：
 
 ```python
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.left = None
-#         self.right = None
-
 class Solution:
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if not root:
+            return 0
+        
+        res = 0
+        stack = [(root, 1)]
+
+        while stack:
+            node, depth = stack.pop()
+            if node:
+                res = max(res, depth)
+                # 注意：先右子树入栈，后左子树入栈，这样出栈时才是先访问左子树，再访问右子树
+                if node.right: 
+                    stack.append((node.right, depth + 1))
+                if node.left:
+                    stack.append((node.left, depth + 1))
+        return res
+```
+
+bfs
+
+```python
+ss Solution:
     def maxDepth(self, root: Optional[TreeNode]) -> int:
         if not root:
             return 0

@@ -116,9 +116,6 @@ class Solution:
 上面的方法略慢，看下这个：
 
 ```python
-from collections import Counter
-
-
 dirs = [(0, 1), (1, 0), (0, -1), (-1, 0)]
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
@@ -159,7 +156,6 @@ class Solution:
 ```python
 class Solution:
     def exist(self, board: List[List[str]], word: str) -> bool:
-        
         R = len(board)
         C = len(board[0])
         
@@ -232,3 +228,5 @@ class Solution:
             return False  # 没搜到
         return any(dfs(i, j, 0) for i in range(m) for j in range(n))
 ```
+
+其实，只要有了优化一，优化二 就能达到0ms了！
