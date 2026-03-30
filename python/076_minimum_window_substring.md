@@ -171,7 +171,7 @@ class Solution:
         start = 0
         size = float('inf')
 
-        while right < len(s):
+        while right < len(s):i
             c = s[right]
             right += 1
 
