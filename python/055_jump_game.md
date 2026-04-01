@@ -34,17 +34,12 @@ class Solution(object):
 
 ```python
 class Solution:
-    def canJump(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: bool
-        """
-        mingood = len(nums)-1
-        for i in range(len(nums)-2,-1,-1):
-            if i + nums[i] >= mingood:
-                mingood = i
-
-        return mingood == 0
+    def canJump(self, nums: List[int]) -> bool:
+        end_reachable = len(nums) - 1
+        for i in range(len(nums) - 1, -1, -1):
+            if nums[i] + i >= end_reachable:
+                end_reachable = i
+        return end_reachable == 0
 ```
 
 再来一个单行的 python2 版本：

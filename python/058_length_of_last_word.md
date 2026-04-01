@@ -1,16 +1,33 @@
 # length of last world
 
-Given a string s consists of upper/lower-case alphabets and empty space characters ' ', return the length of last word in the string.
+Given a string s consisting of words and spaces, return the length of the last word in the string.
 
-If the last word does not exist, return 0.
+A word is a maximal substring consisting of non-space characters only.
 
-Note: A word is defined as a character sequence consists of non-space characters only.
+Example 1:
 
-For example,
-Given s = "Hello World",
-return 5.
+Input: s = "Hello World"
+Output: 5
+Explanation: The last word is "World" with length 5.
+Example 2:
 
-###### 字符串操作之抖机灵
+Input: s = "   fly me   to   the moon  "
+Output: 4
+Explanation: The last word is "moon" with length 4.
+Example 3:
+
+Input: s = "luffy is still joyboy"
+Output: 6
+Explanation: The last word is "joyboy" with length 6.
+
+Constraints:
+
+1 <= s.length <= 104
+s consists of only English letters and spaces ' '.
+There will be at least one word in s.
+
+字符串操作之抖机灵
+
 ```python
 class Solution(object):
     def lengthOfLastWord(self, s):
@@ -18,8 +35,5 @@ class Solution(object):
         :type s: str
         :rtype: int
         """
-        if len(s) == 0:
-            return 0
-        return len(s.strip().split(' ')[-1])
-
+        return len(s.split()[-1]) if s.split() else 0
 ```

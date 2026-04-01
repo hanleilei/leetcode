@@ -41,11 +41,13 @@ Given two words, `beginWord` and `endWord`, and a dictionary `wordList`, return 
 ### Approach 1: Bidirectional BFS (Optimal)
 
 **Key Insight:**
+
 - Use bidirectional BFS from both beginWord and endWord simultaneously
 - Search from the smaller frontier to reduce time complexity
 - Meet in the middle when frontiers intersect
 
 **Why Bidirectional BFS?**
+
 - Regular BFS: explores all nodes at distance d before distance d+1
 - Bidirectional BFS: searches from both ends, meeting in the middle
 - Time complexity improvement: O(b^(d/2)) vs O(b^d) where b is branching factor, d is depth
@@ -58,46 +60,46 @@ class Solution:
     def ladderLength(self, beginWord: str, endWord: str, wordList: List[str]) -> int:
         # Convert to set for O(1) lookup
         word_set = set(wordList)
-        
+
         # endWord must be in wordList
         if endWord not in word_set:
             return 0
-        
+
         # Initialize two frontiers
         front = {beginWord}
         back = {endWord}
         length = 2  # Start at 2 (beginWord + 1 step)
         word_len = len(beginWord)
-        
+
         while front:
             # Generate all possible next words from current frontier
             new_front = set()
-            
+
             for word in front:
                 for i in range(word_len):
                     # Try all 26 letters at position i
                     for c in 'abcdefghijklmnopqrstuvwxyz':
                         new_word = word[:i] + c + word[i+1:]
-                        
+
                         # Found connection between two frontiers
                         if new_word in back:
                             return length
-                        
+
                         # Valid transformation found
                         if new_word in word_set:
                             new_front.add(new_word)
-            
+
             # Move to next level
             front = new_front
-            
+
             # Always expand the smaller frontier (optimization)
             if len(front) > len(back):
                 front, back = back, front
-            
+
             # Remove visited words to avoid cycles
             word_set -= front
             length += 1
-        
+
         return 0
 ```
 
@@ -141,6 +143,7 @@ class Solution:
 ### Approach 3: BFS with Pre-computed Graph
 
 **Key Insight:**
+
 - Pre-compute all possible word transformations
 - Build adjacency graph
 - Run BFS on the graph
@@ -210,6 +213,7 @@ class Solution:
 | Pre-computed Graph | O(M² × N) | O(M² × N) | Good when multiple queries |
 
 Where:
+
 - M = length of each word
 - N = size of wordList
 

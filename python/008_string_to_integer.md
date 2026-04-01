@@ -16,12 +16,14 @@ Only the space character ' ' is considered as whitespace character.
 Assume we are dealing with an environment which could only store integers within the 32-bit signed integer range: [−231,  231 − 1]. If the numerical value is out of the range of representable values, INT_MAX (231 − 1) or INT_MIN (−231) is returned.
 
 Example 1:
+
 ```
 Input: "42"
 Output: 42
 ```
 
 Example 2:
+
 ```
 Input: "   -42"
 Output: -42
@@ -30,12 +32,15 @@ Output: -42
 Explanation: The first non-whitespace character is '-', which is the minus sign.
              Then take as many numerical digits as possible, which gets 42.
 Example 3:
+
 ```
 Input: "4193 with words"
 Output: 4193
 ```
+
 Explanation: Conversion stops at digit '3' as the next character is not a numerical digit.
 Example 4:
+
 ```
 Input: "words and 987"
 Output: 0
@@ -44,10 +49,12 @@ Output: 0
 Explanation: The first non-whitespace character is 'w', which is not a numerical
              digit or a +/- sign. Therefore no valid conversion could be performed.
 Example 5:
+
 ```
 Input: "-91283472332"
 Output: -2147483648
 ```
+
 Explanation: The number "-91283472332" is out of the range of a 32-bit signed integer.
              Thefore INT_MIN (−231) is returned.
 
@@ -86,8 +93,8 @@ class Solution:
 
 5. 还需要考虑边界问题，如果超过了整形数的范围，则用边界值替代当前值。
 
-
 下面的这个方法，解决不了："0-1" 这个的结果是-1。。。
+
 ```python
 class Solution:
     def myAtoi(self, s):
@@ -141,39 +148,38 @@ class Solution:
 
         return sum
 ```
+
 我的方法，有点乱，但是过了全部的test case：
 
 ```python
 class Solution:
     def myAtoi(self, s: str) -> int:
-        from string import digits
-        res = list()
-        s = s.strip()
+        dq = deque(s.strip())
+        if len(dq) == 0: return 0
+        res = []
+        sign = True
+        if dq[0] == '-':
+            sign = False
+            dq.popleft()
+        elif dq[0] == '+':
+            sign = True
+            dq.popleft()
 
-        flag = 1
-        if len(s) > 0:
-            if s[0] == '-':
-                flag = -1
-                s = s[1:]
-            elif s[0] == '+':
-                flag = 1
-                s = s[1:]
-        if s == '' or s[0] not in digits:
-            return 0
-        for x in s:
-            if x in digits:
-                res.append(x)
+        while dq:
+            val = dq.popleft()
+            if val in string.digits:
+                res.append(val)
             else:
-                 break   
-        res =  int(''.join(res)) * flag
-        if flag == 1:
-            if res > (1<<31) -1:
-                return (1<<31) -1
-            else:
-                return res
+                break
+        if res == []: return 0
+        if sign:
+            return min(int(''.join(res)), 2 ** 31 - 1)
         else:
-            if res < -(1<<31):
-                return -(1<<31)
-            else:
-                return res
+            return max(-int(''.join(res)), -2 ** 31)
 ```
+
+套路就这么个套路：
+
+1. 符号是正负都要判断
+2. 空数组
+3. 最后是否有溢出。

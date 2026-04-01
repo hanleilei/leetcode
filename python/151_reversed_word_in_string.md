@@ -1,6 +1,6 @@
 # Reverse Words in a String
 
-[[string]] [[two-pointers]]
+[[string]] [[2points]]
 
 Given an input string s, reverse the order of the words.
 
@@ -188,7 +188,7 @@ class Solution:
         return res
 ```
 
-## 解法六：
+## 解法六
 
 ```python
 class Solution:

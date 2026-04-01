@@ -2,15 +2,15 @@
 
 [[dfs]] [[backtrack]]
 
-The n-queens puzzle is the problem of placing n queens on an n×n chessboard such that no two queens attack each other.
+The n-queens puzzle is the problem of placing n queens on an n x n chessboard such that no two queens attack each other.
+
+Given an integer n, return all distinct solutions to the n-queens puzzle. You may return the answer in any order.
+
+Each solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space, respectively.
+
+## Example 1
 
 ![](https://leetcode.com/static/images/problemset/8-queens.png)
-
-Given an integer n, return all distinct solutions to the n-queens puzzle.
-
-Each solution contains a distinct board configuration of the n-queens' placement, where 'Q' and '.' both indicate a queen and an empty space respectively.
-
-## Example
 
 ```text
 Input: 4
@@ -25,8 +25,20 @@ Output: [
   "...Q",
   ".Q.."]
 ]
+
 Explanation: There exist two distinct solutions to the 4-queens puzzle as shown above.
 ```
+
+## Example 2
+
+```text
+Input: n = 1
+Output: [["Q"]]
+```
+
+## Constraints
+
+1 <= n <= 9
 
 这个其实是一个典型的回溯算法问题。
 
@@ -166,4 +178,39 @@ class Solution:
 
         backtrack(0)
         return result
+```
+
+用位运算：
+
+```python
+class Solution:
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        ans = []
+        queens = [-1] * n
+        full = (1 << n) - 1   # n个1: 所有列都满时的状态
+
+        def backtrack(i, cols, diag1, diag2):
+            if i == n:
+                ans.append(['.' * c + 'Q' + '.' * (n-1-c) for c in queens])
+                return
+
+            # 三个方向的威胁合并，取反得到可放置的列
+            available = full & ~(cols | diag1 | diag2)
+
+            while available:
+                bit = available & (-available)   # 取最低可用位
+                available &= available - 1       # 清除该位
+
+                j = bit.bit_length() - 1         # 位 → 列号
+                queens[i] = j
+
+                backtrack(
+                    i + 1,
+                    cols  | bit,
+                    (diag1 | bit) >> 1,   # 左斜左移传播
+                    (diag2 | bit) << 1,   # 右斜右移传播
+                )
+
+        backtrack(0, 0, 0, 0)
+        return ans
 ```

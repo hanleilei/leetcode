@@ -1,27 +1,28 @@
 # Valid Palindrome II
 
-Given a non-empty string s, you may delete at most one character. Judge whether you can make it a palindrome.
+Given a string s, return true if the s can be palindrome after deleting at most one character from it.
 
-## Example 1
+Example 1:
 
-```text
-Input: "aba"
-Output: True
-```
+Input: s = "aba"
+Output: true
+Example 2:
 
-## Example 2
-
-```text
-Input: "abca"
-Output: True
+Input: s = "abca"
+Output: true
 Explanation: You could delete the character 'c'.
-```
+Example 3:
 
-## Note
+Input: s = "abc"
+Output: false
 
-- The string will only contain lowercase characters a-z. The maximum length of the string is 50000.
+Constraints:
+
+1 <= s.length <= 10^5
+s consists of lowercase English letters.
 
 下面的这个纯粹就是思路问题：
+
 先双指针，然后确定找到出现的第一个不同字符的位置。然后根据这两个位置的坐标，由于不确定是删除哪个字符，所以就可以得到两个数组，他们的偏移位置为1。
 
 ```Python
@@ -67,5 +68,22 @@ class Solution:
                 high -= 1   
             else:   
                 return checkPalindrome(low + 1, high) or checkPalindrome(low, high - 1)
+        return True
+```
+
+类似来一个更简洁的：
+
+```python
+class Solution:
+    def validPalindrome(self, s: str) -> bool:
+        def check(s: str) -> bool:
+            return s == s[::-1]
+        
+        left, right = 0, len(s) - 1
+        while left < right:
+            if s[left] != s[right]:
+                return check(s[left+1:right+1]) or check(s[left:right])
+            left += 1
+            right -= 1
         return True
 ```

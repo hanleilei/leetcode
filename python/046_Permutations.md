@@ -22,19 +22,7 @@ Subscribe to see which companies asked this question
 
 ## 方法
 
-直接用itertools里面的方法迭代，注意生成的是元祖，需要转换成列表
-
-```python
-class Solution(object):
-    def permute(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: List[List[int]]
-        """
-        return list(permutations(nums,len(nums)))
-```
-
-上面的这个标准库，很不合适，还是需要用backtrack的方法：
+需要用backtrack的方法：
 
 ```python
 class Solution:

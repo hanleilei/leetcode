@@ -1,24 +1,23 @@
 # jewel and stone
 
-You're given strings J representing the types of stones that are jewels, and S representing the stones you have.  Each character in S is a type of stone you have.  You want to know how many of the stones you have are also jewels.
+You're given strings jewels representing the types of stones that are jewels, and stones representing the stones you have. Each character in stones is a type of stone you have. You want to know how many of the stones you have are also jewels.
 
-The letters in J are guaranteed distinct, and all characters in J and S are letters. Letters are case sensitive, so "a" is considered a different type of stone from "A".
+Letters are case sensitive, so "a" is considered a different type of stone from "A".
 
 Example 1:
-```
-Input: J = "aA", S = "aAAbbbb"
+
+Input: jewels = "aA", stones = "aAAbbbb"
 Output: 3
-```
 Example 2:
-```
-Input: J = "z", S = "ZZ"
+
+Input: jewels = "z", stones = "ZZ"
 Output: 0
-```
-Note:
-```
-S and J will consist of letters and have length at most 50.
-The characters in J are distinct.
-```
+
+Constraints:
+
+1 <= jewels.length, stones.length <= 50
+jewels and stones consist of only English letters.
+All the characters of jewels are unique.
 
 这么说，是时候展现Python单行程序的威力了。
 
@@ -31,4 +30,11 @@ class Solution:
         :rtype: int
         """
         return len([i for i in S if i in J])
+```
+
+```python
+class Solution:
+    def numJewelsInStones(self, jewels: str, stones: str) -> int:
+        c = Counter(stones)
+        return sum([c[i] for i in jewels if i in c])
 ```
