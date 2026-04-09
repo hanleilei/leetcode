@@ -1,36 +1,27 @@
 # Valid perfect square
 
-Given a positive integer num, write a function which returns True if num is a perfect square else False.
+[[binarysearch]]
 
-Note: Do not use any built-in library function such as sqrt.
+Given a positive integer num, return true if num is a perfect square or false otherwise.
+
+A perfect square is an integer that is the square of an integer. In other words, it is the product of some integer with itself.
+
+You must not use any built-in library function, such as sqrt.
 
 Example 1:
 
-Input: 16
-Returns: True
+Input: num = 16
+Output: true
+Explanation: We return true because 4 * 4 = 16 and 4 is an integer.
 Example 2:
 
-Input: 14
-Returns: False
+Input: num = 14
+Output: false
+Explanation: We return false because 3.742 * 3.742 = 14 and 3.742 is not an integer.
 
-用sqrt，用最简单粗暴的方法，计算最少
+Constraints:
 
-```python
-class Solution(object):
-    def isPerfectSquare(self, num):
-        """
-        :type num: int
-        :rtype: bool
-        """
-        from math import sqrt
-        n = sqrt(num)
-        if pow(int(n),2) == num:
-            return True
-        else:
-            return False
-```
-
-上面的方法太老土，看下面的几个方法：
+1 <= num <= 2^31 - 1
 
 1. 二分法：
 
@@ -52,7 +43,7 @@ class Solution:
         return lo * lo == num
 ```
 
-2. 1 3 5 7 法，这个是因为 (x+1)^2 = x^2 + 2*x + 1，即所有的平方数都可以转换为1 + 3 + 5 + 7 + 。。。之和。
+1. 1 3 5 7 法，这个是因为 (x+1)^2 = x^2 + 2*x + 1，即所有的平方数都可以转换为1 + 3 + 5 + 7 + 。。。之和。
 
 ```python
 class Solution:
@@ -68,18 +59,4 @@ class Solution:
             num -= i
             i += 2
         return num == 0
-```
-
-3. 直接使用math库中的ceil和floor方法：
-
-```python
-class Solution:
-    def isPerfectSquare(self, num):
-        """
-        :type num: int
-        :rtype: bool
-        """
-        import math
-        a = num**0.5
-        return math.ceil(a) == math.floor(a)
 ```
