@@ -31,5 +31,4 @@ class Solution:
         for i in range(1, n):
             res ^= (start + 2 * i)
         return res
-
 ```

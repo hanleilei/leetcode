@@ -41,14 +41,17 @@ arr is guaranteed to be a mountain array.
 ```python
 class Solution:
     def peakIndexInMountainArray(self, arr: List[int]) -> int:
-        left, right = 0, len(arr) - 2
-        while left + 1 < right:
-            mid = (right + left) // 2
-            if arr[mid] > arr[mid + 1]:
+        left, right = 0, len(arr) - 1
+
+        while left <= right:
+            mid = left + (right - left) // 2
+            if arr[mid-1] < arr[mid] and arr[mid] > arr[mid+1]:
+                return mid
+            elif arr[mid-1] < arr[mid] < arr[mid + 1]:
+                left = mid 
+            elif arr[mid-1] > arr[mid] > arr[mid + 1]:
                 right = mid
-            else:
-                left = mid
-        return right
+        return -1
 ```
 
 往常我们使用「二分」进行查值，需要确保序列本身满足「二段性」：当选定一个端点（基准值）后，结合「一段满足 & 另一段不满足」的特性来实现“折半”的查找效果。

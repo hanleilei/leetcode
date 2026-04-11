@@ -49,3 +49,12 @@ class Solution:
         nums = [int(i) for i in list(str(n))]
         return functools.reduce(lambda x, y: x * y, nums) - sum(nums)
 ```
+
+或者python 3.8 之后的版本：
+
+```python
+class Solution:
+    def subtractProductAndSum(self, n: int) -> int:
+        nums = [int(i) for i in str(n)]
+        return math.prod(nums) - sum(nums)
+```

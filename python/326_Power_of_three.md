@@ -1,11 +1,34 @@
 # Power of three
 
-Given an integer, write a function to determine if it is a power of three.
+Given an integer n, return true if it is a power of three. Otherwise, return false.
 
-Follow up:
-Could you do it without using any loop / recursion?
+An integer n is a power of three, if there exists an integer x such that n == 3x.
 
-###### 不用循环和迭代，但是需要理解 math 库的 pow 函数和 log 函数的使用方法
+Example 1:
+
+Input: n = 27
+Output: true
+Explanation: 27 = 33
+
+Example 2:
+
+Input: n = 0
+Output: false
+Explanation: There is no x where 3x = 0.
+
+Example 3:
+
+Input: n = -1
+Output: false
+Explanation: There is no x where 3x = (-1).
+
+Constraints:
+
+-2^31 <= n <= 2^31 - 1
+
+Follow up: Could you solve it without loops/recursion?
+
+不用循环和迭代，但是需要理解 math 库的 pow 函数和 log 函数的使用方法
 
 ```python
 class Solution(object):
