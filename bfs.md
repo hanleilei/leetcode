@@ -91,3 +91,8 @@ public List<List<Integer>> levelOrder(TreeNode root) {
     return allResults;
 }
 ```
+
+启发式搜索：
+
+<https://www.redblobgames.com/pathfinding/a-star/introduction.html>
+<https://www.redblobgames.com/pathfinding/a-star/implementation.html>

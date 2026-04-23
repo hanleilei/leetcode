@@ -184,3 +184,55 @@ class Solution:
             ans = max(ans, x * x + y * y)
         return ans
 ```
+
+```python
+class Solution:
+    def robotSim(self, commands: List[int], obstacles: List[List[int]]) -> int:
+        directions = [(0, 1), (1, 0), (0, -1), (-1, 0)]
+        dir_idx = 0
+        x = y = 0
+        max_dist = 0
+        obstacles_set = set(map(tuple, obstacles))
+
+        for cmd in commands:
+            # 只转向
+            if cmd == -1:
+                dir_idx = (dir_idx+1) % 4
+            elif cmd == -2:
+                dir_idx = (dir_idx-1) % 4
+            else:
+                # 要步进
+                dx, dy = directions[dir_idx]
+                for _ in range(cmd):
+                    nx, ny = x+dx, y+dy
+                    if (nx, ny) in obstacles_set:
+                        break
+                    x, y = nx, ny
+                max_dist = max(max_dist, x*x + y*y)
+
+        return max_dist
+```
+
+```python
+class Solution:
+    def robotSim(self, commands: List[int], obstacles: List[List[int]]) -> int:
+        x, y = 0, 0
+        res = 0
+        direct = 0
+        d = ((0, 1), (1, 0), (0, -1), (-1, 0))
+        obstacles = set(tuple(obstacle) for obstacle in obstacles)
+        for command in commands:
+            if command == -2:
+                direct = (direct - 1) % 4
+            elif command == -1:
+                direct = (direct + 1) % 4
+            else:
+                dx, dy = d[direct]
+                for _ in range(command):
+                    if (x + dx, y + dy) in obstacles:
+                        break
+                    x += dx
+                    y += dy
+                res = max(res, x * x + y * y)
+        return res
+```
