@@ -1,4 +1,6 @@
-#  Number of Provinces
+# Number of Provinces
+
+[[unionfind]] [[dfs]] [[bfs]]
 
 There are n cities. Some of them are connected, while some are not. If city a is connected directly with city b, and city b is connected directly with city c, then city a is connected indirectly with city c.
 
@@ -123,4 +125,26 @@ class Solution:
                     union.union(i,j)
 
         return union.groups
+```
+
+```python
+class Solution:
+    def findCircleNum(self, isConnected: List[List[int]]) -> int:
+        def find(index: int) -> int:
+            if parent[index] != index:
+                parent[index] = find(parent[index])
+            return parent[index]
+
+        def union(index1: int, index2: int):
+            parent[find(index1)] = find(index2)
+        
+        cities = len(isConnected)
+        parent = list(range(cities))
+
+        for i in range(cities):
+            for j in range(i + 1, cities):
+                if isConnected[i][j] == 1:
+                    union(i, j)
+        provinces = sum(parent[i] == i for i in range(cities))
+        return provinces
 ```

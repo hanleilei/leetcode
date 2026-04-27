@@ -91,3 +91,13 @@ class Solution:
             res += ch * min([word.count(ch) for word in words]) 
         return res
 ```
+
+```python
+class Solution:
+    def commonChars(self, words: List[str]) -> List[str]:
+        c = Counter(words[0])
+        for w in words[1:]:
+            d = Counter(w)
+            c = {k: min(c[k], d[k]) for k in d if k in c}
+        return list("".join([k * v for k, v in c.items()]))
+```

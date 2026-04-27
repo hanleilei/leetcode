@@ -93,60 +93,24 @@ class Solution:
 
 5. 还需要考虑边界问题，如果超过了整形数的范围，则用边界值替代当前值。
 
-下面的这个方法，解决不了："0-1" 这个的结果是-1。。。
-
 ```python
 class Solution:
-    def myAtoi(self, s):
-        """
-        :type str: str
-        :rtype: int
-
-        """
-        base = "0123456789"
-        plus = "+"
-        minus = "-"
-        sum = 0
-        flag = 1
-        bit = 0
-        INT_MAX = 2147483647
-        INT_MIN = -2147483648
-
-        if not str:
+    def myAtoi(self, s: str) -> int:
+        s = s.strip()
+        sign = 1
+        if len(s) == 0:
             return 0
-
-        if len(str) == 0:
-            return 0
-
-        for letter in str.strip():
-            if letter in plus:
-                if bit == 0:
-                    bit = 1
-                    continue
-                else:
-                    break
-            elif letter in minus:
-                if bit == 0:
-                    bit = 1
-                    flag = -1
-                    continue
-                else:
-                    break
-            elif letter not in base:
-                break;
-            else:
-                sum *= 10
-                sum += int(letter)
-
-        sum *= flag
-
-        if(sum > INT_MAX):
-            return INT_MAX
-
-        if(sum < INT_MIN):
-            return INT_MIN
-
-        return sum
+        if s[0] in ["+", "-"]:
+            if s[0] == "-":
+                sign = -1
+            s = s[1:]
+        res = 0
+        for c in s:
+            if not c.isdigit():
+                break
+            res = res * 10 + int(c)
+        res *= sign
+        return max(-(2**31), min(res, 2**31 - 1))
 ```
 
 我的方法，有点乱，但是过了全部的test case：

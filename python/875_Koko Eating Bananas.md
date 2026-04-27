@@ -1,5 +1,7 @@
 # Koko Eating Bananas
 
+[[binarysearch]]
+
 Koko loves to eat bananas. There are n piles of bananas, the ith pile has piles[i] bananas. The guards have gone and will come back in h hours.
 
 Koko can decide her bananas-per-hour eating speed of k. Each hour, she chooses some pile of bananas and eats k bananas from that pile. If the pile has less than k bananas, she eats all of them instead and will not eat any more bananas during this hour.
@@ -7,8 +9,6 @@ Koko can decide her bananas-per-hour eating speed of k. Each hour, she chooses s
 Koko likes to eat slowly but still wants to finish eating all the bananas before the guards return.
 
 Return the minimum integer k such that she can eat all the bananas within h hours.
-
- 
 
 Example 1:
 
@@ -22,7 +22,6 @@ Example 3:
 
 Input: piles = [30,11,23,4,20], h = 6
 Output: 23
- 
 
 Constraints:
 
@@ -30,7 +29,7 @@ Constraints:
 piles.length <= h <= 10^9
 1 <= piles[i] <= 10^9
 
-## 解法一：二分查找（推荐）
+二分查找:
 
 ```python
 class Solution:
@@ -52,6 +51,29 @@ class Solution:
         return left
 ```
 
+注意这里： `hours += (pile + mid - 1) // mid` 是为了计算吃完 pile 需要的小时数，等价于 `math.ceil(pile / mid)`，但避免了使用浮点数。这个是向上取整的技巧，确保即使 pile 不是 mid 的整数倍，也能正确计算所需的小时数。
+
+$$\lceil \frac{pile}{mid} \rceil = \lceil \frac{pile + mid - 1}{mid} \rceil$$
+
+```python
+class Solution:
+    def minEatingSpeed(self, piles: List[int], h: int) -> int:
+        def can_eat(speed: int) -> bool:
+            hours = 0
+            for pile in piles:
+                hours += (pile + speed - 1) // speed
+            return hours <= h
+
+        left, right = 1, max(piles)
+        while left <= right:
+            mid = left + (right - left) // 2
+            if can_eat(mid):
+                right = mid - 1
+            else:
+                left = mid + 1
+        return left
+```
+
 ```python
 class Solution:
     def minEatingSpeed(self, piles: List[int], H: int) -> int:
@@ -66,8 +88,6 @@ class Solution:
                 left = mid
         return right
 ```
-
-## 解法二：二分查找（labuladong 方法）
 
 ```python
 class Solution:
@@ -93,5 +113,3 @@ class Solution:
                 hours += 1
         return hours
 ```
-
-
