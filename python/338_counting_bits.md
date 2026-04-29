@@ -43,7 +43,7 @@ Can you do it without using any built-in function (i.e., like __builtin_popcount
 ```python
 class Solution:
     def countBits(self, num: int) -> List[int]:
-        r = [0] * (num+1)
+        r = [0] * (num + 1)
         for i in range(1, len(r)):
             r[i] = r[i & (i-1)] + 1
         return r

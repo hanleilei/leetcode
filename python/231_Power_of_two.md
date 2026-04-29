@@ -48,10 +48,3 @@ class Solution:
             n //= 2
         return n == 1
 ```
-
-```python
-class Solution:
-    def isPowerOfTwo(self, n: int) -> bool:
-        if n <= 0: return False
-        return bin(n).count("1") == 1
-```

@@ -4,11 +4,10 @@ Implement an iterator over a binary search tree (BST). Your iterator will be ini
 
 Calling next() will return the next smallest number in the BST.
 
-
-
-### Example:
+### Example
 
 ![](https://assets.leetcode.com/uploads/2018/12/25/bst-tree.png)
+
 ```
 BSTIterator iterator = new BSTIterator(root);
 iterator.next();    // return 3
@@ -22,7 +21,7 @@ iterator.next();    // return 20
 iterator.hasNext(); // return false
 ```
 
-### Note:
+### Note
 
 * next() and hasNext() should run in average O(1) time and uses O(h) memory, where h is the height of the tree.
 * You may assume that next() call will always be valid, that is, there will be at least a next smallest number in the BST when next() is called.
@@ -137,11 +136,6 @@ class BSTIterator:
         yield node.val
         for x in self.iterate(node.right):
             yield x
-
-
-
-
-
 
 # Your BSTIterator object will be instantiated and called as such:
 # obj = BSTIterator(root)

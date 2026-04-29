@@ -6,13 +6,13 @@ A happy number is a number defined by the following process: Starting with any p
 
 Example: 19 is a happy number
 
-1**2 + 9**2 = 82
-8**2 + 2**2 = 68
-6**2 + 8**2 = 100
-1**2 + 0**2 + 0\*\*2 = 1
+`1**2 + 9**2 = 82`
+`8**2 + 2**2 = 68`
+`6**2 + 8**2 = 100`
+`1**2 + 0**2 + 0**2 = 1`
+
 Credits:
 Special thanks to @mithmatt and @ts for adding this problem and creating all test cases.
-
 
 关键点就在于如何判断循环停止，有一个办法就是如果列表中出现两次平方和的结果一致，就可以终止这个循环。这个问题用递归的解法似乎更简单，但是不喜欢，下面是一个非递归的解法
 
@@ -37,12 +37,40 @@ class Solution:
 ```python
 class Solution:
     def isHappy(self, n: int) -> bool:
-        s = set()
+        seen = set()
         while n != 1:
+            seen.add(n)
             n = sum([int(i) ** 2 for i in str(n)])
-            if n in s:
+            if n in seen:
                 return False
-            else:
-                s.add(n)
-        return True
+        return n == 1
 ```
+
+其实转换一下思路，就是一个判断链表是否有环的问题，快慢指针就可以了：
+
+```python
+class Solution:
+    def isHappy(self, n: int) -> bool:
+        def get_next_num(x: int) -> int:
+            next_num = 0
+            while x > 0:
+                # Extract the last digit of 'x'.
+                digit = x % 10
+                # Truncate (remove) the last digit from 'x' using floor division.
+                x //= 10
+                # Add the square of the extracted digit to the sum.
+                next_num += digit ** 2
+            return next_num
+        slow = fast = n
+        while True:
+            slow = get_next_num(slow)
+            fast = get_next_num(get_next_num(fast))
+            if fast == 1:
+                return True
+            # If the fast and slow pointers meet, a cycle is detected. Hence, 'n' is not
+            # a happy number.
+            elif fast == slow:
+                return False
+```
+
+但是这个代码有点太麻烦了。。

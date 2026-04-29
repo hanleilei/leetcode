@@ -12,6 +12,7 @@ Here are some examples. Inputs are in the left-hand column and its corresponding
 1,1,5 → 1,5,1
 
 思路和cpp的版本不是非常的一致：
+
 1. 两两相比，找到最后一个递增的子序列，返回左边的位置k
 2. 如果是递减的序列，则直接求逆序
 3. 从k的下一个元素开始，遍历，找到最后一个大于位置k的值，位置为l
