@@ -1,4 +1,7 @@
 # LRU Cache
+
+[[design]]
+
 Design and implement a data structure for Least Recently Used (LRU) cache. It should support the following operations: get and put.
 
 get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
@@ -8,6 +11,7 @@ Follow up:
 Could you do both operations in O(1) time complexity?
 
 Example:
+
 ```
 LRUCache cache = new LRUCache( 2 /* capacity */ );
 

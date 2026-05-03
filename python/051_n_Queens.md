@@ -214,3 +214,44 @@ class Solution:
         backtrack(0, 0, 0, 0)
         return ans
 ```
+
+```python
+class Solution:
+    def solveNQueens(self, n: int) -> List[List[str]]:
+        if n <= 0:
+            return []
+
+        res = []
+
+        def dfs(row: int, cols: int, pies: int, nas: int, path: List[int]) -> None:
+            if row == n:
+                # 将路径转换为棋盘字符串
+                board = []
+                for col in path:
+                    board.append('.' * col + 'Q' + '.' * (n - col - 1))
+                res.append(board)
+                return
+
+            # 所有可放置的位置（1 表示可用）
+            available = (~(cols | pies | nas)) & ((1 << n) - 1)
+
+            while available:
+                # 取出最低位的 1
+                p = available & -available
+                available &= available - 1
+
+                # 计算该位对应的列索引
+                col = p.bit_length() - 1
+
+                # 递归下一行
+                dfs(
+                    row + 1,
+                    cols | p,
+                    (pies | p) << 1,
+                    (nas | p) >> 1,
+                    path + [col]
+                )
+
+        dfs(0, 0, 0, 0, [])
+        return res
+```

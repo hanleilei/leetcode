@@ -1,5 +1,7 @@
 # Power of three
 
+[[math]]
+
 Given an integer n, return true if it is a power of three. Otherwise, return false.
 
 An integer n is a power of three, if there exists an integer x such that n == 3x.
@@ -64,4 +66,14 @@ class Solution:
                 return False
             n //= 3
         return True
+```
+
+换个思路， 3 的 19 次幂是 int 范围内最大的 3 的幂，如果 n 是 3 的幂，那么它一定能整除 3 的 19 次幂：
+
+```python
+class Solution:
+    def isPowerOfThree(self, n: int) -> bool:
+        max_val = 3 ** 19
+        if n <= 0: return False
+        return max_val % n == 0
 ```
