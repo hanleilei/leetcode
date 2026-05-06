@@ -11,6 +11,7 @@ Return the fewest number of coins that you need to make up that amount. If that 
 You may assume that you have an infinite number of each kind of coin.
 
 **Example 1:**
+
 ```
 Input: coins = [1,2,5], amount = 11
 Output: 3
@@ -18,18 +19,21 @@ Explanation: 11 = 5 + 5 + 1
 ```
 
 **Example 2:**
+
 ```
 Input: coins = [2], amount = 3
 Output: -1
 ```
 
 **Example 3:**
+
 ```
 Input: coins = [1], amount = 0
 Output: 0
 ```
 
 **Constraints:**
+
 - 1 <= coins.length <= 12
 - 1 <= coins[i] <= 2^31 - 1
 - 0 <= amount <= 10^4
@@ -39,9 +43,11 @@ Output: 0
 ## Solution 1: Dynamic Programming (推荐)
 
 **思路：**
+
 - 定义 `dp[i]` 表示凑成金额 i 所需的最少硬币数
 - 状态转移：`dp[i] = min(dp[i-coin] + 1)` for all coins
 - 完全背包问题的变形
+- 自底向上实现，空间优化
 
 **时间复杂度：** O(amount × len(coins))  
 **空间复杂度：** O(amount)
@@ -83,6 +89,7 @@ class Solution:
 ```
 
 **优化点：**
+
 - ✅ 用 `inf` 替代 `amount + 1`，语义更明确
 - ✅ 初始化更简洁：`[0] + [inf] * amount`
 - ✅ 完全背包标准写法：先遍历物品，再遍历容量
@@ -93,6 +100,7 @@ class Solution:
 ## Solution 2: BFS (层序遍历)
 
 **思路：**
+
 - 将问题看作图的最短路径问题
 - 从金额0开始，每次加上一个硬币作为一层
 - 第一次到达目标金额时，步数即为最少硬币数
@@ -141,6 +149,7 @@ class Solution:
 ## Solution 3: DFS + 记忆化搜索 (推荐的DFS方法)
 
 **思路：**
+
 - 标准的DFS + 记忆化，避免重复计算
 - memo[amount] 存储凑成该金额的最少硬币数
 - 自顶向下的递归解法
@@ -201,6 +210,7 @@ class Solution:
 ## Solution 4: 位运算优化的BFS (高级技巧)
 
 **思路：**
+
 - 使用位运算表示可达的金额状态
 - bit位为1表示该金额可达
 - 通过位移操作快速计算下一层状态
@@ -232,8 +242,6 @@ class Solution:
         return -1
 ```
 
-
-
 ---
 
 ## 总结与对比
@@ -246,15 +254,18 @@ class Solution:
 | 位运算BFS (Solution 4) | O(amount × n / 64) | O(1) | 位运算快速 | amount不能太大 |
 
 **推荐做法（按优先级）：**
+
 1. 🥇 **DP方法 (Solution 1)** - 面试首选，清晰、稳定、高效
 2. 🥈 **DFS + 记忆化 (Solution 3)** - 自顶向下思路，适合理解递归
 3. 🥉 **BFS (Solution 2)** - 图论角度理解，概念清晰
 
 **避免的做法：**
+
 - ❌ DFS + 贪心剪枝 (Solution 3B) - 容易TLE，面试不推荐
 - ⚠️ 位运算BFS (Solution 4) - 仅限小范围amount，实用性受限
 
-**面试建议：** 
+**面试建议：**
+
 - 先说DP思路，写出状态转移方程
 - 如果面试官要求优化空间，可以讨论滚动数组
 - 可以提到BFS的图论建模思路作为加分项

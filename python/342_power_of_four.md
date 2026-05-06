@@ -22,6 +22,7 @@ class Solution(object):
 ```
 
 再来一个速度快的
+
 ```python
 class Solution:
     def isPowerOfFour(self, num: int) -> bool:
@@ -34,6 +35,7 @@ class Solution:
 ```
 
 还有：
+
 ```python
 class Solution:
     def isPowerOfFour(self, n: int) -> bool:
@@ -43,6 +45,7 @@ class Solution:
             n /= 4
         return n==1
 ```
+
 同样，可以和326一样的方案：
 
 ```python
@@ -51,4 +54,16 @@ class Solution:
         while n % 4 == 0 and n != 0:
             n //= 4
         while n == 1
+```
+
+```python
+class Solution:
+    def isPowerOfFour(self, n: int) -> bool:
+        return n > 0 and n & (n - 1) == 0 and n & 0x55555555 > 0
+```
+
+```python
+class Solution:
+    def isPowerOfFour(self, n: int) -> bool:
+        return n > 0 and n & (n - 1) == 0 and n % 3 == 1
 ```

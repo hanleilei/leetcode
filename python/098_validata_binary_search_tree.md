@@ -54,8 +54,6 @@ class Solution(object):
 
 递归判断左右子树。需要用出现过的最大、最小值来判断。 如左子树最大值不可能超过根，右子树最小值不可能小于根
 
-
-
 ```Python
 # Definition for a binary tree node.
 # class TreeNode(object):

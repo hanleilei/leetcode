@@ -17,13 +17,13 @@ Example 2:
 ```text
 Input: nums = [5,1,1,2,0,0]
 Output: [0,0,1,1,2,5]
-Explanation: Note that the values of nums are not necessairly unique.
+Explanation: Note that the values of nums are not necessarily unique.
 ```
 
 Constraints:
 
-- `1 <= nums.length <= 5 * 104`
-- `-5 * 104 <= nums[i] <= 5 * 104`
+- `1 <= nums.length <= 5 * 10^4`
+- `-5 * 10^4 <= nums[i] <= 5 * 10^4`
 
 ```python
 class Solution:

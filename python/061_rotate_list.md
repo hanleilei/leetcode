@@ -201,22 +201,21 @@ class Solution:
     def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
         if not head:
             return head
+        p = dummy = ListNode(0, head)
+        size = 0
+        while p.next: # 计算链表长度
+            p = p.next
+            size += 1
 
-        root = ListNode(-1, head)
-        n = 0
-        tail = root
-        while tail.next:
-            tail = tail.next
-            n += 1
-        
-        k %= n
-        step = n - k
-        knode = root
-        for _ in range(step):
-            knode = knode.next
-        
-        tail.next = root.next
-        root.next = knode.next
-        knode.next = None
-        return root.next
+        k %= size # 优化 k 值
+        step = size - k
+
+        cur = dummy
+        for _ in range(step): # 找到新的尾节点
+            cur = cur.next
+
+        p.next = dummy.next # 形成环形链表
+        dummy.next = cur.next # 设置新头节点
+        cur.next = None # 断开环形链表
+        return dummy.next # 返回新头节点
 ```

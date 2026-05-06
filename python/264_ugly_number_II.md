@@ -77,17 +77,16 @@ class Solution:
 ```python
 class Solution:
     def nthUglyNumber(self, n):
-        import heapq
-        visited = set([1])
+        visited = {1}
         heap = [1]
         res = None
 
         for _ in range(n):
-            res = heapq.heappop(heap)
+            res = heappop(heap)
             for i in [2,3,5]:
                 if res * i not in visited:
-                    heapq.heappush(heap, res*i)
-                    visited.add(res*i)
+                    heappush(heap, res * i)
+                    visited.add(res * i)
         return res
 ```
 
