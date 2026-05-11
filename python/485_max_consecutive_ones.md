@@ -64,17 +64,17 @@ class Solution:
         return len(max(''.join([str(i) for i in nums]).split('0'), key=len))
 ```
 
-再来一个快一点的：
+记录上一个0的位置，计算当前1的长度：
 
 ```python
 class Solution:
     def findMaxConsecutiveOnes(self, nums: List[int]) -> int:
-        res, count = 0, 0
-        for i in nums:
-            if i == 1:
-                count += 1
-            else:
-                res = max(count, res)
-                count = 0
-        return max(res, count)
+        res = 0
+        zero = -1 # 记录上一个0的位置，初始为-1，表示还没有遇到过0
+
+        for i in range(len(nums)):
+            if nums[i] == 0:
+                res = max(res, i - zero - 1)
+                zero = i
+        return max(res, len(nums) - zero - 1)
 ```

@@ -79,3 +79,5 @@ class Solution:
                 # 交换非 0 元素和"雪球"的第一个 0
                 nums[i - snowBallSize], nums[i] = nums[i], 0
 ```
+
+这几个题目：26/27/283是一样的

@@ -1,23 +1,35 @@
+# dynamic programming
+
+1. 看wikipedia的定义：<https://en.wikipedia.org/wiki/Dynamic_programming>
+2. simplifying a complicated problem by breaking it down into simpler sub-problems in a recursive manner.
+3. Divide& conquer: + optimal substructure + overlapping subproblems 分治 + 最优子结构 + 重叠子
+
+关键点：
+
+1. 动态规划和递归或者分治 没有根本上的区别（关键看有无最优子结构和重叠子问题）。动态规划是递归的优化版本，通常通过记忆化或者迭代来实现。
+2. 共性：找到重复子问题
+3. 差异性：最优子结构（optimal substructure）中途可以淘汰次优解，分治则需要保留所有解。
+
 数位 DP 题单（右边数字为难度分）
 
-    788. 旋转数字（题解）
-    902. 最大为 N 的数字组合（题解）1990
-    233. 数字 1 的个数（题解）
+    1.   旋转数字（题解）
+    2.   最大为 N 的数字组合（题解）1990
+    3.   数字 1 的个数（题解）
     面试题 17.06. 2 出现的次数（题解）
-    600. 不含连续 1 的非负整数（题解）
-    2376. 统计特殊整数（题解）2120
-    1012. 至少有 1 位重复的数字（题解）2230
-    357. 统计各位数字都不同的数字个数
-    2999. 统计强大整数的数目
-    2827. 范围中美丽整数的数目 2324
-    2801. 统计范围内的步进数字数目 2367
-    1397. 找到所有好字符串 2667
-    1215. 步进数（会员题）1675
-    1067. 范围内的数字计数（会员题）2025
-    1742. 盒子中小球的最大数量 *请使用非暴力做法解决
-    2719. 统计整数数目
+    4.   不含连续 1 的非负整数（题解）
+    5.    统计特殊整数（题解）2120
+    6.    至少有 1 位重复的数字（题解）2230
+    7.   统计各位数字都不同的数字个数
+    8.    统计强大整数的数目
+    9.    范围中美丽整数的数目 2324
+    10.   统计范围内的步进数字数目 2367
+    11.   找到所有好字符串 2667
+    12.   步进数（会员题）1675
+    13.   范围内的数字计数（会员题）2025
+    14.   盒子中小球的最大数量 *请使用非暴力做法解决
+    15.   统计整数数目
 
-    1744. Number of Digit One
+    16.   Number of Digit One
     1745. Numbers At Most N Given Digit Set
     1746. Numbers With Repeated Digits
     1747. Find All Good Strings (Very tough, prerequi site-KMP)

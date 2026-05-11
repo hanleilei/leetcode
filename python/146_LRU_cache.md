@@ -167,3 +167,30 @@ class LRUCache:
         self.removeNode(node)
         return node
 ```
+
+或者：
+
+```python
+class LRUCache:
+
+    def __init__(self, capacity: int):
+        self.capacity = capacity
+        self.cache = {}
+        self.data = deque()
+
+    def get(self, key: int) -> int:
+        if key in self.data:
+            self.data.remove(key)
+            self.data.append(key)
+            return self.cache[key]
+        return -1        
+
+    def put(self, key: int, value: int) -> None:
+        if key in self.cache:
+            self.data.remove(key)
+        elif len(self.cache) == self.capacity:
+            self.cache.pop(self.data.popleft())
+        
+        self.cache[key] = value
+        self.data.append(key)
+```

@@ -27,7 +27,6 @@ class Solution(object):
         :type val: int
         :rtype: int
         """
-        from collections import Counter
         for i in range(Counter(nums)[val]):
             nums.remove(val)
         return len(nums)
@@ -89,3 +88,5 @@ impl Solution {
     }
 }
 ```
+
+这几个题目：26/27/283是一样的

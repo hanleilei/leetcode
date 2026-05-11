@@ -18,44 +18,42 @@ Try to do this in one pass.
 3. 第一个指针找到链表的末尾，第二个指针所处地位之就是所要删除的元素。
 
 ```python
-# Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
-        # 初始化
-        fast = slow = head
-        # 步骤1
+        dummy = ListNode(0, head)
+        fast = slow = dummy
+
+        # fast 先走 n 步
         for _ in range(n):
             fast = fast.next
-        # 判断是否越界
-        if not fast:
-            return head.next
-        # 步骤2
+
+        # fast 和 slow 一起走
         while fast.next:
             fast = fast.next
             slow = slow.next
-        # 步骤3
+
+        # 删除倒数第 n 个节点
         slow.next = slow.next.next
-        return head
+        return dummy.next
 ```
 
-再来一个
+多一个哨兵节点，避免越界的情况：
 
 ```python
 class Solution:
     def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
-        p = ListNode(0)
-        p.next = head
-        fast = slow = p
-        for _ in range(n+1):
+        p = ListNode(0, head)
+        cur = head
+        slow, fast = p, head
+
+        for _ in range(n):
             fast = fast.next
+        
         while fast:
             fast = fast.next
-            slow = slow.next
-        slow.next = slow.next.next
+            slow = cur
+            cur = cur.next
+        
+        slow.next = cur.next
         return p.next
 ```

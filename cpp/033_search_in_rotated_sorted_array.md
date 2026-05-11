@@ -1,5 +1,7 @@
 # search in rotated sorted array
 
+[[binarysearch]]
+
 Suppose an array sorted in ascending order is rotated at some pivot unknown to you beforehand.
 
 (i.e., 0 1 2 4 5 6 7 might become 4 5 6 7 0 1 2).
@@ -8,7 +10,7 @@ You are given a target value to search. If found in the array return its index, 
 
 You may assume no duplicate exists in the array.
 
-#### stefhan大大的方案。。中间的那一坨算事数组变换
+stefhan大大的方案。。中间的那一坨算事数组变换
 Let's say nums looks like this: [12, 13, 14, 15, 16, 17, 18, 19, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11]
 
 Because it's not fully sorted, we can't do normal binary search. But here comes the trick:

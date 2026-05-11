@@ -16,41 +16,28 @@ Subscribe to see which companies asked this question.
 使用“哑节点”记录链表头部, 循环遍历链表时使用pre, cur记录上一个元素和当前元素
 
 ```python
-# Definition for singly-linked list.
-# class ListNode(object):
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
+class Solution:
+    def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
+        cur = dummy = ListNode(-1, head)
 
-class Solution(object):
-    def removeElements(self, head, val):
-        """
-        :type head: ListNode
-        :type val: int
-        :rtype: ListNode
-        """
-        dummy = ListNode(0)
-        dummy.next = head
-        pre, cur = dummy, head
-        while cur:
-            if cur.val == val:
-                pre.next = cur.next
+        while cur.next:
+            if cur.next.val == val:
+                cur.next = cur.next.next
             else:
-                pre = cur
-            cur = cur.next
+                cur = cur.next
         return dummy.next
 ```
+
+自己手搓一个哑节点, 直接在原链表上修改, 不需要pre, cur两个指针, 只需要一个指针p
 
 ```python
 class Solution:
     def removeElements(self, head: Optional[ListNode], val: int) -> Optional[ListNode]:
-        p = dummy = ListNode(0, head)
-        cur = head
-        while cur is not None:
-            if cur.val == val:
-                p.next = cur.next
-            else:
-                p = p.next
-            cur = cur.next
+        p = dummy = ListNode(-1, head)
+
+        while p and p.next:
+            while p.next and p.next.val == val:
+                p.next = p.next.next
+            p = p.next
         return dummy.next
 ```

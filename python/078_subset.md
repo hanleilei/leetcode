@@ -60,22 +60,6 @@ class Solution:
             self.dfs(nums, i+1, path+[nums[i]], res)
 ```
 
-把上面的代码转换成迭代的形式：
-
-```python
-class Solution:
-    def subsets(self, nums: List[int]) -> List[List[int]]:
-        res = []
-        nums.sort()
-        stack = [([], 0)]
-        while stack:
-            path, index = stack.pop()
-            res.append(path)
-            for i in range(index, len(nums)):
-                stack.append((path + [nums[i]], i + 1))
-        return res
-```
-
 感觉caikehe同学把这些的dfs，bfs的套路总结的很到位，不管什么样的问题，一把梭。
 
 再来一个迭代的方法，还是caikehe同学的：

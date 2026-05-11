@@ -110,3 +110,5 @@ class Solution:
                 j += 1
         return j
 ```
+
+这几个题目：26/27/283是一样的

@@ -62,11 +62,7 @@ class ListNode:
         self.next = next
 
 class Solution:
-    def mergeTwoLists(
-        self, 
-        list1: Optional[ListNode], 
-        list2: Optional[ListNode]
-    ) -> Optional[ListNode]:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         """
         迭代法：使用哨兵节点
 
@@ -74,8 +70,7 @@ class Solution:
         空间复杂度：O(1)
         """
         # 哨兵节点，简化边界处理
-        dummy = ListNode(0)
-        current = dummy
+        current = dummy = ListNode(0)
 
         # 同时遍历两个链表
         while list1 and list2:
@@ -101,11 +96,7 @@ class Solution:
 from typing import Optional
 
 class Solution:
-    def mergeTwoLists(
-        self, 
-        list1: Optional[ListNode], 
-        list2: Optional[ListNode]
-    ) -> Optional[ListNode]:
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
         """
         递归法
 
@@ -135,11 +126,7 @@ class Solution:
 from typing import Optional
 
 class Solution:
-    def mergeTwoLists(
-        self, 
-        list1: Optional[ListNode], 
-        list2: Optional[ListNode]
-    ) -> Optional[ListNode]:
+    def mergeTwoLists(self, list1: Optional[ListNode],  list2: Optional[ListNode]) -> Optional[ListNode]:
         """
         原地修改，不用哨兵节点
 
@@ -190,170 +177,6 @@ class Solution:
 
 其中 m 和 n 分别是两个链表的长度。
 
-### 为什么使用哨兵节点？
-
-哨兵节点（dummy node）的优势：
-
-1. **简化边界处理**：不需要特判头节点
-2. **统一操作**：所有节点用相同方式处理
-3. **代码简洁**：减少条件判断
-
-```python
-# 不用哨兵：需要特判头节点
-if not head:
-    head = node
-else:
-    current.next = node
-
-# 用哨兵：统一处理
-dummy = ListNode(0)
-current = dummy
-current.next = node
-```
-
-### 执行过程示例
-
-以 `list1 = [1,2,4]`, `list2 = [1,3,4]` 为例。
-
-初始状态：
-
-```text
-dummy -> None
-list1: 1 -> 2 -> 4
-list2: 1 -> 3 -> 4
-```
-
-**Step 1**：比较 1 vs 1
-
-```text
-1 <= 1, 选 list1
-dummy -> 1
-         ↑
-      current
-list1: 2 -> 4
-list2: 1 -> 3 -> 4
-```
-
-**Step 2**：比较 2 vs 1
-
-```text
-2 > 1, 选 list2
-dummy -> 1 -> 1
-              ↑
-           current
-list1: 2 -> 4
-list2: 3 -> 4
-```
-
-**Step 3**：比较 2 vs 3
-
-```text
-2 <= 3, 选 list1
-dummy -> 1 -> 1 -> 2
-                   ↑
-                current
-list1: 4
-list2: 3 -> 4
-```
-
-**Step 4**：比较 4 vs 3
-
-```text
-4 > 3, 选 list2
-dummy -> 1 -> 1 -> 2 -> 3
-                        ↑
-                     current
-list1: 4
-list2: 4
-```
-
-**Step 5**：比较 4 vs 4
-
-```text
-4 <= 4, 选 list1
-dummy -> 1 -> 1 -> 2 -> 3 -> 4
-                             ↑
-                          current
-list1: None
-list2: 4
-```
-
-**Step 6**：连接剩余
-
-```text
-list1 为 None，连接 list2
-dummy -> 1 -> 1 -> 2 -> 3 -> 4 -> 4
-```
-
-返回 `dummy.next`：`1 -> 1 -> 2 -> 3 -> 4 -> 4`
-
-## 常见错误
-
-### 错误1：忘记返回 dummy.next
-
-```python
-# 错误：返回了哨兵节点
-return dummy  # 错误！
-
-# 正确：返回哨兵节点的下一个
-return dummy.next
-```
-
-### 错误2：移动指针错误
-
-```python
-# 错误：忘记移动 current
-current.next = list1
-list1 = list1.next
-# 忘记：current = current.next
-
-# 正确：
-current.next = list1
-list1 = list1.next
-current = current.next
-```
-
-### 错误3：剩余部分处理错误
-
-```python
-# 错误：分别处理
-if list1:
-    current.next = list1
-if list2:
-    current.next = list2
-
-# 正确：只可能有一个非空
-current.next = list1 if list1 else list2
-# 或者更简洁：
-current.next = list1 or list2
-```
-
-### 错误4：递归终止条件不完整
-
-```python
-# 错误：只处理一种情况
-if not list1:
-    return list2
-# 忘记处理 list2 为空的情况
-
-# 正确：
-if not list1:
-    return list2
-if not list2:
-    return list1
-```
-
-### 错误5：修改了输入链表的值
-
-```python
-# 错误：创建新节点（不必要）
-new_node = ListNode(list1.val)
-current.next = new_node
-
-# 正确：直接连接原节点
-current.next = list1
-```
-
 ## 相关题目
 
 - [0023. Merge k Sorted Lists](./023-merge_k_sorted_lists.md)
@@ -361,4 +184,3 @@ current.next = list1
 - [0148. Sort List](./148_sort_list.md)
 - [0206. Reverse Linked List](./206_reverse_linked_list.md)
 - [0141. Linked List Cycle](./141_linked_list_cycle.md)
-

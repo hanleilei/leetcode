@@ -2,12 +2,39 @@
 
 [[linkedlist]]
 
-Given a linked list, swap every two adjacent nodes and return its head.
+Given a linked list, swap every two adjacent nodes and return its head. You must solve the problem without modifying the values in the list's nodes (i.e., only nodes themselves may be changed.)
 
-For example,
-Given 1->2->3->4, you should return the list as 2->1->4->3.
+Example 1:
 
-Your algorithm should use only constant space. You may not modify the values in the list, only nodes itself can be changed.
+Input: head = [1,2,3,4]
+Output: [2,1,4,3]
+
+Explanation:
+
+1->2->3->4
+    ||
+    \/
+2->1->4->3
+
+Example 2:
+
+Input: head = []
+Output: []
+
+Example 3:
+
+Input: head = [1]
+Output: [1]
+
+Example 4:
+
+Input: head = [1,2,3]
+Output: [2,1,3]
+
+Constraints:
+
+The number of nodes in the list is in the range [0, 100].
+0 <= Node.val <= 100
 
 ```python
 # Definition for singly-linked list.
@@ -32,8 +59,9 @@ class Solution(object):
             # go over 2 nodes
             pre, curr = curr, curr.next  
         return dummy.next
-
 ```
+
+参考template中的 024.drawio 文件
 
 还有一个递归方法：
 

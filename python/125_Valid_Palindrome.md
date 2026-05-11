@@ -1,5 +1,7 @@
 # Valid Palindrome
 
+[[string]] [[2points]]
+
 Given a string, determine if it is a palindrome, considering only alphanumeric characters and ignoring cases.
 
 For example,
@@ -39,4 +41,25 @@ class Solution(object):
         import string
         ss = [i for i in s.lower() if i in string.ascii_lowercase + string.digits]
         return ss == ss[::-1]
+```
+
+two pointers:
+
+```python
+class Solution:
+    def isPalindrome(self, s: str) -> bool:
+        left, right = 0, len(s) - 1
+        while left <= right:
+            if s[left] not in string.ascii_letters + string.digits:
+                left += 1
+                continue
+            if s[right] not in string.ascii_letters + string.digits:
+                right -= 1
+                continue
+            if s[left].lower() != s[right].lower():
+                return False
+            else:
+                left += 1
+                right -= 1
+        return True
 ```
