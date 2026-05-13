@@ -1,5 +1,7 @@
 # Maximum Nesting Depth of the Parentheses
 
+[[stack]]
+
 A string is a valid parentheses string (denoted VPS) if it meets one of the following:
 
 It is an empty string "", or a single character not equal to "(" or ")",

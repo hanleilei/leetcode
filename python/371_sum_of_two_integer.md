@@ -1,11 +1,23 @@
 # sum of two integer
 
-Calculate the sum of two integers a and b, but you are not allowed to use the operator + and -.
+[[bitManipulation]]
 
-Example:
-Given a = 1 and b = 2, return 3.
+Given two integers a and b, return the sum of the two integers without using the operators + and -.
 
-###### 千万别被运算符重载这个坑给绕进去了
+Example 1:
+
+Input: a = 1, b = 2
+Output: 3
+Example 2:
+
+Input: a = 2, b = 3
+Output: 5
+
+Constraints:
+
+-1000 <= a, b <= 1000
+
+千万别被运算符重载这个坑给绕进去了
 
 ```python
 class Solution(object):
@@ -16,6 +28,24 @@ class Solution(object):
        :rtype: int
        """
        return sum([a,b])
+```
+
+bit manipulation:
+
+```python
+class Solution:
+    def getSum(self, a: int, b: int) -> int:
+        MASK = 0xFFFFFFFF
+        MAX_INT = 0x7FFFFFFF
+        
+        while b != 0:
+            # 计算不带进位的加法，并截断为 32 位
+            a, b = (a ^ b) & MASK, ((a & b) << 1) & MASK
+        
+        # 如果 a 是负数（最高位为 1），转换为 Python 的负数表示
+        if a > MAX_INT:
+            a = ~(a ^ MASK)
+        return a
 ```
 
 直接使用标准库operator中的add方法, 能击败100%的提交者：
@@ -32,8 +62,7 @@ class Solution(object):
         return add(a, b)
 ```
 
-
-###### 如果是用运算符重载：
+###### 如果是用运算符重载
 
 ```python
 def subb():
@@ -51,4 +80,5 @@ def subb():
 
 subb()
 ```
+
 但是本题不适用。

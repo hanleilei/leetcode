@@ -48,43 +48,9 @@ Explanation: ((10 * (6 / ((9 + 3) * -11))) + 17) + 5
 ## Constraints
 
 ```text
-1 <= tokens.length <= 104
+1 <= tokens.length <= 10^4
 tokens[i] is either an operator: "+", "-", "*", or "/", or an integer in the range [-200, 200].
 ```
-
-真正恶心的部分在于做除法的部分，要符合leetcode的规范。。
-
-```python
-class Solution(object):
-    def evalRPN(self, tokens):
-        """
-        :type tokens: List[str]
-        :rtype: int
-        """
-        op = set(['+', '/','-','*'])
-        stack = list()
-        for i in tokens:
-            a, b = 0, 0
-            if i not in op:
-                stack.append(int(i))
-            else:
-                a = int(stack.pop())
-                b = int(stack.pop())
-                if i == "+":
-                    stack.append(a+b)
-                elif i == "-":
-                    stack.append(b-a)
-                elif i == "*":
-                    stack.append(a*b)
-                elif i == "/":
-                    if b*a < 0 and b % a != 0:
-                        stack.append(b/a+1)
-                    else:
-                        stack.append(b/a)
-        return int(stack[0])
-```
-
-时隔六年，继续搞
 
 ```python
 class Solution:
@@ -106,10 +72,48 @@ class Solution:
                 a = res.pop()
                 b = res.pop()
                 
-                if t == "/" and a * b < 0 and b % a != 0: # 最难搞的地方了
+                if t == "/" and a * b < 0 and b % a != 0: # 完全就是在修补python的除法向下取整导致的负数除法结果不符合题意的问题
                     c = op(b, a) + 1
                 else:
                     c = op(b, a)
                 res.append(c)
         return res[0]
+```
+
+```python
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        stack = []
+        for t in tokens:
+            if t not in {"+", "-", "*", "/"}:
+                stack.append(int(t))
+            else:
+                a = stack.pop()
+                b = stack.pop()
+                if t == "+":
+                    stack.append(a + b)
+                elif t == "-":
+                    stack.append(b - a)
+                elif t == "*":
+                    stack.append(a * b)
+                elif t == "/":
+                    stack.append(int(b / a)) # 直接用int()来修补python的除法向下取整导致的负数除法结果不符合题意的问题
+        return stack[-1]
+```
+
+简洁的版本。
+
+```python
+def evalRPN(self, tokens: List[str]) -> int:
+    s = []
+    ops = {'+': lambda a,b: b+a, '-': lambda a,b: b-a, '*': lambda a,b: b*a, '/': lambda a,b: int(b/a)}
+    for t in tokens: s.append(ops[t](s.pop(), s.pop()) if t in ops else int(t))
+    return s[0]
+```
+
+```python
+def evalRPN(self, tokens: List[str]) -> int:
+    s = []
+    for t in tokens: s.append(int(t) if t not in '+-*/' else {'+':lambda a,b:b+a,'-':lambda a,b:b-a,'*':lambda a,b:b*a,'/':lambda a,b:int(b/a)}[t](s.pop(),s.pop()))
+    return s[0]
 ```

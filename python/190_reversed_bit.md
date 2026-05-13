@@ -1,5 +1,7 @@
 # Reverse Bits
 
+[[bitManipulation]]
+
 Reverse bits of a given 32 bits signed integer.
 
 Example 1:

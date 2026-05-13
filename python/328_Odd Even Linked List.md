@@ -1,5 +1,7 @@
 # Odd Even Linked List
 
+[[linkedlist]]
+
 Given the head of a singly linked list, group all the nodes with odd indices together followed by the nodes with even indices, and return the reordered list.
 
 The first node is considered odd, and the second node is even, and so on.
@@ -27,8 +29,8 @@ Output: [2,3,6,7,1,5,4]
 Constraints:
 
 ```
-The number of nodes in the linked list is in the range [0, 104].
--106 <= Node.val <= 106
+The number of nodes in the linked list is in the range [0, 10^4].
+-10^6 <= Node.val <= 10^6
 ```
 
 非常套路，但是很巧妙并且直接的方法，惭愧，我本来想的往前加上两个节点。。
@@ -55,7 +57,6 @@ class Solution:
         odd.next = even_head
 
         return head
-
-
-
 ```
+
+查看 template/328.excalidraw

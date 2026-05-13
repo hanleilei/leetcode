@@ -60,3 +60,22 @@ class Solution:
             slow = slow.next
         return slow
 ```
+
+手搓了一下，感觉有点麻烦，直接数一下链表长度，然后再走一遍：
+
+```python
+class Solution:
+    def middleNode(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        size = 0
+        p = head
+
+        while p:
+            size += 1
+            p = p.next
+        
+        mid = size // 2
+        p = head
+        for _ in range(mid):
+            p = p.next
+        return p
+```

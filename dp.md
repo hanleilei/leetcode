@@ -10,6 +10,11 @@
 2. 共性：找到重复子问题
 3. 差异性：最优子结构（optimal substructure）中途可以淘汰次优解，分治则需要保留所有解。
 
+4. 最优子结构 opt[n] = best_of(opt[n-1], opt[n-2], ...)
+5. 存储中间状态 opt[n] = ...
+6. 递推公式（美其名曰：状态转移方程或者dp方程）fib: opt[n] = opt[n-1] + opt[n-2]
+   二维路径：opt[i][j] = opt[i-1][j] + opt[i][j-1]（且判断a[i][j]是否为空）
+
 数位 DP 题单（右边数字为难度分）
 
     1.   旋转数字（题解）
@@ -30,9 +35,9 @@
     15.   统计整数数目
 
     16.   Number of Digit One
-    1745. Numbers At Most N Given Digit Set
-    1746. Numbers With Repeated Digits
-    1747. Find All Good Strings (Very tough, prerequi site-KMP)
+    17.   Numbers At Most N Given Digit Set
+    18.   Numbers With Repeated Digits
+    19.   Find All Good Strings (Very tough, prerequi site-KMP)
 
 对于dp，我们可以用类似这样的latex语法来写状态转移方程：
 

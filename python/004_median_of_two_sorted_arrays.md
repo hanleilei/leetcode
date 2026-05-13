@@ -1,24 +1,53 @@
 # Median of Two Sorted Arrays
 
-There are two sorted arrays nums1 and nums2 of size m and n respectively. Find the median of the two sorted arrays. The overall run time complexity should be O(log (m+n)).
+Given two sorted arrays nums1 and nums2 of size m and n respectively, return the median of the two sorted arrays.
 
-###### 对列表的操作
+The overall run time complexity should be O(log (m+n)).
+
+Example 1:
+
+Input: nums1 = [1,3], nums2 = [2]
+Output: 2.00000
+Explanation: merged array = [1,2,3] and median is 2.
+
+Example 2:
+
+Input: nums1 = [1,2], nums2 = [3,4]
+Output: 2.50000
+Explanation: merged array = [1,2,3,4] and median is (2 + 3) / 2 = 2.5.
+
+Constraints:
+
+nums1.length == m
+nums2.length == n
+0 <= m <= 1000
+0 <= n <= 1000
+1 <= m + n <= 2000
+-10^6 <= nums1[i], nums2[i] <= 10^6
+
+对列表的操作
 
 ```python
-class Solution(object):
-    def findMedianSortedArrays(self, nums1, nums2):
-        """
-        :type nums1: List[int]
-        :type nums2: List[int]
-        :rtype: float
-        """
-        nums1.extend(nums2)
-        lst = sorted(nums1)
-
-        if len(lst)%2==1:
-            return lst[len(lst)//2]
+class Solution:
+    def findMedianSortedArrays(self, nums1: List[int], nums2: List[int]) -> float:
+        res = []
+        while nums1 and nums2:
+            if nums1[-1] > nums2[-1]:
+                res.append(nums1.pop())
+            else:
+                res.append(nums2.pop())
+        
+        while nums1:
+            res.append(nums1.pop())
+        while nums2:
+            res.append(nums2.pop())
+        
+        print(res)
+        size = len(res)
+        if size % 2 == 1:
+            return float(res[size // 2])
         else:
-            return (lst[len(lst)//2]+lst[len(lst)//2-1]) / 2.0
+            return (res[size // 2] + res[size // 2 - 1]) / 2
 ```
 
 不能那么直接的sorted了，上二分法：

@@ -58,11 +58,7 @@ class Solution:
             return head
 
         # 创建虚拟头节点
-        dummy = ListNode(0)
-        dummy.next = head
-
-        # pre：指向反转段前一个节点
-        pre = dummy
+        pre = dummy = ListNode(-1, head)
 
         # 移动到第m-1个节点的位置
         for _ in range(m - 1):
@@ -85,6 +81,31 @@ class Solution:
 
         return dummy.next
 ```
+
+灵神的方法：
+
+```python
+class Solution:
+    def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
+        p = dummy = ListNode(next=head)
+        for _ in range(left - 1):
+            p = p.next
+
+        pre = None
+        cur = p.next
+        for _ in range(right - left + 1):
+            nxt = cur.next
+            cur.next = pre  # 每次循环只修改一个 next
+            pre = cur
+            cur = nxt
+
+        
+        p.next.next = cur
+        p.next = pre
+        return dummy.next
+```
+
+参考template/92.excalidraw
 
 **关键思路演示：**
 
@@ -182,24 +203,6 @@ class Solution:
 
 - 只是改变了指针方向，没有创建新节点
 - 空间复杂度O(1)
-
----
-
-## 常见错误
-
-❌ **错误1：混淆虚拟头的位置**
-
-```python
-# 错误：虚拟头没有指向实际链表
-dummy = ListNode(0)  # 忘记 dummy.next = head
-```
-
-❌ **错误2：循环次数错误**
-
-```python
-# 错误：应该是 n-m 次，不是 n-m+1 次
-for _ in range(n - m + 1):  # 这会导致多反转一个节点
-```
 
 ---
 
