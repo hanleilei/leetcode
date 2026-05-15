@@ -47,28 +47,6 @@ class Solution:
         return max(dp)
 ```
 
-```java
-class Solution {
-    public int lengthOfLIS(int[] nums) {
-        if (nums == null || nums.length == 0){
-            return 0;
-        }
-        int res = 1;
-        int[] dp = new int[nums.length + 1];
-        for (int i = 0; i < nums.length; ++i) dp[i] = 1;
-        for (int i = 1; i < nums.length; ++i){
-            for (int j = 0; j < i; ++j){
-                if (nums[j] < nums[i]){
-                    dp[i] = Math.max(dp[i], dp[j] + 1);
-                }
-            }
-            res = Math.max(res, dp[i]);
-        }
-        return res;
-    }
-}
-```
-
 这个题目真的很有趣，二分法还可以这样用:
 
 `维护一个递增的数组，遍历输入数组，对于每个元素，如果它比递增数组的最后一个元素大，就把它添加到递增数组的末尾；否则，在递增数组中找到第一个大于或等于该元素的位置，并将其替换为该元素。`

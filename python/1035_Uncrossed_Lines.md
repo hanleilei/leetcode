@@ -1,5 +1,7 @@
 # Uncrossed Lines
 
+[[dp]]
+
 You are given two integer arrays nums1 and nums2. We write the integers of nums1 and nums2 (in the order they are given) on two separate horizontal lines.
 
 We may draw connecting lines: a straight line connecting two numbers nums1[i] and nums2[j] such that:
@@ -51,7 +53,7 @@ Output: 2
 
 来看下 lee215 的方案：
 
-1. Solution 1: Straight Forward 2D DP
+## Solution 1: Straight Forward 2D DP
 
 ```python
 class Solution:
@@ -87,7 +89,7 @@ class Solution:
     }
 ```
 
-2. Solution 2: 1D DP
+## Solution 2: 1D DP
 
 ```java
      public int maxUncrossedLines(int[] A, int[] B) {
@@ -111,7 +113,7 @@ class Solution:
     def maxUncrossedLines(self, A, B):
         m, n = len(A), len(B)
         dp = [0] * (n + 1)
-        for i in xrange(m):
+        for i in range(m):
             for j in range(n)[::-1]:
                 if A[i] == B[j]: dp[j + 1] = dp[j] + 1
             for j in range(n):

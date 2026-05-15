@@ -13,12 +13,14 @@ For each step, you may move to an adjacent number of the row below. More formall
 **Input:** triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]
 **Output:** 11
 **Explanation:** The triangle looks like:
+
 ```
    2
   3 4
  6 5 7
 4 1 8 3
 ```
+
 The minimum path sum from top to bottom is 2 + 3 + 5 + 1 = 11 (underlined above).
 
 **Example 2:**
@@ -35,11 +37,11 @@ The minimum path sum from top to bottom is 2 + 3 + 5 + 1 = 11 (underlined above)
 
 **Follow up:** Could you do this using only `O(n)` extra space, where `n` is the total number of rows in the triangle?
 
-### Note:
+### Note
 
 Bonus point if you are able to do this using only O(n) extra space, where n is the total number of rows in the triangle.
 
-还是直接上这个讨论吧：https://leetcode.com/problems/triangle/discuss/38730/DP-Solution-for-Triangle
+还是直接上这个讨论吧：<https://leetcode.com/problems/triangle/discuss/38730/DP-Solution-for-Triangle>
 
 This problem is quite well-formed in my opinion. The triangle has a tree-like structure, which would lead people to think about traversal algorithms such as DFS. However, if you look closely, you would notice that the adjacent nodes always share a 'branch'. In other word, there are overlapping subproblems. Also, suppose x and y are 'children' of k. Once minimum paths from x and y to the bottom are known, the minimum path starting from k can be decided in O(1), that is optimal substructure. Therefore, dynamic programming would be the best solution to this problem in terms of time complexity.
 
@@ -65,12 +67,14 @@ Thus, we have the following solution：
 
 ### Approach 1: Bottom-Up DP with O(n) Space (Optimal)
 
-**Key Insight:** 
+**Key Insight:**
+
 - Start from the bottom row and work upwards
 - Each position's minimum path = min(two children below) + current value
 - Can reuse a 1D array since we only need the previous row
 
 **State Transition:**
+
 ```
 dp[i] = min(dp[i], dp[i+1]) + triangle[row][i]
 ```
@@ -113,6 +117,7 @@ class Solution:
 ### Approach 3: Top-Down DP with Memoization
 
 **Key Insight:**
+
 - Use DFS with memoization to avoid recalculating subproblems
 - Recursively find minimum path from each position
 

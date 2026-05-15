@@ -1,6 +1,6 @@
 # Maximum Subarray
 
-[[dp]] [[DivideConquer]]
+[[dp]] [[DivideConquer]] [[kadane]]
 
 Given an integer array nums, find the with the largest sum, and return its sum.
 
@@ -24,45 +24,46 @@ Explanation: The subarray [5,4,-1,7,8] has the largest sum 23.
 
 Constraints:
 
-    1 <= nums.length <= 105
-    -104 <= nums[i] <= 104
+    1 <= nums.length <= 10^5
+    -10^4 <= nums[i] <= 10^4
 
 Follow up: If you have figured out the O(n) solution, try coding another solution using the divide and conquer approach, which is more subtle.
 
-以下解释来自于这个链接：<http://blog.csdn.net/linhuanmars/article/details/21314059>
+## bottom-up DP
 
-这是一道非常经典的动态规划的题目，用到的思路我们在别的动态规划题目中也很常用，以后我们称为”局部最优和全局最优解法“。
+要求：时间复杂度 O(n)，空间复杂度 O(1)，显然是DP问题，列出状态转移方程：
 
-基本思路是这样的，在每一步，我们维护两个变量，一个是全局最优，就是到当前元素为止最优的解是，一个是局部最优，就是必须包含当前元素的最优的解。接下来说说动态规划的递推式（这是动态规划最重要的步骤，递归式出来了，基本上代码框架也就出来了）。假设我们已知第 i 步的 global[i]（全局最优）和 local[i]（局部最优），那么第 i+1 步的表达式是：
-
-local[i+1]=Math.max(A[i], local[i]+A[i]
-
-就是局部最优是一定要包含当前元素，所以不然就是上一步的局部最优 local[i]+当前元素 A[i]（因为 local[i]一定包含第 i 个元素，所以不违反条件），但是如果 local[i]是负的，那么加上他就不如不需要的，所以不然就是直接用 A[i]：
-
-global[i+1]=Math(local[i+1],global[i])
-
-有了当前一步的局部最优，那么全局最优就是当前的局部最优或者还是原来的全局最优（所有情况都会被涵盖进来，因为最优的解如果不包含当前元素，那么前面会被维护在全局最优里面，如果包含当前元素，那么就是这个局部最优）。
-
-接下来我们分析一下复杂度，时间上只需要扫描一次数组，所以时间复杂度是 O(n)。空间上我们可以看出表达式中只需要用到上一步 local[i]和 global[i]就可以得到下一步的结果，所以我们在实现中可以用一个变量来迭代这个结果，不需要是一个数组，也就是如程序中实现的那样，所以空间复杂度是两个变量（local 和 global），即 O(2)=O(1)。
+$$
+dp[i] = \begin{cases}
+    dp[i-1] + nums[i] & , dp[i-1] > 0 \\
+    nums[i] & , dp[i-1] \le 0
+\end{cases}
+$$
 
 ```python
-class Solution(object):
-    def maxSubArray(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        if len(nums) == 0:
-            return 0
-        gb = nums[0]
-        local = nums[0]
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        # dp[i + 1] = max(dp[i], 0) + nums[i]
         for i in range(1, len(nums)):
-            local = max(nums[i], local + nums[i])
-            gb = max(local, gb)
-        return gb
+            nums[i] += max(nums[i-1], 0) 
+        return max(nums)
 ```
 
-另外，还有一个方法，还是 DP，来自于这个链接：<http://www.tuicool.com/articles/IbiMjaI>
+## top-down DP with memoization
+
+```python
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        @cache
+        def dfs(i: int) -> int:
+            if i == 0:
+                return nums[0]
+            return max(dfs(i - 1), 0) + nums[i]
+
+        return max(dfs(i) for i in range(len(nums)))
+```
+
+另外，还有一个方法，还是 DP，来自于这个[链接](http://www.tuicool.com/articles/IbiMjaI)
 
 如果看过 Mark Allen Weiss 写的数据结构与算法分析一书，可以发现是第二章为了介绍算法的魅力，逐步从三次方的时间复杂度一直优化到线性时间复杂度的一个例子。有一点小区别，就是书中给的例子简化了，如果全为负数，则认为最大子序列和为 0，所以有一点点出入，不过基本思路是完全一样的。
 
@@ -85,7 +86,103 @@ class Solution(object):
         return maxSum
 ```
 
-这两个算法可以说的上是大同小异。下面在看一个 Kadane 算法，来自于这个链接：<http://blog.csdn.net/joylnwang/article/details/6859677>
+## Divide & Conquer
+
+```python
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        def helper(left: int, right: int) -> int:
+            if left == right:
+                return nums[left]
+
+            mid = (left + right) // 2
+            left_sum = helper(left, mid)
+            right_sum = helper(mid + 1, right)
+
+            # Calculate max crossing sum
+            cross_sum = nums[mid]
+            temp_sum = cross_sum
+            for i in range(mid - 1, left - 1, -1):
+                temp_sum += nums[i]
+                cross_sum = max(cross_sum, temp_sum)
+
+            temp_sum = cross_sum
+            for i in range(mid + 1, right + 1):
+                temp_sum += nums[i]
+                cross_sum = max(cross_sum, temp_sum)
+
+            return max(left_sum, right_sum, cross_sum)
+
+        return helper(0, len(nums) - 1)
+```
+
+更新一个 divide & conquer 的方法：
+
+```python
+class Solution:
+    def maxSubArray(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: int
+        """
+        n = len(nums)
+        # 递归终止条件
+        if n == 1:
+            return nums[0]
+        else:
+            # 递归计算左半边最大子序和
+            max_left = self.maxSubArray(nums[0:len(nums) // 2])
+            # 递归计算右半边最大子序和
+            max_right = self.maxSubArray(nums[len(nums) // 2:len(nums)])
+
+        # 计算中间的最大子序和，从右到左计算左边的最大子序和，从左到右计算右边的最大子序和，再相加
+        max_l = nums[len(nums) // 2 - 1]
+        tmp = 0
+        for i in range(len(nums) // 2 - 1, -1, -1):
+            tmp += nums[i]
+            max_l = max(tmp, max_l)
+        max_r = nums[len(nums) // 2]
+        tmp = 0
+        for i in range(len(nums) // 2, len(nums)):
+            tmp += nums[i]
+            max_r = max(tmp, max_r)
+        # 返回三个中的最大值
+        return max(max_right, max_left, max_l + max_r)
+```
+
+速度很慢，还是动态规划比较合适。
+
+## Kadane's Algorithm(bottom-up DP with space optimization)
+
+介绍一下kadane算法：Kadane 算法是一种用于在 O(n)​ 时间复杂度内求解「最大子数组和（Maximum Subarray Sum）」问题的经典算法，本质是 动态规划的空间优化版。
+核心思想：到位置 i为止的最大子数组和，要么包含 i，要么从 i重新开始。
+状态转移：`dp[i] = max(dp[i-1] + nums[i], nums[i])`
+含义：如果前面累加是正的 → 继续加; 如果是负的 → 不如从当前元素重新开始.
+
+之前的 `dfs(i) = max(dfs(i-1), 0) + nums[i]`, 就是 Kadane 算法的递归版本，下面是迭代版本：
+
+```python
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        cur = ans = nums[0]
+        for x in nums[1:]:
+            cur = max(cur + x, x)
+            ans = max(ans, cur)
+        return ans
+```
+
+```mermaid
+flowchart TD
+
+A[开始] --> B["初始化 cur = ans = nums[0]"]
+B --> C[遍历 nums 从索引 1 开始]
+C --> D["cur = max(cur + x, x)"]
+D --> E["ans = max(ans, cur)"]
+E --> C
+C --> F[返回 ans]
+```
+
+下面在看一个 Kadane 算法，来自于这个链接：<http://blog.csdn.net/joylnwang/article/details/6859677>
 
 对于一个包含负值的数字串 array[1...n]，要找到他的一个子串 array[i...j]（0<=i<=j<=n），使得在 array 的所有子串中，array[i...j]的和最大。
 
@@ -129,66 +226,6 @@ int Kadane(const int array[], size_t length, unsigned int& left, unsigned int& r
 
     return max;
 }
-
-```
-
-这个算法没看懂怎么弄的，见笑了。
-
-再加上一个速度超级快的 python 版本：
-
-```python
-class Solution:
-    def maxSubArray(self, nums: List[int]) -> int:
-        if not nums:
-            return 0
-        lo = psum = 0
-        max_psum = nums[0]
-        for i in nums:
-            psum += i
-            max_psum = max(psum - lo, max_psum)
-            lo = min(lo, psum)
-        return max_psum
-```
-
-类似的变体：
-
-```python
-class Solution:
-    def maxSubArray(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        for i in range(1, len(nums)):
-            nums[i] = max(nums[i], nums[i] + nums[i-1])
-        return max(nums)
-```
-
-或者：
-
-```python
-class Solution:
-    def maxSales(self, sales: List[int]) -> int:
-        for i in range(1, len(sales)):
-            sales[i] += max(sales[i - 1], 0)
-        return max(sales)
-```
-
-或者：
-
-```python
-class Solution:
-    def maxSubArray(self, nums: List[int]) -> int:
-        ans = nums[0]
-        cur = 0
-        for num in nums:
-            if cur <= 0 :
-                cur = num
-            else:
-                cur += num
-            if cur > ans:
-                ans = cur
-        return ans
 ```
 
 用标准库：
@@ -204,84 +241,3 @@ class Solution:
 
         return functools.reduce(lambda r, x: (max(r[0], r[1]+x), max(r[1]+x,x)), nums, (max(nums), 0))[0]
 ```
-
-```python
-class Solution:
-    def maxSubArray(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        if len(nums) == 0:
-            return 0
-        local = total = nums[0]
-        for i in range(1, len(nums)):
-            local = max(nums[i],  nums[i] + local)
-            total = max(local, total)
-        return total
-```
-
-再来一个和上面方法相似的：
-
-```python
-class Solution:
-    def maxSubArray(self, nums: List[int]) -> int:
-        localMax = max_val = nums[0]
-        for i in range(1, len(nums)):
-            localMax = max(nums[i], localMax + nums[i])
-            max_val = max(max_val, localMax)
-        return max_val
-```
-
-上面的方法是通过 Kadane 算法实现，参考这个链接：<https://zhuanlan.zhihu.com/p/96014673>
-
-速度快的版本来一个：
-
-```python
-class Solution:
-    def maxSubArray(self, nums: List[int]) -> int:
-        maxi, suma = 0, 0
-        for elem in nums:
-            suma += elem
-            if maxi < suma:
-                maxi = suma
-            if suma < 0:
-                suma = 0
-        return maxi if maxi > 0 else max(nums)
-```
-
-下面更新一个 divide & conquer 的方法：
-
-```python
-class Solution:
-    def maxSubArray(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
-        n = len(nums)
-        # 递归终止条件
-        if n == 1:
-            return nums[0]
-        else:
-            # 递归计算左半边最大子序和
-            max_left = self.maxSubArray(nums[0:len(nums) // 2])
-            # 递归计算右半边最大子序和
-            max_right = self.maxSubArray(nums[len(nums) // 2:len(nums)])
-
-        # 计算中间的最大子序和，从右到左计算左边的最大子序和，从左到右计算右边的最大子序和，再相加
-        max_l = nums[len(nums) // 2 - 1]
-        tmp = 0
-        for i in range(len(nums) // 2 - 1, -1, -1):
-            tmp += nums[i]
-            max_l = max(tmp, max_l)
-        max_r = nums[len(nums) // 2]
-        tmp = 0
-        for i in range(len(nums) // 2, len(nums)):
-            tmp += nums[i]
-            max_r = max(tmp, max_r)
-        # 返回三个中的最大值
-        return max(max_right, max_left, max_l + max_r)
-```
-
-速度很慢，还是动态规划比较合适。
