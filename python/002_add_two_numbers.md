@@ -10,6 +10,16 @@ Example 1:
 
 ![Addtwonumber1 image](https://assets.leetcode.com/uploads/2020/10/02/addtwonumber1.jpg)
 
+```mermaid
+flowchart LR
+    A[2] --> B[4]
+    B --> C[3]
+    D[5] --> E[6]
+    E --> F[4]
+    G[7] --> H[0]
+    H --> I[8]
+```
+
 Input: l1 = [2,4,3], l2 = [5,6,4]
 Output: [7,0,8]
 Explanation: 342 + 465 = 807.

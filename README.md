@@ -38,3 +38,4 @@ round 5th
 职业训练：拆分知识点 + 刻意练习 + 反馈
 
 灵的：[如何科学的刷题](https://leetcode.cn/discuss/post/3141566/ru-he-ke-xue-shua-ti-by-endlesscheng-q3yd/)
+[对于每个题目的rating](https://huxulm.github.io/lc-rating/problemset/)

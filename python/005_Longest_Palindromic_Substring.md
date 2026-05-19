@@ -64,8 +64,6 @@ class Solution(object):
 
 直接在leetcode的blog上也有：<https://articles.leetcode.com/longest-palindromic-substring-part-ii/>
 
-还有这个算法，需要仔细考虑以下：
-
 ```Python
 class Solution:
     def longestPalindrome(self, s):
@@ -92,6 +90,8 @@ class Solution:
         return s[start:start + maxLen]
 ```
 
+逐个遍历字符串，逐个判断是否为回文：
+
 ```python
 class Solution:
     def longestPalindrome(self, s: str) -> str:
@@ -117,6 +117,37 @@ class Solution:
         if length > self.max_length:
             self.max_length = length
             self.start = left + 1 
+```
+
+dp:
+
+| 子串长度 | 条件 |
+| ------ | ------ |
+| 1 | 恒为回文 |
+| 2 | 两端字符相同 |
+| ≥3 | 两端字符相同 且​ 内部子串是回文 |
+
+$$
+dp[i][j] =
+\begin{cases}
+\text{True}, & \text{if } s[i] = s[j] \text{ and } (j - i < 2 \text{ or } dp[i+1][j-1]) \\
+\text{False}, & \text{otherwise}
+\end{cases}
+$$
+
+```python
+class Solution:
+    def longestPalindrome(self, s: str) -> str:
+        n = len(s)
+        res = ""
+        dp = [[False] * n for _ in range(n)]
+
+        for i in range(n - 1, -1, -1):
+            for j in range(i, n):
+                dp[i][j] = s[i] == s[j] and (j - i < 2 or dp[i + 1][j - 1])
+                if dp[i][j] and j - i + 1 > len(res):
+                    res = s[i:j + 1]
+        return res
 ```
 
 上面的算法由于添加了新的test case，现在不能通过了，例如："ac"
