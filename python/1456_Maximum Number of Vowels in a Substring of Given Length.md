@@ -76,3 +76,32 @@ class Solution:
             ans  = max(cnt, ans)
         return ans  
 ```
+
+```python
+class Solution:
+    def maxVowels(self, s: str, k: int) -> int:
+        vowels = set('aeiou')
+        n = len(s)
+
+        # 先统计第一个窗口 [0, k)
+        cur = 0
+        for i in range(k):
+            if s[i] in vowels:
+                cur += 1
+
+        res = cur
+
+        # 滑动窗口：窗口右边 +1，左边 -1
+        for i in range(k, n):
+            if s[i] in vowels:        # 新进窗口的字符
+                cur += 1
+            if s[i - k] in vowels:    # 移出窗口的字符
+                cur -= 1
+            if cur > res:
+                res = cur
+                # 剪枝：已经达到 k，不可能更大了
+                if res == k:
+                    break
+
+        return res
+```
