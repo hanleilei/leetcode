@@ -4,7 +4,6 @@ A binary watch has 4 LEDs on the top which represent the hours (0-11), and the 6
 
 Each LED represents a zero or one, with the least significant bit on the right.
 
-
 For example, the above binary watch reads "3:25".
 
 Given a non-negative integer n which represents the number of LEDs that are currently on, return all possible times the watch could represent.
@@ -27,4 +26,19 @@ class Solution(object):
         """
         return ['%d:%02d'.format(h, m) for h in range(12) for m in range(60)
             if (bin(h) + bin(m)).count('1') == num]
+```
+
+枚举小时 h=0,1,2,…,11 以及分钟 m=0,1,2,…,59。如果 h 二进制中的 1 的个数加上 m 二进制中的 1 的个数恰好等于 turnedOn，那么把 h:m 添加到答案中。
+
+注意如果 m 是个位数，需要添加一个前导零。
+
+```python
+class Solution:
+    def readBinaryWatch(self, turnedOn: int) -> List[str]:
+        ans = []
+        for h in range(12):
+            for m in range(60):
+                if h.bit_count() + m.bit_count() == turnedOn:
+                    ans.append(f"{h}:{m:02d}")
+        return ans
 ```

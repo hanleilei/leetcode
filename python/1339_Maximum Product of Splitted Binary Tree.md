@@ -23,7 +23,6 @@ Example 2:
 Input: root = [1,null,2,3,4,null,null,5,6]
 Output: 90
 Explanation: Remove the red edge and get 2 binary trees with sum 15 and 6.Their product is 90 (15*6)
- 
 
 Constraints:
 
@@ -80,7 +79,6 @@ class Solution:
         # 3. 最后取模
         return self.res % (10**9 + 7)
 ```
-
 
 ```python
 # Definition for a binary tree node.

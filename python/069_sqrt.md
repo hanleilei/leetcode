@@ -82,7 +82,7 @@ class Solution:
                 high = mid - 1
             else:
                 low = mid + 1
-        return low - 1
+        return low - 1 # 或者 right
 ```
 
 或者：

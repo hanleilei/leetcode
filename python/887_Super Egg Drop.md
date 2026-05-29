@@ -1,6 +1,6 @@
 # Super Egg Drop
 
-[[dp]]
+[[dp]] [[dfs]]
 
 You are given k identical eggs and you have access to a building with n floors labeled from 1 to n.
 
@@ -10,13 +10,12 @@ Each move, you may take an unbroken egg and drop it from any floor x (where 1 <=
 
 Return the minimum number of moves that you need to determine with certainty what the value of f is.
 
- 
-
 Example 1:
 
 Input: k = 1, n = 2
 Output: 2
-Explanation: 
+
+Explanation:
 Drop the egg from floor 1. If it breaks, we know that f = 0.
 Otherwise, drop the egg from floor 2. If it breaks, we know that f = 1.
 If it does not break, then we know f = 2.
@@ -31,8 +30,6 @@ Example 3:
 
 Input: k = 3, n = 14
 Output: 4
-
- 
 
 Constraints:
 

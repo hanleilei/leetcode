@@ -45,7 +45,7 @@ class Solution(object):
         :type board: List[List[str]]
         :rtype: void Do not return anything, modify board in-place instead.
         """
-        queue = collections.deque([])
+        queue = deque([])
         for r in range(len(board)):
             for c in range(len(board[0])):
                 if (r in [0, len(board)-1] or c in [0, len(board[0])-1]) and board[r][c] == "O":
