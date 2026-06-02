@@ -36,6 +36,10 @@ Constraints:
     1 <= k <= 100
     1 <= n <= 10^4
 
+动态规划的经典题目，状态转移方程是：
+
+$$dp(K, N) = \min_{1 \le i \le N} \left( \max(dp(K-1, i-1),\; dp(K, N-i)) + 1 \right)$$
+
 ```python
 class Solution:
     def superEggDrop(self, k: int, n: int) -> int:
@@ -61,6 +65,8 @@ class Solution:
                 return i
 ```
 
+空间压缩：
+
 ```python
 class Solution:
     def superEggDrop(self, k: int, n: int) -> int:
@@ -70,4 +76,22 @@ class Solution:
                 dp[j] += dp[j-1] + 1
             if dp[k] >= n:
                 return i
+```
+
+或者：
+
+```python
+class Solution:
+    def superEggDrop(self, K: int, N: int) -> int:
+        # dp[k]：当前扔的次数下，k 个鸡蛋能测的最大楼层数
+        dp = [0] * (K + 1)
+        moves = 0
+
+        while dp[K] < N:
+            moves += 1
+            # 必须倒序更新，防止覆盖上一轮数据
+            for k in range(K, 0, -1):
+                dp[k] = dp[k] + dp[k - 1] + 1
+
+        return moves
 ```

@@ -6,8 +6,6 @@ Given an integer array nums and an integer k, return the length of the shortest 
 
 A subarray is a contiguous part of an array.
 
- 
-
 Example 1:
 
 Input: nums = [1], k = 1
@@ -23,8 +21,6 @@ Example 3:
 Input: nums = [2,-1,2], k = 3
 Output: 3
 
- 
-
 Constraints:
 
     1 <= nums.length <= 10^5
@@ -37,7 +33,6 @@ Constraints:
 
     注 1：为什么是 −1？因为上面遍历的是 s，下面遍历的是 nums，这两者的下标偏移了一位。
     注 2：该写法在 nums 是一个流的时候也适用。
-
 
 ```python
 class Solution:

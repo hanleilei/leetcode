@@ -132,7 +132,7 @@ class Solution:
         
         @cache
         def dfs(i: int)-> int:
-            if i < 0:
+            if i < 0: 
                 return 0
             return max(dfs(left[i]), dfs(right[i])) + 1
         return max(dfs(i) for i in range(n))

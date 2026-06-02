@@ -1,5 +1,7 @@
 # Egg Drop With 2 Eggs and N Floors
 
+[[math]] [[binarySearch]]
+
 You are given two identical eggs and you have access to a building with n floors labeled from 1 to n.
 
 You know that there exists a floor f where 0 <= f <= n such that any egg dropped at a floor higher than f will break, and any egg dropped at or below floor f will not break.
@@ -31,9 +33,55 @@ Constraints:
 
     1 <= n <= 1000
 
+这个题目是887的一个特例，887题是k个鸡蛋和n层楼，k=2就是这个题。
+
+$$dp(K, N) = \min_{1 \le i \le N} \left( \max(j, dp(i - j) + 1) \right)$$
+
+```python
+class Solution:
+    def twoEggDrop(self, n: int) -> int:
+        f = [0] * 1001
+        for i in range(1, len(f)):
+            f[i] = min(max(j, f[i - j] + 1) for j in range(1, i + 1))
+        return f[n]
+```
+
+一般地，设答案为 x，必须满足
+$$x+(x−1)+(x−2)+⋯+2+1 \ge n$$
+
+即
+$$2x(x+1)​\ge n$$
+
+解一元二次不等式，得
+$$x\ge \frac{-1+\sqrt{1+8n}}{2}$$
+
+由于 x 是整数，所以最小的 x 为
+$$\lceil\frac{-1+\sqrt{1+8n}}{2}\rceil$$
+
 ```python
 class Solution:
     def twoEggDrop(self, n: int) -> int:
         # return ceil((sqrt(n * 8 + 1) - 1) / 2)
         return ceil(sqrt(n * 8 + 1)) // 2
+```
+
+```python
+class Solution:
+    def twoEggDrop(self, n: int) -> int:
+        i = 0
+        while i * (i + 1) // 2 < n:
+            i += 1
+        return i
+```
+
+```python
+class Solution:
+    def twoEggDrop(self, n: int) -> int:
+        @cache  # 缓存装饰器，避免重复计算 dfs 的结果（记忆化）
+        def dfs(i: int) -> int:
+            if i == 0:
+                return 0
+            return min(max(j, dfs(i - j) + 1) for j in range(1, i + 1))
+        
+        return dfs(n)
 ```

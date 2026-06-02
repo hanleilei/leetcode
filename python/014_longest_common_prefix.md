@@ -2,7 +2,7 @@
 
 Write a function to find the longest common prefix string amongst an array of strings.
 
-## 使用最挫的算法，挨个遍历，居然也能过：
+## 使用最挫的算法，挨个遍历，居然也能过
 
 ```python
 class Solution(object):
