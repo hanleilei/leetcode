@@ -52,33 +52,7 @@ Explanation: ((10 * (6 / ((9 + 3) * -11))) + 17) + 5
 tokens[i] is either an operator: "+", "-", "*", or "/", or an integer in the range [-200, 200].
 ```
 
-```python
-class Solution:
-    def evalRPN(self, tokens: List[str]) -> int:
-        res = list()
-        op = ""
-        for t in tokens:
-            if t not in {"+", "-", "*", "/"}:
-                res.append(int(t))
-            else:
-                if t == "+":
-                    op = operator.add
-                if t == "-":
-                    op = operator.sub
-                if t == "*":
-                    op = operator.mul
-                if t == "/":
-                    op = operator.floordiv
-                a = res.pop()
-                b = res.pop()
-                
-                if t == "/" and a * b < 0 and b % a != 0: # 完全就是在修补python的除法向下取整导致的负数除法结果不符合题意的问题
-                    c = op(b, a) + 1
-                else:
-                    c = op(b, a)
-                res.append(c)
-        return res[0]
-```
+在python中，整数除法向下取整，所以对于负数的除法结果不符合题意，需要进行修补。直接用int()来修补。
 
 ```python
 class Solution:
@@ -104,16 +78,18 @@ class Solution:
 简洁的版本。
 
 ```python
-def evalRPN(self, tokens: List[str]) -> int:
-    s = []
-    ops = {'+': lambda a,b: b+a, '-': lambda a,b: b-a, '*': lambda a,b: b*a, '/': lambda a,b: int(b/a)}
-    for t in tokens: s.append(ops[t](s.pop(), s.pop()) if t in ops else int(t))
-    return s[0]
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        s = []
+        ops = {'+': lambda a,b: b+a, '-': lambda a,b: b-a, '*': lambda a,b: b*a, '/': lambda a,b: int(b/a)}
+        for t in tokens: s.append(ops[t](s.pop(), s.pop()) if t in ops else int(t))
+        return s[0]
 ```
 
 ```python
-def evalRPN(self, tokens: List[str]) -> int:
-    s = []
-    for t in tokens: s.append(int(t) if t not in '+-*/' else {'+':lambda a,b:b+a,'-':lambda a,b:b-a,'*':lambda a,b:b*a,'/':lambda a,b:int(b/a)}[t](s.pop(),s.pop()))
-    return s[0]
+class Solution:
+    def evalRPN(self, tokens: List[str]) -> int:
+        s = []
+        for t in tokens: s.append(int(t) if t not in '+-*/' else {'+':lambda a,b:b+a,'-':lambda a,b:b-a,'*':lambda a,b:b*a,'/':lambda a,b:int(b/a)}[t](s.pop(),s.pop()))
+        return s[0]
 ```

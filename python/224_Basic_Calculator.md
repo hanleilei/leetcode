@@ -9,18 +9,21 @@ The expression string may contain open `(` and closing parentheses `)`, the plus
 ## Examples
 
 **Example 1:**
+
 ```text
 Input: s = "1 + 1"
 Output: 2
 ```
 
 **Example 2:**
+
 ```text
 Input: s = " 2-1 + 2 "
 Output: 3
 ```
 
 **Example 3:**
+
 ```text
 Input: s = "(1+(4+5+2)-3)+(6+8)"
 Output: 23
@@ -92,6 +95,7 @@ class Solution:
 **核心思想**：使用栈来处理括号的嵌套，维护当前的结果和符号状态。
 
 **处理流程**：
+
 1. **数字处理**：累积构建多位数字
 2. **运算符处理**：更新结果，重置数字，设置新符号
 3. **左括号处理**：保存当前状态到栈，重新开始计算
@@ -160,6 +164,7 @@ class Solution:
 ### Stefan解法核心思想
 
 **符号栈管理**：
+
 - 维护一个符号栈，每个元素表示当前作用域的符号
 - 每个数字消费一个符号
 - `+/-` 产生新符号：当前符号 × (±1)
@@ -226,3 +231,48 @@ class Solution:
 - [150. Evaluate Reverse Polish Notation](150_evaluate_reverse_polish_notation.md) - 后缀表达式
 
 经典的表达式求值问题，展示了栈在处理嵌套结构中的重要应用。
+
+这个问题的解法是计算机科学的基础算法："Dijkstra 双栈算法"。
+
+```python
+class Solution:
+    def calculate(self, s: str) -> int:
+        def compute(op, b, a):
+            if op == '+': return a + b
+            if op == '-': return a - b
+            if op == '*': return a * b
+            if op == '/': return int(a / b)  # 向零取整
+
+        nums = []
+        ops = []
+        i = 0
+        n = len(s)
+        priority = {'+':1, '-':1, '*':2, '/':2}
+
+        while i < n:
+            if s[i].isdigit():
+                num = 0
+                while i < n and s[i].isdigit():
+                    num = num * 10 + int(s[i])
+                    i += 1
+                nums.append(num)
+                i -= 1
+            elif s[i] in '+-*/':
+                while ops and priority[ops[-1]] >= priority[s[i]]:
+                    nums.append(compute(ops.pop(), nums.pop(), nums.pop()))
+                ops.append(s[i])
+            elif s[i] == '(':
+                ops.append('(')
+            elif s[i] == ')':
+                while ops[-1] != '(':
+                    nums.append(compute(ops.pop(), nums.pop(), nums.pop()))
+                ops.pop()  # 弹出 '('
+            i += 1
+
+        while ops:
+            nums.append(compute(ops.pop(), nums.pop(), nums.pop()))
+
+        return nums[-1]
+```
+
+这个算法的核心思想是使用两个栈：一个用于存储数字，另一个用于存储操作符。通过优先级规则来决定何时进行计算，确保正确处理括号和运算顺序。也可以通过 227. Basic Calculator II
