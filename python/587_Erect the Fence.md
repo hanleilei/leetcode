@@ -29,6 +29,8 @@ points[i].length == 2
 All the given points are unique.
 ```
 
+这类求解凸包问题，可以使用 Andrew's monotone chain algorithm 来求解。算法的核心是通过排序和计算叉积来构建凸包的上下部分，最后合并得到完整的凸包。需要注意的是，题目要求返回在围栏周围的树的坐标，因此在合并上下部分时需要去重。
+
 ```python
 class Solution:
     def outerTrees(self, points: List[List[int]]) -> List[List[int]]:
@@ -51,6 +53,7 @@ class Solution:
 
 网上直接有算法
 `http://www.algorithmist.com/index.php/Monotone_Chain_Convex_Hull.py`
+`https://algorithmist.com/wiki/Monotone_chain_convex_hull`
 
 ```python
 class Solution:
@@ -100,6 +103,53 @@ class Solution:
         return [i for i in set([tuple(i) for i in lower[:-1] + upper[:-1]])]
 ```
 
-直接看 lee215 的方法：
+另一个方法是Graham Scan算法，时间复杂度也是 O(n log n)，由于使用的是极角排序，实现相对复杂一些。Andrew's monotone chain algorithm 更加直观和易于实现。
+`https://cp-algorithms.com/geometry/convex-hull.html#grahams-scan-algorithm`
 
-https://leetcode.com/problems/erect-the-fence/solutions/103306/c-and-python-easy-wiki-solution/?orderBy=most_votes
+```python
+from math import atan2
+
+class Solution:
+    def outerTrees(self, points: List[List[int]]) -> List[List[int]]:
+        def cross(a, b, c):
+            return (
+                (b[0] - a[0]) * (c[1] - a[1])
+                - (b[1] - a[1]) * (c[0] - a[0])
+            )
+        if len(points) <= 1:
+            return points
+
+        p0 = min(points, key=lambda p: (p[1], p[0]))
+
+        points.sort(
+            key=lambda p: (
+                atan2(p[1] - p0[1], p[0] - p0[0]),
+                (p[0] - p0[0]) ** 2 +
+                (p[1] - p0[1]) ** 2
+            )
+        )
+
+        # 处理最后一条射线上的共线点
+        i = len(points) - 1
+
+        while (
+            i > 0
+            and cross(p0, points[i], points[-1]) == 0
+        ):
+            i -= 1
+
+        points[i + 1:] = reversed(points[i + 1:])
+
+        hull = []
+
+        for p in points:
+            while (
+                len(hull) >= 2
+                and cross(hull[-2], hull[-1], p) < 0
+            ):
+                hull.pop()
+
+            hull.append(p)
+
+        return hull
+```

@@ -174,3 +174,25 @@ class Solution:
     def compare(self, n1, n2):
         return str(n1) + str(n2) > str(n2) + str(n1)
 ```
+
+heap sort
+
+```python
+class Solution:
+    def largestNumber(self, nums: List[int]) -> str:
+        if not any(nums):
+            return "0"
+
+        class LargerStrComparator(str):
+            def __lt__(self, other):
+                return self + other > other + self
+        
+        heap = []
+        for num in nums:
+            heapq.heappush(heap, LargerStrComparator(str(num)))
+        res = []
+        while heap:
+            res.append(heappop(heap))
+        largest_sum = "".join(res)
+        return "0" if largest_sum[0] == "0" else largest_sum
+```
