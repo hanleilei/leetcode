@@ -71,3 +71,5 @@ class Solution:
                 continue
         return a + b + c
 ```
+
+algorithms 4th page 187th chinese version and page 295 of english version 提到了同样的问题。

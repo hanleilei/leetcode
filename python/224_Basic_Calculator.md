@@ -237,42 +237,52 @@ class Solution:
 ```python
 class Solution:
     def calculate(self, s: str) -> int:
-        def compute(op, b, a):
-            if op == '+': return a + b
-            if op == '-': return a - b
-            if op == '*': return a * b
-            if op == '/': return int(a / b)  # 向零取整
+        # 预处理：去空格 + 一元负号补0
+        s = s.replace(' ', '')
+        new_s = []
+        for i, ch in enumerate(s):
+            if ch == '-' and (i == 0 or s[i-1] in '(+-*/'):
+                new_s.append('0')
+            new_s.append(ch)
+        s = ''.join(new_s)
 
-        nums = []
-        ops = []
+        operations = {'+': operator.add, '-': operator.sub,
+               '*': operator.mul, '/': operator.truediv}
+        PRIORITY = {'+': 1, '-': 1, '*': 2, '/': 2}
+
+        nums, ops = [], [] # 数字栈和操作符栈
+
+        def apply():
+            b, a = nums.pop(), nums.pop()
+            nums.append(int(operations[ops.pop()](a, b)))
+
         i = 0
-        n = len(s)
-        priority = {'+':1, '-':1, '*':2, '/':2}
-
-        while i < n:
-            if s[i].isdigit():
-                num = 0
-                while i < n and s[i].isdigit():
-                    num = num * 10 + int(s[i])
+        while i < len(s):
+            ch = s[i]
+            if ch.isdigit():
+                j = i
+                while i < len(s) and s[i].isdigit():
                     i += 1
-                nums.append(num)
-                i -= 1
-            elif s[i] in '+-*/':
-                while ops and priority[ops[-1]] >= priority[s[i]]:
-                    nums.append(compute(ops.pop(), nums.pop(), nums.pop()))
-                ops.append(s[i])
-            elif s[i] == '(':
-                ops.append('(')
-            elif s[i] == ')':
+                nums.append(int(s[j:i]))
+                continue
+            elif ch in operations:
+                while ops and ops[-1] != '(' and PRIORITY[ops[-1]] >= PRIORITY[ch]:
+                    apply()
+                ops.append(ch)
+            elif ch == '(':
+                ops.append(ch)
+            elif ch == ')':
                 while ops[-1] != '(':
-                    nums.append(compute(ops.pop(), nums.pop(), nums.pop()))
+                    apply()
                 ops.pop()  # 弹出 '('
             i += 1
 
         while ops:
-            nums.append(compute(ops.pop(), nums.pop(), nums.pop()))
+            apply()
 
         return nums[-1]
 ```
 
 这个算法的核心思想是使用两个栈：一个用于存储数字，另一个用于存储操作符。通过优先级规则来决定何时进行计算，确保正确处理括号和运算顺序。也可以通过 227. Basic Calculator II
+
+Dijkstra 双栈算法 都是可以用来处理复杂的表达式，包括括号和多种运算符的优先级问题，虽然本题目没有乘除运算，但这个算法的框架是非常适合的。
