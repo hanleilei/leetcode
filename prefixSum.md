@@ -35,3 +35,11 @@ nums = [1, 2, 3, 4]
 prefix_sum = list(accumulate(nums)) # 计算前缀和
 print(prefix_sum) # 输出: [1, 3, 6, 10]
 ```
+
+```python
+from itertools import accumulate
+
+nums = [1, 2, 3, 4]
+s = list(accumulate(nums, initial=0)) # 计算前缀和
+print(s) # 输出: [0, 1, 3, 6, 10]
+```

@@ -57,3 +57,39 @@ class Solution:
             res += 1
         return res
 ```
+
+```python
+class Solution:
+    def maxIceCream(self, costs: List[int], coins: int) -> int:
+        costs.sort()
+        for i, v in enumerate(costs):
+            if coins < v:
+                return i
+            coins -= v
+        return len(costs)
+```
+
+计数排序：
+
+```python
+class Solution:
+    def maxIceCream(self, costs: List[int], coins: int) -> int:
+        max_val = max(costs)
+        cnt = [0] * (max_val + 1)
+        for c in costs:
+            cnt[c] += 1
+        
+        res = 0
+        for cost in range(1, max_val + 1):
+            if not cnt[cost]:
+                continue
+            buy = min(cnt[cost], coins // cost)
+            if buy == 0:
+                break
+            res += buy
+            coins -= buy * cost
+            
+        return res
+```
+
+这个方法也是最快的。
