@@ -25,12 +25,24 @@ Output: [5,3,4,2,8,6,7,1,3]
 
 Constraints:
 
-0 <= arr.length <= 105
--109 <= arr[i] <= 109
+0 <= arr.length <= 10^5
+-10^9 <= arr[i] <= 10^9
 
 ```python
 class Solution:
     def arrayRankTransform(self, arr: List[int]) -> List[int]:
         d = dict(zip(sorted(set(arr)), list(range(1, len(arr) + 1))))
         return [d[i] for i in arr]
+```
+
+```python
+class Solution:
+    def arrayRankTransform(self, arr: List[int]) -> List[int]:
+        s = set(arr)
+        d = dict(zip(sorted(s), range(1, len(s) + 1)))
+        res = []
+
+        for a in arr:
+            res.append(d[a])
+        return res
 ```

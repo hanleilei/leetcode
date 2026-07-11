@@ -1,6 +1,6 @@
 # Parallel Courses III
 
-[[bfs]] [[topology sort]]  [[dfs]]
+[[bfs]] [[topologysort]]  [[dfs]]
 
 You are given an integer n, which indicates that there are n courses labeled from 1 to n. You are also given a 2D integer array relations where relations[j] = [prevCoursej, nextCoursej] denotes that course prevCoursej has to be completed before course nextCoursej (prerequisite relationship). Furthermore, you are given a 0-indexed integer array time where time[i] denotes how many months it takes to complete the (i+1)th course.
 
