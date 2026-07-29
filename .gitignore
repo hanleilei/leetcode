@@ -64,6 +64,7 @@ target/
 # vscode
 .vscode
 t.py
+tt.py
 t.cpp
 t.go
 t.sh
