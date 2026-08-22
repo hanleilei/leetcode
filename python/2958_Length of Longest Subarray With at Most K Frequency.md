@@ -57,19 +57,13 @@ class Solution:
 ```python
 class Solution:
     def maxSubarrayLength(self, nums: List[int], k: int) -> int:
-        left = 0
-        dp = defaultdict(int)
-        ans = 0
-        for i in range(len(nums)):
-           dp[nums[i]] += 1
-
-           if dp[nums[i]] > k:
-               ans = max(ans, i - left)
-
-               while(dp[nums[i]] > k):
-                   dp[nums[left]] -=1
-                   left += 1
-
-        ans = max(ans, len(nums) - left)
-        return ans
+        res, left = 0, 0
+        d = defaultdict(int)
+        for right, x in enumerate(nums):
+            d[x] += 1
+            while d[x] > k:
+                d[nums[left]] -= 1
+                left += 1
+            res = max(res, right - left + 1)
+        return res
 ```
