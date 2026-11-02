@@ -1,4 +1,3 @@
-
 # Minimum Operations to Reduce X to Zero
 
 [[slidingWindow]] [[prefixSum]]
@@ -102,6 +101,25 @@ class Solution:
             if total == target:
                 res = max(res, right - left)
         return -1 if res == -1 else len(nums) - res
+```
+
+或者：
+
+```python
+class Solution:
+    def minOperations(self, nums: List[int], x: int) -> int:
+        x = sum(nums) - x
+        vis = {0: -1}
+        ans = inf
+        s, n = 0, len(nums)
+        for i, v in enumerate(nums):
+            s += v
+            if s not in vis:
+                vis[s] = i
+            if s - x in vis:
+                j = vis[s - x]
+                ans = min(ans, n - (i - j))
+        return -1 if ans == inf else ans
 ```
 
 ---

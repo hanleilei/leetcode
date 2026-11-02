@@ -67,8 +67,6 @@ class Solution:
 
 这个思路就很好，其实我们不需要知道所有数字的坐标，我们只需要知道每个数字最后一次出现的位置就行了。
 
-来自labuladong
-
 ```python
 class Solution:
     def containsNearbyDuplicate(self, nums: List[int], k: int) -> bool:

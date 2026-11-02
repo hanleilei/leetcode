@@ -22,7 +22,7 @@ But the following [1,2,2,null,3,null,3] is not:
    3    3
 ```
 
-### Note:
+### Note
 
 Bonus points if you could solve it both recursively and iteratively.
 
@@ -93,18 +93,46 @@ class Solution(object):
 下面的这个是速度最快的：
 
 ```python
-class Solution(object):
-    def isSymmetric(self, root):
-        """
-        :type root: TreeNode
-        :rtype: bool
-        """
-        def myfunc(n1,n2):
-            if n1 is None and n2 is None:
-                return True
-            if n1 and n2 and n1.val == n2.val:
-                return myfunc(n1.left,n2.right) and myfunc(n1.right,n2.left)
-            return False
+class Solution:
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        def check(p, q):
+            if not p and not q: return True
+            if not p or not q: return False
+            return p.val == q.val and check(p.left, q.right) and check(p.right, q.left)
 
-        return myfunc(root, root)
+        return check(root.left, root.right)
+```
+
+```python
+class Solution:
+    def isSymmetric(self, root: Optional[TreeNode]) -> bool:
+        if not root:
+            return True
+        
+        q = deque()
+        q.append(root.left)
+        q.append(root.right)
+        
+        while q:
+            p = q.popleft()
+            q_node = q.popleft()
+            
+            # 两个都为空，继续检查下一对节点
+            if not p and not q_node:
+                continue
+            # 只有一个为空，结构不对称
+            if not p or not q_node:
+                return False
+            # 值不相等，不对称
+            if p.val != q_node.val:
+                return False
+            
+            # 将对称位置的节点成对入队
+            q.append(p.left)
+            q.append(q_node.right)
+            
+            q.append(p.right)
+            q.append(q_node.left)
+        
+        return True
 ```
