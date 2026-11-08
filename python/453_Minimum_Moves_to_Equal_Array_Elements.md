@@ -1,4 +1,6 @@
-## Minimum Moves to Equal Array Elements
+# Minimum Moves to Equal Array Elements
+
+[[math]]
 
 Given an integer array nums of size n, return the minimum number of moves required to make all array elements equal.
 
